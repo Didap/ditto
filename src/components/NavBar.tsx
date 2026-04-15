@@ -1,6 +1,7 @@
 "use client";
 
 import { useSession, signOut } from "next-auth/react";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { t, LOCALES } from "@/lib/i18n";
@@ -55,10 +56,10 @@ export function NavBar() {
   const T = (key: Parameters<typeof t>[1]) => t(locale, key);
 
   const logo = (
-    <a href="/" className="flex items-center gap-2 font-semibold text-lg tracking-tight">
+    <Link href="/" className="flex items-center gap-2 font-semibold text-lg tracking-tight">
       <span className="w-6 h-6 ditto-blob inline-block shrink-0" />
       <span>Ditto</span>
-    </a>
+    </Link>
   );
 
   const hamburger = (

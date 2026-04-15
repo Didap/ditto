@@ -47,7 +47,7 @@ export async function POST(req: NextRequest) {
     // ── Subscription invoice paid (initial + recurring) ──
     case "invoice.paid": {
       const invoice = event.data.object;
-      const subscriptionId = (invoice as any).subscription as string | null;
+      const subscriptionId = (invoice as unknown as Record<string, unknown>).subscription as string | null;
       if (!subscriptionId) break;
 
       const subscription = await stripe.subscriptions.retrieve(subscriptionId);

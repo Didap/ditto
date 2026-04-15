@@ -345,6 +345,7 @@ export default function InspirePage() {
         return;
       }
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inspirations, questionnaireDone, phase, qInspIdx]);
 
   function hasAnswered(idx: number): boolean {
@@ -605,6 +606,7 @@ export default function InspirePage() {
                       {/* Inspiration header */}
                       <div className="flex items-center gap-3 px-4 py-3 border-b border-[var(--ditto-border)]">
                         {insp.screenshot && (
+                          // eslint-disable-next-line @next/next/no-img-element
                           <img src={insp.screenshot} alt={insp.name} className="w-10 h-10 rounded-md object-cover border border-[var(--ditto-border)]" />
                         )}
                         <div className="flex-1 min-w-0">
@@ -655,6 +657,7 @@ export default function InspirePage() {
                   {/* Screenshot */}
                   {currentInsp.screenshot && (
                     <div className="rounded-lg border border-[var(--ditto-border)] overflow-hidden">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={currentInsp.screenshot}
                         alt={currentInsp.name}

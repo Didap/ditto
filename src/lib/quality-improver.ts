@@ -217,7 +217,8 @@ function fixLowContrast(tokens: DesignTokens, resolved: ResolvedDesign, fixes: s
 
   // Fix text colors to meet WCAG AA
   const adjustForContrast = (textHex: string, minRatio: number): string => {
-    let [h, s, l] = hexToHsl(textHex);
+    const [h, s, l_] = hexToHsl(textHex);
+    let l = l_;
     for (let i = 0; i < 30; i++) {
       if (contrastRatio(hslToHex(h, s, l), bg) >= minRatio) break;
       l += isDark ? 0.02 : -0.02;

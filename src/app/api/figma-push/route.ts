@@ -180,7 +180,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: `Push failed: ${err}` }, { status: pushRes.status });
     }
 
-    const result = await pushRes.json();
+    await pushRes.json();
     const totalVars = colorVars.length + floatVars.length;
 
     return NextResponse.json({
