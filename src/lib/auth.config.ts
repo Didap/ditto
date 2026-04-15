@@ -5,6 +5,7 @@ import type { NextAuthConfig } from "next-auth";
  * Does NOT import database or bcrypt (Node.js-only modules).
  */
 export const authConfig: NextAuthConfig = {
+  trustHost: true,
   pages: { signIn: "/login" },
   session: { strategy: "jwt" },
   providers: [], // Populated in auth.ts for Node.js runtime
