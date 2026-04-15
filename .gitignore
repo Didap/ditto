@@ -37,4 +37,4 @@ data/
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-.agents/skills/marketingskills/
+.claude/settings.json
