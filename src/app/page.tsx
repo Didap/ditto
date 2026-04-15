@@ -146,7 +146,7 @@ function FontGlitch({ text, glitchWords = ["design"] }: { text: string; glitchWo
     });
 
     return () => timersRef.current.forEach(clearTimeout);
-  }, [glitchActive]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [glitchActive]);
 
   let wordIdx = 0;
 
