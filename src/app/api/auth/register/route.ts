@@ -39,7 +39,6 @@ export async function POST(req: NextRequest) {
     }
 
     const passwordHash = await bcrypt.hash(password, 12);
-    const now = new Date().toISOString();
     const userId = nanoid();
 
     await db.insert(users).values({
@@ -48,8 +47,6 @@ export async function POST(req: NextRequest) {
       name,
       passwordHash,
       referralCode: generateReferralCode(),
-      createdAt: now,
-      updatedAt: now,
     });
 
     // Process referral if provided

@@ -99,7 +99,7 @@ export async function getQuestStatuses(userId: string): Promise<QuestStatus[]> {
   return QUESTS.map((quest) => {
     const myCompletions = completions.filter((c) => c.questId === quest.id);
     const completedToday = myCompletions.some(
-      (c) => c.completedAt.slice(0, 10) === today
+      (c) => c.completedAt.toISOString().slice(0, 10) === today
     );
     const completed = myCompletions.length > 0;
 
@@ -202,7 +202,7 @@ export async function claimQuest(
   }
 
   if (quest.repeatable === "daily") {
-    const doneToday = existing.some((c) => c.completedAt.slice(0, 10) === today);
+    const doneToday = existing.some((c) => c.completedAt.toISOString().slice(0, 10) === today);
     if (doneToday) {
       return { success: false, error: "Quest already completed today" };
     }
@@ -214,7 +214,7 @@ export async function claimQuest(
     userId,
     questId,
     creditsAwarded: quest.credits,
-    completedAt: new Date().toISOString(),
+    completedAt: new Date(),
   });
 
   await db

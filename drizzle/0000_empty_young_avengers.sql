@@ -1,4 +1,4 @@
-CREATE TABLE "designs" (
+CREATE TABLE IF NOT EXISTS "designs" (
 	"id" text PRIMARY KEY NOT NULL,
 	"user_id" text NOT NULL,
 	"slug" text NOT NULL,
@@ -13,7 +13,7 @@ CREATE TABLE "designs" (
 	"updated_at" text NOT NULL
 );
 --> statement-breakpoint
-CREATE TABLE "quest_completions" (
+CREATE TABLE IF NOT EXISTS "quest_completions" (
 	"id" text PRIMARY KEY NOT NULL,
 	"user_id" text NOT NULL,
 	"quest_id" text NOT NULL,
@@ -21,7 +21,7 @@ CREATE TABLE "quest_completions" (
 	"completed_at" text NOT NULL
 );
 --> statement-breakpoint
-CREATE TABLE "users" (
+CREATE TABLE IF NOT EXISTS "users" (
 	"id" text PRIMARY KEY NOT NULL,
 	"email" text NOT NULL,
 	"name" text NOT NULL,
@@ -41,5 +41,5 @@ CREATE TABLE "users" (
 --> statement-breakpoint
 ALTER TABLE "designs" ADD CONSTRAINT "designs_user_id_users_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "quest_completions" ADD CONSTRAINT "quest_completions_user_id_users_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
-CREATE UNIQUE INDEX "designs_user_slug_idx" ON "designs" USING btree ("user_id","slug");--> statement-breakpoint
-CREATE INDEX "quest_user_idx" ON "quest_completions" USING btree ("user_id","quest_id");
+CREATE UNIQUE INDEX IF NOT EXISTS "designs_user_slug_idx" ON "designs" USING btree ("user_id","slug");--> statement-breakpoint
+CREATE INDEX IF NOT EXISTS "quest_user_idx" ON "quest_completions" USING btree ("user_id","quest_id");

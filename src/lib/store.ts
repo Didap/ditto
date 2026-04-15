@@ -1,5 +1,6 @@
 import { db } from "@/lib/db";
 import { designs } from "@/lib/db/schema";
+import type { DesignSelect } from "@/lib/db/schema";
 import { eq, and, desc } from "drizzle-orm";
 import type { StoredDesign } from "./types";
 import { scoreDesignQuality } from "./quality-scorer";
@@ -41,7 +42,7 @@ export async function saveDesign(
   userId: string,
   design: StoredDesign
 ): Promise<void> {
-  const now = new Date().toISOString();
+  const now = new Date();
 
   // Check if exists (same user + slug)
   const [existing] = await db
@@ -57,8 +58,8 @@ export async function saveDesign(
         name: design.name,
         url: design.url,
         description: design.description,
-        tokens: JSON.stringify(design.tokens),
-        resolved: JSON.stringify(design.resolved),
+        tokens: design.tokens,
+        resolved: design.resolved,
         designMd: design.designMd,
         source: design.source,
         updatedAt: now,
@@ -72,12 +73,12 @@ export async function saveDesign(
       name: design.name,
       url: design.url,
       description: design.description,
-      tokens: JSON.stringify(design.tokens),
-      resolved: JSON.stringify(design.resolved),
+      tokens: design.tokens,
+      resolved: design.resolved,
       designMd: design.designMd,
       source: design.source,
-      createdAt: design.createdAt || now,
-      updatedAt: design.updatedAt || now,
+      createdAt: design.createdAt ? new Date(design.createdAt) : now,
+      updatedAt: design.updatedAt ? new Date(design.updatedAt) : now,
     });
   }
 }
@@ -108,21 +109,19 @@ export function generateSlug(name: string): string {
 
 // ── Helpers ──
 
-function rowToDesign(row: typeof designs.$inferSelect): StoredDesign {
-  const tokens = JSON.parse(row.tokens);
-  const resolved = JSON.parse(row.resolved);
+function rowToDesign(row: DesignSelect): StoredDesign {
   return {
     id: row.id,
     slug: row.slug,
     name: row.name,
     url: row.url,
     description: row.description,
-    tokens,
-    resolved,
-    quality: scoreDesignQuality(tokens, resolved),
+    tokens: row.tokens,
+    resolved: row.resolved,
+    quality: scoreDesignQuality(row.tokens, row.resolved),
     designMd: row.designMd,
     source: row.source as StoredDesign["source"],
-    createdAt: row.createdAt,
-    updatedAt: row.updatedAt,
+    createdAt: row.createdAt.toISOString(),
+    updatedAt: row.updatedAt.toISOString(),
   };
 }
