@@ -61,7 +61,8 @@ COPY --from=builder /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
-# Migration & startup scripts
+# Drizzle migrations & startup scripts
+COPY --from=builder --chown=nextjs:nodejs /app/drizzle ./drizzle
 COPY --chown=nextjs:nodejs scripts/migrate.mjs scripts/start.sh ./scripts/
 RUN chmod +x ./scripts/start.sh
 
