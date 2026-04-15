@@ -1,11 +1,14 @@
-import { FlatCompat } from "@eslint/eslintrc";
-
-const compat = new FlatCompat({
-  baseDirectory: import.meta.dirname,
-});
+import coreWebVitals from "eslint-config-next/core-web-vitals";
+import typescript from "eslint-config-next/typescript";
+import reactCompiler from "eslint-plugin-react-compiler";
 
 const eslintConfig = [
-  ...compat.extends("next/core-web-vitals", "next/typescript"),
+  ...coreWebVitals,
+  ...typescript,
+  {
+    plugins: { "react-compiler": reactCompiler },
+    rules: { "react-compiler/react-compiler": "error" },
+  },
 ];
 
 export default eslintConfig;

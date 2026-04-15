@@ -12,7 +12,14 @@ import { useCredits } from "@/lib/credits-context";
 export function NavBar() {
   const { data: session, status } = useSession();
   const pathname = usePathname();
-  const [locale, setLocale] = useState<Locale>("en");
+  const [locale, setLocale] = useState<Locale>(() => {
+    if (typeof window === "undefined") return "en";
+    const stored = localStorage.getItem("ditto-locale") as Locale | null;
+    if (stored && LOCALES.some((l) => l.code === stored)) return stored;
+    const browserLang = navigator.language.slice(0, 2);
+    const match = LOCALES.find((l) => l.code === browserLang);
+    return match ? match.code : "en";
+  });
   const [mobileOpen, setMobileOpen] = useState(false);
   const { credits, refresh } = useCredits();
 
@@ -33,19 +40,9 @@ export function NavBar() {
     if (session?.user) refresh();
   }, [session, pathname, refresh]);
 
-  // Close mobile menu on route change
-  useEffect(() => setMobileOpen(false), [pathname]);
-
-  useEffect(() => {
-    const stored = localStorage.getItem("ditto-locale") as Locale | null;
-    if (stored && LOCALES.some((l) => l.code === stored)) {
-      setLocale(stored);
-      return;
-    }
-    const browserLang = navigator.language.slice(0, 2);
-    const match = LOCALES.find((l) => l.code === browserLang);
-    if (match) setLocale(match.code);
-  }, []);
+  // Close mobile menu on route change — effect only sets state when menu is open
+  // eslint-disable-next-line react-hooks/set-state-in-effect -- closing the menu on navigation is a standard pattern
+  useEffect(() => { setMobileOpen(false); }, [pathname]);
 
   const changeLocale = (code: Locale) => {
     setLocale(code);
