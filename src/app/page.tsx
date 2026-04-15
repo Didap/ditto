@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useSession } from "next-auth/react";
 import { t, LOCALES } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n";
@@ -107,7 +107,7 @@ function FontGlitch({ text, glitchWords = ["design"] }: { text: string; glitchWo
   const [fonts, setFonts] = useState<(string | null)[]>(() => words.map(() => null));
   const [blobs, setBlobs] = useState<boolean[]>(() => words.map(() => false));
   const timersRef = useRef<ReturnType<typeof setTimeout>[]>([]);
-  const randomFont = useCallback(() => GLITCH_FONTS[Math.floor(Math.random() * GLITCH_FONTS.length)], []);
+  const randomFont = () => GLITCH_FONTS[Math.floor(Math.random() * GLITCH_FONTS.length)];
 
   // Phase 1: reveal words
   useEffect(() => {

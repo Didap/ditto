@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useCallback, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useCredits } from "@/lib/credits-context";
 import { MOOD_QUESTIONS, MOOD_DIMENSIONS, createEmptyProfile, autoDetectMood } from "@/lib/mood";
 import type { MoodProfile, AutoDetectedAnswer } from "@/lib/mood";
@@ -141,7 +141,7 @@ export default function InspirePage() {
 
   const modeRef = useRef<"auto" | "precisa" | null>(null);
 
-  const extractOne = useCallback(async (url: string, index: number) => {
+  const extractOne = async (url: string, index: number) => {
     setInspirations((prev) => {
       const updated = [...prev];
       updated[index] = { ...updated[index], status: "extracting" };
@@ -189,7 +189,7 @@ export default function InspirePage() {
         return updated;
       });
     }
-  }, []);
+  };
 
   // Load catalog on demand
   const loadCatalog = async () => {

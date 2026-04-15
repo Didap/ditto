@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo } from "react";
+import React from "react";
 import type { ResolvedDesign, FontSource, FontFace as FontFaceType } from "@/lib/types";
 
 function getLuminance(hex: string): number {
@@ -35,50 +35,39 @@ export function PreviewShell({
       : "#ffffff";
 
   // Generate @font-face CSS for downloaded fonts
-  const fontFaceCss = useMemo(() => {
-    const rules: string[] = [];
-
-    // From downloaded font files (local)
-    for (const dl of downloadedFonts) {
-      if (!dl.family || !dl.localPath) continue;
-      const format = dl.format === "woff2" ? "woff2" : dl.format === "woff" ? "woff" : dl.format === "ttf" ? "truetype" : "opentype";
-      rules.push(`@font-face {
+  const fontFaceRules: string[] = [];
+  for (const dl of downloadedFonts) {
+    if (!dl.family || !dl.localPath) continue;
+    const format = dl.format === "woff2" ? "woff2" : dl.format === "woff" ? "woff" : dl.format === "ttf" ? "truetype" : "opentype";
+    fontFaceRules.push(`@font-face {
   font-family: '${dl.family}';
   src: url('${dl.localPath}') format('${format}');
   font-display: swap;
 }`);
-    }
-
-    // From @font-face declarations (with original URLs)
-    for (const face of fontFaces) {
-      if (!face.family || !face.src) continue;
-      // Skip if we already have a local version
-      if (downloadedFonts.some((d) => d.family === face.family)) continue;
-      rules.push(`@font-face {
+  }
+  for (const face of fontFaces) {
+    if (!face.family || !face.src) continue;
+    if (downloadedFonts.some((d) => d.family === face.family)) continue;
+    fontFaceRules.push(`@font-face {
   font-family: '${face.family}';
   font-weight: ${face.weight};
   font-style: ${face.style};
   font-display: swap;
   src: ${face.src};
 }`);
-    }
-
-    return rules.join("\n\n");
-  }, [downloadedFonts, fontFaces]);
+  }
+  const fontFaceCss = fontFaceRules.join("\n\n");
 
   // Google Fonts / CDN link tags
-  const fontLinks = useMemo(() => {
-    const links: string[] = [];
-    const seen = new Set<string>();
-    for (const src of fontSources) {
-      if (seen.has(src.href)) continue;
-      seen.add(src.href);
-      if (src.type === "google-fonts" || src.type === "adobe-fonts" || src.type === "cdn") {
-        links.push(src.href);
-      }
+  const fontLinks: string[] = [];
+  const seen = new Set<string>();
+  for (const src of fontSources) {
+    if (seen.has(src.href)) continue;
+    seen.add(src.href);
+    if (src.type === "google-fonts" || src.type === "adobe-fonts" || src.type === "cdn") {
+      fontLinks.push(src.href);
     }
-    return links;
-  }, [fontSources]);
+  }
 
   const cssVars: Record<string, string> = {
     "--d-primary": resolved.colorPrimary,

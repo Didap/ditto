@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState, useCallback } from "react";
+import React, { createContext, useContext, useState } from "react";
 
 interface CreditsContextValue {
   credits: number | null;
@@ -27,7 +27,7 @@ export function CreditsProvider({ children }: { children: React.ReactNode }) {
   const [credits, setCredits] = useState<number | null>(null);
   const [plan, setPlan] = useState("free");
 
-  const refresh = useCallback(async () => {
+  const refresh = async () => {
     try {
       const res = await fetch("/api/credits");
       if (res.ok) {
@@ -36,15 +36,15 @@ export function CreditsProvider({ children }: { children: React.ReactNode }) {
         setPlan(data.plan || "free");
       }
     } catch {}
-  }, []);
+  };
 
-  const deduct = useCallback((amount: number) => {
+  const deduct = (amount: number) => {
     setCredits((prev) => (prev !== null ? Math.max(0, prev - amount) : prev));
-  }, []);
+  };
 
-  const add = useCallback((amount: number) => {
+  const add = (amount: number) => {
     setCredits((prev) => (prev !== null ? prev + amount : amount));
-  }, []);
+  };
 
   return (
     <CreditsContext.Provider value={{ credits, plan, setCredits, refresh, deduct, add }}>
