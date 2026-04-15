@@ -8,6 +8,7 @@ import { saveDesign, generateSlug, getDesign } from "@/lib/store";
 import { getRequiredUser, unauthorized } from "@/lib/auth-helpers";
 import { nanoid } from "nanoid";
 import type { StoredDesign, ResolvedDesign, DesignTokens } from "@/lib/types";
+import { ApiError } from "@/lib/errors";
 
 const execAsync = promisify(exec);
 
@@ -189,6 +190,6 @@ export async function POST() {
     return NextResponse.json({ count: imported });
   } catch (error) {
     console.error("Import error:", error);
-    return NextResponse.json({ error: "Import failed" }, { status: 500 });
+    return NextResponse.json({ error: ApiError.IMPORT_FAILED }, { status: 500 });
   }
 }

@@ -6,6 +6,7 @@ import { getRequiredUser, unauthorized } from "@/lib/auth-helpers";
 import { deductCredits, COSTS } from "@/lib/credits";
 import type { MoodProfile } from "@/lib/mood";
 import { aggregateProfiles } from "@/lib/mood";
+import { ApiError, insufficientCredits } from "@/lib/errors";
 
 export const maxDuration = 300;
 
@@ -43,7 +44,7 @@ export async function POST(req: NextRequest) {
       });
     } catch (err) {
       return NextResponse.json(
-        { error: err instanceof Error ? err.message : "Extraction failed" },
+        { error: err instanceof Error ? err.message : ApiError.EXTRACTION_FAILED },
         { status: 500 }
       );
     }
@@ -55,7 +56,7 @@ export async function POST(req: NextRequest) {
     const { success, remaining } = await deductCredits(user.id, COSTS.GENERATE_MIX);
     if (!success) {
       return NextResponse.json(
-        { error: `Crediti insufficienti. Servono ${COSTS.GENERATE_MIX} crediti, ne hai ${remaining}.` },
+        { error: insufficientCredits(COSTS.GENERATE_MIX, remaining) },
         { status: 402 }
       );
     }
@@ -115,7 +116,7 @@ export async function POST(req: NextRequest) {
     });
   }
 
-  return NextResponse.json({ error: "Unknown action" }, { status: 400 });
+  return NextResponse.json({ error: ApiError.UNKNOWN_ACTION }, { status: 400 });
 }
 
 function dedupeBy<T>(arr: T[], key: (item: T) => string): T[] {

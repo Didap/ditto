@@ -1,5 +1,6 @@
 import { auth } from "@/lib/auth";
 import { NextResponse } from "next/server";
+import { ApiError } from "@/lib/errors";
 
 export async function getRequiredUser() {
   const session = await auth();
@@ -10,5 +11,5 @@ export async function getRequiredUser() {
 }
 
 export function unauthorized() {
-  return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  return NextResponse.json({ error: ApiError.UNAUTHORIZED }, { status: 401 });
 }

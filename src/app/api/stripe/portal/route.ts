@@ -4,6 +4,7 @@ import { stripe } from "@/lib/stripe";
 import { db } from "@/lib/db";
 import { users } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
+import { ApiError } from "@/lib/errors";
 
 export async function POST(req: NextRequest) {
   const user = await getRequiredUser();
@@ -17,7 +18,7 @@ export async function POST(req: NextRequest) {
 
   if (!dbUser?.stripeCustomerId) {
     return NextResponse.json(
-      { error: "No billing account found. Subscribe to a plan first." },
+      { error: ApiError.NO_BILLING_ACCOUNT },
       { status: 400 }
     );
   }

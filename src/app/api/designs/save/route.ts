@@ -3,6 +3,7 @@ import { saveDesign, generateSlug } from "@/lib/store";
 import { getRequiredUser, unauthorized } from "@/lib/auth-helpers";
 import { nanoid } from "nanoid";
 import type { StoredDesign } from "@/lib/types";
+import { ApiError } from "@/lib/errors";
 
 export async function POST(req: NextRequest) {
   const user = await getRequiredUser();
@@ -14,7 +15,7 @@ export async function POST(req: NextRequest) {
 
     if (!name || !tokens || !resolved) {
       return NextResponse.json(
-        { error: "Nome, tokens e resolved sono obbligatori" },
+        { error: ApiError.NAME_TOKENS_RESOLVED_REQUIRED },
         { status: 400 }
       );
     }
@@ -42,7 +43,7 @@ export async function POST(req: NextRequest) {
   } catch (error) {
     console.error("Save error:", error);
     return NextResponse.json(
-      { error: "Salvataggio fallito" },
+      { error: ApiError.SAVE_FAILED },
       { status: 500 }
     );
   }

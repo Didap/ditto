@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { stripe, PLANS, CREDIT_PACKS } from "@/lib/stripe";
+import { ApiError } from "@/lib/errors";
 import { db } from "@/lib/db";
 import { users } from "@/lib/db/schema";
 import { eq, sql } from "drizzle-orm";
@@ -17,7 +18,7 @@ export async function POST(req: NextRequest) {
     );
   } catch (err) {
     console.error("Webhook signature verification failed:", err);
-    return NextResponse.json({ error: "Invalid signature" }, { status: 400 });
+    return NextResponse.json({ error: ApiError.INVALID_SIGNATURE }, { status: 400 });
   }
 
   switch (event.type) {

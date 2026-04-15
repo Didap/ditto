@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getDesign, deleteDesign } from "@/lib/store";
 import { getRequiredUser, unauthorized } from "@/lib/auth-helpers";
+import { ApiError } from "@/lib/errors";
 
 export async function GET(
   _req: NextRequest,
@@ -13,7 +14,7 @@ export async function GET(
   const design = await getDesign(user.id, slug);
 
   if (!design) {
-    return NextResponse.json({ error: "Design not found" }, { status: 404 });
+    return NextResponse.json({ error: ApiError.DESIGN_NOT_FOUND }, { status: 404 });
   }
 
   return NextResponse.json(design);
@@ -30,7 +31,7 @@ export async function DELETE(
   const deleted = await deleteDesign(user.id, slug);
 
   if (!deleted) {
-    return NextResponse.json({ error: "Design not found" }, { status: 404 });
+    return NextResponse.json({ error: ApiError.DESIGN_NOT_FOUND }, { status: 404 });
   }
 
   return NextResponse.json({ ok: true });

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import type { ResolvedDesign } from "@/lib/types";
+import { ApiError } from "@/lib/errors";
 
 function hexToFigmaColor(hex: string): { r: number; g: number; b: number; a: number } {
   const h = hex.startsWith("#") ? hex.slice(1) : hex;
@@ -19,7 +20,7 @@ export async function POST(req: NextRequest) {
   };
 
   if (!token || !fileKey || !resolved) {
-    return NextResponse.json({ error: "Missing token, fileKey, or resolved design" }, { status: 400 });
+    return NextResponse.json({ error: ApiError.FIGMA_MISSING_PARAMS }, { status: 400 });
   }
 
   try {

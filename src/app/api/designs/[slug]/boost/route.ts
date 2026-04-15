@@ -4,6 +4,7 @@ import { getDesign, saveDesign } from "@/lib/store";
 import { boostDesignQuality, estimateBoostCost } from "@/lib/quality-improver";
 import { generateDesignMd } from "@/lib/generator/design-md";
 import { deductCredits } from "@/lib/credits";
+import { ApiError, insufficientCredits } from "@/lib/errors";
 
 /** GET — preview the boost cost without applying */
 export async function GET(
@@ -16,7 +17,7 @@ export async function GET(
   const { slug } = await params;
   const design = await getDesign(user.id, slug);
   if (!design) {
-    return NextResponse.json({ error: "Design not found" }, { status: 404 });
+    return NextResponse.json({ error: ApiError.DESIGN_NOT_FOUND }, { status: 404 });
   }
 
   const estimate = estimateBoostCost(design.tokens, design.resolved);
@@ -34,14 +35,14 @@ export async function POST(
   const { slug } = await params;
   const design = await getDesign(user.id, slug);
   if (!design) {
-    return NextResponse.json({ error: "Design not found" }, { status: 404 });
+    return NextResponse.json({ error: ApiError.DESIGN_NOT_FOUND }, { status: 404 });
   }
 
   const result = boostDesignQuality(design.tokens, design.resolved);
 
   if (result.pointsGained === 0) {
     return NextResponse.json(
-      { error: "Nessun miglioramento possibile — il design è già al massimo." },
+      { error: ApiError.MAX_QUALITY_REACHED },
       { status: 400 }
     );
   }
@@ -50,7 +51,7 @@ export async function POST(
   const { success, remaining } = await deductCredits(user.id, result.creditsCharged);
   if (!success) {
     return NextResponse.json(
-      { error: `Crediti insufficienti. Servono ${result.creditsCharged} crediti, ne hai ${remaining}.` },
+      { error: insufficientCredits(result.creditsCharged, remaining) },
       { status: 402 }
     );
   }

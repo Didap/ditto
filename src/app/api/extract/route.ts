@@ -6,6 +6,7 @@ import { getRequiredUser, unauthorized } from "@/lib/auth-helpers";
 import { deductCredits, COSTS } from "@/lib/credits";
 import { nanoid } from "nanoid";
 import type { StoredDesign } from "@/lib/types";
+import { ApiError, insufficientCredits } from "@/lib/errors";
 
 export const maxDuration = 120;
 
@@ -17,14 +18,14 @@ export async function POST(req: NextRequest) {
     const { url, name } = await req.json();
 
     if (!url) {
-      return NextResponse.json({ error: "URL is required" }, { status: 400 });
+      return NextResponse.json({ error: ApiError.URL_REQUIRED }, { status: 400 });
     }
 
     // Check and deduct credits
     const { success, remaining } = await deductCredits(user.id, COSTS.ADD_DESIGN);
     if (!success) {
       return NextResponse.json(
-        { error: `Crediti insufficienti. Servono ${COSTS.ADD_DESIGN} crediti, ne hai ${remaining}.` },
+        { error: insufficientCredits(COSTS.ADD_DESIGN, remaining) },
         { status: 402 }
       );
     }
@@ -56,7 +57,7 @@ export async function POST(req: NextRequest) {
   } catch (error) {
     console.error("Extraction error:", error);
     return NextResponse.json(
-      { error: error instanceof Error ? error.message : "Extraction failed" },
+      { error: error instanceof Error ? error.message : ApiError.EXTRACTION_FAILED },
       { status: 500 }
     );
   }

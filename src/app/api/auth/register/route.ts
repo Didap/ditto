@@ -5,6 +5,7 @@ import { db } from "@/lib/db";
 import { users } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
 import { generateReferralCode, processReferral } from "@/lib/quests";
+import { ApiError } from "@/lib/errors";
 
 export async function POST(req: NextRequest) {
   try {
@@ -12,14 +13,14 @@ export async function POST(req: NextRequest) {
 
     if (!email || !name || !password) {
       return NextResponse.json(
-        { error: "Email, nome e password sono obbligatori" },
+        { error: ApiError.EMAIL_NAME_PASSWORD_REQUIRED },
         { status: 400 }
       );
     }
 
     if (password.length < 6) {
       return NextResponse.json(
-        { error: "La password deve avere almeno 6 caratteri" },
+        { error: ApiError.PASSWORD_TOO_SHORT },
         { status: 400 }
       );
     }
@@ -33,7 +34,7 @@ export async function POST(req: NextRequest) {
 
     if (existing) {
       return NextResponse.json(
-        { error: "Questa email è già registrata" },
+        { error: ApiError.EMAIL_ALREADY_REGISTERED },
         { status: 409 }
       );
     }
@@ -59,7 +60,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ success: true, referrerName });
   } catch {
     return NextResponse.json(
-      { error: "Registrazione fallita" },
+      { error: ApiError.REGISTRATION_FAILED },
       { status: 500 }
     );
   }

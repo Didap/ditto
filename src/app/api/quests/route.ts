@@ -4,6 +4,7 @@ import { getQuestStatuses, claimQuest } from "@/lib/quests";
 import { db } from "@/lib/db";
 import { users } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
+import { ApiError } from "@/lib/errors";
 
 /** GET — list quest statuses */
 export async function GET() {
@@ -33,7 +34,7 @@ export async function POST(req: NextRequest) {
   const { questId } = await req.json();
 
   if (!questId) {
-    return NextResponse.json({ error: "questId is required" }, { status: 400 });
+    return NextResponse.json({ error: ApiError.QUEST_ID_REQUIRED }, { status: 400 });
   }
 
   const result = await claimQuest(user.id, questId);

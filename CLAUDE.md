@@ -20,6 +20,7 @@ Ditto is a multi-user design system tool that extracts design systems from websi
 - `src/lib/auth.config.ts` — Auth config (used by proxy)
 - `src/lib/mood.ts` — Mood dimensions, questions, and auto-detection
 - `src/lib/fonts.ts` — Font definitions via `next/font/local` (canvaSans, leoSans)
+- `src/lib/errors.ts` — `ApiError` enum and error helpers (all API error strings)
 - `src/lib/credits-context.tsx` — Credits context provider (client)
 - `src/components/preview/primitives/` — Reusable preview components
 - `src/components/preview/pages/` — 6 preview pages
@@ -62,6 +63,12 @@ Ditto is a multi-user design system tool that extracts design systems from websi
 - Use parenthesis syntax for CSS variables: `bg-(--ditto-primary)` NOT `bg-[var(--ditto-primary)]`
 - Ditto's UI tokens are CSS custom properties prefixed `--ditto-*` defined in `globals.css`
 - Fonts are loaded via `next/font/local` in `src/lib/fonts.ts`, referenced as CSS variables `--font-canvaSans` and `--font-leoSans`
+
+### API error messages
+- All API error strings must be in English — never use Italian or other languages in server responses
+- Use the `ApiError` enum from `src/lib/errors.ts` for all error messages — no inline strings
+- For insufficient credits errors, use `insufficientCredits(required, available)` from the same module
+- When adding new error cases, add them to the `ApiError` enum first
 
 ### Next.js 16 patterns
 - Proxy: `src/proxy.ts` (not `middleware.ts`) — Next.js 16 renamed middleware to proxy

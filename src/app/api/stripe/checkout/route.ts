@@ -4,6 +4,7 @@ import { stripe, PLANS, CREDIT_PACKS } from "@/lib/stripe";
 import { db } from "@/lib/db";
 import { users } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
+import { ApiError } from "@/lib/errors";
 
 export async function POST(req: NextRequest) {
   const user = await getRequiredUser();
@@ -12,7 +13,7 @@ export async function POST(req: NextRequest) {
   const { priceId, mode } = await req.json();
 
   if (!priceId) {
-    return NextResponse.json({ error: "priceId is required" }, { status: 400 });
+    return NextResponse.json({ error: ApiError.PRICE_ID_REQUIRED }, { status: 400 });
   }
 
   // Validate that priceId is one of ours
@@ -23,7 +24,7 @@ export async function POST(req: NextRequest) {
   ].filter(Boolean);
 
   if (!validPrices.includes(priceId)) {
-    return NextResponse.json({ error: "Invalid price" }, { status: 400 });
+    return NextResponse.json({ error: ApiError.INVALID_PRICE }, { status: 400 });
   }
 
   // Get or create Stripe customer
