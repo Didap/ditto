@@ -93,7 +93,7 @@ export async function deleteDesign(
     .delete(designs)
     .where(and(eq(designs.userId, userId), eq(designs.slug, slug)));
 
-  return result.changes > 0;
+  return (result.rowCount ?? 0) > 0;
 }
 
 /**

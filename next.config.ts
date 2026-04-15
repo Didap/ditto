@@ -1,7 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  serverExternalPackages: ["puppeteer", "better-sqlite3"],
+  output: "standalone",
+  serverExternalPackages: ["puppeteer", "pg"],
   outputFileTracingRoot: __dirname,
 };
 

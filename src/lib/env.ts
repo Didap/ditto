@@ -1,6 +1,9 @@
 import { z } from "zod";
 
 const envSchema = z.object({
+  // Database
+  DATABASE_URL: z.string().min(1, "PostgreSQL connection string required"),
+
   // Auth
   AUTH_SECRET: z.string().min(1, "Generate with: npx auth secret"),
 

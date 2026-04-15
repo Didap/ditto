@@ -1,6 +1,6 @@
-import { sqliteTable, text, integer, uniqueIndex, index } from "drizzle-orm/sqlite-core";
+import { pgTable, text, integer, uniqueIndex, index } from "drizzle-orm/pg-core";
 
-export const users = sqliteTable("users", {
+export const users = pgTable("users", {
   id: text("id").primaryKey(),
   email: text("email").notNull().unique(),
   name: text("name").notNull(),
@@ -17,7 +17,7 @@ export const users = sqliteTable("users", {
   updatedAt: text("updated_at").notNull(),
 });
 
-export const designs = sqliteTable(
+export const designs = pgTable(
   "designs",
   {
     id: text("id").primaryKey(),
@@ -40,7 +40,7 @@ export const designs = sqliteTable(
   ]
 );
 
-export const questCompletions = sqliteTable(
+export const questCompletions = pgTable(
   "quest_completions",
   {
     id: text("id").primaryKey(),
