@@ -5,8 +5,10 @@ export const users = sqliteTable("users", {
   email: text("email").notNull().unique(),
   name: text("name").notNull(),
   passwordHash: text("password_hash").notNull(),
-  plan: text("plan").notNull().default("base"), // "base" | "premium"
+  plan: text("plan").notNull().default("free"), // "free" | "pro" | "team"
   credits: integer("credits").notNull().default(300), // new users get 300
+  stripeCustomerId: text("stripe_customer_id"),
+  stripeSubscriptionId: text("stripe_subscription_id"),
   createdAt: text("created_at").notNull(),
   updatedAt: text("updated_at").notNull(),
 });
