@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useCallback, useRef, useEffect } from "react";
+import { useCredits } from "@/lib/credits-context";
 import { MOOD_QUESTIONS, MOOD_DIMENSIONS, createEmptyProfile, autoDetectMood } from "@/lib/mood";
 import type { MoodProfile, AutoDetectedAnswer } from "@/lib/mood";
 import type { DesignTokens, ResolvedDesign, StoredDesign } from "@/lib/types";
@@ -62,11 +63,7 @@ export default function InspirePage() {
   const [inspirations, setInspirations] = useState<Inspiration[]>([]);
   const [phase, setPhase] = useState<"urls" | "flow" | "result">("urls");
   const [mode, setMode] = useState<"auto" | "precisa" | null>(null);
-  const [credits, setCredits] = useState<number | null>(null);
-
-  useEffect(() => {
-    fetch("/api/credits").then((r) => r.json()).then((d) => setCredits(d.credits)).catch(() => {});
-  }, []);
+  const { credits, deduct: deductCredits, refresh: refreshCredits } = useCredits();
 
   const canGenerate = credits !== null && credits >= 300;
 
@@ -386,6 +383,8 @@ export default function InspirePage() {
       setSaveState("unsaved");
       setShowSaveModal(true);
       setPhase("result");
+      deductCredits(300);
+      refreshCredits();
     } catch {
       // Stay on map
     }

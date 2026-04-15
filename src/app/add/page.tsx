@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import { useCredits } from "@/lib/credits-context";
 
 type ExtractionState = "idle" | "extracting" | "done" | "error";
 
@@ -19,11 +20,7 @@ export default function AddDesignPage() {
   });
   const [error, setError] = useState("");
   const [resultSlug, setResultSlug] = useState("");
-  const [credits, setCredits] = useState<number | null>(null);
-
-  useEffect(() => {
-    fetch("/api/credits").then((r) => r.json()).then((d) => setCredits(d.credits)).catch(() => {});
-  }, []);
+  const { credits, deduct, refresh } = useCredits();
 
   const canAdd = credits !== null && credits >= 100;
 
@@ -82,6 +79,8 @@ export default function AddDesignPage() {
       setResultSlug(data.slug);
       setState("done");
       setProgress({ step: "Complete!", progress: 100 });
+      deduct(100);
+      refresh();
     } catch (err) {
       clearInterval(progressInterval);
       setState("error");

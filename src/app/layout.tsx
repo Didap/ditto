@@ -3,6 +3,7 @@ import { SessionProvider } from "next-auth/react";
 import { NavBar } from "@/components/NavBar";
 import { CursorFollower } from "@/components/CursorFollower";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { CreditsProvider } from "@/lib/credits-context";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -142,10 +143,12 @@ export default function RootLayout({
       </head>
       <body className="min-h-screen antialiased">
         <SessionProvider>
-          <CursorFollower />
-          <ThemeToggle />
-          <NavBar />
-          <main className="mx-auto max-w-7xl px-6 py-8">{children}</main>
+          <CreditsProvider>
+            <CursorFollower />
+            <ThemeToggle />
+            <NavBar />
+            <main className="mx-auto max-w-7xl px-6 py-8">{children}</main>
+          </CreditsProvider>
         </SessionProvider>
       </body>
     </html>

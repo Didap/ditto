@@ -6,13 +6,14 @@ import { useState, useEffect } from "react";
 import { t, LOCALES } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n";
 import { Menu, X, LogOut, Coins } from "lucide-react";
+import { useCredits } from "@/lib/credits-context";
 
 export function NavBar() {
   const { data: session, status } = useSession();
   const pathname = usePathname();
   const [locale, setLocale] = useState<Locale>("en");
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [credits, setCredits] = useState<number | null>(null);
+  const { credits, refresh } = useCredits();
 
   const isAuthPage = pathname === "/login" || pathname === "/register";
   const isLanding = pathname === "/";
@@ -28,10 +29,8 @@ export function NavBar() {
 
   // Fetch credits when authenticated
   useEffect(() => {
-    if (session?.user) {
-      fetch("/api/credits").then((r) => r.json()).then((d) => setCredits(d.credits)).catch(() => {});
-    }
-  }, [session, pathname]);
+    if (session?.user) refresh();
+  }, [session, pathname, refresh]);
 
   // Close mobile menu on route change
   useEffect(() => setMobileOpen(false), [pathname]);

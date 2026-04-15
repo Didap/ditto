@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import type { StoredDesign } from "@/lib/types";
 import { qualityColor } from "@/lib/quality-scorer";
 import { LottieLoader } from "@/components/LottieLoader";
+import { useCredits } from "@/lib/credits-context";
 
 export default function DashboardPage() {
   const [designs, setDesigns] = useState<StoredDesign[]>([]);
@@ -40,6 +41,8 @@ export default function DashboardPage() {
           + Add Design
         </a>
       </div>
+
+      <QuestsPanel />
 
       {loading ? (
         <div className="flex items-center justify-center py-32">
@@ -199,5 +202,193 @@ function DesignCard({ design }: { design: StoredDesign }) {
         </div>
       </div>
     </a>
+  );
+}
+
+// ── Quests Panel ──
+
+interface QuestStatus {
+  quest: { id: string; title: string; description: string; credits: number; icon: string; repeatable: string };
+  completed: boolean;
+  completedToday: boolean;
+  totalCompletions: number;
+  canClaim: boolean;
+}
+
+function QuestsPanel() {
+  const [quests, setQuests] = useState<QuestStatus[]>([]);
+  const [referralCode, setReferralCode] = useState<string | null>(null);
+  const [claiming, setClaiming] = useState<string | null>(null);
+  const [expanded, setExpanded] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const { add: addCredits, refresh: refreshCredits } = useCredits();
+
+  useEffect(() => {
+    fetch("/api/quests")
+      .then((r) => r.json())
+      .then((data) => {
+        setQuests(data.quests || []);
+        setReferralCode(data.referralCode || null);
+      })
+      .catch(() => {});
+  }, []);
+
+  const claim = async (questId: string) => {
+    setClaiming(questId);
+    try {
+      const res = await fetch("/api/quests", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ questId }),
+      });
+      if (res.ok) {
+        const awarded = await res.json();
+        addCredits(awarded.credits || 0);
+        refreshCredits();
+        // Refresh quests
+        const data = await fetch("/api/quests").then((r) => r.json());
+        setQuests(data.quests || []);
+      }
+    } catch {}
+    setClaiming(null);
+  };
+
+  const claimable = quests.filter((q) => q.canClaim);
+  const done = quests.filter((q) => q.completed && !q.canClaim);
+
+  if (quests.length === 0) return null;
+
+  const referralLink = referralCode
+    ? `${typeof window !== "undefined" ? window.location.origin : ""}/register?ref=${referralCode}`
+    : null;
+
+  return (
+    <div className="mb-8 rounded-xl border border-[var(--ditto-border)] bg-[var(--ditto-surface)] overflow-hidden">
+      {/* Header */}
+      <button
+        onClick={() => setExpanded(!expanded)}
+        className="w-full flex items-center justify-between px-5 py-4 cursor-pointer"
+      >
+        <div className="flex items-center gap-3">
+          <span className="text-lg">🎯</span>
+          <span className="text-sm font-semibold text-[var(--ditto-text)]">
+            Quests
+          </span>
+          {claimable.length > 0 && (
+            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[var(--ditto-primary)]/15 text-[var(--ditto-primary)]">
+              {claimable.length} available
+            </span>
+          )}
+        </div>
+        <span
+          className="text-xs text-[var(--ditto-text-muted)] transition-transform"
+          style={{ transform: expanded ? "rotate(180deg)" : "none" }}
+        >
+          ▼
+        </span>
+      </button>
+
+      {expanded && (
+        <div className="px-5 pb-5 space-y-2">
+          {/* Claimable quests */}
+          {claimable.map((q) => (
+            <div
+              key={q.quest.id}
+              className="flex items-center justify-between p-3 rounded-lg border border-[var(--ditto-primary)]/20 bg-[var(--ditto-primary)]/5"
+            >
+              <div className="flex items-center gap-3">
+                <span className="text-lg">{q.quest.icon}</span>
+                <div>
+                  <div className="text-sm font-medium text-[var(--ditto-text)]">
+                    {q.quest.title}
+                  </div>
+                  <div className="text-xs text-[var(--ditto-text-muted)]">
+                    {q.quest.description}
+                  </div>
+                </div>
+              </div>
+              <button
+                onClick={() => claim(q.quest.id)}
+                disabled={claiming === q.quest.id}
+                className="shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold bg-[var(--ditto-primary)] text-[var(--ditto-bg)] disabled:opacity-50"
+              >
+                {claiming === q.quest.id ? "..." : `+${q.quest.credits} cr`}
+              </button>
+            </div>
+          ))}
+
+          {/* Completed quests */}
+          {done.map((q) => (
+            <div
+              key={q.quest.id}
+              className="flex items-center justify-between p-3 rounded-lg opacity-50"
+            >
+              <div className="flex items-center gap-3">
+                <span className="text-lg">{q.quest.icon}</span>
+                <div>
+                  <div className="text-sm font-medium text-[var(--ditto-text)] line-through">
+                    {q.quest.title}
+                  </div>
+                  <div className="text-xs text-[var(--ditto-text-muted)]">
+                    {q.quest.repeatable === "daily" ? "Done today" : "Completed"}
+                    {q.totalCompletions > 1 && ` (${q.totalCompletions}x)`}
+                  </div>
+                </div>
+              </div>
+              <span className="text-xs text-[var(--ditto-text-muted)]">✓</span>
+            </div>
+          ))}
+
+          {/* Not yet available */}
+          {quests.filter((q) => !q.canClaim && !q.completed).map((q) => (
+            <div
+              key={q.quest.id}
+              className="flex items-center justify-between p-3 rounded-lg opacity-40"
+            >
+              <div className="flex items-center gap-3">
+                <span className="text-lg">{q.quest.icon}</span>
+                <div>
+                  <div className="text-sm font-medium text-[var(--ditto-text)]">
+                    {q.quest.title}
+                  </div>
+                  <div className="text-xs text-[var(--ditto-text-muted)]">
+                    {q.quest.description}
+                  </div>
+                </div>
+              </div>
+              <span className="text-xs text-[var(--ditto-text-muted)]">
+                +{q.quest.credits} cr
+              </span>
+            </div>
+          ))}
+
+          {/* Referral link */}
+          {referralLink && (
+            <div className="mt-3 pt-3 border-t border-[var(--ditto-border)]">
+              <div className="text-xs font-medium text-[var(--ditto-text-muted)] mb-2">
+                🤝 Your referral link — share to earn 200 credits per signup
+              </div>
+              <div className="flex gap-2">
+                <input
+                  readOnly
+                  value={referralLink}
+                  className="flex-1 text-xs px-3 py-1.5 rounded-lg bg-[var(--ditto-bg)] text-[var(--ditto-text-muted)] border border-[var(--ditto-border)] outline-none"
+                />
+                <button
+                  onClick={() => {
+                    navigator.clipboard.writeText(referralLink);
+                    setCopied(true);
+                    setTimeout(() => setCopied(false), 2000);
+                  }}
+                  className="px-3 py-1.5 rounded-lg text-xs font-medium border border-[var(--ditto-border)] text-[var(--ditto-text-secondary)] hover:text-[var(--ditto-text)] transition-colors"
+                >
+                  {copied ? "Copied!" : "Copy"}
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+    </div>
   );
 }

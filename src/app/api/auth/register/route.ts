@@ -4,10 +4,11 @@ import { nanoid } from "nanoid";
 import { db } from "@/lib/db";
 import { users } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
+import { generateReferralCode, processReferral } from "@/lib/quests";
 
 export async function POST(req: NextRequest) {
   try {
-    const { email, name, password } = await req.json();
+    const { email, name, password, referralCode: refCode } = await req.json();
 
     if (!email || !name || !password) {
       return NextResponse.json(
@@ -39,17 +40,26 @@ export async function POST(req: NextRequest) {
 
     const passwordHash = await bcrypt.hash(password, 12);
     const now = new Date().toISOString();
+    const userId = nanoid();
 
     await db.insert(users).values({
-      id: nanoid(),
+      id: userId,
       email,
       name,
       passwordHash,
+      referralCode: generateReferralCode(),
       createdAt: now,
       updatedAt: now,
     });
 
-    return NextResponse.json({ success: true });
+    // Process referral if provided
+    let referrerName: string | undefined;
+    if (refCode && typeof refCode === "string") {
+      const result = await processReferral(userId, refCode.trim());
+      if (result.success) referrerName = result.referrerName;
+    }
+
+    return NextResponse.json({ success: true, referrerName });
   } catch {
     return NextResponse.json(
       { error: "Registrazione fallita" },

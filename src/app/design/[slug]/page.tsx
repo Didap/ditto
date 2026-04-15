@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import type { StoredDesign } from "@/lib/types";
 import { qualityLabel, qualityColor, friendlyIssueMessage } from "@/lib/quality-scorer";
+import { useCredits } from "@/lib/credits-context";
 import { PreviewShell } from "@/components/preview/PreviewShell";
 import { LandingPreview } from "@/components/preview/pages/LandingPreview";
 import { DashboardPreview } from "@/components/preview/pages/DashboardPreview";
@@ -340,6 +341,7 @@ function BoostButton({ slug, onBoost }: { slug: string; onBoost: () => void }) {
   const [estimate, setEstimate] = useState<{ currentScore: number; estimatedScore: number; estimatedCost: number } | null>(null);
   const [boosting, setBoosting] = useState(false);
   const [result, setResult] = useState<{ before: number; after: number; creditsCharged: number; fixesApplied: string[] } | null>(null);
+  const { deduct, refresh } = useCredits();
 
   useEffect(() => {
     fetch(`/api/designs/${slug}/boost`)
@@ -359,6 +361,8 @@ function BoostButton({ slug, onBoost }: { slug: string; onBoost: () => void }) {
       }
       const data = await res.json();
       setResult(data);
+      deduct(data.creditsCharged);
+      refresh();
       onBoost();
     } catch {
       alert("Errore di rete");
