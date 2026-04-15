@@ -1,0 +1,368 @@
+{
+  "id": "xTC8CRm19OsMKlLDEopJE",
+  "slug": "lando",
+  "name": "Lando",
+  "url": "https://landonorris.com/",
+  "description": "Official hub for British racing star Lando Norris: breaking news, 2025 race wins, exclusive merch, videos and behind-the-scenes access.",
+  "tokens": {
+    "colors": [
+      {
+        "hex": "#f4f4ed",
+        "rgb": "244, 244, 237",
+        "occurrences": 322,
+        "name": "Light Gray",
+        "role": "background"
+      },
+      {
+        "hex": "#535450",
+        "rgb": "83, 84, 80",
+        "occurrences": 141,
+        "name": "Charcoal",
+        "role": "text-primary"
+      },
+      {
+        "hex": "#dde1d2",
+        "rgb": "221, 225, 210",
+        "occurrences": 128,
+        "name": "Gray",
+        "role": "border"
+      },
+      {
+        "hex": "#282c20",
+        "rgb": "40, 44, 32",
+        "occurrences": 104,
+        "name": "Dark Lime",
+        "role": "text-secondary"
+      },
+      {
+        "hex": "#b4b8a5",
+        "rgb": "180, 184, 165",
+        "occurrences": 80,
+        "name": "Lime",
+        "role": "neutral"
+      },
+      {
+        "hex": "#111112",
+        "rgb": "17, 17, 18",
+        "occurrences": 22,
+        "name": "Black",
+        "role": "text-muted"
+      },
+      {
+        "hex": "#d2ff00",
+        "rgb": "210, 255, 0",
+        "occurrences": 19,
+        "name": "Light Lime",
+        "role": "primary"
+      },
+      {
+        "hex": "#b2c73a",
+        "rgb": "178, 199, 58",
+        "occurrences": 19,
+        "name": "Lime",
+        "role": "secondary"
+      },
+      {
+        "hex": "#ffffff",
+        "rgb": "255, 255, 255",
+        "occurrences": 1,
+        "name": "White",
+        "role": "surface"
+      }
+    ],
+    "typography": [
+      {
+        "fontFamily": "Mona Sans Variable",
+        "fallbacks": [
+          "system-ui",
+          "-apple-system",
+          "sans-serif"
+        ],
+        "weights": [
+          400,
+          700,
+          800
+        ],
+        "role": "heading"
+      },
+      {
+        "fontFamily": "Brier",
+        "fallbacks": [
+          "system-ui",
+          "-apple-system",
+          "sans-serif"
+        ],
+        "weights": [
+          400,
+          700
+        ],
+        "role": "body"
+      }
+    ],
+    "typeScale": [
+      {
+        "role": "H1",
+        "fontFamily": "Mona Sans Variable",
+        "size": "38px",
+        "weight": 700,
+        "lineHeight": "44px",
+        "letterSpacing": "normal"
+      },
+      {
+        "role": "H2",
+        "fontFamily": "Mona Sans Variable",
+        "size": "32px",
+        "weight": 700,
+        "lineHeight": "36px",
+        "letterSpacing": "normal"
+      },
+      {
+        "role": "H3",
+        "fontFamily": "Mona Sans Variable",
+        "size": "12px",
+        "weight": 600,
+        "lineHeight": "15px",
+        "letterSpacing": "normal"
+      },
+      {
+        "role": "Body",
+        "fontFamily": "Mona Sans Variable",
+        "size": "16.6667px",
+        "weight": 400,
+        "lineHeight": "20.8333px",
+        "letterSpacing": "normal"
+      },
+      {
+        "role": "Small",
+        "fontFamily": "Mona Sans Variable",
+        "size": "14px",
+        "weight": 400,
+        "lineHeight": "1.4",
+        "letterSpacing": "normal"
+      },
+      {
+        "role": "Caption",
+        "fontFamily": "Mona Sans Variable",
+        "size": "8.33333px",
+        "weight": 400,
+        "lineHeight": "1.4",
+        "letterSpacing": "normal"
+      }
+    ],
+    "spacing": [
+      {
+        "value": "4.16667px",
+        "px": 4.16667,
+        "occurrences": 1
+      },
+      {
+        "value": "8.33333px",
+        "px": 8.33333,
+        "occurrences": 11
+      },
+      {
+        "value": "13.3333px",
+        "px": 13.3333,
+        "occurrences": 4
+      },
+      {
+        "value": "16.6667px",
+        "px": 16.6667,
+        "occurrences": 17
+      },
+      {
+        "value": "33.3333px",
+        "px": 33.3333,
+        "occurrences": 1
+      },
+      {
+        "value": "50px",
+        "px": 50,
+        "occurrences": 1
+      },
+      {
+        "value": "63px",
+        "px": 63,
+        "occurrences": 1
+      },
+      {
+        "value": "75.78px",
+        "px": 75.78,
+        "occurrences": 1
+      },
+      {
+        "value": "80px",
+        "px": 80,
+        "occurrences": 1
+      },
+      {
+        "value": "113.125px",
+        "px": 113.125,
+        "occurrences": 1
+      },
+      {
+        "value": "130.312px",
+        "px": 130.312,
+        "occurrences": 1
+      },
+      {
+        "value": "160px",
+        "px": 160,
+        "occurrences": 1
+      }
+    ],
+    "shadows": [],
+    "radii": [
+      {
+        "value": "7.2px",
+        "px": 7.2,
+        "occurrences": 2
+      },
+      {
+        "value": "9.86667px",
+        "px": 9.86667,
+        "occurrences": 1
+      },
+      {
+        "value": "14px",
+        "px": 14,
+        "occurrences": 1
+      }
+    ],
+    "components": [
+      {
+        "type": "button",
+        "styles": {
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "color": "rgb(17, 17, 18)",
+          "padding": "0px",
+          "borderRadius": "9.86667px",
+          "border": "0px none rgb(41, 45, 33)",
+          "fontSize": "14px",
+          "fontWeight": "400",
+          "fontFamily": "Mona Sans Variable",
+          "boxShadow": "none"
+        },
+        "variants": []
+      }
+    ],
+    "cssVariables": {
+      "--color--dark-green": "#282c20",
+      "--color--white": "#f4f4ed",
+      "--padding--container": "1.25rem",
+      "--gap": "1.25rem",
+      "--on-t-nav-spacer": "5.375rem",
+      "--color--black": "#111112",
+      "--text--h1": "4rem",
+      "--padding--xlarge": "5rem",
+      "--padding--med": "3rem",
+      "--gap--med<deleted|variable-196f1660-85b7-2eda-5ec8-e43ca0f5032d>": "2rem",
+      "--color--lime-off": "#b2c73a",
+      "--color--lime": "#d2ff00",
+      "--color--green-off-white-1": "#dde1d2",
+      "--color--lime-zero": "#d2ff0000",
+      "--text--btn-primary": "1rem",
+      "--text--btn-nav": "1.25rem",
+      "--text--btn-footer": "1.875rem",
+      "--color--green-off-white-2": "#b4b8a5",
+      "--color--dark-green-tint-2": "#535450",
+      "--color--grey-on-track": "#b9bbad",
+      "--text--impact": "7.9375rem",
+      "--grid-spacer": "31.51vh",
+      "--color--dark-green-tint-1": "#3b3c38",
+      "--padding--small": "2rem",
+      "--color--grey-1": "#ebeee0",
+      "--color--green-light": "#ebeee0",
+      "--text--h2": "4.5rem",
+      "--text--h3": "2rem",
+      "--text--h4": "1.5rem",
+      "--text--h5": "1.2rem",
+      "--text--h6": "1rem",
+      "--padding--mini": "1rem",
+      "--padding--large": "4rem",
+      "--radius--small": "1rem",
+      "--radius--med": "3rem",
+      "--radius--large": "6.25rem",
+      "--vh": "1vh",
+      "--max-vh": "100vh",
+      "--grid-col": "25.4375rem",
+      "--oval-side-offset": "3rem",
+      "--poduim-offset": "-17.5rem",
+      "--text--reg": "1.6rem",
+      "--text--med": "2.76rem",
+      "--text--btn-tertiary": ".875px",
+      "--text--eyebrow": ".578125rem",
+      "--color--cream": "#efefe5",
+      "--color--grey-2": "#c8cbbd",
+      "--color--orange": "#ff6b00",
+      "--cubic-default": "cubic-bezier(0.65, 0.05, 0, 1)",
+      "--duration-default": "0.75s",
+      "--animation-default": "var(--duration-default) var(--cubic-default)",
+      "--section-padding": "calc(3.5rem + (var(--gap) * 2))",
+      "--container-padding": "2rem",
+      "--nav-height": "calc(3.75rem (var(--gap) * 2))",
+      "--min-width": "992px",
+      "--max-width": "1920px",
+      "--design-width": "1728",
+      "--design-unit": "16",
+      "--scale-factor": "1",
+      "--fluid-container": "clamp(var(--min-width), 100vw, var(--max-width))",
+      "--fluid-font": "calc(var(--fluid-container) / var(--design-width) * var(--design-unit) * var(--scale-factor))"
+    },
+    "meta": {
+      "url": "https://landonorris.com/",
+      "title": "2025 McLaren Formula 1 Driver — Lando Norris",
+      "description": "Official hub for British racing star Lando Norris: breaking news, 2025 race wins, exclusive merch, videos and behind-the-scenes access.",
+      "favicon": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/67b5a0969616f526f020ec0e_ln-favicon.png",
+      "screenshot": "data:image/png;base64,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AwAAAMiewAEAAABkT+AAAAAAsidwAAAAANkTOAAAAIDsCRwAAABA9gQOAAAAIHsCBwAAAJA9gQMAAADInsABAAAAZE/gAAAAALIncAAAAADZEzgAAACA7AkcAAAAQPYEDgAAACB7AgcAAACQPYEDAAAAyJ7AAQAAAGRP4AAAAACyJ3AAAAAA2RM4AAAAgOwJHAAAAED2BA4AAAAgewIHAAAAkD2BAwAAAMiewAEAAABkT+AAAAAAsidwAAAAANkTOAAAAIDsCRwAAABA9gQOAAAAIHsCBwAAAJA9gQMAAADInsABAAAAZE/gAAAAALIncAAAAADZEzgAAACA7AkcAAAAQPYEDgAAACB7AgcAAACQPYEDAAAAyJ7AAQAAAGRP4AAAAACyJ3AAAAAA2RM4AAAAgOwJHAAAAED2BA4AAAAgewIHAAAAkD2BAwAAAMiewAEAAABkT+AAAAAAsidwAAAAANkTOAAAAIDsCRwAAABA9gQOAAAAIHsCBwAAAJA9gQMAAADInsABAAAAZE/gAAAAALIncAAAAADZEzgAAACA7AkcAAAAQPYEDgAAACB7AgcAAACQPYEDAAAAyJ7AAQAAAGRP4AAAAACyJ3AAAAAA2RM4AAAAgOwJHAAAAED2BA4AAAAgewIHAAAAkD2BAwAAAMiewAEAAABkT+AAAAAAsidwAAAAANkTOAAAAIDsCRwAAABA9gQOAAAAIHsCBwAAAJA9gQMAAADInsABAAAAZE/gAAAAALIncAAAAADZEzgAAACA7AkcAAAAQPYEDgAAACB7AgcAAACQPYEDAAAAyJ7AAQAAAGRP4AAAAACyJ3AAAAAA2RM4AAAAgOwJHAAAAED2BA4AAAAgewIHAAAAkD2BAwAAAMiewAEAAABkT+AAAAAAsidwAAAAANkTOAAAAIDsCRwAAABA9gQOAAAAIHsCBwAAAJA9gQMAAADInsABAAAAZE/gAAAAALIncAAAAADZEzgAAACA7AkcAAAAQPYEDgAAACB7AgcAAACQPYEDAAAAyJ7AAQAAAGRP4AAAAACyJ3AAAAAA2RM4AAAAgOwJHAAAAED2BA4AAAAgewIHAAAAkD2BAwAAAMiewAEAAABkT+AAAAAAsidwAAAAANkTOAAAAIDsCRwAAABA9gQOAAAAIHsCBwAAAJA9gQMAAADInsABAAAAZE/gAAAAALIncAAAAADZEzgAAACA7AkcAAAAQPYEDgAAACB7AgcAAACQPYEDAAAAyJ7AAQAAAGRP4AAAAACyJ3AAAAAA2RM4AAAAgOwJHAAAAED2BA4AAAAgewIHAAAAkD2BAwAAAMiewAEAAABkT+AAAAAAsidwAAAAANkTOAAAAIDsCRwAAABA9gQOAAAAIHsCBwAAAJA9gQMAAADInsABAAAAZE/gAAAAALIncAAAAADZEzgAAACA7AkcAAAAQPYEDgAAACB7AgcAAACQPYEDAAAAyJ7AAQAAAGRP4AAAAACyJ3AAAAAA2RM4AAAAgOwJHAAAAED2BA4AAAAgewIHAAAAkL1yAgAojG4CAIaTwAEAQ8vD/I+VEgAwnBxRAYCh5WEeACgOgQMAAADIniMqAEBBOcIDAMPEDg4AoKAc4QGAYWIHBwAMCfsRAIAis4MDAIaE/QgAQJEJHAAAAED2BA4AAAAgewIHAAAAkD2BAwAAAMiewAEAAABkT+AAAAAAsidwAAAAANkTOAAAAIDsCRwAUDjra+nD98Z6HzzzfGus+v3nv/y8/MXNylqrVB3vPv7U+sRk987nW8300ftjdz7+7h+5+t7o2lqp98HISPehRzoP72qPjn3/pZaXyp9e3/g148ln1iYe7n7xaeXWZ5VHHm0//mT7577Rd1+wp1Lp9r7go090vvtX7Sml7shY99Hd7Yce6d75+r2/bf/htU4n3bxe+frLSrebdkx29jyzXqkkAKBoBA4AKJxeEVi+Vf7mg15Q+LZifPZJ5dr7o3c+vr2clj6vPDfVmnyk0/vLr78s3/n773w89sS3n2w1v+0Rt25WxsZHDs40R779Ammt9e23qFRG9j+81lwt9f6yOt75hW/021+wZ+mzXgFZ27W7/d23vuOLT0deqDXvfP2R0Y1/+Y/eH731aaVc6ZZKvX+rkZWvygdnWgkAKJhyAgAKr5c8blzdeO3x2J71Iy81H3603f3NZ3pWljd+YXjom9hx5+Pv7Nm3duBoq7qj21otffSbbPHbvvyisr52r9+o58ln1w4da07u2vhevcbx3eefq7VemG6OVru9INNrIt99vtvd2A/S++DAkbWjLzfL5W4vcKzpGwBQPAIHAJBuf11a/+Z4yFP713u1Ys/e9fTNHo32xoGStPLlxi8Mjz6x/t3H3xmrdh95tPPUsxsNo1cWfvyVe/3ii5uV0r19o57Rse6Oye4juzb+uvxbJ03GxzsPPdLd8VDnB5/vBY7uxj6U9NVSuVROR15uHj2xWrFFFQCKR+AAANJaa6MRVEa6d9LA2Hj3u8+vr6fV2xvtYOdjnd6fex+vr//wH++lirQx2qP0g/9TdcdGj/jixkip3L3rN7rzwepK+atbGxM6UqmXVNrffamvl8u3Piv3Uki50t352PefL5fTI49v/OXNayONhepnH4/0vnLZLzgAUDxecAAAG/ssUvqJLtD7/J19GeMTnXJl48+3l8u9zzzyaOe3/7bv+kV7vTQy0v3u86NjabTaWb5Vvv11+a7f6I6b10duXt/44OFH272Q8d3Ojg8vfjtqdM8z6zse6q6ufD+tY98La2PV7uefVHrf/dNrI70+cvBYS+MAgKLxwx8ASHcuQFlfL3W+CQ3f3WYyOta9Ezhaq6XrH4z0/px+6ijKd/sven//b3++99Ue37OxqeOrLyp3/UZ3PtjxUGf30+sjo93eP3Ljo+/fxOza3X7syfVUSr1PfvnF9/8C3e7Gd3ni6fWp2ebe5zdOyqyubGz0SABAwfjxDwAF1v1mhkV3Y2tGqbyxjeJOO/jixkaPGKt2R0bT19/kjPZ66ea1kd6fex9//buB45tbWjdKxI7Jzg/2TfS+8sOPdnrxovub7vEL3+iOx59af/rAei9n9D5u3v5+m8ZTz6498/z6jonODz6/vpbq8+ONhY2rax9/sn3nXpV2OwEAReOICgAU18Uz1TsfHHt19dHd65/fGLn67tjHV7p3dmTsfnq9Fy/unC7Zd3CtOtFprpSuvjfW+0znNydKrl0e/ehSaaNflDYOj/z4W5RK6dE97e/uSemFjJ/8Rj/+p9JGHyn9zOe//8zo2EY0WV0pv18fGxnprq+Ven/PQ5OdBAAUjB0cAMCGp59bf+zJ9VJ5IzqMjHaf2r/2+FPt21+Xup2NrLDz8fbEQ92dj3d6H3c3qse36aHTLpUr3Yce6Tx3tPWDwRzfeWzPeql0l2/0g3+k9zXTN3tDfvT5b75p53fCx4GjrYmHN4aDfPlFZaza3X+kNVpNAEDRlM50EwDAHd3uxvmOkf5v8Qz/Rr0a0isvLogFgMLyWwAA8L1S6UHUjX58o43xH3amAkCBCRwAAABA9gQOAAAAIHsCBwAAAJA9gQMAAADInsABAAAAZE/gAAAAALIncAAAAADZc188AAyJbgIAKC47OABgSJQSAEBxCRwAAABA9gQOAAAAIHsCBwAAAJA9gQMAAADInsABAAAAZE/gAAAAALIncAAAAADZEzgAAACA7AkcAAAAQPYEDgAAACB7AgcAAACQPYEDAAAAyJ7AAQAAAGRP4AAAAACyJ3AAAAAA2RM4AAAAgOwJHAAAAED2BA4AAAAgewIHAAAAkD2BAwAAAMjePwUAAP//EAb2iAAAAAZJREFUAwDxaKeliYb9fQAAAABJRU5ErkJggg==",
+      "extractedAt": "2026-04-09T07:54:24.178Z"
+    }
+  },
+  "resolved": {
+    "colorPrimary": "#d2ff00",
+    "colorSecondary": "#b2c73a",
+    "colorAccent": "#ec4899",
+    "colorBackground": "#f4f4ed",
+    "colorSurface": "#ffffff",
+    "colorTextPrimary": "#535450",
+    "colorTextSecondary": "#282c20",
+    "colorTextMuted": "#111112",
+    "colorBorder": "#dde1d2",
+    "colorSuccess": "#22c55e",
+    "colorWarning": "#f59e0b",
+    "colorError": "#ef4444",
+    "fontHeading": "Mona Sans Variable",
+    "fontBody": "Brier",
+    "fontMono": "ui-monospace",
+    "fontWeightHeading": 800,
+    "fontWeightBody": 400,
+    "textXs": "0.75rem",
+    "textSm": "0.875rem",
+    "textBase": "16.6667px",
+    "textLg": "1.125rem",
+    "textXl": "1.25rem",
+    "text2xl": "12px",
+    "text3xl": "32px",
+    "text4xl": "38px",
+    "spacingXs": "4.16667px",
+    "spacingSm": "8.33333px",
+    "spacingMd": "16.6667px",
+    "spacingLg": "16.6667px",
+    "spacingXl": "33.3333px",
+    "spacing2xl": "50px",
+    "radiusSm": "7.2px",
+    "radiusMd": "7.2px",
+    "radiusLg": "14px",
+    "radiusFull": "9999px",
+    "shadowSm": "0 1px 2px 0 rgba(0,0,0,0.05)",
+    "shadowMd": "0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1)",
+    "shadowLg": "0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1)",
+    "lineHeightTight": "1.15",
+    "lineHeightNormal": "1.5",
+    "lineHeightRelaxed": "1.75"
+  },
+  "designMd": "# Design System — Lando\n\n> Extracted from [https://landonorris.com/](https://landonorris.com/)\n> Generated by Ditto on April 9, 2026\n\n## 1. Visual Theme & Atmosphere\n\nThe design follows a **light theme** with a clean, light background (`#f4f4ed`). The primary accent color is a **light lime** (`#d2ff00`) used for interactive elements and brand moments.\n\nTypography is built on **Mona Sans Variable** for headings and **Brier** for body text, creating a balanced dual-family system.\n\n**Key Characteristics:**\n- Light background (`#f4f4ed`) with dark text (`#535450`)\n- Primary accent: `#d2ff00`\n- Font: Mona Sans Variable (headings) / Brier (body)\n- Border radius: 7.2px – 14px\n- Heading weight: 800, Body weight: 400\n\n## 2. Color Palette & Roles\n\n### Primary\n- **Light Lime** (`#d2ff00`): Primary brand color, CTAs, interactive highlights — 19 occurrences\n\n### Secondary\n- **Lime** (`#b2c73a`): Secondary accent, supporting elements — 19 occurrences\n\n### Background\n- **Light Gray** (`#f4f4ed`): Page background — 322 occurrences\n\n### Surface\n- **White** (`#ffffff`): Card/container background, elevated surfaces\n\n### Text Primary\n- **Charcoal** (`#535450`): Primary heading and body text — 141 occurrences\n\n### Text Secondary\n- **Dark Lime** (`#282c20`): Secondary text, descriptions — 104 occurrences\n\n### Text Muted\n- **Black** (`#111112`): Muted text, placeholders, captions — 22 occurrences\n\n### Border\n- **Gray** (`#dde1d2`): Standard borders, dividers — 128 occurrences\n\n### Neutral\n- **Lime** (`#b4b8a5`): Neutral/utility color — 80 occurrences\n\n\n## 3. Typography Rules\n\n### Font Family\n- **Heading**: Mona Sans Variable, fallback: system-ui, -apple-system, sans-serif\n- **Body**: Brier, fallback: system-ui, -apple-system, sans-serif\n- **Monospace**: ui-monospace, fallback: ui-monospace, monospace\n\n### Hierarchy\n\n| Role | Font | Size | Weight | Line Height | Letter Spacing |\n|------|------|------|--------|-------------|----------------|\n| H1 | Mona Sans Variable | 38px | 700 | 44px | normal |\n| H2 | Mona Sans Variable | 32px | 700 | 36px | normal |\n| H3 | Mona Sans Variable | 12px | 600 | 15px | normal |\n| Body | Mona Sans Variable | 16.6667px | 400 | 20.8333px | normal |\n| Small | Mona Sans Variable | 14px | 400 | 1.4 | normal |\n| Caption | Mona Sans Variable | 8.33333px | 400 | 1.4 | normal |\n\n### Principles\n- Heading weight: **800**\n- Body weight: **400**\n- Base size: 16.6667px\n- Line height: tight (1.15), normal (1.5), relaxed (1.75)\n\n## 4. Component Stylings\n\n### Buttons\n\n**Primary**\n- Background: `#d2ff00`\n- Text: `#535450`\n- Padding: 0px\n- Radius: 7.2px\n- Font: 16.6667px Brier weight 400\n\n### Cards & Containers\n- Background: `#ffffff`\n- Border: 1px solid `#dde1d2`\n- Radius: 14px\n- Shadow: `0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1)`\n\n### Inputs & Forms\n- Background: `#f4f4ed`\n- Border: 1px solid `#dde1d2`\n- Radius: 7.2px\n- Focus: 1px solid `#d2ff00`\n- Text: `#535450`\n- Placeholder: `#111112`\n\n\n## 5. Layout Principles\n\n### Spacing System\n- Scale: 4.16667px, 8.33333px, 13.3333px, 16.6667px, 33.3333px, 50px, 63px, 75.78px, 80px, 113.125px, 130.312px, 160px\n- XS: 4.16667px, SM: 8.33333px, MD: 16.6667px, LG: 16.6667px, XL: 33.3333px\n\n### Border Radius Scale\n- Small: 7.2px\n- Medium: 7.2px\n- Large: 14px\n- Full: 9999px\n\n### Grid\n- Max content width: ~1200px\n- Standard section padding: 33.3333px – 50px\n\n## 6. Depth & Elevation\n\n| Level | Treatment | Use |\n|-------|-----------|-----|\n| Subtle | `0 1px 2px rgba(0,0,0,0.05)` | Hover hints, small cards |\n| Standard | `0 4px 6px -1px rgba(0,0,0,0.1)` | Cards, dropdowns |\n| Elevated | `0 10px 15px -3px rgba(0,0,0,0.1)` | Modals, popovers |\n\n## 7. Do's and Don'ts\n\n### Do\n- Use `#d2ff00` as the primary interactive/CTA color\n- Use `#535450` for headings, `#282c20` for body\n- Keep border-radius consistent: 7.2px – 14px\n- Use Mona Sans Variable for headings at weight 800\n- Apply shadows from the elevation scale for depth\n- Use `#dde1d2` for all standard borders\n\n### Don't\n- Don't use pure black (#000000) for text — use `#535450`\n- Don't mix border-radius sizes inconsistently\n- Don't use colors outside the defined palette\n- Don't use font weights not present in the type scale\n- Don't skip the spacing scale — use the defined values\n\n## 8. Responsive Behavior\n\n### Breakpoints\n| Name | Width | Key Changes |\n|------|-------|-------------|\n| Mobile | <640px | Single column, reduced heading sizes |\n| Tablet | 640-1024px | 2-column grids, moderate padding |\n| Desktop | 1024-1280px | Full layout |\n| Large Desktop | >1280px | Centered content with generous margins |\n\n### Collapsing Strategy\n- Navigation: horizontal links → hamburger menu\n- Feature cards: multi-column → single column stacked\n- Typography scale compresses ~20% on mobile\n- Spacing reduces proportionally\n\n## 9. Agent Prompt Guide\n\n### Quick Color Reference\n- Primary CTA: `#d2ff00`\n- Background: `#f4f4ed`\n- Surface: `#ffffff`\n- Heading text: `#535450`\n- Body text: `#282c20`\n- Muted text: `#111112`\n- Border: `#dde1d2`\n- Success: `#22c55e`\n- Warning: `#f59e0b`\n- Error: `#ef4444`\n\n### Quick Typography Reference\n- Heading: Mona Sans Variable, weight 800\n- Body: Brier, weight 400\n- Mono: ui-monospace\n- Base size: 16.6667px\n\n### Example Component Prompts\n- \"Create a hero section: background `#f4f4ed`, headline at 38px Mona Sans Variable weight 800, color `#535450`. Subtitle at 1.125rem weight 400, color `#282c20`. Primary button (`#d2ff00`, 7.2px, white text) and ghost button (transparent, 1px solid `#dde1d2`, `#d2ff00` text).\"\n- \"Design a card: `#ffffff` background, 1px solid `#dde1d2`, 14px radius. Shadow: `0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1)`. Title at 1.25rem weight 800, `#535450`. Body at 16.6667px weight 400, `#282c20`.\"\n\n### Iteration Guide\n1. Always use the defined color palette — no ad-hoc colors\n2. Heading weight is 800, body weight is 400\n3. Border radius: 7.2px (small), 7.2px (default), 14px (large)\n4. Use the spacing scale: xs(4.16667px), sm(8.33333px), md(16.6667px), lg(16.6667px), xl(33.3333px)\n5. Shadow levels: sm, md, lg — use consistently",
+  "createdAt": "2026-04-09T07:54:24.185Z",
+  "updatedAt": "2026-04-09T07:54:24.185Z",
+  "source": "extracted"
+}

@@ -1,0 +1,191 @@
+{
+  "id": "uC8nTVizmcj-Mu2RnR-Ib",
+  "slug": "ollama",
+  "name": "Ollama",
+  "url": "https://ollama.com",
+  "description": "Run LLMs locally. Terminal-first, monochrome simplicity.",
+  "tokens": {
+    "colors": [
+      {
+        "hex": "#000000",
+        "rgb": "0, 0, 0",
+        "occurrences": 1,
+        "name": "Color 1",
+        "role": "primary"
+      },
+      {
+        "hex": "#ffffff",
+        "rgb": "255, 255, 255",
+        "occurrences": 1,
+        "name": "Color 2",
+        "role": "secondary"
+      },
+      {
+        "hex": "#262626",
+        "rgb": "38, 38, 38",
+        "occurrences": 1,
+        "name": "Color 3",
+        "role": "neutral"
+      },
+      {
+        "hex": "#090909",
+        "rgb": "9, 9, 9",
+        "occurrences": 1,
+        "name": "Color 4",
+        "role": "neutral"
+      },
+      {
+        "hex": "#fafafa",
+        "rgb": "250, 250, 250",
+        "occurrences": 1,
+        "name": "Color 5",
+        "role": "neutral"
+      },
+      {
+        "hex": "#e5e5e5",
+        "rgb": "229, 229, 229",
+        "occurrences": 1,
+        "name": "Color 6",
+        "role": "neutral"
+      },
+      {
+        "hex": "#737373",
+        "rgb": "115, 115, 115",
+        "occurrences": 1,
+        "name": "Color 7",
+        "role": "neutral"
+      },
+      {
+        "hex": "#525252",
+        "rgb": "82, 82, 82",
+        "occurrences": 1,
+        "name": "Color 8",
+        "role": "neutral"
+      },
+      {
+        "hex": "#a3a3a3",
+        "rgb": "163, 163, 163",
+        "occurrences": 1,
+        "name": "Color 9",
+        "role": "neutral"
+      },
+      {
+        "hex": "#404040",
+        "rgb": "64, 64, 64",
+        "occurrences": 1,
+        "name": "Color 10",
+        "role": "neutral"
+      },
+      {
+        "hex": "#3b82f6",
+        "rgb": "59, 130, 246",
+        "occurrences": 1,
+        "name": "Color 11",
+        "role": "neutral"
+      },
+      {
+        "hex": "#d4d4d4",
+        "rgb": "212, 212, 212",
+        "occurrences": 1,
+        "name": "Color 12",
+        "role": "neutral"
+      }
+    ],
+    "typography": [
+      {
+        "fontFamily": "system-ui",
+        "fallbacks": [
+          "system-ui"
+        ],
+        "weights": [
+          700
+        ],
+        "role": "heading"
+      },
+      {
+        "fontFamily": "system-ui",
+        "fallbacks": [
+          "system-ui"
+        ],
+        "weights": [
+          400
+        ],
+        "role": "body"
+      }
+    ],
+    "typeScale": [],
+    "spacing": [],
+    "shadows": [],
+    "radii": [
+      {
+        "value": "12px",
+        "px": 12,
+        "occurrences": 1
+      },
+      {
+        "value": "48px",
+        "px": 48,
+        "occurrences": 1
+      },
+      {
+        "value": "9999px",
+        "px": 9999,
+        "occurrences": 1
+      }
+    ],
+    "components": [],
+    "cssVariables": {},
+    "meta": {
+      "url": "https://ollama.com",
+      "title": "ollama",
+      "extractedAt": "2026-04-09T07:51:53.907Z"
+    }
+  },
+  "resolved": {
+    "colorPrimary": "#000000",
+    "colorSecondary": "#ffffff",
+    "colorAccent": "#262626",
+    "colorBackground": "#000000",
+    "colorSurface": "#f8fafc",
+    "colorTextPrimary": "#000000",
+    "colorTextSecondary": "#475569",
+    "colorTextMuted": "#94a3b8",
+    "colorBorder": "#e2e8f0",
+    "colorSuccess": "#22c55e",
+    "colorWarning": "#f59e0b",
+    "colorError": "#ef4444",
+    "fontHeading": "system-ui",
+    "fontBody": "system-ui",
+    "fontMono": "ui-monospace",
+    "fontWeightHeading": 700,
+    "fontWeightBody": 400,
+    "textXs": "0.75rem",
+    "textSm": "0.875rem",
+    "textBase": "1rem",
+    "textLg": "1.125rem",
+    "textXl": "1.25rem",
+    "text2xl": "1.5rem",
+    "text3xl": "1.875rem",
+    "text4xl": "2.25rem",
+    "spacingXs": "4px",
+    "spacingSm": "8px",
+    "spacingMd": "16px",
+    "spacingLg": "24px",
+    "spacingXl": "32px",
+    "spacing2xl": "48px",
+    "radiusSm": "12px",
+    "radiusMd": "48px",
+    "radiusLg": "9999px",
+    "radiusFull": "9999px",
+    "shadowSm": "0 1px 2px 0 rgba(0,0,0,0.05)",
+    "shadowMd": "0 4px 6px -1px rgba(0,0,0,0.1)",
+    "shadowLg": "0 10px 15px -3px rgba(0,0,0,0.1)",
+    "lineHeightTight": "1.15",
+    "lineHeightNormal": "1.5",
+    "lineHeightRelaxed": "1.75"
+  },
+  "designMd": "# Design System Inspiration of Ollama\n\n## 1. Visual Theme & Atmosphere\n\nOllama's interface is radical minimalism taken to its logical conclusion — a pure-white void where content floats without decoration, shadow, or color. The design philosophy mirrors the product itself: strip away everything unnecessary until only the essential tool remains. This is the digital equivalent of a Dieter Rams object — every pixel earns its place, and the absence of design IS the design.\n\nThe entire page exists in pure grayscale. There is zero chromatic color in the interface — no brand blue, no accent green, no semantic red. The only colors that exist are shades between pure black (`#000000`) and pure white (`#ffffff`), creating a monochrome environment that lets the user's mental model of \"open models\" remain uncolored by brand opinion. The Ollama llama mascot, rendered in simple black line art, is the only illustration — and even it's monochrome.\n\nWhat makes Ollama distinctive is the combination of SF Pro Rounded (Apple's rounded system font) with an exclusively pill-shaped geometry (9999px radius on everything interactive). The rounded letterforms + rounded buttons + rounded containers create a cohesive \"softness language\" that makes a developer CLI tool feel approachable and friendly rather than intimidating. This is minimalism with warmth — not cold Swiss-style grid minimalism, but the kind where the edges are literally softened.\n\n**Key Characteristics:**\n- Pure white canvas with zero chromatic color — completely grayscale\n- SF Pro Rounded headlines creating a distinctively Apple-like softness\n- Binary border-radius system: 12px (containers) or 9999px (everything interactive)\n- Zero shadows — depth comes exclusively from background color shifts and borders\n- Pill-shaped geometry on all interactive elements (buttons, tabs, inputs, tags)\n- The Ollama llama as the sole illustration — black line art, no color\n- Extreme content restraint — the homepage is short, focused, and uncluttered\n\n## 2. Color Palette & Roles\n\n### Primary\n- **Pure Black** (`#000000`): Primary headlines, primary links, and the darkest text. The only \"color\" that demands attention.\n- **Near Black** (`#262626`): Button text on light surfaces, secondary headline weight.\n- **Darkest Surface** (`#090909`): The darkest possible surface — barely distinguishable from pure black, used for footer or dark containers.\n\n### Surface & Background\n- **Pure White** (`#ffffff`): The primary page background — not off-white, not cream, pure white. Button surfaces for secondary actions.\n- **Snow** (`#fafafa`): The subtlest possible surface distinction from white — used for section backgrounds and barely-elevated containers.\n- **Light Gray** (`#e5e5e5`): Button backgrounds, borders, and the primary containment color. The workhorse neutral.\n\n### Neutrals & Text\n- **Stone** (`#737373`): Secondary body text, footer links, and de-emphasized content. The primary \"muted\" tone.\n- **Mid Gray** (`#525252`): Emphasized secondary text, slightly darker than Stone.\n- **Silver** (`#a3a3a3`): Tertiary text, placeholders, and deeply de-emphasized metadata.\n- **Button Text Dark** (`#404040`): Specific to white-surface button text.\n\n### Semantic & Accent\n- **Ring Blue** (`#3b82f6` at 50%): The ONLY non-gray color in the entire system — Tailwind's default focus ring, used exclusively for keyboard accessibility. Never visible in normal interaction flow.\n- **Border Light** (`#d4d4d4`): A slightly darker gray for white-surface button borders.\n\n### Gradient System\n- **None.** Ollama uses absolutely no gradients. Visual separation comes from flat color blocks and single-pixel borders. This is a deliberate, almost philosophical design choice.\n\n## 3. Typography Rules\n\n### Font Family\n- **Display**: `SF Pro Rounded`, with fallbacks: `system-ui, -apple-system, system-ui`\n- **Body / UI**: `ui-sans-serif`, with fallbacks: `system-ui, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji`\n- **Monospace**: `ui-monospace`, with fallbacks: `SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New`\n\n*Note: SF Pro Rounded is Apple's system font — it renders with rounded terminals on macOS/iOS and falls back to the system sans-serif on other platforms.*\n\n### Hierarchy\n\n| Role | Font | Size | Weight | Line Height | Letter Spacing | Notes |\n|------|------|------|--------|-------------|----------------|-------|\n| Display / Hero | SF Pro Rounded | 48px (3rem) | 500 | 1.00 (tight) | normal | Maximum impact, rounded letterforms |\n| Section Heading | SF Pro Rounded | 36px (2.25rem) | 500 | 1.11 (tight) | normal | Feature section titles |\n| Sub-heading | SF Pro Rounded / ui-sans-serif | 30px (1.88rem) | 400–500 | 1.20 (tight) | normal | Card headings, feature names |\n| Card Title | ui-sans-serif | 24px (1.5rem) | 400 | 1.33 | normal | Medium emphasis headings |\n| Body Large | ui-sans-serif | 18px (1.13rem) | 400–500 | 1.56 | normal | Hero descriptions, button text |\n| Body / Link | ui-sans-serif | 16px (1rem) | 400–500 | 1.50 | normal | Standard body text, navigation |\n| Caption | ui-sans-serif | 14px (0.88rem) | 400 | 1.43 | normal | Metadata, descriptions |\n| Small | ui-sans-serif | 12px (0.75rem) | 400 | 1.33 | normal | Smallest sans-serif text |\n| Code Body | ui-monospace | 16px (1rem) | 400 | 1.50 | normal | Inline code, commands |\n| Code Caption | ui-monospace | 14px (0.88rem) | 400 | 1.43 | normal | Code snippets, secondary |\n| Code Small | ui-monospace | 12px (0.75rem) | 400–700 | 1.63 | normal | Tags, labels |\n\n### Principles\n- **Rounded display, standard body**: SF Pro Rounded carries display headlines with its distinctive rounded terminals, while the standard system sans handles all body text. The rounded font IS the brand expression.\n- **Weight restraint**: Only two weights matter — 400 (regular) for body and 500 (medium) for headings. No bold, no light, no black weight. This extreme restraint reinforces the minimal philosophy.\n- **Tight display, comfortable body**: Headlines compress to 1.0 line-height, while body text relaxes to 1.43–1.56. The contrast creates clear hierarchy without needing weight contrast.\n- **Monospace for developer identity**: Code blocks and terminal commands appear throughout as primary content, using the system monospace stack.\n\n## 4. Component Stylings\n\n### Buttons\n\n**Gray Pill (Primary)**\n- Background: Light Gray (`#e5e5e5`)\n- Text: Near Black (`#262626`)\n- Padding: 10px 24px\n- Border: thin solid Light Gray (`1px solid #e5e5e5`)\n- Radius: pill-shaped (9999px)\n- The primary action button — understated, grayscale, always pill-shaped\n\n**White Pill (Secondary)**\n- Background: Pure White (`#ffffff`)\n- Text: Button Text Dark (`#404040`)\n- Padding: 10px 24px\n- Border: thin solid Border Light (`1px solid #d4d4d4`)\n- Radius: pill-shaped (9999px)\n- Secondary action — visually lighter than Gray Pill\n\n**Black Pill (CTA)**\n- Background: Pure Black (`#000000`)\n- Text: Pure White (`#ffffff`)\n- Radius: pill-shaped (9999px)\n- Inferred from \"Create account\" and \"Explore\" buttons\n- Maximum emphasis — black on white\n\n### Cards & Containers\n- Background: Pure White or Snow (`#fafafa`)\n- Border: thin solid Light Gray (`1px solid #e5e5e5`) when needed\n- Radius: comfortably rounded (12px) — the ONLY non-pill radius in the system\n- Shadow: **none** — zero shadows on any element\n- Hover: likely subtle background shift or border darkening\n\n### Inputs & Forms\n- Background: Pure White\n- Border: `1px solid #e5e5e5`\n- Radius: pill-shaped (9999px) — search inputs and form fields are pill-shaped\n- Focus: Ring Blue (`#3b82f6` at 50%) ring\n- Placeholder: Silver (`#a3a3a3`)\n\n### Navigation\n- Clean horizontal nav with minimal elements\n- Logo: Ollama llama icon + wordmark in black\n- Links: \"Models\", \"Docs\", \"Pricing\" in black at 16px, weight 400\n- Search bar: pill-shaped with placeholder text\n- Right side: \"Sign in\" link + \"Download\" black pill CTA\n- No borders, no background — transparent nav on white page\n\n### Image Treatment\n- The Ollama llama mascot is the only illustration — black line art on white\n- Code screenshots/terminal outputs shown in bordered containers (12px radius)\n- Integration logos displayed as simple icons in a grid\n- No photographs, no gradients, no decorative imagery\n\n### Distinctive Components\n\n**Tab Pills**\n- Pill-shaped tab selectors (e.g., \"Coding\" | \"OpenClaw\")\n- Active: Light Gray bg; Inactive: transparent\n- All pill-shaped (9999px)\n\n**Model Tags**\n- Small pill-shaped tags (e.g., \"ollama\", \"launch\", \"claude\")\n- Light Gray background, dark text\n- The primary way to browse models\n\n**Terminal Command Block**\n- Monospace code showing `ollama run` commands\n- Minimal styling — just a bordered 12px-radius container\n- Copy button integrated\n\n**Integration Grid**\n- Grid of integration logos (Codex, Claude Code, OpenCode, LangChain, etc.)\n- Each in a bordered pill or card with icon + name\n- Tabbed by category (Coding, Documents & RAG, Automation, Chat)\n\n## 5. Layout Principles\n\n### Spacing System\n- Base unit: 8px\n- Scale: 4px, 6px, 8px, 9px, 10px, 12px, 14px, 16px, 20px, 24px, 32px, 40px, 48px, 88px, 112px\n- Button padding: 10px 24px (consistent across all buttons)\n- Card internal padding: approximately 24–32px\n- Section vertical spacing: very generous (88px–112px)\n\n### Grid & Container\n- Max container width: approximately 1024–1280px, centered\n- Hero: centered single-column with llama illustration\n- Feature sections: 2-column layout (text left, code right)\n- Integration grid: responsive multi-column\n- Footer: clean single-row\n\n### Whitespace Philosophy\n- **Emptiness as luxury**: The page is remarkably short and sparse — no feature section overstays its welcome. Each concept gets minimal but sufficient space.\n- **Content density is low by design**: Where other AI companies pack feature after feature, Ollama presents three ideas (run models, use with apps, integrations) and stops.\n- **The white space IS the brand**: Pure white space with zero decoration communicates \"this tool gets out of your way.\"\n\n### Border Radius Scale\n- Comfortably rounded (12px): The sole container radius — code blocks, cards, panels\n- Pill-shaped (9999px): Everything interactive — buttons, tabs, inputs, tags, badges\n\n*This binary system is extreme and distinctive. There is no 4px, no 8px, no gradient of roundness. Elements are either containers (12px) or interactive (pill).*\n\n## 6. Depth & Elevation\n\n| Level | Treatment | Use |\n|-------|-----------|-----|\n| Flat (Level 0) | No shadow, no border | Page background, most content |\n| Bordered (Level 1) | `1px solid #e5e5e5` | Cards, code blocks, buttons |\n\n**Shadow Philosophy**: Ollama uses **zero shadows**. This is not an oversight — it's a deliberate design decision. Every other major AI product site uses at least subtle shadows. Ollama's flat, shadowless approach creates a paper-like experience where elements are distinguished purely by background color and single-pixel borders. Depth is communicated through **content hierarchy and typography weight**, not visual layering.\n\n## 7. Do's and Don'ts\n\n### Do\n- Use pure white (`#ffffff`) as the page background — never off-white or cream\n- Use pill-shaped (9999px) radius on all interactive elements — buttons, tabs, inputs, tags\n- Use 12px radius on all non-interactive containers — code blocks, cards, panels\n- Keep the palette strictly grayscale — no chromatic colors except the blue focus ring\n- Use SF Pro Rounded at weight 500 for display headings — the rounded terminals are the brand expression\n- Maintain zero shadows — depth comes from borders and background shifts only\n- Keep content density low — each section should present one clear idea\n- Use monospace for terminal commands and code — it's primary content, not decoration\n- Keep all buttons at 10px 24px padding with pill shape — consistency is absolute\n\n### Don't\n- Don't introduce any chromatic color — no brand blue, no accent green, no warm tones\n- Don't use border-radius between 12px and 9999px — the system is binary\n- Don't add shadows to any element — the flat aesthetic is intentional\n- Don't use font weights above 500 — no bold, no black weight\n- Don't add decorative illustrations beyond the llama mascot\n- Don't use gradients anywhere — flat blocks and borders only\n- Don't overcomplicate the layout — two columns maximum, no complex grids\n- Don't use borders heavier than 1px — containment is always the lightest possible touch\n- Don't add hover animations or transitions — interactions should feel instant and direct\n\n## 8. Responsive Behavior\n\n### Breakpoints\n| Name | Width | Key Changes |\n|------|-------|-------------|\n| Mobile | <640px | Single column, stacked everything, hamburger nav |\n| Small Tablet | 640–768px | Minor adjustments to spacing |\n| Tablet | 768–850px | 2-column layouts begin |\n| Desktop | 850–1024px | Standard layout, expanded features |\n| Large Desktop | 1024–1280px | Maximum content width |\n\n### Touch Targets\n- All buttons are pill-shaped with generous padding (10px 24px)\n- Navigation links at comfortable 16px size\n- Minimum touch area easily exceeds 44x44px\n\n### Collapsing Strategy\n- **Navigation**: Collapses to hamburger menu on mobile\n- **Feature sections**: 2-column → stacked single column\n- **Hero text**: 48px → 36px → 30px progressive scaling\n- **Integration grid**: Multi-column → 2-column → single column\n- **Code blocks**: Horizontal scroll maintained\n\n### Image Behavior\n- Llama mascot scales proportionally\n- Code blocks maintain monospace formatting\n- Integration icons reflow to fewer columns\n- No art direction changes\n\n## 9. Agent Prompt Guide\n\n### Quick Color Reference\n- Primary Text: \"Pure Black (#000000)\"\n- Page Background: \"Pure White (#ffffff)\"\n- Secondary Text: \"Stone (#737373)\"\n- Button Background: \"Light Gray (#e5e5e5)\"\n- Borders: \"Light Gray (#e5e5e5)\"\n- Muted Text: \"Silver (#a3a3a3)\"\n- Dark Text: \"Near Black (#262626)\"\n- Subtle Surface: \"Snow (#fafafa)\"\n\n### Example Component Prompts\n- \"Create a hero section on pure white (#ffffff) with an illustration centered above a headline at 48px SF Pro Rounded weight 500, line-height 1.0. Use Pure Black (#000000) text. Below, add a black pill-shaped CTA button (9999px radius, 10px 24px padding) and a gray pill button.\"\n- \"Design a code block with a 12px border-radius, 1px solid Light Gray (#e5e5e5) border on white background. Use ui-monospace at 16px for the terminal command. No shadow.\"\n- \"Build a tab bar with pill-shaped tabs (9999px radius). Active tab: Light Gray (#e5e5e5) background, Near Black (#262626) text. Inactive: transparent background, Stone (#737373) text.\"\n- \"Create an integration card grid. Each card is a bordered pill (9999px radius) or a 12px-radius card with 1px solid #e5e5e5 border. Icon + name inside. Grid of 4 columns on desktop.\"\n- \"Design a navigation bar: transparent background, no border. Ollama logo on the left, 3 text links (Pure Black, 16px, weight 400), pill search input in the center, 'Sign in' text link and black pill 'Download' button on the right.\"\n\n### Iteration Guide\n1. Focus on ONE component at a time\n2. Keep all values grayscale — \"Stone (#737373)\" not \"use a light color\"\n3. Always specify pill (9999px) or container (12px) radius — nothing in between\n4. Shadows are always zero — never add them\n5. Weight is always 400 or 500 — never bold\n6. If something feels too decorated, remove it — less is always more for Ollama\n",
+  "createdAt": "2026-04-09T07:51:53.907Z",
+  "updatedAt": "2026-04-09T07:51:53.907Z",
+  "source": "imported"
+}

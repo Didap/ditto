@@ -1,0 +1,202 @@
+{
+  "id": "UujxvO0OmIPye0X6PUAJU",
+  "slug": "cal",
+  "name": "Cal",
+  "url": "https://cal.com",
+  "description": "Open-source scheduling. Clean neutral UI, developer-oriented simplicity.",
+  "tokens": {
+    "colors": [
+      {
+        "hex": "#242424",
+        "rgb": "36, 36, 36",
+        "occurrences": 1,
+        "name": "Color 1",
+        "role": "primary"
+      },
+      {
+        "hex": "#898989",
+        "rgb": "137, 137, 137",
+        "occurrences": 1,
+        "name": "Color 2",
+        "role": "secondary"
+      },
+      {
+        "hex": "#111111",
+        "rgb": "17, 17, 17",
+        "occurrences": 1,
+        "name": "Color 3",
+        "role": "neutral"
+      },
+      {
+        "hex": "#ffffff",
+        "rgb": "255, 255, 255",
+        "occurrences": 1,
+        "name": "Color 4",
+        "role": "neutral"
+      },
+      {
+        "hex": "#0099ff",
+        "rgb": "0, 153, 255",
+        "occurrences": 1,
+        "name": "Color 5",
+        "role": "neutral"
+      },
+      {
+        "hex": "#3b82f6",
+        "rgb": "59, 130, 246",
+        "occurrences": 1,
+        "name": "Color 6",
+        "role": "neutral"
+      },
+      {
+        "hex": "#0000ee",
+        "rgb": "0, 0, 238",
+        "occurrences": 1,
+        "name": "Color 7",
+        "role": "neutral"
+      },
+      {
+        "hex": "#f5f5f5",
+        "rgb": "245, 245, 245",
+        "occurrences": 1,
+        "name": "Color 8",
+        "role": "neutral"
+      },
+      {
+        "hex": "#000000",
+        "rgb": "0, 0, 0",
+        "occurrences": 1,
+        "name": "Color 9",
+        "role": "neutral"
+      },
+      {
+        "hex": "#1e1f23",
+        "rgb": "30, 31, 35",
+        "occurrences": 1,
+        "name": "Color 10",
+        "role": "neutral"
+      }
+    ],
+    "typography": [
+      {
+        "fontFamily": "system-ui",
+        "fallbacks": [
+          "system-ui"
+        ],
+        "weights": [
+          700
+        ],
+        "role": "heading"
+      },
+      {
+        "fontFamily": "system-ui",
+        "fallbacks": [
+          "system-ui"
+        ],
+        "weights": [
+          400
+        ],
+        "role": "body"
+      }
+    ],
+    "typeScale": [],
+    "spacing": [],
+    "shadows": [],
+    "radii": [
+      {
+        "value": "0px",
+        "px": 0,
+        "occurrences": 1
+      },
+      {
+        "value": "2px",
+        "px": 2,
+        "occurrences": 1
+      },
+      {
+        "value": "7px",
+        "px": 7,
+        "occurrences": 1
+      },
+      {
+        "value": "8px",
+        "px": 8,
+        "occurrences": 1
+      },
+      {
+        "value": "29px",
+        "px": 29,
+        "occurrences": 1
+      },
+      {
+        "value": "48px",
+        "px": 48,
+        "occurrences": 1
+      },
+      {
+        "value": "64px",
+        "px": 64,
+        "occurrences": 1
+      },
+      {
+        "value": "9999px",
+        "px": 9999,
+        "occurrences": 1
+      }
+    ],
+    "components": [],
+    "cssVariables": {},
+    "meta": {
+      "url": "https://cal.com",
+      "title": "cal",
+      "extractedAt": "2026-04-09T07:51:24.321Z"
+    }
+  },
+  "resolved": {
+    "colorPrimary": "#242424",
+    "colorSecondary": "#898989",
+    "colorAccent": "#111111",
+    "colorBackground": "#111111",
+    "colorSurface": "#f8fafc",
+    "colorTextPrimary": "#242424",
+    "colorTextSecondary": "#475569",
+    "colorTextMuted": "#94a3b8",
+    "colorBorder": "#e2e8f0",
+    "colorSuccess": "#0099ff",
+    "colorWarning": "#f59e0b",
+    "colorError": "#ef4444",
+    "fontHeading": "system-ui",
+    "fontBody": "system-ui",
+    "fontMono": "ui-monospace",
+    "fontWeightHeading": 700,
+    "fontWeightBody": 400,
+    "textXs": "0.75rem",
+    "textSm": "0.875rem",
+    "textBase": "1rem",
+    "textLg": "1.125rem",
+    "textXl": "1.25rem",
+    "text2xl": "1.5rem",
+    "text3xl": "1.875rem",
+    "text4xl": "2.25rem",
+    "spacingXs": "4px",
+    "spacingSm": "8px",
+    "spacingMd": "16px",
+    "spacingLg": "24px",
+    "spacingXl": "32px",
+    "spacing2xl": "48px",
+    "radiusSm": "4px",
+    "radiusMd": "2px",
+    "radiusLg": "7px",
+    "radiusFull": "9999px",
+    "shadowSm": "0 1px 2px 0 rgba(0,0,0,0.05)",
+    "shadowMd": "0 4px 6px -1px rgba(0,0,0,0.1)",
+    "shadowLg": "0 10px 15px -3px rgba(0,0,0,0.1)",
+    "lineHeightTight": "1.15",
+    "lineHeightNormal": "1.5",
+    "lineHeightRelaxed": "1.75"
+  },
+  "designMd": "# Design System Inspiration of Cal.com\n\n## 1. Visual Theme & Atmosphere\n\nCal.com's website is a masterclass in monochromatic restraint — a grayscale world where boldness comes not from color but from the sheer confidence of black text on white space. Inspired by Uber's minimal aesthetic, the palette is deliberately stripped of hue: near-black headings (`#242424`), mid-gray secondary text (`#898989`), and pure white surfaces. Color is treated as a foreign substance — when it appears (a rare blue link, a green trust badge), it feels like a controlled accent in an otherwise black-and-white photograph.\n\nCal Sans, the brand's custom geometric display typeface designed by Mark Davis, is the visual centerpiece. Letters are intentionally spaced extremely close at large sizes, creating dense, architectural headlines that feel like they're carved into the page. At 64px and 48px, Cal Sans headings sit at weight 600 with a tight 1.10 line-height — confident, compressed, and immediately recognizable. For body text, the system switches to Inter, providing \"rock-solid\" readability that complements Cal Sans's display personality. The typography pairing creates a clear division: Cal Sans speaks, Inter explains.\n\nThe elevation system is notably sophisticated for a minimal site — 11 shadow definitions create a nuanced depth hierarchy using multi-layered shadows that combine ring borders (`0px 0px 0px 1px`), soft diffused shadows, and inset highlights. This shadow-first approach to depth (rather than border-first) gives surfaces a subtle three-dimensionality that feels modern and polished. Built on Framer with a border-radius scale from 2px to 9999px (pill), Cal.com balances geometric precision with soft, rounded interactive elements.\n\n**Key Characteristics:**\n- Purely grayscale brand palette — no brand colors, boldness through monochrome\n- Cal Sans custom geometric display font with extremely tight default letter-spacing\n- Multi-layered shadow system (11 definitions) with ring borders + diffused shadows + inset highlights\n- Cal Sans for headings, Inter for body — clean typographic division\n- Wide border-radius scale from 2px to 9999px (pill) — versatile rounding\n- White canvas with near-black (#242424) text — maximum contrast, zero decoration\n- Product screenshots as primary visual content — the scheduling UI sells itself\n- Built on Framer platform\n\n## 2. Color Palette & Roles\n\n### Primary\n- **Charcoal** (`#242424`): Primary heading and button text — Cal.com's signature near-black, warmer than pure black\n- **Midnight** (`#111111`): Deepest text/overlay color — used at 50% opacity for subtle overlays\n- **White** (`#ffffff`): Primary background and surface — the dominant canvas\n\n### Secondary & Accent\n- **Link Blue** (`#0099ff`): In-text links with underline decoration — the only blue in the system, reserved strictly for hyperlinks\n- **Focus Ring** (`#3b82f6` at 50% opacity): Keyboard focus indicator — accessibility-only, invisible in normal interaction\n- **Default Link** (`#0000ee`): Browser-default link color on some elements — unmodified, signaling openness\n\n### Surface & Background\n- **Pure White** (`#ffffff`): Primary page background and card surfaces\n- **Light Gray** (approx `#f5f5f5`): Subtle section differentiation — barely visible tint\n- **Mid Gray** (`#898989`): Secondary text, descriptions, and muted labels\n\n### Neutrals & Text\n- **Charcoal** (`#242424`): Headlines, buttons, primary UI text\n- **Midnight** (`#111111`): Deep black for high-contrast links and nav text\n- **Mid Gray** (`#898989`): Descriptions, secondary labels, muted content\n- **Pure Black** (`#000000`): Certain link text elements\n- **Border Gray** (approx `rgba(34, 42, 53, 0.08–0.10)`): Shadow-based borders using ring shadows instead of CSS borders\n\n### Semantic & Accent\n- Cal.com is deliberately colorless for brand elements — \"a grayscale brand to emphasise on boldness and professionalism\"\n- Product UI screenshots show color (blues, greens in the scheduling interface), but the marketing site itself stays monochrome\n- The philosophy mirrors Uber's approach: let the content carry color, the frame stays neutral\n\n### Gradient System\n- No gradients on the marketing site — the design is fully flat and monochrome\n- Depth is achieved entirely through shadows, not color transitions\n\n## 3. Typography Rules\n\n### Font Family\n- **Display**: `Cal Sans` — custom geometric sans-serif by Mark Davis. Open-source, available on Google Fonts and GitHub. Extremely tight default letter-spacing designed for large headlines. Has 6 character variants (Cc, j, t, u, 0, 1)\n- **Body**: `Inter` — \"rock-solid\" standard body font. Fallback: `Inter Placeholder`\n- **UI Light**: `Cal Sans UI Variable Light` — light-weight variant (300) for softer UI text with -0.2px letter-spacing\n- **UI Medium**: `Cal Sans UI Medium` — medium-weight variant (500) for emphasized captions\n- **Mono**: `Roboto Mono` — for code blocks and technical content\n- **Tertiary**: `Matter Regular` / `Matter SemiBold` / `Matter Medium` — additional body fonts for specific contexts\n\n### Hierarchy\n\n| Role | Font | Size | Weight | Line Height | Letter Spacing | Notes |\n|------|------|------|--------|-------------|----------------|-------|\n| Display Hero | Cal Sans | 64px | 600 | 1.10 | 0px | Maximum impact, tight default spacing |\n| Section Heading | Cal Sans | 48px | 600 | 1.10 | 0px | Large section titles |\n| Feature Heading | Cal Sans | 24px | 600 | 1.30 | 0px | Feature block headlines |\n| Sub-heading | Cal Sans | 20px | 600 | 1.20 | +0.2px | Positive spacing for readability at smaller size |\n| Sub-heading Alt | Cal Sans | 20px | 600 | 1.50 | 0px | Relaxed line-height variant |\n| Card Title | Cal Sans | 16px | 600 | 1.10 | 0px | Smallest Cal Sans usage |\n| Caption Label | Cal Sans | 12px | 600 | 1.50 | 0px | Small labels in Cal Sans |\n| Body Light | Cal Sans UI Light | 18px | 300 | 1.30 | -0.2px | Light-weight body intro text |\n| Body Light Standard | Cal Sans UI Light | 16px | 300 | 1.50 | -0.2px | Light-weight body text |\n| Caption Light | Cal Sans UI Light | 14px | 300 | 1.40–1.50 | -0.2 to -0.28px | Light captions and descriptions |\n| UI Label | Inter | 16px | 600 | 1.00 | 0px | UI buttons and nav labels |\n| Caption Inter | Inter | 14px | 500 | 1.14 | 0px | Small UI text |\n| Micro | Inter | 12px | 500 | 1.00 | 0px | Smallest Inter text |\n| Code | Roboto Mono | 14px | 600 | 1.00 | 0px | Code snippets, technical text |\n| Body Matter | Matter Regular | 14px | 400 | 1.14 | 0px | Alternate body text (product UI) |\n\n### Principles\n- **Cal Sans at large, Inter at small**: Cal Sans is exclusively for headings and display — never for body text. The system enforces this division strictly\n- **Tight by default, space when small**: Cal Sans letters are \"intentionally spaced to be extremely close\" at large sizes. At 20px and below, positive letter-spacing (+0.2px) must be applied to prevent cramming\n- **Weight 300 body variant**: Cal Sans UI Variable Light at 300 weight creates an elegant, airy body text that contrasts with the dense 600-weight headlines\n- **Weight 600 dominance**: Nearly all Cal Sans usage is at weight 600 (semi-bold) — the font was designed to perform at this weight\n- **Negative tracking on light text**: Cal Sans UI Light uses -0.2px to -0.28px letter-spacing, subtly tightening the already-compact letterforms\n\n## 4. Component Stylings\n\n### Buttons\n- **Dark Primary**: `#242424` (or `#1e1f23`) background, white text, 6–8px radius. Hover: opacity reduction to 0.7. The signature CTA — maximally dark on white\n- **White/Ghost**: White background with shadow-ring border, dark text. Uses the multi-layered shadow system for subtle elevation\n- **Pill**: 9999px radius for rounded pill-shaped actions and badges\n- **Compact**: 4px padding, small text — utility actions within product UI\n- **Inset highlight**: Some buttons feature `rgba(255, 255, 255, 0.15) 0px 2px 0px inset` — a subtle inner-top highlight creating a 3D pressed effect\n\n### Cards & Containers\n- **Shadow Card**: White background, multi-layered shadow — `rgba(19, 19, 22, 0.7) 0px 1px 5px -4px, rgba(34, 42, 53, 0.08) 0px 0px 0px 1px, rgba(34, 42, 53, 0.05) 0px 4px 8px 0px`. The ring shadow (0px 0px 0px 1px) acts as a shadow-border\n- **Product UI Cards**: Screenshots of the scheduling interface displayed in card containers with shadow elevation\n- **Radius**: 8px for standard cards, 12px for larger containers, 16px for prominent sections\n- **Hover**: Likely subtle shadow deepening or scale transform\n\n### Inputs & Forms\n- **Select dropdown**: White background, `#000000` text, 1px solid `rgb(118, 118, 118)` border\n- **Focus**: Uses Framer's focus outline system (`--framer-focus-outline`)\n- **Text input**: 8px radius, standard border treatment\n- **Minimal form presence**: The marketing site prioritizes CTA buttons over complex forms\n\n### Navigation\n- **Top nav**: White/transparent background, Cal Sans links at near-black\n- **Nav text**: `#111111` (Midnight) for primary links, `#000000` for emphasis\n- **CTA button**: Dark Primary in the nav — high contrast call-to-action\n- **Mobile**: Collapses to hamburger with simplified navigation\n- **Sticky**: Fixed on scroll\n\n### Image Treatment\n- **Product screenshots**: Large scheduling UI screenshots — the product is the primary visual\n- **Trust logos**: Grayscale company logos in a horizontal trust bar\n- **Aspect ratios**: Wide landscape for product UI screenshots\n- **No decorative imagery**: No illustrations, photos, or abstract graphics — pure product + typography\n\n## 5. Layout Principles\n\n### Spacing System\n- **Base unit**: 8px\n- **Scale**: 1px, 2px, 3px, 4px, 6px, 8px, 12px, 16px, 20px, 24px, 28px, 80px, 96px\n- **Section padding**: 80px–96px vertical between major sections (generous)\n- **Card padding**: 12px–24px internal\n- **Component gaps**: 4px–8px between related elements\n- **Notable jump**: From 28px to 80px — a deliberate gap emphasizing the section-level spacing tier\n\n### Grid & Container\n- **Max width**: ~1200px content container, centered\n- **Column patterns**: Full-width hero, centered text blocks, 2-3 column feature grids\n- **Feature showcase**: Product screenshots flanked by description text\n- **Breakpoints**: 98px, 640px, 768px, 810px, 1024px, 1199px — Framer-generated\n\n### Whitespace Philosophy\n- **Lavish section spacing**: 80px–96px between sections creates a breathable, premium feel\n- **Product-first content**: Screenshots dominate the visual space — minimal surrounding decoration\n- **Centered headlines**: Cal Sans headings centered with generous margins above and below\n\n### Border Radius Scale\n- **2px**: Subtle rounding on inline elements\n- **4px**: Small UI components\n- **6px–7px**: Buttons, small cards, images\n- **8px**: Standard interactive elements — buttons, inputs, images\n- **12px**: Medium containers — links, larger cards, images\n- **16px**: Large section containers\n- **29px**: Special rounded elements\n- **100px**: Large rounding — nearly circular on small elements\n- **1000px**: Very large rounding\n- **9999px**: Full pill shape — badges, links\n\n## 6. Depth & Elevation\n\n| Level | Treatment | Use |\n|-------|-----------|-----|\n| Level 0 (Flat) | No shadow | Page canvas, basic text containers |\n| Level 1 (Inset) | `rgba(0,0,0,0.16) 0px 1px 1.9px 0px inset` | Pressed/recessed elements, input wells |\n| Level 2 (Ring + Soft) | `rgba(19,19,22,0.7) 0px 1px 5px -4px, rgba(34,42,53,0.08) 0px 0px 0px 1px, rgba(34,42,53,0.05) 0px 4px 8px` | Cards, containers — the workhorse shadow |\n| Level 3 (Ring + Soft Alt) | `rgba(36,36,36,0.7) 0px 1px 5px -4px, rgba(36,36,36,0.05) 0px 4px 8px` | Alt card elevation without ring border |\n| Level 4 (Inset Highlight) | `rgba(255,255,255,0.15) 0px 2px 0px inset` or `rgb(255,255,255) 0px 2px 0px inset` | Button inner highlight — 3D pressed effect |\n| Level 5 (Soft Only) | `rgba(34,42,53,0.05) 0px 4px 8px` | Subtle ambient shadow |\n\n### Shadow Philosophy\nCal.com's shadow system is the most sophisticated element of the design — 11 shadow definitions using a multi-layered compositing technique:\n- **Ring borders**: `0px 0px 0px 1px` shadows act as borders, avoiding CSS `border` entirely. This creates hairline containment without affecting layout\n- **Diffused soft shadows**: `0px 4px 8px` at 5% opacity add gentle ambient depth\n- **Sharp contact shadows**: `0px 1px 5px -4px` at 70% opacity create tight bottom-edge shadows for grounding\n- **Inset highlights**: White inset shadows at the top of buttons create a subtle 3D bevel\n- Shadows are composed in comma-separated stacks — each surface gets 2-3 layered shadow definitions working together\n\n### Decorative Depth\n- No gradients or glow effects\n- All depth comes from the sophisticated shadow compositing system\n- The overall effect is subtle but precise — surfaces feel like physical cards sitting on a table\n\n## 7. Do's and Don'ts\n\n### Do\n- Use Cal Sans exclusively for headings (24px+) and never for body text — it's a display font with tight default spacing\n- Apply positive letter-spacing (+0.2px) when using Cal Sans below 24px — the font cramps at small sizes without it\n- Maintain the grayscale palette — boldness comes from contrast, not color\n- Use the multi-layered shadow system for card elevation — ring shadow + diffused shadow + contact shadow\n- Keep backgrounds pure white — the monochrome philosophy requires a clean canvas\n- Use Inter for all body text at weight 300–600 — it's the reliable counterpart to Cal Sans's display personality\n- Let product screenshots be the visual content — no illustrations, no decorative graphics\n- Apply generous section spacing (80px–96px) — the breathing room is essential to the premium feel\n\n### Don't\n- Use Cal Sans for body text or text below 16px — it wasn't designed for extended reading\n- Add brand colors — Cal.com is intentionally grayscale, color is reserved for links and UI states only\n- Use CSS borders when shadows can achieve the same containment — the ring-shadow technique is the system's approach\n- Apply negative letter-spacing to Cal Sans at small sizes — it needs positive spacing (+0.2px) below 24px\n- Create heavy, dark shadows — Cal.com's shadows are subtle (5% opacity diffused) with sharp contact edges\n- Use illustrations, abstract graphics, or decorative elements — the visual language is typography + product UI only\n- Mix Cal Sans weights — the font is designed for weight 600, other weights break the intended character\n- Reduce section spacing below 48px — the generous whitespace is core to the premium monochrome aesthetic\n\n## 8. Responsive Behavior\n\n### Breakpoints\n| Name | Width | Key Changes |\n|------|-------|-------------|\n| Mobile | <640px | Single column, hero text ~36px, stacked features, hamburger nav |\n| Tablet Small | 640px–768px | 2-column begins for some elements |\n| Tablet | 768px–810px | Layout adjustments, fuller grid |\n| Tablet Large | 810px–1024px | Multi-column feature grids |\n| Desktop | 1024px–1199px | Full layout, expanded navigation |\n| Large Desktop | >1199px | Max-width container, centered content |\n\n### Touch Targets\n- Buttons: 8px radius with comfortable padding (10px+ vertical)\n- Nav links: Dark text with adequate spacing\n- Mobile CTAs: Full-width dark buttons for easy thumb access\n- Pill badges: 9999px radius creates large, tappable targets\n\n### Collapsing Strategy\n- **Navigation**: Full horizontal nav → hamburger on mobile\n- **Hero**: 64px Cal Sans display → ~36px on mobile\n- **Feature grids**: Multi-column → 2-column → single stacked column\n- **Product screenshots**: Scale within containers, maintaining aspect ratios\n- **Section spacing**: Reduces from 80px–96px to ~48px on mobile\n\n### Image Behavior\n- Product screenshots scale responsively\n- Trust logos reflow to multi-row grid on mobile\n- No art direction changes — same compositions at all sizes\n- Images use 7px–12px border-radius for consistent rounded corners\n\n## 9. Agent Prompt Guide\n\n### Quick Color Reference\n- Primary Text: Charcoal (`#242424`)\n- Deep Text: Midnight (`#111111`)\n- Secondary Text: Mid Gray (`#898989`)\n- Background: Pure White (`#ffffff`)\n- Link: Link Blue (`#0099ff`)\n- CTA Button: Charcoal (`#242424`) bg, white text\n- Shadow Border: `rgba(34, 42, 53, 0.08)` ring\n\n### Example Component Prompts\n- \"Create a hero section with white background, 64px Cal Sans heading at weight 600, line-height 1.10, #242424 text, centered layout with a dark CTA button (#242424, 8px radius, white text)\"\n- \"Design a scheduling card with white background, multi-layered shadow (0px 1px 5px -4px rgba(19,19,22,0.7), 0px 0px 0px 1px rgba(34,42,53,0.08), 0px 4px 8px rgba(34,42,53,0.05)), 12px radius\"\n- \"Build a navigation bar with white background, Inter links at 14px weight 500 in #111111, a dark CTA button (#242424), sticky positioning\"\n- \"Create a trust bar with grayscale company logos, horizontally centered, 16px gap between logos, on white background\"\n- \"Design a feature section with 48px Cal Sans heading (weight 600, #242424), 16px Inter body text (weight 300, #898989, line-height 1.50), and a product screenshot with 12px radius and the card shadow\"\n\n### Iteration Guide\nWhen refining existing screens generated with this design system:\n1. Verify headings use Cal Sans at weight 600, body uses Inter — never mix them\n2. Check that the palette is purely grayscale — if you see brand colors, remove them\n3. Ensure card elevation uses the multi-layered shadow stack, not CSS borders\n4. Confirm section spacing is generous (80px+) — if sections feel cramped, add more space\n5. The overall tone should feel like a clean, professional scheduling tool — monochrome confidence without any decorative flourishes\n",
+  "createdAt": "2026-04-09T07:51:24.321Z",
+  "updatedAt": "2026-04-09T07:51:24.321Z",
+  "source": "imported"
+}

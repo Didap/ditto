@@ -1,0 +1,242 @@
+{
+  "id": "naNd_paMDAQsYsDrGX6gK",
+  "slug": "revolut",
+  "name": "Revolut",
+  "url": "https://revolut.com",
+  "description": "Digital banking. Sleek dark interface, gradient cards, fintech precision.",
+  "tokens": {
+    "colors": [
+      {
+        "hex": "#e23b4a",
+        "rgb": "226, 59, 74",
+        "occurrences": 1,
+        "name": "Color 1",
+        "role": "primary"
+      },
+      {
+        "hex": "#ec7e00",
+        "rgb": "236, 126, 0",
+        "occurrences": 1,
+        "name": "Color 2",
+        "role": "secondary"
+      },
+      {
+        "hex": "#00a87e",
+        "rgb": "0, 168, 126",
+        "occurrences": 1,
+        "name": "Color 3",
+        "role": "neutral"
+      },
+      {
+        "hex": "#494fdf",
+        "rgb": "73, 79, 223",
+        "occurrences": 1,
+        "name": "Color 4",
+        "role": "neutral"
+      },
+      {
+        "hex": "#e61e49",
+        "rgb": "230, 30, 73",
+        "occurrences": 1,
+        "name": "Color 5",
+        "role": "neutral"
+      },
+      {
+        "hex": "#191c1f",
+        "rgb": "25, 28, 31",
+        "occurrences": 1,
+        "name": "Color 6",
+        "role": "neutral"
+      },
+      {
+        "hex": "#ffffff",
+        "rgb": "255, 255, 255",
+        "occurrences": 1,
+        "name": "Color 7",
+        "role": "neutral"
+      },
+      {
+        "hex": "#f4f4f4",
+        "rgb": "244, 244, 244",
+        "occurrences": 1,
+        "name": "Color 8",
+        "role": "neutral"
+      },
+      {
+        "hex": "#4f55f1",
+        "rgb": "79, 85, 241",
+        "occurrences": 1,
+        "name": "Color 9",
+        "role": "neutral"
+      },
+      {
+        "hex": "#376cd5",
+        "rgb": "55, 108, 213",
+        "occurrences": 1,
+        "name": "Color 10",
+        "role": "neutral"
+      },
+      {
+        "hex": "#b09000",
+        "rgb": "176, 144, 0",
+        "occurrences": 1,
+        "name": "Color 11",
+        "role": "neutral"
+      },
+      {
+        "hex": "#428619",
+        "rgb": "66, 134, 25",
+        "occurrences": 1,
+        "name": "Color 12",
+        "role": "neutral"
+      },
+      {
+        "hex": "#006400",
+        "rgb": "0, 100, 0",
+        "occurrences": 1,
+        "name": "Color 13",
+        "role": "neutral"
+      },
+      {
+        "hex": "#007bc2",
+        "rgb": "0, 123, 194",
+        "occurrences": 1,
+        "name": "Color 14",
+        "role": "neutral"
+      },
+      {
+        "hex": "#936d62",
+        "rgb": "147, 109, 98",
+        "occurrences": 1,
+        "name": "Color 15",
+        "role": "neutral"
+      },
+      {
+        "hex": "#8b0000",
+        "rgb": "139, 0, 0",
+        "occurrences": 1,
+        "name": "Color 16",
+        "role": "neutral"
+      },
+      {
+        "hex": "#505a63",
+        "rgb": "80, 90, 99",
+        "occurrences": 1,
+        "name": "Color 17",
+        "role": "neutral"
+      },
+      {
+        "hex": "#8d969e",
+        "rgb": "141, 150, 158",
+        "occurrences": 1,
+        "name": "Color 18",
+        "role": "neutral"
+      },
+      {
+        "hex": "#c9c9cd",
+        "rgb": "201, 201, 205",
+        "occurrences": 1,
+        "name": "Color 19",
+        "role": "neutral"
+      },
+      {
+        "hex": "#000000",
+        "rgb": "0, 0, 0",
+        "occurrences": 1,
+        "name": "Color 20",
+        "role": "neutral"
+      }
+    ],
+    "typography": [
+      {
+        "fontFamily": "system-ui",
+        "fallbacks": [
+          "system-ui"
+        ],
+        "weights": [
+          700
+        ],
+        "role": "heading"
+      },
+      {
+        "fontFamily": "system-ui",
+        "fallbacks": [
+          "system-ui"
+        ],
+        "weights": [
+          400
+        ],
+        "role": "body"
+      }
+    ],
+    "typeScale": [],
+    "spacing": [],
+    "shadows": [],
+    "radii": [
+      {
+        "value": "12px",
+        "px": 12,
+        "occurrences": 1
+      },
+      {
+        "value": "9999px",
+        "px": 9999,
+        "occurrences": 1
+      }
+    ],
+    "components": [],
+    "cssVariables": {},
+    "meta": {
+      "url": "https://revolut.com",
+      "title": "revolut",
+      "extractedAt": "2026-04-09T07:52:03.166Z"
+    }
+  },
+  "resolved": {
+    "colorPrimary": "#e23b4a",
+    "colorSecondary": "#ec7e00",
+    "colorAccent": "#00a87e",
+    "colorBackground": "#191c1f",
+    "colorSurface": "#f8fafc",
+    "colorTextPrimary": "#00a87e",
+    "colorTextSecondary": "#475569",
+    "colorTextMuted": "#94a3b8",
+    "colorBorder": "#e2e8f0",
+    "colorSuccess": "#00a87e",
+    "colorWarning": "#f59e0b",
+    "colorError": "#ef4444",
+    "fontHeading": "system-ui",
+    "fontBody": "system-ui",
+    "fontMono": "ui-monospace",
+    "fontWeightHeading": 700,
+    "fontWeightBody": 400,
+    "textXs": "0.75rem",
+    "textSm": "0.875rem",
+    "textBase": "1rem",
+    "textLg": "1.125rem",
+    "textXl": "1.25rem",
+    "text2xl": "1.5rem",
+    "text3xl": "1.875rem",
+    "text4xl": "2.25rem",
+    "spacingXs": "4px",
+    "spacingSm": "8px",
+    "spacingMd": "16px",
+    "spacingLg": "24px",
+    "spacingXl": "32px",
+    "spacing2xl": "48px",
+    "radiusSm": "12px",
+    "radiusMd": "9999px",
+    "radiusLg": "9999px",
+    "radiusFull": "9999px",
+    "shadowSm": "0 1px 2px 0 rgba(0,0,0,0.05)",
+    "shadowMd": "0 4px 6px -1px rgba(0,0,0,0.1)",
+    "shadowLg": "0 10px 15px -3px rgba(0,0,0,0.1)",
+    "lineHeightTight": "1.15",
+    "lineHeightNormal": "1.5",
+    "lineHeightRelaxed": "1.75"
+  },
+  "designMd": "# Design System Inspiration of Revolut\n\n## 1. Visual Theme & Atmosphere\n\nRevolut's website is fintech confidence distilled into pixels — a design system that communicates \"your money is in capable hands\" through massive typography, generous whitespace, and a disciplined neutral palette. The visual language is built on Aeonik Pro, a geometric grotesque that creates billboard-scale headlines at 136px with weight 500 and aggressive negative tracking (-2.72px). This isn't subtle branding; it's fintech at stadium scale.\n\nThe color system is built on a comprehensive `--rui-*` (Revolut UI) token architecture with semantic naming for every state: danger (`#e23b4a`), warning (`#ec7e00`), teal (`#00a87e`), blue (`#494fdf`), deep-pink (`#e61e49`), and more. But the marketing surface itself is remarkably restrained — near-black (`#191c1f`) and pure white (`#ffffff`) dominate, with the colorful semantic tokens reserved for the product interface, not the marketing page.\n\nWhat distinguishes Revolut is its pill-everything button system. Every button uses 9999px radius — primary dark (`#191c1f`), secondary light (`#f4f4f4`), outlined (`transparent + 2px solid`), and ghost on dark (`rgba(244,244,244,0.1) + 2px solid`). The padding is generous (14px 32px–34px), creating large, confident touch targets. Combined with Inter for body text at various weights and positive letter-spacing (0.16px–0.24px), the result is a design that feels both premium and accessible — banking for the modern era.\n\n**Key Characteristics:**\n- Aeonik Pro display at 136px weight 500 — billboard-scale fintech headlines\n- Near-black (`#191c1f`) + white binary with comprehensive `--rui-*` semantic tokens\n- Universal pill buttons (9999px radius) with generous padding (14px 32px)\n- Inter for body text with positive letter-spacing (0.16px–0.24px)\n- Rich semantic color system: blue, teal, pink, yellow, green, brown, danger, warning\n- Zero shadows detected — depth through color contrast only\n- Tight display line-heights (1.00) with relaxed body (1.50–1.56)\n\n## 2. Color Palette & Roles\n\n### Primary\n- **Revolut Dark** (`#191c1f`): Primary dark surface, button background, near-black text\n- **Pure White** (`#ffffff`): `--rui-color-action-label`, primary light surface\n- **Light Surface** (`#f4f4f4`): Secondary button background, subtle surface\n\n### Brand / Interactive\n- **Revolut Blue** (`#494fdf`): `--rui-color-blue`, primary brand blue\n- **Action Blue** (`#4f55f1`): `--rui-color-action-photo-header-text`, header accent\n- **Blue Text** (`#376cd5`): `--website-color-blue-text`, link blue\n\n### Semantic\n- **Danger Red** (`#e23b4a`): `--rui-color-danger`, error/destructive\n- **Deep Pink** (`#e61e49`): `--rui-color-deep-pink`, critical accent\n- **Warning Orange** (`#ec7e00`): `--rui-color-warning`, warning states\n- **Yellow** (`#b09000`): `--rui-color-yellow`, attention\n- **Teal** (`#00a87e`): `--rui-color-teal`, success/positive\n- **Light Green** (`#428619`): `--rui-color-light-green`, secondary success\n- **Green Text** (`#006400`): `--website-color-green-text`, green text\n- **Light Blue** (`#007bc2`): `--rui-color-light-blue`, informational\n- **Brown** (`#936d62`): `--rui-color-brown`, warm neutral accent\n- **Red Text** (`#8b0000`): `--website-color-red-text`, dark red text\n\n### Neutral Scale\n- **Mid Slate** (`#505a63`): Secondary text\n- **Cool Gray** (`#8d969e`): Muted text, tertiary\n- **Gray Tone** (`#c9c9cd`): `--rui-color-grey-tone-20`, borders/dividers\n\n## 3. Typography Rules\n\n### Font Families\n- **Display**: `Aeonik Pro` — geometric grotesque, no detected fallbacks\n- **Body / UI**: `Inter` — standard system sans\n- **Fallback**: `Arial` for specific button contexts\n\n### Hierarchy\n\n| Role | Font | Size | Weight | Line Height | Letter Spacing | Notes |\n|------|------|------|--------|-------------|----------------|-------|\n| Display Mega | Aeonik Pro | 136px (8.50rem) | 500 | 1.00 (tight) | -2.72px | Stadium-scale hero |\n| Display Hero | Aeonik Pro | 80px (5.00rem) | 500 | 1.00 (tight) | -0.8px | Primary hero |\n| Section Heading | Aeonik Pro | 48px (3.00rem) | 500 | 1.21 (tight) | -0.48px | Feature sections |\n| Sub-heading | Aeonik Pro | 40px (2.50rem) | 500 | 1.20 (tight) | -0.4px | Sub-sections |\n| Card Title | Aeonik Pro | 32px (2.00rem) | 500 | 1.19 (tight) | -0.32px | Card headings |\n| Feature Title | Aeonik Pro | 24px (1.50rem) | 400 | 1.33 | normal | Light headings |\n| Nav / UI | Aeonik Pro | 20px (1.25rem) | 500 | 1.40 | normal | Navigation, buttons |\n| Body Large | Inter | 18px (1.13rem) | 400 | 1.56 | -0.09px | Introductions |\n| Body | Inter | 16px (1.00rem) | 400 | 1.50 | 0.24px | Standard reading |\n| Body Semibold | Inter | 16px (1.00rem) | 600 | 1.50 | 0.16px | Emphasized body |\n| Body Bold Link | Inter | 16px (1.00rem) | 700 | 1.50 | 0.24px | Bold links |\n\n### Principles\n- **Weight 500 as display default**: Aeonik Pro uses medium (500) for ALL headings — no bold. This creates authority through size and tracking, not weight.\n- **Billboard tracking**: -2.72px at 136px is extremely compressed — text designed to be read at a glance, like airport signage.\n- **Positive tracking on body**: Inter uses +0.16px to +0.24px, creating airy, well-spaced reading text that contrasts with the compressed headings.\n\n## 4. Component Stylings\n\n### Buttons\n\n**Primary Dark Pill**\n- Background: `#191c1f`\n- Text: `#ffffff`\n- Padding: 14px 32px\n- Radius: 9999px (full pill)\n- Hover: opacity 0.85\n- Focus: `0 0 0 0.125rem` ring\n\n**Secondary Light Pill**\n- Background: `#f4f4f4`\n- Text: `#000000`\n- Padding: 14px 34px\n- Radius: 9999px\n- Hover: opacity 0.85\n\n**Outlined Pill**\n- Background: transparent\n- Text: `#191c1f`\n- Border: `2px solid #191c1f`\n- Padding: 14px 32px\n- Radius: 9999px\n\n**Ghost on Dark**\n- Background: `rgba(244, 244, 244, 0.1)`\n- Text: `#f4f4f4`\n- Border: `2px solid #f4f4f4`\n- Padding: 14px 32px\n- Radius: 9999px\n\n### Cards & Containers\n- Radius: 12px (small), 20px (cards)\n- No shadows — flat surfaces with color contrast\n- Dark and light section alternation\n\n### Navigation\n- Aeonik Pro 20px weight 500\n- Clean header, hamburger toggle at 12px radius\n- Pill CTAs right-aligned\n\n## 5. Layout Principles\n\n### Spacing System\n- Base unit: 8px\n- Scale: 4px, 6px, 8px, 14px, 16px, 20px, 24px, 32px, 40px, 48px, 80px, 88px, 120px\n- Large section spacing: 80px–120px\n\n### Border Radius Scale\n- Standard (12px): Navigation, small buttons\n- Card (20px): Feature cards\n- Pill (9999px): All buttons\n\n## 6. Depth & Elevation\n\n| Level | Treatment | Use |\n|-------|-----------|-----|\n| Flat (Level 0) | No shadow | Everything — Revolut uses zero shadows |\n| Focus | `0 0 0 0.125rem` ring | Accessibility focus |\n\n**Shadow Philosophy**: Revolut uses ZERO shadows. Depth comes entirely from the dark/light section contrast and the generous whitespace between elements.\n\n## 7. Do's and Don'ts\n\n### Do\n- Use Aeonik Pro weight 500 for all display headings\n- Apply 9999px radius to all buttons — pill shape is universal\n- Use generous button padding (14px 32px)\n- Keep the palette to near-black + white for marketing surfaces\n- Apply positive letter-spacing on Inter body text\n\n### Don't\n- Don't use shadows — Revolut is flat by design\n- Don't use bold (700) for Aeonik Pro headings — 500 is the weight\n- Don't use small buttons — the generous padding is intentional\n- Don't apply semantic colors to marketing surfaces — they're for the product\n\n## 8. Responsive Behavior\n\n### Breakpoints\n| Name | Width | Key Changes |\n|------|-------|-------------|\n| Mobile Small | <400px | Compact, single column |\n| Mobile | 400–720px | Standard mobile |\n| Tablet | 720–1024px | 2-column layouts |\n| Desktop | 1024–1280px | Standard desktop |\n| Large | 1280–1920px | Full layout |\n\n## 9. Agent Prompt Guide\n\n### Quick Color Reference\n- Dark: Revolut Dark (`#191c1f`)\n- Light: White (`#ffffff`)\n- Surface: Light (`#f4f4f4`)\n- Blue: Revolut Blue (`#494fdf`)\n- Danger: Red (`#e23b4a`)\n- Success: Teal (`#00a87e`)\n\n### Example Component Prompts\n- \"Create a hero: white background. Headline at 136px Aeonik Pro weight 500, line-height 1.00, letter-spacing -2.72px, #191c1f text. Dark pill CTA (#191c1f, 9999px, 14px 32px). Outlined pill secondary (transparent, 2px solid #191c1f).\"\n- \"Build a pill button: #191c1f background, white text, 9999px radius, 14px 32px padding, 20px Aeonik Pro weight 500. Hover: opacity 0.85.\"\n\n### Iteration Guide\n1. Aeonik Pro 500 for headings — never bold\n2. All buttons are pills (9999px) with generous padding\n3. Zero shadows — flat is the Revolut identity\n4. Near-black + white for marketing, semantic colors for product\n",
+  "createdAt": "2026-04-09T07:52:03.166Z",
+  "updatedAt": "2026-04-09T07:52:03.166Z",
+  "source": "imported"
+}

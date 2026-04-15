@@ -1,0 +1,272 @@
+{
+  "id": "PnHSaGlLLPe_ecBCFbkQz",
+  "slug": "stripe",
+  "name": "Stripe",
+  "url": "https://stripe.com",
+  "description": "Payment infrastructure. Signature purple gradients, weight-300 elegance.",
+  "tokens": {
+    "colors": [
+      {
+        "hex": "#ffffff",
+        "rgb": "255, 255, 255",
+        "occurrences": 1,
+        "name": "Color 1",
+        "role": "primary"
+      },
+      {
+        "hex": "#061b31",
+        "rgb": "6, 27, 49",
+        "occurrences": 1,
+        "name": "Color 2",
+        "role": "secondary"
+      },
+      {
+        "hex": "#533afd",
+        "rgb": "83, 58, 253",
+        "occurrences": 1,
+        "name": "Color 3",
+        "role": "neutral"
+      },
+      {
+        "hex": "#ea2261",
+        "rgb": "234, 34, 97",
+        "occurrences": 1,
+        "name": "Color 4",
+        "role": "neutral"
+      },
+      {
+        "hex": "#f96bee",
+        "rgb": "249, 107, 238",
+        "occurrences": 1,
+        "name": "Color 5",
+        "role": "neutral"
+      },
+      {
+        "hex": "#1c1e54",
+        "rgb": "28, 30, 84",
+        "occurrences": 1,
+        "name": "Color 6",
+        "role": "neutral"
+      },
+      {
+        "hex": "#0d253d",
+        "rgb": "13, 37, 61",
+        "occurrences": 1,
+        "name": "Color 7",
+        "role": "neutral"
+      },
+      {
+        "hex": "#ffd7ef",
+        "rgb": "255, 215, 239",
+        "occurrences": 1,
+        "name": "Color 8",
+        "role": "neutral"
+      },
+      {
+        "hex": "#4434d4",
+        "rgb": "68, 52, 212",
+        "occurrences": 1,
+        "name": "Color 9",
+        "role": "neutral"
+      },
+      {
+        "hex": "#2e2b8c",
+        "rgb": "46, 43, 140",
+        "occurrences": 1,
+        "name": "Color 10",
+        "role": "neutral"
+      },
+      {
+        "hex": "#b9b9f9",
+        "rgb": "185, 185, 249",
+        "occurrences": 1,
+        "name": "Color 11",
+        "role": "neutral"
+      },
+      {
+        "hex": "#665efd",
+        "rgb": "102, 94, 253",
+        "occurrences": 1,
+        "name": "Color 12",
+        "role": "neutral"
+      },
+      {
+        "hex": "#273951",
+        "rgb": "39, 57, 81",
+        "occurrences": 1,
+        "name": "Color 13",
+        "role": "neutral"
+      },
+      {
+        "hex": "#64748d",
+        "rgb": "100, 116, 141",
+        "occurrences": 1,
+        "name": "Color 14",
+        "role": "neutral"
+      },
+      {
+        "hex": "#15be53",
+        "rgb": "21, 190, 83",
+        "occurrences": 1,
+        "name": "Color 15",
+        "role": "neutral"
+      },
+      {
+        "hex": "#108c3d",
+        "rgb": "16, 140, 61",
+        "occurrences": 1,
+        "name": "Color 16",
+        "role": "neutral"
+      },
+      {
+        "hex": "#9b6829",
+        "rgb": "155, 104, 41",
+        "occurrences": 1,
+        "name": "Color 17",
+        "role": "neutral"
+      },
+      {
+        "hex": "#e5edf5",
+        "rgb": "229, 237, 245",
+        "occurrences": 1,
+        "name": "Color 18",
+        "role": "neutral"
+      },
+      {
+        "hex": "#d6d9fc",
+        "rgb": "214, 217, 252",
+        "occurrences": 1,
+        "name": "Color 19",
+        "role": "neutral"
+      },
+      {
+        "hex": "#362baa",
+        "rgb": "54, 43, 170",
+        "occurrences": 1,
+        "name": "Color 20",
+        "role": "neutral"
+      }
+    ],
+    "typography": [
+      {
+        "fontFamily": "(",
+        "fallbacks": [
+          "system-ui"
+        ],
+        "weights": [
+          700
+        ],
+        "role": "heading"
+      },
+      {
+        "fontFamily": "sohne-var",
+        "fallbacks": [
+          "system-ui"
+        ],
+        "weights": [
+          400
+        ],
+        "role": "body"
+      }
+    ],
+    "typeScale": [],
+    "spacing": [],
+    "shadows": [],
+    "radii": [
+      {
+        "value": "0px",
+        "px": 0,
+        "occurrences": 1
+      },
+      {
+        "value": "1px",
+        "px": 1,
+        "occurrences": 1
+      },
+      {
+        "value": "4px",
+        "px": 4,
+        "occurrences": 1
+      },
+      {
+        "value": "6px",
+        "px": 6,
+        "occurrences": 1
+      },
+      {
+        "value": "8px",
+        "px": 8,
+        "occurrences": 1
+      },
+      {
+        "value": "12px",
+        "px": 12,
+        "occurrences": 1
+      },
+      {
+        "value": "32px",
+        "px": 32,
+        "occurrences": 1
+      },
+      {
+        "value": "48px",
+        "px": 48,
+        "occurrences": 1
+      }
+    ],
+    "components": [],
+    "cssVariables": {},
+    "meta": {
+      "url": "https://stripe.com",
+      "title": "stripe",
+      "extractedAt": "2026-04-09T07:52:09.855Z"
+    }
+  },
+  "resolved": {
+    "colorPrimary": "#ffffff",
+    "colorSecondary": "#061b31",
+    "colorAccent": "#533afd",
+    "colorBackground": "#ffffff",
+    "colorSurface": "#f8fafc",
+    "colorTextPrimary": "#061b31",
+    "colorTextSecondary": "#475569",
+    "colorTextMuted": "#94a3b8",
+    "colorBorder": "#e2e8f0",
+    "colorSuccess": "#15be53",
+    "colorWarning": "#f59e0b",
+    "colorError": "#ef4444",
+    "fontHeading": "(",
+    "fontBody": "sohne-var",
+    "fontMono": "ui-monospace",
+    "fontWeightHeading": 700,
+    "fontWeightBody": 400,
+    "textXs": "0.75rem",
+    "textSm": "0.875rem",
+    "textBase": "1rem",
+    "textLg": "1.125rem",
+    "textXl": "1.25rem",
+    "text2xl": "1.5rem",
+    "text3xl": "1.875rem",
+    "text4xl": "2.25rem",
+    "spacingXs": "4px",
+    "spacingSm": "8px",
+    "spacingMd": "16px",
+    "spacingLg": "24px",
+    "spacingXl": "32px",
+    "spacing2xl": "48px",
+    "radiusSm": "4px",
+    "radiusMd": "1px",
+    "radiusLg": "4px",
+    "radiusFull": "9999px",
+    "shadowSm": "0 1px 2px 0 rgba(0,0,0,0.05)",
+    "shadowMd": "0 4px 6px -1px rgba(0,0,0,0.1)",
+    "shadowLg": "0 10px 15px -3px rgba(0,0,0,0.1)",
+    "lineHeightTight": "1.15",
+    "lineHeightNormal": "1.5",
+    "lineHeightRelaxed": "1.75"
+  },
+  "designMd": "# Design System Inspiration of Stripe\n\n## 1. Visual Theme & Atmosphere\n\nStripe's website is the gold standard of fintech design -- a system that manages to feel simultaneously technical and luxurious, precise and warm. The page opens on a clean white canvas (`#ffffff`) with deep navy headings (`#061b31`) and a signature purple (`#533afd`) that functions as both brand anchor and interactive accent. This isn't the cold, clinical purple of enterprise software; it's a rich, saturated violet that reads as confident and premium. The overall impression is of a financial institution redesigned by a world-class type foundry.\n\nThe custom `sohne-var` variable font is the defining element of Stripe's visual identity. Every text element enables the OpenType `\"ss01\"` stylistic set, which modifies character shapes for a distinctly geometric, modern feel. At display sizes (48px-56px), sohne-var runs at weight 300 -- an extraordinarily light weight for headlines that creates an ethereal, almost whispered authority. This is the opposite of the \"bold hero headline\" convention; Stripe's headlines feel like they don't need to shout. The negative letter-spacing (-1.4px at 56px, -0.96px at 48px) tightens the text into dense, engineered blocks. At smaller sizes, the system also uses weight 300 with proportionally reduced tracking, and tabular numerals via `\"tnum\"` for financial data display.\n\nWhat truly distinguishes Stripe is its shadow system. Rather than the flat or single-layer approach of most sites, Stripe uses multi-layer, blue-tinted shadows: the signature `rgba(50,50,93,0.25)` combined with `rgba(0,0,0,0.1)` creates shadows with a cool, almost atmospheric depth -- like elements are floating in a twilight sky. The blue-gray undertone of the primary shadow color (50,50,93) ties directly to the navy-purple brand palette, making even elevation feel on-brand.\n\n**Key Characteristics:**\n- sohne-var with OpenType `\"ss01\"` on all text -- a custom stylistic set that defines the brand's letterforms\n- Weight 300 as the signature headline weight -- light, confident, anti-convention\n- Negative letter-spacing at display sizes (-1.4px at 56px, progressive relaxation downward)\n- Blue-tinted multi-layer shadows using `rgba(50,50,93,0.25)` -- elevation that feels brand-colored\n- Deep navy (`#061b31`) headings instead of black -- warm, premium, financial-grade\n- Conservative border-radius (4px-8px) -- nothing pill-shaped, nothing harsh\n- Ruby (`#ea2261`) and magenta (`#f96bee`) accents for gradient and decorative elements\n- `SourceCodePro` as the monospace companion for code and technical labels\n\n## 2. Color Palette & Roles\n\n### Primary\n- **Stripe Purple** (`#533afd`): Primary brand color, CTA backgrounds, link text, interactive highlights. A saturated blue-violet that anchors the entire system.\n- **Deep Navy** (`#061b31`): `--hds-color-heading-solid`. Primary heading color. Not black, not gray -- a very dark blue that adds warmth and depth to text.\n- **Pure White** (`#ffffff`): Page background, card surfaces, button text on dark backgrounds.\n\n### Brand & Dark\n- **Brand Dark** (`#1c1e54`): `--hds-color-util-brand-900`. Deep indigo for dark sections, footer backgrounds, and immersive brand moments.\n- **Dark Navy** (`#0d253d`): `--hds-color-core-neutral-975`. The darkest neutral -- almost-black with a blue undertone for maximum depth without harshness.\n\n### Accent Colors\n- **Ruby** (`#ea2261`): `--hds-color-accentColorMode-ruby-icon-solid`. Warm red-pink for icons, alerts, and accent elements.\n- **Magenta** (`#f96bee`): `--hds-color-accentColorMode-magenta-icon-gradientMiddle`. Vivid pink-purple for gradients and decorative highlights.\n- **Magenta Light** (`#ffd7ef`): `--hds-color-util-accent-magenta-100`. Tinted surface for magenta-themed cards and badges.\n\n### Interactive\n- **Primary Purple** (`#533afd`): Primary link color, active states, selected elements.\n- **Purple Hover** (`#4434d4`): Darker purple for hover states on primary elements.\n- **Purple Deep** (`#2e2b8c`): `--hds-color-button-ui-iconHover`. Dark purple for icon hover states.\n- **Purple Light** (`#b9b9f9`): `--hds-color-action-bg-subduedHover`. Soft lavender for subdued hover backgrounds.\n- **Purple Mid** (`#665efd`): `--hds-color-input-selector-text-range`. Range selector and input highlight color.\n\n### Neutral Scale\n- **Heading** (`#061b31`): Primary headings, nav text, strong labels.\n- **Label** (`#273951`): `--hds-color-input-text-label`. Form labels, secondary headings.\n- **Body** (`#64748d`): Secondary text, descriptions, captions.\n- **Success Green** (`#15be53`): Status badges, success indicators (with 0.2-0.4 alpha for backgrounds/borders).\n- **Success Text** (`#108c3d`): Success badge text color.\n- **Lemon** (`#9b6829`): `--hds-color-core-lemon-500`. Warning and highlight accent.\n\n### Surface & Borders\n- **Border Default** (`#e5edf5`): Standard border color for cards, dividers, and containers.\n- **Border Purple** (`#b9b9f9`): Active/selected state borders on buttons and inputs.\n- **Border Soft Purple** (`#d6d9fc`): Subtle purple-tinted borders for secondary elements.\n- **Border Magenta** (`#ffd7ef`): Pink-tinted borders for magenta-themed elements.\n- **Border Dashed** (`#362baa`): Dashed borders for drop zones and placeholder elements.\n\n### Shadow Colors\n- **Shadow Blue** (`rgba(50,50,93,0.25)`): The signature -- blue-tinted primary shadow color.\n- **Shadow Dark Blue** (`rgba(3,3,39,0.25)`): Deeper blue shadow for elevated elements.\n- **Shadow Black** (`rgba(0,0,0,0.1)`): Secondary shadow layer for depth reinforcement.\n- **Shadow Ambient** (`rgba(23,23,23,0.08)`): Soft ambient shadow for subtle elevation.\n- **Shadow Soft** (`rgba(23,23,23,0.06)`): Minimal ambient shadow for light lift.\n\n## 3. Typography Rules\n\n### Font Family\n- **Primary**: `sohne-var`, with fallback: `SF Pro Display`\n- **Monospace**: `SourceCodePro`, with fallback: `SFMono-Regular`\n- **OpenType Features**: `\"ss01\"` enabled globally on all sohne-var text; `\"tnum\"` for tabular numbers on financial data and captions.\n\n### Hierarchy\n\n| Role | Font | Size | Weight | Line Height | Letter Spacing | Features | Notes |\n|------|------|------|--------|-------------|----------------|----------|-------|\n| Display Hero | sohne-var | 56px (3.50rem) | 300 | 1.03 (tight) | -1.4px | ss01 | Maximum size, whisper-weight authority |\n| Display Large | sohne-var | 48px (3.00rem) | 300 | 1.15 (tight) | -0.96px | ss01 | Secondary hero headlines |\n| Section Heading | sohne-var | 32px (2.00rem) | 300 | 1.10 (tight) | -0.64px | ss01 | Feature section titles |\n| Sub-heading Large | sohne-var | 26px (1.63rem) | 300 | 1.12 (tight) | -0.26px | ss01 | Card headings, sub-sections |\n| Sub-heading | sohne-var | 22px (1.38rem) | 300 | 1.10 (tight) | -0.22px | ss01 | Smaller section heads |\n| Body Large | sohne-var | 18px (1.13rem) | 300 | 1.40 | normal | ss01 | Feature descriptions, intro text |\n| Body | sohne-var | 16px (1.00rem) | 300-400 | 1.40 | normal | ss01 | Standard reading text |\n| Button | sohne-var | 16px (1.00rem) | 400 | 1.00 (tight) | normal | ss01 | Primary button text |\n| Button Small | sohne-var | 14px (0.88rem) | 400 | 1.00 (tight) | normal | ss01 | Secondary/compact buttons |\n| Link | sohne-var | 14px (0.88rem) | 400 | 1.00 (tight) | normal | ss01 | Navigation links |\n| Caption | sohne-var | 13px (0.81rem) | 400 | normal | normal | ss01 | Small labels, metadata |\n| Caption Small | sohne-var | 12px (0.75rem) | 300-400 | 1.33-1.45 | normal | ss01 | Fine print, timestamps |\n| Caption Tabular | sohne-var | 12px (0.75rem) | 300-400 | 1.33 | -0.36px | tnum | Financial data, numbers |\n| Micro | sohne-var | 10px (0.63rem) | 300 | 1.15 (tight) | 0.1px | ss01 | Tiny labels, axis markers |\n| Micro Tabular | sohne-var | 10px (0.63rem) | 300 | 1.15 (tight) | -0.3px | tnum | Chart data, small numbers |\n| Nano | sohne-var | 8px (0.50rem) | 300 | 1.07 (tight) | normal | ss01 | Smallest labels |\n| Code Body | SourceCodePro | 12px (0.75rem) | 500 | 2.00 (relaxed) | normal | -- | Code blocks, syntax |\n| Code Bold | SourceCodePro | 12px (0.75rem) | 700 | 2.00 (relaxed) | normal | -- | Bold code, keywords |\n| Code Label | SourceCodePro | 12px (0.75rem) | 500 | 2.00 (relaxed) | normal | uppercase | Technical labels |\n| Code Micro | SourceCodePro | 9px (0.56rem) | 500 | 1.00 (tight) | normal | ss01 | Tiny code annotations |\n\n### Principles\n- **Light weight as signature**: Weight 300 at display sizes is Stripe's most distinctive typographic choice. Where others use 600-700 to command attention, Stripe uses lightness as luxury -- the text is so confident it doesn't need weight to be authoritative.\n- **ss01 everywhere**: The `\"ss01\"` stylistic set is non-negotiable. It modifies specific glyphs (likely alternate `a`, `g`, `l` forms) to create a more geometric, contemporary feel across all sohne-var text.\n- **Two OpenType modes**: `\"ss01\"` for display/body text, `\"tnum\"` for tabular numerals in financial data. These never overlap -- a number in a paragraph uses ss01, a number in a data table uses tnum.\n- **Progressive tracking**: Letter-spacing tightens proportionally with size: -1.4px at 56px, -0.96px at 48px, -0.64px at 32px, -0.26px at 26px, normal at 16px and below.\n- **Two-weight simplicity**: Primarily 300 (body and headings) and 400 (UI/buttons). No bold (700) in the primary font -- SourceCodePro uses 500/700 for code contrast.\n\n## 4. Component Stylings\n\n### Buttons\n\n**Primary Purple**\n- Background: `#533afd`\n- Text: `#ffffff`\n- Padding: 8px 16px\n- Radius: 4px\n- Font: 16px sohne-var weight 400, `\"ss01\"`\n- Hover: `#4434d4` background\n- Use: Primary CTA (\"Start now\", \"Contact sales\")\n\n**Ghost / Outlined**\n- Background: transparent\n- Text: `#533afd`\n- Padding: 8px 16px\n- Radius: 4px\n- Border: `1px solid #b9b9f9`\n- Font: 16px sohne-var weight 400, `\"ss01\"`\n- Hover: background shifts to `rgba(83,58,253,0.05)`\n- Use: Secondary actions\n\n**Transparent Info**\n- Background: transparent\n- Text: `#2874ad`\n- Padding: 8px 16px\n- Radius: 4px\n- Border: `1px solid rgba(43,145,223,0.2)`\n- Use: Tertiary/info-level actions\n\n**Neutral Ghost**\n- Background: transparent (`rgba(255,255,255,0)`)\n- Text: `rgba(16,16,16,0.3)`\n- Padding: 8px 16px\n- Radius: 4px\n- Outline: `1px solid rgb(212,222,233)`\n- Use: Disabled or muted actions\n\n### Cards & Containers\n- Background: `#ffffff`\n- Border: `1px solid #e5edf5` (standard) or `1px solid #061b31` (dark accent)\n- Radius: 4px (tight), 5px (standard), 6px (comfortable), 8px (featured)\n- Shadow (standard): `rgba(50,50,93,0.25) 0px 30px 45px -30px, rgba(0,0,0,0.1) 0px 18px 36px -18px`\n- Shadow (ambient): `rgba(23,23,23,0.08) 0px 15px 35px 0px`\n- Hover: shadow intensifies, often adding the blue-tinted layer\n\n### Badges / Tags / Pills\n**Neutral Pill**\n- Background: `#ffffff`\n- Text: `#000000`\n- Padding: 0px 6px\n- Radius: 4px\n- Border: `1px solid #f6f9fc`\n- Font: 11px weight 400\n\n**Success Badge**\n- Background: `rgba(21,190,83,0.2)`\n- Text: `#108c3d`\n- Padding: 1px 6px\n- Radius: 4px\n- Border: `1px solid rgba(21,190,83,0.4)`\n- Font: 10px weight 300\n\n### Inputs & Forms\n- Border: `1px solid #e5edf5`\n- Radius: 4px\n- Focus: `1px solid #533afd` or purple ring\n- Label: `#273951`, 14px sohne-var\n- Text: `#061b31`\n- Placeholder: `#64748d`\n\n### Navigation\n- Clean horizontal nav on white, sticky with blur backdrop\n- Brand logotype left-aligned\n- Links: sohne-var 14px weight 400, `#061b31` text with `\"ss01\"`\n- Radius: 6px on nav container\n- CTA: purple button right-aligned (\"Sign in\", \"Start now\")\n- Mobile: hamburger toggle with 6px radius\n\n### Decorative Elements\n**Dashed Borders**\n- `1px dashed #362baa` (purple) for placeholder/drop zones\n- `1px dashed #ffd7ef` (magenta) for magenta-themed decorative borders\n\n**Gradient Accents**\n- Ruby-to-magenta gradients (`#ea2261` to `#f96bee`) for hero decorations\n- Brand dark sections use `#1c1e54` backgrounds with white text\n\n## 5. Layout Principles\n\n### Spacing System\n- Base unit: 8px\n- Scale: 1px, 2px, 4px, 6px, 8px, 10px, 11px, 12px, 14px, 16px, 18px, 20px\n- Notable: The scale is dense at the small end (every 2px from 4-12), reflecting Stripe's precision-oriented UI for financial data\n\n### Grid & Container\n- Max content width: approximately 1080px\n- Hero: centered single-column with generous padding, lightweight headlines\n- Feature sections: 2-3 column grids for feature cards\n- Full-width dark sections with `#1c1e54` background for brand immersion\n- Code/dashboard previews as contained cards with blue-tinted shadows\n\n### Whitespace Philosophy\n- **Precision spacing**: Unlike the vast emptiness of minimalist systems, Stripe uses measured, purposeful whitespace. Every gap is a deliberate typographic choice.\n- **Dense data, generous chrome**: Financial data displays (tables, charts) are tightly packed, but the UI chrome around them is generously spaced. This creates a sense of controlled density -- like a well-organized spreadsheet in a beautiful frame.\n- **Section rhythm**: White sections alternate with dark brand sections (`#1c1e54`), creating a dramatic light/dark cadence that prevents monotony without introducing arbitrary color.\n\n### Border Radius Scale\n- Micro (1px): Fine-grained elements, subtle rounding\n- Standard (4px): Buttons, inputs, badges, cards -- the workhorse\n- Comfortable (5px): Standard card containers\n- Relaxed (6px): Navigation, larger interactive elements\n- Large (8px): Featured cards, hero elements\n- Compound: `0px 0px 6px 6px` for bottom-rounded containers (tab panels, dropdown footers)\n\n## 6. Depth & Elevation\n\n| Level | Treatment | Use |\n|-------|-----------|-----|\n| Flat (Level 0) | No shadow | Page background, inline text |\n| Ambient (Level 1) | `rgba(23,23,23,0.06) 0px 3px 6px` | Subtle card lift, hover hints |\n| Standard (Level 2) | `rgba(23,23,23,0.08) 0px 15px 35px` | Standard cards, content panels |\n| Elevated (Level 3) | `rgba(50,50,93,0.25) 0px 30px 45px -30px, rgba(0,0,0,0.1) 0px 18px 36px -18px` | Featured cards, dropdowns, popovers |\n| Deep (Level 4) | `rgba(3,3,39,0.25) 0px 14px 21px -14px, rgba(0,0,0,0.1) 0px 8px 17px -8px` | Modals, floating panels |\n| Ring (Accessibility) | `2px solid #533afd` outline | Keyboard focus ring |\n\n**Shadow Philosophy**: Stripe's shadow system is built on a principle of chromatic depth. Where most design systems use neutral gray or black shadows, Stripe's primary shadow color (`rgba(50,50,93,0.25)`) is a deep blue-gray that echoes the brand's navy palette. This creates shadows that don't just add depth -- they add brand atmosphere. The multi-layer approach pairs this blue-tinted shadow with a pure black secondary layer (`rgba(0,0,0,0.1)`) at a different offset, creating a parallax-like depth where the branded shadow sits farther from the element and the neutral shadow sits closer. The negative spread values (-30px, -18px) ensure shadows don't extend beyond the element's footprint horizontally, keeping elevation vertical and controlled.\n\n### Decorative Depth\n- Dark brand sections (`#1c1e54`) create immersive depth through background color contrast\n- Gradient overlays with ruby-to-magenta transitions for hero decorations\n- Shadow color `rgba(0,55,112,0.08)` (`--hds-color-shadow-sm-top`) for top-edge shadows on sticky elements\n\n## 7. Do's and Don'ts\n\n### Do\n- Use sohne-var with `\"ss01\"` on every text element -- the stylistic set IS the brand\n- Use weight 300 for all headlines and body text -- lightness is the signature\n- Apply blue-tinted shadows (`rgba(50,50,93,0.25)`) for all elevated elements\n- Use `#061b31` (deep navy) for headings instead of `#000000` -- the warmth matters\n- Keep border-radius between 4px-8px -- conservative rounding is intentional\n- Use `\"tnum\"` for any tabular/financial number display\n- Layer shadows: blue-tinted far + neutral close for depth parallax\n- Use `#533afd` purple as the primary interactive/CTA color\n\n### Don't\n- Don't use weight 600-700 for sohne-var headlines -- weight 300 is the brand voice\n- Don't use large border-radius (12px+, pill shapes) on cards or buttons -- Stripe is conservative\n- Don't use neutral gray shadows -- always tint with blue (`rgba(50,50,93,...)`)\n- Don't skip `\"ss01\"` on any sohne-var text -- the alternate glyphs define the personality\n- Don't use pure black (`#000000`) for headings -- always `#061b31` deep navy\n- Don't use warm accent colors (orange, yellow) for interactive elements -- purple is primary\n- Don't apply positive letter-spacing at display sizes -- Stripe tracks tight\n- Don't use the magenta/ruby accents for buttons or links -- they're decorative/gradient only\n\n## 8. Responsive Behavior\n\n### Breakpoints\n| Name | Width | Key Changes |\n|------|-------|-------------|\n| Mobile | <640px | Single column, reduced heading sizes, stacked cards |\n| Tablet | 640-1024px | 2-column grids, moderate padding |\n| Desktop | 1024-1280px | Full layout, 3-column feature grids |\n| Large Desktop | >1280px | Centered content with generous margins |\n\n### Touch Targets\n- Buttons use comfortable padding (8px-16px vertical)\n- Navigation links at 14px with adequate spacing\n- Badges have 6px horizontal padding minimum for tap targets\n- Mobile nav toggle with 6px radius button\n\n### Collapsing Strategy\n- Hero: 56px display -> 32px on mobile, weight 300 maintained\n- Navigation: horizontal links + CTAs -> hamburger toggle\n- Feature cards: 3-column -> 2-column -> single column stacked\n- Dark brand sections: maintain full-width treatment, reduce internal padding\n- Financial data tables: horizontal scroll on mobile\n- Section spacing: 64px+ -> 40px on mobile\n- Typography scale compresses: 56px -> 48px -> 32px hero sizes across breakpoints\n\n### Image Behavior\n- Dashboard/product screenshots maintain blue-tinted shadow at all sizes\n- Hero gradient decorations simplify on mobile\n- Code blocks maintain `SourceCodePro` treatment, may horizontally scroll\n- Card images maintain consistent 4px-6px border-radius\n\n## 9. Agent Prompt Guide\n\n### Quick Color Reference\n- Primary CTA: Stripe Purple (`#533afd`)\n- CTA Hover: Purple Dark (`#4434d4`)\n- Background: Pure White (`#ffffff`)\n- Heading text: Deep Navy (`#061b31`)\n- Body text: Slate (`#64748d`)\n- Label text: Dark Slate (`#273951`)\n- Border: Soft Blue (`#e5edf5`)\n- Link: Stripe Purple (`#533afd`)\n- Dark section: Brand Dark (`#1c1e54`)\n- Success: Green (`#15be53`)\n- Accent decorative: Ruby (`#ea2261`), Magenta (`#f96bee`)\n\n### Example Component Prompts\n- \"Create a hero section on white background. Headline at 48px sohne-var weight 300, line-height 1.15, letter-spacing -0.96px, color #061b31, font-feature-settings 'ss01'. Subtitle at 18px weight 300, line-height 1.40, color #64748d. Purple CTA button (#533afd, 4px radius, 8px 16px padding, white text) and ghost button (transparent, 1px solid #b9b9f9, #533afd text, 4px radius).\"\n- \"Design a card: white background, 1px solid #e5edf5 border, 6px radius. Shadow: rgba(50,50,93,0.25) 0px 30px 45px -30px, rgba(0,0,0,0.1) 0px 18px 36px -18px. Title at 22px sohne-var weight 300, letter-spacing -0.22px, color #061b31, 'ss01'. Body at 16px weight 300, #64748d.\"\n- \"Build a success badge: rgba(21,190,83,0.2) background, #108c3d text, 4px radius, 1px 6px padding, 10px sohne-var weight 300, border 1px solid rgba(21,190,83,0.4).\"\n- \"Create navigation: white sticky header with backdrop-filter blur(12px). sohne-var 14px weight 400 for links, #061b31 text, 'ss01'. Purple CTA 'Start now' right-aligned (#533afd bg, white text, 4px radius). Nav container 6px radius.\"\n- \"Design a dark brand section: #1c1e54 background, white text. Headline 32px sohne-var weight 300, letter-spacing -0.64px, 'ss01'. Body 16px weight 300, rgba(255,255,255,0.7). Cards inside use rgba(255,255,255,0.1) border with 6px radius.\"\n\n### Iteration Guide\n1. Always enable `font-feature-settings: \"ss01\"` on sohne-var text -- this is the brand's typographic DNA\n2. Weight 300 is the default; use 400 only for buttons/links/navigation\n3. Shadow formula: `rgba(50,50,93,0.25) 0px Y1 B1 -S1, rgba(0,0,0,0.1) 0px Y2 B2 -S2` where Y1/B1 are larger (far shadow) and Y2/B2 are smaller (near shadow)\n4. Heading color is `#061b31` (deep navy), body is `#64748d` (slate), labels are `#273951` (dark slate)\n5. Border-radius stays in the 4px-8px range -- never use pill shapes or large rounding\n6. Use `\"tnum\"` for any numbers in tables, charts, or financial displays\n7. Dark sections use `#1c1e54` -- not black, not gray, but a deep branded indigo\n8. SourceCodePro for code at 12px/500 with 2.00 line-height (very generous for readability)\n",
+  "createdAt": "2026-04-09T07:52:09.855Z",
+  "updatedAt": "2026-04-09T07:52:09.855Z",
+  "source": "imported"
+}

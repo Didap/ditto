@@ -1,0 +1,229 @@
+{
+  "id": "7kac70u4_Z0lYhAP1fH8i",
+  "slug": "cursor",
+  "name": "Cursor",
+  "url": "https://cursor.com",
+  "description": "AI-first code editor. Sleek dark interface, gradient accents.",
+  "tokens": {
+    "colors": [
+      {
+        "hex": "#f2f1ed",
+        "rgb": "242, 241, 237",
+        "occurrences": 1,
+        "name": "Color 1",
+        "role": "primary"
+      },
+      {
+        "hex": "#26251e",
+        "rgb": "38, 37, 30",
+        "occurrences": 1,
+        "name": "Color 2",
+        "role": "secondary"
+      },
+      {
+        "hex": "#e6e5e0",
+        "rgb": "230, 229, 224",
+        "occurrences": 1,
+        "name": "Color 3",
+        "role": "neutral"
+      },
+      {
+        "hex": "#ebeae5",
+        "rgb": "235, 234, 229",
+        "occurrences": 1,
+        "name": "Color 4",
+        "role": "neutral"
+      },
+      {
+        "hex": "#cf2d56",
+        "rgb": "207, 45, 86",
+        "occurrences": 1,
+        "name": "Color 5",
+        "role": "neutral"
+      },
+      {
+        "hex": "#f54e00",
+        "rgb": "245, 78, 0",
+        "occurrences": 1,
+        "name": "Color 6",
+        "role": "neutral"
+      },
+      {
+        "hex": "#ffffff",
+        "rgb": "255, 255, 255",
+        "occurrences": 1,
+        "name": "Color 7",
+        "role": "neutral"
+      },
+      {
+        "hex": "#000000",
+        "rgb": "0, 0, 0",
+        "occurrences": 1,
+        "name": "Color 8",
+        "role": "neutral"
+      },
+      {
+        "hex": "#c08532",
+        "rgb": "192, 133, 50",
+        "occurrences": 1,
+        "name": "Color 9",
+        "role": "neutral"
+      },
+      {
+        "hex": "#1f8a65",
+        "rgb": "31, 138, 101",
+        "occurrences": 1,
+        "name": "Color 10",
+        "role": "neutral"
+      },
+      {
+        "hex": "#dfa88f",
+        "rgb": "223, 168, 143",
+        "occurrences": 1,
+        "name": "Color 11",
+        "role": "neutral"
+      },
+      {
+        "hex": "#9fc9a2",
+        "rgb": "159, 201, 162",
+        "occurrences": 1,
+        "name": "Color 12",
+        "role": "neutral"
+      },
+      {
+        "hex": "#9fbbe0",
+        "rgb": "159, 187, 224",
+        "occurrences": 1,
+        "name": "Color 13",
+        "role": "neutral"
+      },
+      {
+        "hex": "#c0a8dd",
+        "rgb": "192, 168, 221",
+        "occurrences": 1,
+        "name": "Color 14",
+        "role": "neutral"
+      },
+      {
+        "hex": "#f7f7f4",
+        "rgb": "247, 247, 244",
+        "occurrences": 1,
+        "name": "Color 15",
+        "role": "neutral"
+      },
+      {
+        "hex": "#e1e0db",
+        "rgb": "225, 224, 219",
+        "occurrences": 1,
+        "name": "Color 16",
+        "role": "neutral"
+      }
+    ],
+    "typography": [
+      {
+        "fontFamily": "system-ui",
+        "fallbacks": [
+          "system-ui"
+        ],
+        "weights": [
+          700
+        ],
+        "role": "heading"
+      },
+      {
+        "fontFamily": "system-ui",
+        "fallbacks": [
+          "system-ui"
+        ],
+        "weights": [
+          400
+        ],
+        "role": "body"
+      }
+    ],
+    "typeScale": [],
+    "spacing": [],
+    "shadows": [],
+    "radii": [
+      {
+        "value": "1px",
+        "px": 1,
+        "occurrences": 1
+      },
+      {
+        "value": "8px",
+        "px": 8,
+        "occurrences": 1
+      },
+      {
+        "value": "14px",
+        "px": 14,
+        "occurrences": 1
+      },
+      {
+        "value": "72px",
+        "px": 72,
+        "occurrences": 1
+      },
+      {
+        "value": "9999px",
+        "px": 9999,
+        "occurrences": 1
+      }
+    ],
+    "components": [],
+    "cssVariables": {},
+    "meta": {
+      "url": "https://cursor.com",
+      "title": "cursor",
+      "extractedAt": "2026-04-09T07:51:31.198Z"
+    }
+  },
+  "resolved": {
+    "colorPrimary": "#f2f1ed",
+    "colorSecondary": "#26251e",
+    "colorAccent": "#e6e5e0",
+    "colorBackground": "#f2f1ed",
+    "colorSurface": "#f8fafc",
+    "colorTextPrimary": "#26251e",
+    "colorTextSecondary": "#475569",
+    "colorTextMuted": "#94a3b8",
+    "colorBorder": "#e2e8f0",
+    "colorSuccess": "#22c55e",
+    "colorWarning": "#f59e0b",
+    "colorError": "#ef4444",
+    "fontHeading": "system-ui",
+    "fontBody": "system-ui",
+    "fontMono": "ui-monospace",
+    "fontWeightHeading": 700,
+    "fontWeightBody": 400,
+    "textXs": "0.75rem",
+    "textSm": "0.875rem",
+    "textBase": "1rem",
+    "textLg": "1.125rem",
+    "textXl": "1.25rem",
+    "text2xl": "1.5rem",
+    "text3xl": "1.875rem",
+    "text4xl": "2.25rem",
+    "spacingXs": "4px",
+    "spacingSm": "8px",
+    "spacingMd": "16px",
+    "spacingLg": "24px",
+    "spacingXl": "32px",
+    "spacing2xl": "48px",
+    "radiusSm": "1px",
+    "radiusMd": "8px",
+    "radiusLg": "14px",
+    "radiusFull": "9999px",
+    "shadowSm": "0 1px 2px 0 rgba(0,0,0,0.05)",
+    "shadowMd": "0 4px 6px -1px rgba(0,0,0,0.1)",
+    "shadowLg": "0 10px 15px -3px rgba(0,0,0,0.1)",
+    "lineHeightTight": "1.15",
+    "lineHeightNormal": "1.5",
+    "lineHeightRelaxed": "1.75"
+  },
+  "designMd": "# Design System Inspiration of Cursor\n\n## 1. Visual Theme & Atmosphere\n\nCursor's website is a study in warm minimalism meets code-editor elegance. The entire experience is built on a warm off-white canvas (`#f2f1ed`) with dark warm-brown text (`#26251e`) -- not pure black, not neutral gray, but a deeply warm near-black with a yellowish undertone that evokes old paper, ink, and craft. This warmth permeates every surface: backgrounds lean toward cream (`#e6e5e0`, `#ebeae5`), borders dissolve into transparent warm overlays using `oklab` color space, and even the error state (`#cf2d56`) carries warmth rather than clinical red. The result feels more like a premium print publication than a tech website.\n\nThe custom CursorGothic font is the typographic signature -- a gothic sans-serif with aggressive negative letter-spacing at display sizes (-2.16px at 72px) that creates a compressed, engineered feel. As a secondary voice, the jjannon serif font (with OpenType `\"cswh\"` contextual swash alternates) provides literary counterpoint for body copy and editorial passages. The monospace voice comes from berkeleyMono, a refined coding font that connects the marketing site to Cursor's core identity as a code editor. This three-font system (gothic display, serif body, mono code) gives Cursor one of the most typographically rich palettes in developer tooling.\n\nThe border system is particularly distinctive -- Cursor uses `oklab()` color space for border colors, applying warm brown at various alpha levels (0.1, 0.2, 0.55) to create borders that feel organic rather than mechanical. The signature border color `oklab(0.263084 -0.00230259 0.0124794 / 0.1)` is not a simple rgba value but a perceptually uniform color that maintains visual consistency across different backgrounds.\n\n**Key Characteristics:**\n- CursorGothic with aggressive negative letter-spacing (-2.16px at 72px, -0.72px at 36px) for compressed display headings\n- jjannon serif for body text with OpenType `\"cswh\"` (contextual swash alternates)\n- berkeleyMono for code and technical labels\n- Warm off-white background (`#f2f1ed`) instead of pure white -- the entire system is warm-shifted\n- Primary text color `#26251e` (warm near-black with yellow undertone)\n- Accent orange `#f54e00` for brand highlight and links\n- oklab-space borders at various alpha levels for perceptually uniform edge treatment\n- Pill-shaped elements with extreme radius (33.5M px, effectively full-pill)\n- 8px base spacing system with fine-grained sub-8px increments (1.5px, 2px, 2.5px, 3px, 4px, 5px, 6px)\n\n## 2. Color Palette & Roles\n\n### Primary\n- **Cursor Dark** (`#26251e`): Primary text, headings, dark UI surfaces. A warm near-black with distinct yellow-brown undertone -- the defining color of the system.\n- **Cursor Cream** (`#f2f1ed`): Page background, primary surface. Not white but a warm cream that sets the entire warm tone.\n- **Cursor Light** (`#e6e5e0`): Secondary surface, button backgrounds, card fills. A slightly warmer, slightly darker cream.\n- **Pure White** (`#ffffff`): Used sparingly for maximum contrast elements and specific surface highlights.\n- **True Black** (`#000000`): Minimal use, specific code/console contexts.\n\n### Accent\n- **Cursor Orange** (`#f54e00`): Brand accent, `--color-accent`. A vibrant red-orange used for primary CTAs, active links, and brand moments. Warm and urgent.\n- **Gold** (`#c08532`): Secondary accent, warm gold for premium or highlighted contexts.\n\n### Semantic\n- **Error** (`#cf2d56`): `--color-error`. A warm crimson-rose rather than cold red.\n- **Success** (`#1f8a65`): `--color-success`. A muted teal-green, warm-shifted.\n\n### Timeline / Feature Colors\n- **Thinking** (`#dfa88f`): Warm peach for \"thinking\" state in AI timeline.\n- **Grep** (`#9fc9a2`): Soft sage green for search/grep operations.\n- **Read** (`#9fbbe0`): Soft blue for file reading operations.\n- **Edit** (`#c0a8dd`): Soft lavender for editing operations.\n\n### Surface Scale\n- **Surface 100** (`#f7f7f4`): Lightest button/card surface, barely tinted.\n- **Surface 200** (`#f2f1ed`): Primary page background.\n- **Surface 300** (`#ebeae5`): Button default background, subtle emphasis.\n- **Surface 400** (`#e6e5e0`): Card backgrounds, secondary surfaces.\n- **Surface 500** (`#e1e0db`): Tertiary button background, deeper emphasis.\n\n### Border Colors\n- **Border Primary** (`oklab(0.263084 -0.00230259 0.0124794 / 0.1)`): Standard border, 10% warm brown in oklab space.\n- **Border Medium** (`oklab(0.263084 -0.00230259 0.0124794 / 0.2)`): Emphasized border, 20% warm brown.\n- **Border Strong** (`rgba(38, 37, 30, 0.55)`): Strong borders, table rules.\n- **Border Solid** (`#26251e`): Full-opacity dark border for maximum contrast.\n- **Border Light** (`#f2f1ed`): Light border matching page background.\n\n### Shadows & Depth\n- **Card Shadow** (`rgba(0,0,0,0.14) 0px 28px 70px, rgba(0,0,0,0.1) 0px 14px 32px, oklab(0.263084 -0.00230259 0.0124794 / 0.1) 0px 0px 0px 1px`): Heavy elevated card with warm oklab border ring.\n- **Ambient Shadow** (`rgba(0,0,0,0.02) 0px 0px 16px, rgba(0,0,0,0.008) 0px 0px 8px`): Subtle ambient glow for floating elements.\n\n## 3. Typography Rules\n\n### Font Family\n- **Display/Headlines**: `CursorGothic`, with fallbacks: `CursorGothic Fallback, system-ui, Helvetica Neue, Helvetica, Arial`\n- **Body/Editorial**: `jjannon`, with fallbacks: `Iowan Old Style, Palatino Linotype, URW Palladio L, P052, ui-serif, Georgia, Cambria, Times New Roman, Times`\n- **Code/Technical**: `berkeleyMono`, with fallbacks: `ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New`\n- **UI/System**: `system-ui`, with fallbacks: `-apple-system, Segoe UI, Helvetica Neue, Arial`\n- **Icons**: `CursorIcons16` (icon font at 14px and 12px)\n- **OpenType Features**: `\"cswh\"` on jjannon body text, `\"ss09\"` on CursorGothic buttons/captions\n\n### Hierarchy\n\n| Role | Font | Size | Weight | Line Height | Letter Spacing | Notes |\n|------|------|------|--------|-------------|----------------|-------|\n| Display Hero | CursorGothic | 72px (4.50rem) | 400 | 1.10 (tight) | -2.16px | Maximum compression, hero statements |\n| Section Heading | CursorGothic | 36px (2.25rem) | 400 | 1.20 (tight) | -0.72px | Feature sections, CTA headlines |\n| Sub-heading | CursorGothic | 26px (1.63rem) | 400 | 1.25 (tight) | -0.325px | Card headings, sub-sections |\n| Title Small | CursorGothic | 22px (1.38rem) | 400 | 1.30 (tight) | -0.11px | Smaller titles, list headings |\n| Body Serif | jjannon | 19.2px (1.20rem) | 500 | 1.50 | normal | Editorial body with `\"cswh\"` |\n| Body Serif SM | jjannon | 17.28px (1.08rem) | 400 | 1.35 | normal | Standard body text, descriptions |\n| Body Sans | CursorGothic | 16px (1.00rem) | 400 | 1.50 | normal/0.08px | UI body text |\n| Button Label | CursorGothic | 14px (0.88rem) | 400 | 1.00 (tight) | normal | Primary button text |\n| Button Caption | CursorGothic | 14px (0.88rem) | 400 | 1.50 | 0.14px | Secondary button with `\"ss09\"` |\n| Caption | CursorGothic | 11px (0.69rem) | 400-500 | 1.50 | normal | Small captions, metadata |\n| System Heading | system-ui | 20px (1.25rem) | 700 | 1.55 | normal | System UI headings |\n| System Caption | system-ui | 13px (0.81rem) | 500-600 | 1.33 | normal | System UI labels |\n| System Micro | system-ui | 11px (0.69rem) | 500 | 1.27 (tight) | 0.048px | Uppercase micro labels |\n| Mono Body | berkeleyMono | 12px (0.75rem) | 400 | 1.67 (relaxed) | normal | Code blocks |\n| Mono Small | berkeleyMono | 11px (0.69rem) | 400 | 1.33 | -0.275px | Inline code, terminal |\n| Lato Heading | Lato | 16px (1.00rem) | 600 | 1.33 | normal | Lato section headings |\n| Lato Caption | Lato | 14px (0.88rem) | 400-600 | 1.33 | normal | Lato captions |\n| Lato Micro | Lato | 12px (0.75rem) | 400-600 | 1.27 (tight) | 0.053px | Lato small labels |\n\n### Principles\n- **Gothic compression for impact**: CursorGothic at display sizes uses -2.16px letter-spacing at 72px, progressively relaxing: -0.72px at 36px, -0.325px at 26px, -0.11px at 22px, normal at 16px and below. The tracking creates a sense of precision engineering.\n- **Serif for soul**: jjannon provides literary warmth. The `\"cswh\"` feature adds contextual swash alternates that give body text a calligraphic quality.\n- **Three typographic voices**: Gothic (display/UI), serif (editorial/body), mono (code/technical). Each serves a distinct communication purpose.\n- **Weight restraint**: CursorGothic uses weight 400 almost exclusively, relying on size and tracking for hierarchy rather than weight. System-ui components use 500-700 for functional emphasis.\n\n## 4. Component Stylings\n\n### Buttons\n\n**Primary (Warm Surface)**\n- Background: `#ebeae5` (Surface 300)\n- Text: `#26251e` (Cursor Dark)\n- Padding: 10px 12px 10px 14px\n- Radius: 8px\n- Outline: none\n- Hover: text shifts to `var(--color-error)` (`#cf2d56`)\n- Focus shadow: `rgba(0,0,0,0.1) 0px 4px 12px`\n- Use: Primary actions, main CTAs\n\n**Secondary Pill**\n- Background: `#e6e5e0` (Surface 400)\n- Text: `oklab(0.263 / 0.6)` (60% warm brown)\n- Padding: 3px 8px\n- Radius: full pill (33.5M px)\n- Hover: text shifts to `var(--color-error)`\n- Use: Tags, filters, secondary actions\n\n**Tertiary Pill**\n- Background: `#e1e0db` (Surface 500)\n- Text: `oklab(0.263 / 0.6)` (60% warm brown)\n- Radius: full pill\n- Use: Active filter state, selected tags\n\n**Ghost (Transparent)**\n- Background: `rgba(38, 37, 30, 0.06)` (6% warm brown)\n- Text: `rgba(38, 37, 30, 0.55)` (55% warm brown)\n- Padding: 6px 12px\n- Use: Tertiary actions, dismiss buttons\n\n**Light Surface**\n- Background: `#f7f7f4` (Surface 100) or `#f2f1ed` (Surface 200)\n- Text: `#26251e` or `oklab(0.263 / 0.9)` (90%)\n- Padding: 0px 8px 1px 12px\n- Use: Dropdown triggers, subtle interactive elements\n\n### Cards & Containers\n- Background: `#e6e5e0` or `#f2f1ed`\n- Border: `1px solid oklab(0.263 / 0.1)` (warm brown at 10%)\n- Radius: 8px (standard), 4px (compact), 10px (featured)\n- Shadow: `rgba(0,0,0,0.14) 0px 28px 70px, rgba(0,0,0,0.1) 0px 14px 32px` for elevated cards\n- Hover: shadow intensification\n\n### Inputs & Forms\n- Background: transparent or surface\n- Text: `#26251e`\n- Padding: 8px 8px 6px (textarea)\n- Border: `1px solid oklab(0.263 / 0.1)`\n- Focus: border shifts to `oklab(0.263 / 0.2)` or accent orange\n\n### Navigation\n- Clean horizontal nav on warm cream background\n- Cursor logotype left-aligned (~96x24px)\n- Links: 14px CursorGothic or system-ui, weight 500\n- CTA button: warm surface with Cursor Dark text\n- Tab navigation: bottom border `1px solid oklab(0.263 / 0.1)` with active tab differentiation\n\n### Image Treatment\n- Code editor screenshots with `1px solid oklab(0.263 / 0.1)` border\n- Rounded corners: 8px standard\n- AI chat/timeline screenshots dominate feature sections\n- Warm gradient or solid cream backgrounds behind hero images\n\n### Distinctive Components\n\n**AI Timeline**\n- Vertical timeline showing AI operations: thinking (peach), grep (sage), read (blue), edit (lavender)\n- Each step uses its semantic color with matching text\n- Connected with vertical lines\n- Core visual metaphor for Cursor's AI-first coding experience\n\n**Code Editor Previews**\n- Dark code editor screenshots with warm cream border frame\n- berkeleyMono for code text\n- Syntax highlighting using timeline colors\n\n**Pricing Cards**\n- Warm surface backgrounds with bordered containers\n- Feature lists using jjannon serif for readability\n- CTA buttons with accent orange or primary dark styling\n\n## 5. Layout Principles\n\n### Spacing System\n- Base unit: 8px\n- Fine scale: 1.5px, 2px, 2.5px, 3px, 4px, 5px, 6px (sub-8px for micro-adjustments)\n- Standard scale: 8px, 10px, 12px, 14px (derived from extraction)\n- Extended scale (inferred): 16px, 24px, 32px, 48px, 64px, 96px\n- Notable: fine-grained sub-8px increments for precise icon/text alignment\n\n### Grid & Container\n- Max content width: approximately 1200px\n- Hero: centered single-column with generous top padding (80-120px)\n- Feature sections: 2-3 column grids for cards and features\n- Full-width sections with warm cream or slightly darker backgrounds\n- Sidebar layouts for documentation and settings pages\n\n### Whitespace Philosophy\n- **Warm negative space**: The cream background means whitespace has warmth and texture, unlike cold white minimalism. Large empty areas feel cozy rather than clinical.\n- **Compressed text, open layout**: Aggressive negative letter-spacing on CursorGothic headlines is balanced by generous surrounding margins. Text is dense; space around it breathes.\n- **Section variation**: Alternating surface tones (cream → lighter cream → cream) create subtle section differentiation without harsh boundaries.\n\n### Border Radius Scale\n- Micro (1.5px): Fine detail elements\n- Small (2px): Inline elements, code spans\n- Medium (3px): Small containers, inline badges\n- Standard (4px): Cards, images, compact buttons\n- Comfortable (8px): Primary buttons, cards, menus\n- Featured (10px): Larger containers, featured cards\n- Full Pill (33.5M px / 9999px): Pill buttons, tags, badges\n\n## 6. Depth & Elevation\n\n| Level | Treatment | Use |\n|-------|-----------|-----|\n| Flat (Level 0) | No shadow | Page background, text blocks |\n| Border Ring (Level 1) | `oklab(0.263 / 0.1) 0px 0px 0px 1px` | Standard card/container border (warm oklab) |\n| Border Medium (Level 1b) | `oklab(0.263 / 0.2) 0px 0px 0px 1px` | Emphasized borders, active states |\n| Ambient (Level 2) | `rgba(0,0,0,0.02) 0px 0px 16px, rgba(0,0,0,0.008) 0px 0px 8px` | Floating elements, subtle glow |\n| Elevated Card (Level 3) | `rgba(0,0,0,0.14) 0px 28px 70px, rgba(0,0,0,0.1) 0px 14px 32px, oklab ring` | Modals, popovers, elevated cards |\n| Focus | `rgba(0,0,0,0.1) 0px 4px 12px` on button focus | Interactive focus feedback |\n\n**Shadow Philosophy**: Cursor's depth system is built around two ideas. First, borders use perceptually uniform oklab color space rather than rgba, ensuring warm brown borders look consistent across different background tones. Second, elevation shadows use dramatically large blur values (28px, 70px) with moderate opacity (0.14, 0.1), creating a diffused, atmospheric lift rather than hard-edged drop shadows. Cards don't feel like they float above the page -- they feel like the page has gently opened a space for them.\n\n### Decorative Depth\n- Warm cream surface variations create subtle tonal depth without shadows\n- oklab borders at 10% and 20% create a spectrum of edge definition\n- No harsh divider lines -- section separation through background tone shifts and spacing\n\n## 7. Interaction & Motion\n\n### Hover States\n- Buttons: text color shifts to `--color-error` (`#cf2d56`) on hover -- a distinctive warm crimson that signals interactivity\n- Links: color shift to accent orange (`#f54e00`) or underline decoration with `rgba(38, 37, 30, 0.4)`\n- Cards: shadow intensification on hover (ambient → elevated)\n\n### Focus States\n- Shadow-based focus: `rgba(0,0,0,0.1) 0px 4px 12px` for depth-based focus indication\n- Border focus: `oklab(0.263 / 0.2)` (20% border) for input/form focus\n- Consistent warm tone in all focus states -- no cold blue focus rings\n\n### Transitions\n- Color transitions: 150ms ease for text/background color changes\n- Shadow transitions: 200ms ease for elevation changes\n- Transform: subtle scale or translate for interactive feedback\n\n## 8. Responsive Behavior\n\n### Breakpoints\n| Name | Width | Key Changes |\n|------|-------|-------------|\n| Mobile | <600px | Single column, reduced padding, stacked navigation |\n| Tablet Small | 600-768px | 2-column grids begin |\n| Tablet | 768-900px | Expanded card grids, sidebar appears |\n| Desktop Small | 900-1279px | Full layout forming |\n| Desktop | >1279px | Full layout, maximum content width |\n\n### Touch Targets\n- Buttons use comfortable padding (6px-14px vertical, 8px-14px horizontal)\n- Pill buttons maintain tap-friendly sizing with 3px-10px padding\n- Navigation links at 14px with adequate spacing for touch\n\n### Collapsing Strategy\n- Hero: 72px CursorGothic → 36px → 26px on smaller screens, maintaining proportional letter-spacing\n- Navigation: horizontal links → hamburger menu on mobile\n- Feature cards: 3-column → 2-column → single column stacked\n- Code editor screenshots: maintain aspect ratio, may shrink with border treatment preserved\n- Timeline visualization: horizontal → vertical stacking\n- Section spacing: 80px+ → 48px → 32px on mobile\n\n### Image Behavior\n- Editor screenshots maintain warm border treatment at all sizes\n- AI timeline adapts from horizontal to vertical layout\n- Product screenshots use responsive images with consistent border radius\n- Full-width hero images scale proportionally\n\n## 9. Agent Prompt Guide\n\n### Quick Color Reference\n- Primary CTA background: `#ebeae5` (warm cream button)\n- Page background: `#f2f1ed` (warm off-white)\n- Text color: `#26251e` (warm near-black)\n- Secondary text: `rgba(38, 37, 30, 0.55)` (55% warm brown)\n- Accent: `#f54e00` (orange)\n- Error/hover: `#cf2d56` (warm crimson)\n- Success: `#1f8a65` (muted teal)\n- Border: `oklab(0.263084 -0.00230259 0.0124794 / 0.1)` or `rgba(38, 37, 30, 0.1)` as fallback\n\n### Example Component Prompts\n- \"Create a hero section on `#f2f1ed` warm cream background. Headline at 72px CursorGothic weight 400, line-height 1.10, letter-spacing -2.16px, color `#26251e`. Subtitle at 17.28px jjannon weight 400, line-height 1.35, color `rgba(38,37,30,0.55)`. Primary CTA button (`#ebeae5` bg, 8px radius, 10px 14px padding) with hover text shift to `#cf2d56`.\"\n- \"Design a card: `#e6e5e0` background, border `1px solid rgba(38,37,30,0.1)`. Radius 8px. Title at 22px CursorGothic weight 400, letter-spacing -0.11px. Body at 17.28px jjannon weight 400, color `rgba(38,37,30,0.55)`. Use `#f54e00` for link accents.\"\n- \"Build a pill tag: `#e6e5e0` background, `rgba(38,37,30,0.6)` text, full-pill radius (9999px), 3px 8px padding, 14px CursorGothic weight 400.\"\n- \"Create navigation: sticky `#f2f1ed` background with backdrop-filter blur. 14px system-ui weight 500 for links, `#26251e` text. CTA button right-aligned with `#ebeae5` bg and 8px radius. Bottom border `1px solid rgba(38,37,30,0.1)`.\"\n- \"Design an AI timeline showing four steps: Thinking (`#dfa88f`), Grep (`#9fc9a2`), Read (`#9fbbe0`), Edit (`#c0a8dd`). Each step: 14px system-ui label + 16px CursorGothic description + vertical connecting line in `rgba(38,37,30,0.1)`.\"\n\n### Iteration Guide\n1. Always use warm tones -- `#f2f1ed` background, `#26251e` text, never pure white/black for primary surfaces\n2. Letter-spacing scales with font size for CursorGothic: -2.16px at 72px, -0.72px at 36px, -0.325px at 26px, normal at 16px\n3. Use `rgba(38, 37, 30, alpha)` as a CSS-compatible fallback for oklab borders\n4. Three fonts, three voices: CursorGothic (display/UI), jjannon (editorial), berkeleyMono (code)\n5. Pill shapes (9999px radius) for tags and filters; 8px radius for primary buttons and cards\n6. Hover states use `#cf2d56` text color -- the warm crimson shift is a signature interaction\n7. Shadows use large blur values (28px, 70px) for diffused atmospheric depth\n8. The sub-8px spacing scale (1.5, 2, 2.5, 3, 4, 5, 6px) is critical for icon/text micro-alignment\n",
+  "createdAt": "2026-04-09T07:51:31.198Z",
+  "updatedAt": "2026-04-09T07:51:31.198Z",
+  "source": "imported"
+}

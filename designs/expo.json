@@ -1,0 +1,272 @@
+{
+  "id": "EzXL4d3fJxf1i9fiGVCqm",
+  "slug": "expo",
+  "name": "Expo",
+  "url": "https://expo.com",
+  "description": "React Native platform. Dark theme, tight letter-spacing, code-centric.",
+  "tokens": {
+    "colors": [
+      {
+        "hex": "#f0f0f3",
+        "rgb": "240, 240, 243",
+        "occurrences": 1,
+        "name": "Color 1",
+        "role": "primary"
+      },
+      {
+        "hex": "#000000",
+        "rgb": "0, 0, 0",
+        "occurrences": 1,
+        "name": "Color 2",
+        "role": "secondary"
+      },
+      {
+        "hex": "#60646c",
+        "rgb": "96, 100, 108",
+        "occurrences": 1,
+        "name": "Color 3",
+        "role": "neutral"
+      },
+      {
+        "hex": "#b0b4ba",
+        "rgb": "176, 180, 186",
+        "occurrences": 1,
+        "name": "Color 4",
+        "role": "neutral"
+      },
+      {
+        "hex": "#555860",
+        "rgb": "85, 88, 96",
+        "occurrences": 1,
+        "name": "Color 5",
+        "role": "neutral"
+      },
+      {
+        "hex": "#1c2024",
+        "rgb": "28, 32, 36",
+        "occurrences": 1,
+        "name": "Color 6",
+        "role": "neutral"
+      },
+      {
+        "hex": "#0d74ce",
+        "rgb": "13, 116, 206",
+        "occurrences": 1,
+        "name": "Color 7",
+        "role": "neutral"
+      },
+      {
+        "hex": "#476cff",
+        "rgb": "71, 108, 255",
+        "occurrences": 1,
+        "name": "Color 8",
+        "role": "neutral"
+      },
+      {
+        "hex": "#47c2ff",
+        "rgb": "71, 194, 255",
+        "occurrences": 1,
+        "name": "Color 9",
+        "role": "neutral"
+      },
+      {
+        "hex": "#8145b5",
+        "rgb": "129, 69, 181",
+        "occurrences": 1,
+        "name": "Color 10",
+        "role": "neutral"
+      },
+      {
+        "hex": "#ffffff",
+        "rgb": "255, 255, 255",
+        "occurrences": 1,
+        "name": "Color 11",
+        "role": "neutral"
+      },
+      {
+        "hex": "#1a1a1a",
+        "rgb": "26, 26, 26",
+        "occurrences": 1,
+        "name": "Color 12",
+        "role": "neutral"
+      },
+      {
+        "hex": "#171717",
+        "rgb": "23, 23, 23",
+        "occurrences": 1,
+        "name": "Color 13",
+        "role": "neutral"
+      },
+      {
+        "hex": "#999999",
+        "rgb": "153, 153, 153",
+        "occurrences": 1,
+        "name": "Color 14",
+        "role": "neutral"
+      },
+      {
+        "hex": "#cccccc",
+        "rgb": "204, 204, 204",
+        "occurrences": 1,
+        "name": "Color 15",
+        "role": "neutral"
+      },
+      {
+        "hex": "#363a3f",
+        "rgb": "54, 58, 63",
+        "occurrences": 1,
+        "name": "Color 16",
+        "role": "neutral"
+      },
+      {
+        "hex": "#333333",
+        "rgb": "51, 51, 51",
+        "occurrences": 1,
+        "name": "Color 17",
+        "role": "neutral"
+      },
+      {
+        "hex": "#ab6400",
+        "rgb": "171, 100, 0",
+        "occurrences": 1,
+        "name": "Color 18",
+        "role": "neutral"
+      },
+      {
+        "hex": "#eb8e90",
+        "rgb": "235, 142, 144",
+        "occurrences": 1,
+        "name": "Color 19",
+        "role": "neutral"
+      },
+      {
+        "hex": "#e0e1e6",
+        "rgb": "224, 225, 230",
+        "occurrences": 1,
+        "name": "Color 20",
+        "role": "neutral"
+      }
+    ],
+    "typography": [
+      {
+        "fontFamily": "Inter",
+        "fallbacks": [
+          "system-ui"
+        ],
+        "weights": [
+          700
+        ],
+        "role": "heading"
+      },
+      {
+        "fontFamily": "Inter",
+        "fallbacks": [
+          "system-ui"
+        ],
+        "weights": [
+          400
+        ],
+        "role": "body"
+      }
+    ],
+    "typeScale": [],
+    "spacing": [],
+    "shadows": [],
+    "radii": [
+      {
+        "value": "1px",
+        "px": 1,
+        "occurrences": 1
+      },
+      {
+        "value": "6px",
+        "px": 6,
+        "occurrences": 1
+      },
+      {
+        "value": "8px",
+        "px": 8,
+        "occurrences": 1
+      },
+      {
+        "value": "14px",
+        "px": 14,
+        "occurrences": 1
+      },
+      {
+        "value": "24px",
+        "px": 24,
+        "occurrences": 1
+      },
+      {
+        "value": "36px",
+        "px": 36,
+        "occurrences": 1
+      },
+      {
+        "value": "64px",
+        "px": 64,
+        "occurrences": 1
+      },
+      {
+        "value": "9999px",
+        "px": 9999,
+        "occurrences": 1
+      }
+    ],
+    "components": [],
+    "cssVariables": {},
+    "meta": {
+      "url": "https://expo.com",
+      "title": "expo",
+      "extractedAt": "2026-04-09T07:51:33.656Z"
+    }
+  },
+  "resolved": {
+    "colorPrimary": "#f0f0f3",
+    "colorSecondary": "#000000",
+    "colorAccent": "#60646c",
+    "colorBackground": "#f0f0f3",
+    "colorSurface": "#f8fafc",
+    "colorTextPrimary": "#000000",
+    "colorTextSecondary": "#475569",
+    "colorTextMuted": "#94a3b8",
+    "colorBorder": "#e2e8f0",
+    "colorSuccess": "#47c2ff",
+    "colorWarning": "#f59e0b",
+    "colorError": "#ef4444",
+    "fontHeading": "Inter",
+    "fontBody": "Inter",
+    "fontMono": "ui-monospace",
+    "fontWeightHeading": 700,
+    "fontWeightBody": 400,
+    "textXs": "0.75rem",
+    "textSm": "0.875rem",
+    "textBase": "1rem",
+    "textLg": "1.125rem",
+    "textXl": "1.25rem",
+    "text2xl": "1.5rem",
+    "text3xl": "1.875rem",
+    "text4xl": "2.25rem",
+    "spacingXs": "4px",
+    "spacingSm": "8px",
+    "spacingMd": "16px",
+    "spacingLg": "24px",
+    "spacingXl": "32px",
+    "spacing2xl": "48px",
+    "radiusSm": "1px",
+    "radiusMd": "6px",
+    "radiusLg": "8px",
+    "radiusFull": "9999px",
+    "shadowSm": "0 1px 2px 0 rgba(0,0,0,0.05)",
+    "shadowMd": "0 4px 6px -1px rgba(0,0,0,0.1)",
+    "shadowLg": "0 10px 15px -3px rgba(0,0,0,0.1)",
+    "lineHeightTight": "1.15",
+    "lineHeightNormal": "1.5",
+    "lineHeightRelaxed": "1.75"
+  },
+  "designMd": "# Design System Inspiration of Expo\n\n## 1. Visual Theme & Atmosphere\n\nExpo's interface is a luminous, confidence-radiating developer platform built on the premise that tools for building apps should feel as polished as the apps themselves. The entire experience lives on a bright, airy canvas — a cool-tinted off-white (`#f0f0f3`) that gives the page a subtle technological coolness without the starkness of pure white. This is a site that breathes: enormous vertical spacing between sections creates a gallery-like pace where each feature gets its own \"room.\"\n\nThe design language is decisively monochromatic — pure black (`#000000`) headlines against the lightest possible backgrounds, with a spectrum of cool blue-grays (`#60646c`, `#b0b4ba`, `#555860`) handling all secondary communication. Color is almost entirely absent from the interface itself; when it appears, it's reserved for product screenshots, app icons, and the React universe illustration — making the actual content burst with life against the neutral canvas.\n\nWhat makes Expo distinctive is its pill-shaped geometry. Buttons, tabs, video containers, and even images use generously rounded or fully pill-shaped corners (24px–9999px), creating an organic, approachable feel that contradicts the typical sharp-edged developer tool aesthetic. Combined with tight letter-spacing on massive headlines (-1.6px to -3px at 64px), the result is a design that's simultaneously premium and friendly — like an Apple product page reimagined for developers.\n\n**Key Characteristics:**\n- Luminous cool-white canvas (`#f0f0f3`) with gallery-like vertical spacing\n- Strictly monochromatic: pure black headlines, cool blue-gray body text, no decorative color\n- Pill-shaped geometry everywhere — buttons, tabs, containers, images (24px–9999px radius)\n- Massive display headlines (64px) with extreme negative letter-spacing (-1.6px to -3px)\n- Inter as the sole typeface, used at weights 400–900 for full expressive range\n- Whisper-soft shadows that barely lift elements from the surface\n- Product screenshots as the only source of color in the interface\n\n## 2. Color Palette & Roles\n\n### Primary\n- **Expo Black** (`#000000`): The absolute anchor — used for primary headlines, CTA buttons, and the brand identity. Pure black on cool white creates maximum contrast without feeling aggressive.\n- **Near Black** (`#1c2024`): The primary text color for body content — a barely perceptible blue-black that's softer than pure #000 for extended reading.\n\n### Secondary & Accent\n- **Link Cobalt** (`#0d74ce`): The standard link color — a trustworthy, saturated blue that signals interactivity without competing with the monochrome hierarchy.\n- **Legal Blue** (`#476cff`): A brighter, more saturated blue for legal/footer links — slightly more attention-grabbing than Link Cobalt.\n- **Widget Sky** (`#47c2ff`): A light, friendly cyan-blue for widget branding elements — the brightest accent in the system.\n- **Preview Purple** (`#8145b5`): A rich violet used for \"preview\" or beta feature indicators — creating clear visual distinction from standard content.\n\n### Surface & Background\n- **Cloud Gray** (`#f0f0f3`): The primary page background — a cool off-white with the faintest blue-violet tint. Not warm, not sterile — precisely technological.\n- **Pure White** (`#ffffff`): Card surfaces, button backgrounds, and elevated content containers. Creates a clear \"lifted\" distinction from Cloud Gray.\n- **Widget Dark** (`#1a1a1a`): Dark surface for dark-theme widgets and overlay elements.\n- **Banner Dark** (`#171717`): The darkest surface variant, used for promotional banners and high-contrast containers.\n\n### Neutrals & Text\n- **Slate Gray** (`#60646c`): The workhorse secondary text color (305 instances). A cool blue-gray that's authoritative without being heavy.\n- **Mid Slate** (`#555860`): Slightly darker than Slate, used for emphasized secondary text.\n- **Silver** (`#b0b4ba`): Tertiary text, placeholders, and de-emphasized metadata. Comfortably readable but clearly receded.\n- **Pewter** (`#999999`): Accordion icons and deeply de-emphasized UI elements in dark contexts.\n- **Light Silver** (`#cccccc`): Arrow icons and decorative elements in dark contexts.\n- **Dark Slate** (`#363a3f`): Borders on dark surfaces, switch tracks, and emphasized containment.\n- **Charcoal** (`#333333`): Dark mode switch backgrounds and deep secondary surfaces.\n\n### Semantic & Accent\n- **Warning Amber** (`#ab6400`): A warm, deep amber for warning states — deliberately not bright yellow, conveying seriousness.\n- **Destructive Rose** (`#eb8e90`): A soft pink-coral for disabled destructive actions — gentler than typical red, reducing alarm fatigue.\n- **Border Lavender** (`#e0e1e6`): Standard card/container borders — a cool lavender-gray that's visible without being heavy.\n- **Input Border** (`#d9d9e0`): Button and form element borders — slightly warmer/darker than card borders for interactive elements.\n- **Dark Focus Ring** (`#2547d0`): Deep blue for keyboard focus indicators in dark theme contexts.\n\n### Gradient System\n- The design is notably **gradient-free** in the interface layer. Visual richness comes from product screenshots, the React universe illustration, and careful shadow layering rather than color gradients. This absence IS the design decision — gradients would undermine the clinical precision.\n\n## 3. Typography Rules\n\n### Font Family\n- **Primary**: `Inter`, with fallbacks: `-apple-system, system-ui`\n- **Monospace**: `JetBrains Mono`, with fallback: `ui-monospace`\n- **System Fallback**: `system-ui, Segoe UI, Roboto, Helvetica, Arial, Apple Color Emoji, Segoe UI Emoji`\n\n### Hierarchy\n\n| Role | Font | Size | Weight | Line Height | Letter Spacing | Notes |\n|------|------|------|--------|-------------|----------------|-------|\n| Display / Hero | Inter | 64px (4rem) | 700–900 | 1.10 (tight) | -1.6px to -3px | Maximum impact, extreme tracking |\n| Section Heading | Inter | 48px (3rem) | 600 | 1.10 (tight) | -2px | Feature section anchors |\n| Sub-heading | Inter | 20px (1.25rem) | 600 | 1.20 (tight) | -0.25px | Card titles, feature names |\n| Body Large | Inter | 18px (1.13rem) | 400–500 | 1.40 | normal | Intro paragraphs, section descriptions |\n| Body / Button | Inter | 16px (1rem) | 400–700 | 1.25–1.40 | normal | Standard text, nav links, buttons |\n| Caption / Label | Inter | 14px (0.88rem) | 400–600 | 1.00–1.40 | normal | Descriptions, metadata, badge text |\n| Tag / Small | Inter | 12px (0.75rem) | 500 | 1.00–1.60 | normal | Smallest sans-serif text, badges |\n| Code Body | JetBrains Mono | 16px (1rem) | 400–600 | 1.40 | normal | Inline code, terminal commands |\n| Code Caption | JetBrains Mono | 14px (0.88rem) | 400–600 | 1.40 | normal | Code snippets, technical labels |\n| Code Small | JetBrains Mono | 12px (0.75rem) | 400 | 1.60 | normal | Uppercase tech tags |\n\n### Principles\n- **One typeface, full expression**: Inter is the only sans-serif, used from weight 400 (regular) through 900 (black). This gives the design a unified voice while still achieving dramatic contrast between whisper-light body text and thundering display headlines.\n- **Extreme negative tracking at scale**: Headlines at 64px use -1.6px to -3px letter-spacing, creating ultra-dense text blocks that feel like logotypes. This aggressive compression is the signature typographic move.\n- **Weight as hierarchy**: 700–900 for display, 600 for headings, 500 for emphasis, 400 for body. The jumps are decisive — no ambiguous in-between weights.\n- **Consistent 1.40 body line-height**: Nearly all body and UI text shares 1.40 line-height, creating a rhythmic vertical consistency.\n\n## 4. Component Stylings\n\n### Buttons\n\n**Primary (White on border)**\n- Background: Pure White (`#ffffff`)\n- Text: Near Black (`#1c2024`)\n- Padding: 0px 12px (compact, content-driven height)\n- Border: thin solid Input Border (`1px solid #d9d9e0`)\n- Radius: subtly rounded (6px)\n- Shadow: subtle combined shadow on hover\n- The understated default — clean, professional, unheroic\n\n**Primary Pill**\n- Same as Primary but with pill-shaped radius (9999px)\n- Used for hero CTAs and high-emphasis actions\n- The extra roundness signals \"start here\"\n\n**Dark Primary**\n- Background: Expo Black (`#000000`)\n- Text: Pure White (`#ffffff`)\n- Pill-shaped (9999px) or generously rounded (32–36px)\n- No border (black IS the border)\n- The maximum-emphasis CTA — reserved for primary conversion actions\n\n### Cards & Containers\n- Background: Pure White (`#ffffff`) — clearly lifted from Cloud Gray page\n- Border: thin solid Border Lavender (`1px solid #e0e1e6`) for standard cards\n- Radius: comfortably rounded (8px) for standard cards; generously rounded (16–24px) for featured containers\n- Shadow Level 1: Whisper (`rgba(0,0,0,0.08) 0px 3px 6px, rgba(0,0,0,0.07) 0px 2px 4px`) — barely perceptible lift\n- Shadow Level 2: Standard (`rgba(0,0,0,0.1) 0px 10px 20px, rgba(0,0,0,0.05) 0px 3px 6px`) — clear floating elevation\n- Hover: likely subtle shadow deepening or background shift\n\n### Inputs & Forms\n- Background: Pure White (`#ffffff`)\n- Text: Near Black (`#1c2024`)\n- Border: thin solid Input Border (`1px solid #d9d9e0`)\n- Padding: 0px 12px (inline with button sizing)\n- Radius: subtly rounded (6px)\n- Focus: blue ring shadow via CSS custom property\n\n### Navigation\n- Sticky top nav on transparent/blurred background\n- Logo: Expo wordmark in black\n- Links: Near Black (`#1c2024`) or Slate Gray (`#60646c`) at 14–16px Inter weight 500\n- CTA: Black pill button (\"Sign Up\") on the right\n- GitHub star badge as social proof\n- Status indicator (\"All Systems Operational\") with green dot\n\n### Image Treatment\n- Product screenshots and device mockups are the visual heroes\n- Generously rounded corners (24px) on video and image containers\n- Screenshots shown in realistic device frames\n- Dark UI screenshots provide contrast against the light canvas\n- Full-bleed within rounded containers\n\n### Distinctive Components\n\n**Universe React Logo**\n- Animated/illustrated React logo as the visual centerpiece\n- Connects Expo's identity to the React ecosystem\n- The only illustrative element on an otherwise photographic page\n\n**Device Preview Grid**\n- Multiple device types (phone, tablet, web) shown simultaneously\n- Demonstrates cross-platform capability visually\n- Each device uses realistic device chrome\n\n**Status Badge**\n- \"All Systems Operational\" pill in the nav\n- Green dot + text — compact trust signal\n- Pill-shaped (36px radius)\n\n## 5. Layout Principles\n\n### Spacing System\n- Base unit: 8px\n- Scale: 1px, 2px, 4px, 8px, 12px, 16px, 24px, 32px, 40px, 48px, 64px, 80px, 96px, 144px\n- Button padding: 0px 12px (unusually compact — height driven by line-height)\n- Card internal padding: approximately 24–32px\n- Section vertical spacing: enormous (estimated 96–144px between major sections)\n- Component gap: 16–24px between sibling elements\n\n### Grid & Container\n- Max container width: approximately 1200–1400px, centered\n- Hero: centered single-column with massive breathing room\n- Feature sections: alternating layouts (image left/right, full-width showcases)\n- Card grids: 2–3 column for feature highlights\n- Full-width sections with contained inner content\n\n### Whitespace Philosophy\n- **Gallery-like pacing**: Each section feels like its own exhibit, surrounded by vast empty space. This creates a premium, unhurried browsing experience.\n- **Breathing room is the design**: The generous whitespace IS the primary design element — it communicates confidence, quality, and that each feature deserves individual attention.\n- **Content islands**: Sections float as isolated \"islands\" in the white space, connected by scrolling rather than visual continuation.\n\n### Border Radius Scale\n- Nearly squared (4px): Small inline elements, tags\n- Subtly rounded (6px): Buttons, form inputs, combo boxes — the functional interactive radius\n- Comfortably rounded (8px): Standard content cards, containers\n- Generously rounded (16px): Feature tabs, content panels\n- Very rounded (24px): Buttons, video/image containers, tabpanels — the signature softness\n- Highly rounded (32–36px): Hero CTAs, status badges, nav buttons\n- Pill-shaped (9999px): Primary action buttons, tags, avatars — maximum friendliness\n\n## 6. Depth & Elevation\n\n| Level | Treatment | Use |\n|-------|-----------|-----|\n| Flat (Level 0) | No shadow | Cloud Gray page background, inline text |\n| Surface (Level 1) | White bg, no shadow | Standard white cards on Cloud Gray |\n| Whisper (Level 2) | `rgba(0,0,0,0.08) 0px 3px 6px` + `rgba(0,0,0,0.07) 0px 2px 4px` | Subtle card lift, hover states |\n| Elevated (Level 3) | `rgba(0,0,0,0.1) 0px 10px 20px` + `rgba(0,0,0,0.05) 0px 3px 6px` | Feature showcases, product screenshots |\n| Modal (Level 4) | Dark overlay (`--dialog-overlay-background-color`) + heavy shadow | Dialogs, overlays |\n\n**Shadow Philosophy**: Expo uses shadows as gentle whispers rather than architectural statements. The primary depth mechanism is **background color contrast** — white cards floating on Cloud Gray — rather than shadow casting. When shadows appear, they're soft, diffused, and directional (downward), creating the feeling of paper hovering millimeters above a desk.\n\n## 7. Do's and Don'ts\n\n### Do\n- Use Cloud Gray (`#f0f0f3`) as the page background and Pure White (`#ffffff`) for elevated cards — the two-tone light system is essential\n- Keep display headlines at extreme negative letter-spacing (-1.6px to -3px at 64px) for the signature compressed look\n- Use pill-shaped (9999px) radius for primary CTA buttons — the organic shape is core to the identity\n- Reserve black (`#000000`) for headlines and primary CTAs — it carries maximum authority on the light canvas\n- Use Slate Gray (`#60646c`) for secondary text — it's the precise balance between readable and receded\n- Maintain enormous vertical spacing between sections (96px+) — the gallery pacing defines the premium feel\n- Use product screenshots as the primary visual content — the interface stays monochrome, the products bring color\n- Apply Inter at the full weight range (400–900) — weight contrast IS the hierarchy\n\n### Don't\n- Don't introduce decorative colors into the interface chrome — the monochromatic palette is intentional\n- Don't use sharp corners (border-radius < 6px) on interactive elements — the pill/rounded geometry is the signature\n- Don't reduce section spacing below 64px — the breathing room is the design\n- Don't use heavy drop shadows — depth comes from background contrast and whisper-soft shadows\n- Don't mix in additional typefaces — Inter handles everything from display to caption\n- Don't use letter-spacing wider than -0.25px on body text — extreme tracking is reserved for display only\n- Don't use borders heavier than 2px — containment is subtle, achieved through background color and gentle borders\n- Don't add gradients to the interface — visual richness comes from content, not decoration\n- Don't use saturated colors outside of semantic contexts — the palette is strictly grayscale + functional blue\n\n## 8. Responsive Behavior\n\n### Breakpoints\n| Name | Width | Key Changes |\n|------|-------|-------------|\n| Mobile | <640px | Single column, hamburger nav, stacked cards, hero text scales to ~36px |\n| Tablet | 640–1024px | 2-column grids, condensed nav, medium hero text |\n| Desktop | >1024px | Full multi-column layout, expanded nav, massive hero (64px) |\n\n*Only one explicit breakpoint detected (640px), suggesting a fluid, container-query or min()/clamp()-based responsive system rather than fixed breakpoint snapping.*\n\n### Touch Targets\n- Buttons use generous radius (24–36px) creating large, finger-friendly surfaces\n- Navigation links spaced with adequate gap\n- Status badge sized for touch (36px radius)\n- Minimum recommended: 44x44px\n\n### Collapsing Strategy\n- **Navigation**: Full horizontal nav with CTA collapses to hamburger on mobile\n- **Feature sections**: Multi-column → stacked single column\n- **Hero text**: 64px → ~36px progressive scaling\n- **Device previews**: Grid → stacked/carousel\n- **Cards**: Side-by-side → vertical stacking\n- **Spacing**: Reduces proportionally but maintains generous rhythm\n\n### Image Behavior\n- Product screenshots scale proportionally\n- Device mockups may simplify or show fewer devices on mobile\n- Rounded corners maintained at all sizes\n- Lazy loading for below-fold content\n\n## 9. Agent Prompt Guide\n\n### Quick Color Reference\n- Primary CTA / Headlines: \"Expo Black (#000000)\"\n- Page Background: \"Cloud Gray (#f0f0f3)\"\n- Card Surface: \"Pure White (#ffffff)\"\n- Body Text: \"Near Black (#1c2024)\"\n- Secondary Text: \"Slate Gray (#60646c)\"\n- Borders: \"Border Lavender (#e0e1e6)\"\n- Links: \"Link Cobalt (#0d74ce)\"\n- Tertiary Text: \"Silver (#b0b4ba)\"\n\n### Example Component Prompts\n- \"Create a hero section on Cloud Gray (#f0f0f3) with a massive headline at 64px Inter weight 700, line-height 1.10, letter-spacing -3px. Text in Expo Black (#000000). Below, add a subtitle in Slate Gray (#60646c) at 18px. Place a black pill-shaped CTA button (9999px radius) beneath.\"\n- \"Design a feature card on Pure White (#ffffff) with a 1px solid Border Lavender (#e0e1e6) border and comfortably rounded corners (8px). Title in Near Black (#1c2024) at 20px Inter weight 600, description in Slate Gray (#60646c) at 16px. Add a whisper shadow (rgba(0,0,0,0.08) 0px 3px 6px).\"\n- \"Build a navigation bar with Expo logo on the left, text links in Near Black (#1c2024) at 14px Inter weight 500, and a black pill CTA button on the right. Background: transparent with blur backdrop. Bottom border: 1px solid Border Lavender (#e0e1e6).\"\n- \"Create a code block using JetBrains Mono at 14px on a Pure White surface with Border Lavender border and 8px radius. Code in Near Black, keywords in Link Cobalt (#0d74ce).\"\n- \"Design a status badge pill (9999px radius) with a green dot and 'All Systems Operational' text in Inter 12px weight 500. Background: Pure White, border: 1px solid Input Border (#d9d9e0).\"\n\n### Iteration Guide\n1. Focus on ONE component at a time\n2. Reference specific color names and hex codes — \"use Slate Gray (#60646c)\" not \"make it gray\"\n3. Use radius values deliberately — 6px for buttons, 8px for cards, 24px for images, 9999px for pills\n4. Describe the \"feel\" alongside measurements — \"enormous breathing room with 96px section spacing\"\n5. Always specify Inter and the exact weight — weight contrast IS the hierarchy\n6. For shadows, specify \"whisper shadow\" or \"standard elevation\" from the elevation table\n7. Keep the interface monochrome — let product content be the color\n",
+  "createdAt": "2026-04-09T07:51:33.656Z",
+  "updatedAt": "2026-04-09T07:51:33.656Z",
+  "source": "imported"
+}

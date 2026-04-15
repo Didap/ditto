@@ -1,0 +1,216 @@
+{
+  "id": "WFKJHMlFYs7uoGtkQfOYf",
+  "slug": "runwayml",
+  "name": "Runwayml",
+  "url": "https://runwayml.com",
+  "description": "AI video generation. Cinematic dark UI, media-rich layout.",
+  "tokens": {
+    "colors": [
+      {
+        "hex": "#767d88",
+        "rgb": "118, 125, 136",
+        "occurrences": 1,
+        "name": "Color 1",
+        "role": "primary"
+      },
+      {
+        "hex": "#7d848e",
+        "rgb": "125, 132, 142",
+        "occurrences": 1,
+        "name": "Color 2",
+        "role": "secondary"
+      },
+      {
+        "hex": "#000000",
+        "rgb": "0, 0, 0",
+        "occurrences": 1,
+        "name": "Color 3",
+        "role": "neutral"
+      },
+      {
+        "hex": "#030303",
+        "rgb": "3, 3, 3",
+        "occurrences": 1,
+        "name": "Color 4",
+        "role": "neutral"
+      },
+      {
+        "hex": "#1a1a1a",
+        "rgb": "26, 26, 26",
+        "occurrences": 1,
+        "name": "Color 5",
+        "role": "neutral"
+      },
+      {
+        "hex": "#ffffff",
+        "rgb": "255, 255, 255",
+        "occurrences": 1,
+        "name": "Color 6",
+        "role": "neutral"
+      },
+      {
+        "hex": "#fefefe",
+        "rgb": "254, 254, 254",
+        "occurrences": 1,
+        "name": "Color 7",
+        "role": "neutral"
+      },
+      {
+        "hex": "#e9ecf2",
+        "rgb": "233, 236, 242",
+        "occurrences": 1,
+        "name": "Color 8",
+        "role": "neutral"
+      },
+      {
+        "hex": "#27272a",
+        "rgb": "39, 39, 42",
+        "occurrences": 1,
+        "name": "Color 9",
+        "role": "neutral"
+      },
+      {
+        "hex": "#404040",
+        "rgb": "64, 64, 64",
+        "occurrences": 1,
+        "name": "Color 10",
+        "role": "neutral"
+      },
+      {
+        "hex": "#3f3f3f",
+        "rgb": "63, 63, 63",
+        "occurrences": 1,
+        "name": "Color 11",
+        "role": "neutral"
+      },
+      {
+        "hex": "#a7a7a7",
+        "rgb": "167, 167, 167",
+        "occurrences": 1,
+        "name": "Color 12",
+        "role": "neutral"
+      },
+      {
+        "hex": "#c9ccd1",
+        "rgb": "201, 204, 209",
+        "occurrences": 1,
+        "name": "Color 13",
+        "role": "neutral"
+      },
+      {
+        "hex": "#d0d4d4",
+        "rgb": "208, 212, 212",
+        "occurrences": 1,
+        "name": "Color 14",
+        "role": "neutral"
+      },
+      {
+        "hex": "#6b7280",
+        "rgb": "107, 114, 128",
+        "occurrences": 1,
+        "name": "Color 15",
+        "role": "neutral"
+      },
+      {
+        "hex": "#0c0c0c",
+        "rgb": "12, 12, 12",
+        "occurrences": 1,
+        "name": "Color 16",
+        "role": "neutral"
+      },
+      {
+        "hex": "#999999",
+        "rgb": "153, 153, 153",
+        "occurrences": 1,
+        "name": "Color 17",
+        "role": "neutral"
+      }
+    ],
+    "typography": [
+      {
+        "fontFamily": "system-ui",
+        "fallbacks": [
+          "system-ui"
+        ],
+        "weights": [
+          700
+        ],
+        "role": "heading"
+      },
+      {
+        "fontFamily": "system-ui",
+        "fallbacks": [
+          "system-ui"
+        ],
+        "weights": [
+          400
+        ],
+        "role": "body"
+      }
+    ],
+    "typeScale": [],
+    "spacing": [],
+    "shadows": [],
+    "radii": [
+      {
+        "value": "24px",
+        "px": 24,
+        "occurrences": 1
+      }
+    ],
+    "components": [],
+    "cssVariables": {},
+    "meta": {
+      "url": "https://runwayml.com",
+      "title": "runwayml",
+      "extractedAt": "2026-04-09T07:52:05.400Z"
+    }
+  },
+  "resolved": {
+    "colorPrimary": "#767d88",
+    "colorSecondary": "#7d848e",
+    "colorAccent": "#000000",
+    "colorBackground": "#000000",
+    "colorSurface": "#f8fafc",
+    "colorTextPrimary": "#000000",
+    "colorTextSecondary": "#475569",
+    "colorTextMuted": "#94a3b8",
+    "colorBorder": "#e2e8f0",
+    "colorSuccess": "#22c55e",
+    "colorWarning": "#f59e0b",
+    "colorError": "#ef4444",
+    "fontHeading": "system-ui",
+    "fontBody": "system-ui",
+    "fontMono": "ui-monospace",
+    "fontWeightHeading": 700,
+    "fontWeightBody": 400,
+    "textXs": "0.75rem",
+    "textSm": "0.875rem",
+    "textBase": "1rem",
+    "textLg": "1.125rem",
+    "textXl": "1.25rem",
+    "text2xl": "1.5rem",
+    "text3xl": "1.875rem",
+    "text4xl": "2.25rem",
+    "spacingXs": "4px",
+    "spacingSm": "8px",
+    "spacingMd": "16px",
+    "spacingLg": "24px",
+    "spacingXl": "32px",
+    "spacing2xl": "48px",
+    "radiusSm": "24px",
+    "radiusMd": "24px",
+    "radiusLg": "12px",
+    "radiusFull": "9999px",
+    "shadowSm": "0 1px 2px 0 rgba(0,0,0,0.05)",
+    "shadowMd": "0 4px 6px -1px rgba(0,0,0,0.1)",
+    "shadowLg": "0 10px 15px -3px rgba(0,0,0,0.1)",
+    "lineHeightTight": "1.15",
+    "lineHeightNormal": "1.5",
+    "lineHeightRelaxed": "1.75"
+  },
+  "designMd": "# Design System Inspiration of Runway\n\n## 1. Visual Theme & Atmosphere\n\nRunway's interface is a cinematic reel brought to life as a website — a dark, editorial, film-production-grade design where full-bleed photography and video ARE the primary UI elements. This is not a typical tech product page; it's a visual manifesto for AI-powered creativity. Every section feels like a frame from a film: dramatic lighting, sweeping landscapes, and intimate human moments captured in high-quality imagery that dominates the viewport.\n\nThe design language is built on a single typeface — abcNormal — a clean, geometric sans-serif that handles everything from 48px display headlines to 11px uppercase labels. This single-font commitment creates an extreme typographic uniformity that lets the visual content speak louder than the text. Headlines use tight line-heights (1.0) with negative letter-spacing (-0.9px to -1.2px), creating compressed text blocks that feel like film titles rather than marketing copy.\n\nWhat makes Runway distinctive is its complete commitment to visual content as design. Rather than illustrating features with icons or diagrams, Runway shows actual AI-generated and AI-enhanced imagery — cars driving through cinematic landscapes, artistic portraits, architectural renders. The interface itself retreats into near-invisibility: minimal borders, zero shadows, subtle cool-gray text, and a dark palette that puts maximum focus on the photography.\n\n**Key Characteristics:**\n- Cinematic full-bleed photography and video as primary UI elements\n- Single typeface system: abcNormal for everything from display to micro labels\n- Dark-dominant palette with cool-toned neutrals (#767d88, #7d848e)\n- Zero shadows, minimal borders — the interface is intentionally invisible\n- Tight display typography (line-height 1.0) with negative tracking (-0.9px to -1.2px)\n- Uppercase labels with positive letter-spacing for navigational structure\n- Weight 450 (unusual intermediate) for small uppercase text — precision craft\n- Editorial magazine layout with mixed-size image grids\n\n## 2. Color Palette & Roles\n\n### Primary\n- **Runway Black** (`#000000`): The primary page background and maximum-emphasis text.\n- **Deep Black** (`#030303`): A near-imperceptible variant for layered dark surfaces.\n- **Dark Surface** (`#1a1a1a`): Card backgrounds and elevated dark containers.\n- **Pure White** (`#ffffff`): Primary text on dark surfaces and light-section backgrounds.\n\n### Surface & Background\n- **Near White** (`#fefefe`): The lightest surface — barely distinguishable from pure white.\n- **Cool Cloud** (`#e9ecf2`): Light section backgrounds with a cool blue-gray tint.\n- **Border Dark** (`#27272a`): The single dark-mode border color — barely visible containment.\n\n### Neutrals & Text\n- **Charcoal** (`#404040`): Primary body text on light surfaces and secondary text.\n- **Near Charcoal** (`#3f3f3f`): Slightly lighter variant for dark-section secondary text.\n- **Cool Slate** (`#767d88`): Secondary body text — a distinctly blue-gray cool neutral.\n- **Mid Slate** (`#7d848e`): Tertiary text, metadata descriptions.\n- **Muted Gray** (`#a7a7a7`): De-emphasized content, timestamps.\n- **Cool Silver** (`#c9ccd1`): Light borders and dividers.\n- **Light Silver** (`#d0d4d4`): The lightest border/divider variant.\n- **Tailwind Gray** (`#6b7280`): Standard Tailwind neutral for supplementary text.\n- **Dark Link** (`#0c0c0c`): Darkest link text — nearly black.\n- **Footer Gray** (`#999999`): Footer links and deeply muted content.\n\n### Gradient System\n- **None in the interface.** Visual richness comes entirely from photographic content — AI-generated and enhanced imagery provides all the color and gradient the design needs. The interface itself is intentionally colorless.\n\n## 3. Typography Rules\n\n### Font Family\n- **Universal**: `abcNormal`, with fallback: `abcNormal Fallback`\n\n*Note: abcNormal is a custom geometric sans-serif. For external implementations, Inter or DM Sans serve as close substitutes.*\n\n### Hierarchy\n\n| Role | Font | Size | Weight | Line Height | Letter Spacing | Notes |\n|------|------|------|--------|-------------|----------------|-------|\n| Display / Hero | abcNormal | 48px (3rem) | 400 | 1.00 (tight) | -1.2px | Maximum size, film-title presence |\n| Section Heading | abcNormal | 40px (2.5rem) | 400 | 1.00–1.10 | -1px to 0px | Feature section titles |\n| Sub-heading | abcNormal | 36px (2.25rem) | 400 | 1.00 (tight) | -0.9px | Secondary section markers |\n| Card Title | abcNormal | 24px (1.5rem) | 400 | 1.00 (tight) | normal | Article and card headings |\n| Feature Title | abcNormal | 20px (1.25rem) | 400 | 1.00 (tight) | normal | Small headings |\n| Body / Button | abcNormal | 16px (1rem) | 400–600 | 1.30–1.50 | -0.16px to normal | Standard body, nav links |\n| Caption / Label | abcNormal | 14px (0.88rem) | 500–600 | 1.25–1.43 | 0.35px (uppercase) | Metadata, section labels |\n| Small | abcNormal | 13px (0.81rem) | 400 | 1.30 (tight) | -0.16px to -0.26px | Compact descriptions |\n| Micro / Tag | abcNormal | 11px (0.69rem) | 450 | 1.30 (tight) | normal | Uppercase tags, tiny labels |\n\n### Principles\n- **One typeface, complete expression**: abcNormal handles every text role. The design achieves variety through size, weight, case, and letter-spacing rather than font-family switching.\n- **Tight everywhere**: Nearly every size uses line-height 1.0–1.30 — even body text is relatively compressed. This creates a dense, editorial feel.\n- **Weight 450 — the precision detail**: Some small uppercase labels use weight 450, an uncommon intermediate between regular (400) and medium (500). This micro-craft signals typographic sophistication.\n- **Negative tracking as default**: Even body text uses -0.16px to -0.26px letter-spacing, keeping everything slightly tighter than default.\n- **Uppercase as structure**: Labels at 14px and 11px use `text-transform: uppercase` with positive letter-spacing (0.35px) to create navigational signposts that contrast with the tight lowercase text.\n\n## 4. Component Stylings\n\n### Buttons\n- Text: weight 600 at 14px abcNormal\n- Background: likely transparent or dark, with minimal border\n- Radius: small (4px) for button-like links\n- The button design is extremely restrained — no heavy fills or borders detected\n- Interactive elements blend into the editorial flow\n\n### Cards & Containers\n- Background: transparent or Dark Surface (`#1a1a1a`)\n- Border: `1px solid #27272a` (dark mode) — barely visible containment\n- Radius: small (4–8px) for functional elements; 16px for alert-style containers\n- Shadow: zero — no shadows on any element\n- Cards are primarily photographic — the image IS the card\n\n### Navigation\n- Minimal horizontal nav — transparent over hero content\n- Logo: Runway wordmark in white/black\n- Links: abcNormal at 16px, weight 400–600\n- Hover: text shifts to white or higher opacity\n- Extremely subtle — designed to not compete with visual content\n\n### Image Treatment\n- Full-bleed cinematic photography and video dominate\n- AI-generated content shown at large scale as primary visual elements\n- Mixed-size image grids creating editorial magazine layouts\n- Dark overlays on hero images for text readability\n- Product screenshots with subtle rounded corners (8px)\n\n### Distinctive Components\n\n**Cinematic Hero**\n- Full-viewport image or video with text overlay\n- Headline in 48px abcNormal, white on dark imagery\n- The image is always cinematic quality — film-grade composition\n\n**Research Article Cards**\n- Photographic thumbnails with article titles\n- Mixed-size grid layout (large feature + smaller supporting)\n- Clean text overlay or below-image caption style\n\n**Trust Bar**\n- Company logos (leading organizations across industries)\n- Clean, monochrome treatment\n- Horizontal layout with generous spacing\n\n**Mission Statement**\n- \"We are building AI to simulate the world through imagination, art and aesthetics\"\n- On a dark background with white text\n- The emotional close — artistic and philosophical\n\n## 5. Layout Principles\n\n### Spacing System\n- Base unit: 8px\n- Scale: 4px, 6px, 8px, 12px, 16px, 20px, 24px, 28px, 32px, 48px, 64px, 78px\n- Section vertical spacing: generous (48–78px)\n- Component gaps: 16–24px\n\n### Grid & Container\n- Max container width: up to 1600px (cinema-wide)\n- Hero: full-viewport, edge-to-edge\n- Content sections: centered with generous margins\n- Image grids: asymmetric, magazine-style mixed sizes\n- Footer: full-width dark section\n\n### Whitespace Philosophy\n- **Cinema-grade breathing**: Large vertical gaps between sections create a scrolling experience that feels like watching scenes change.\n- **Images replace whitespace**: Where other sites use empty space, Runway fills it with photography. The visual content IS the breathing room.\n- **Editorial grid asymmetry**: The image grid uses intentionally varied sizes — large hero images paired with smaller supporting images, creating visual rhythm.\n\n### Border Radius Scale\n- Sharp (4px): Buttons, small interactive elements\n- Subtle (6px): Links, small containers\n- Comfortable (8px): Standard containers, image cards\n- Generous (16px): Alert-style containers, featured elements\n\n## 6. Depth & Elevation\n\n| Level | Treatment | Use |\n|-------|-----------|-----|\n| Flat (Level 0) | No shadow, no border | Everything — the dominant state |\n| Bordered (Level 1) | `1px solid #27272a` | Alert containers only |\n| Dark Section (Level 2) | Dark bg (#000000 / #1a1a1a) with light text | Hero, features, footer |\n| Light Section (Level 3) | White/Cool Cloud bg with dark text | Content sections, research |\n\n**Shadow Philosophy**: Runway uses **zero shadows**. This is a film-production design decision — in cinema, depth comes from lighting, focus, and composition, not drop shadows. The interface mirrors this philosophy: depth is communicated through dark/light section alternation, photographic depth-of-field, and overlay transparency — never through CSS box-shadow.\n\n## 7. Do's and Don'ts\n\n### Do\n- Use full-bleed cinematic photography as the primary visual element\n- Use abcNormal for all text — maintain the single-typeface commitment\n- Keep display line-heights at 1.0 with negative letter-spacing for film-title density\n- Use the cool-gray neutral palette (#767d88, #7d848e) for secondary text\n- Maintain zero shadows — depth comes from photography and section backgrounds\n- Use uppercase with letter-spacing for navigational labels (14px, 0.35px spacing)\n- Apply small border-radius (4–8px) — the design is NOT pill-shaped\n- Let visual content (photos, videos) dominate — the UI should be invisible\n- Use weight 450 for micro labels — the precision matters\n\n### Don't\n- Don't add decorative colors to the interface — the only color comes from photography\n- Don't use heavy borders or shadows — the interface must be nearly invisible\n- Don't use pill-shaped radius — Runway's geometry is subtly rounded, not circular\n- Don't use bold (700+) weight — 400–600 is the full range, with 450 as a precision tool\n- Don't compete with the visual content — text overlays should be minimal and restrained\n- Don't use gradient backgrounds in the interface — gradients exist only in photography\n- Don't use more than one typeface — abcNormal handles everything\n- Don't use body line-height above 1.50 — the tight, editorial feel is core\n- Don't reduce image quality — cinematic photography IS the design\n\n## 8. Responsive Behavior\n\n### Breakpoints\n| Name | Width | Key Changes |\n|------|-------|-------------|\n| Mobile | <640px | Single column, stacked images, reduced hero text |\n| Tablet | 640–768px | 2-column image grids begin |\n| Small Desktop | 768–1024px | Standard layout |\n| Desktop | 1024–1280px | Full layout, expanded hero |\n| Large Desktop | 1280–1600px | Maximum cinema-width container |\n\n### Touch Targets\n- Navigation links at comfortable 16px\n- Article cards serve as large touch targets\n- Buttons at 14px weight 600 with adequate padding\n\n### Collapsing Strategy\n- **Navigation**: Collapses to hamburger on mobile\n- **Hero**: Full-bleed maintained, text scales down\n- **Image grids**: Multi-column → 2-column → single column\n- **Research articles**: Feature-size cards → stacked full-width\n- **Trust logos**: Horizontal scroll or reduced grid\n\n### Image Behavior\n- Cinematic images scale proportionally\n- Full-bleed hero maintained across all sizes\n- Image grids reflow to fewer columns\n- Video content maintains aspect ratio\n\n## 9. Agent Prompt Guide\n\n### Quick Color Reference\n- Background Dark: \"Runway Black (#000000)\"\n- Background Light: \"Pure White (#ffffff)\"\n- Primary Text Dark: \"Charcoal (#404040)\"\n- Secondary Text: \"Cool Slate (#767d88)\"\n- Muted Text: \"Muted Gray (#a7a7a7)\"\n- Light Border: \"Cool Silver (#c9ccd1)\"\n- Dark Border: \"Border Dark (#27272a)\"\n- Card Surface: \"Dark Surface (#1a1a1a)\"\n\n### Example Component Prompts\n- \"Create a cinematic hero section: full-bleed dark background with a cinematic image overlay. Headline at 48px abcNormal weight 400, line-height 1.0, letter-spacing -1.2px in white. Minimal text below in Cool Slate (#767d88) at 16px.\"\n- \"Design a research article grid: one large card (50% width) with a cinematic image and 24px title, next to two smaller cards stacked. All images with 8px border-radius. Titles in white (dark bg) or Charcoal (#404040, light bg).\"\n- \"Build a section label: 14px abcNormal weight 500, uppercase, letter-spacing 0.35px in Cool Slate (#767d88). No border, no background.\"\n- \"Create a trust bar: company logos in monochrome, horizontal layout with generous spacing. On dark background with white/gray logo treatments.\"\n- \"Design a mission statement section: Runway Black background, white text at 36px abcNormal, line-height 1.0, letter-spacing -0.9px. Centered, with generous vertical padding.\"\n\n### Iteration Guide\n1. Visual content first — always include cinematic photography\n2. Use abcNormal for everything — specify size and weight, never change the font\n3. Keep the interface invisible — no heavy borders, no shadows, no bright colors\n4. Use the cool slate grays (#767d88, #7d848e) for secondary text — not warm grays\n5. Uppercase labels need letter-spacing (0.35px) — never tight uppercase\n6. Dark sections should be truly dark (#000000 or #1a1a1a) — no medium grays as surfaces\n",
+  "createdAt": "2026-04-09T07:52:05.400Z",
+  "updatedAt": "2026-04-09T07:52:05.400Z",
+  "source": "imported"
+}

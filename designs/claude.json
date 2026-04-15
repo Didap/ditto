@@ -1,0 +1,250 @@
+{
+  "id": "C82oJnEXb_N8BG3m-yDtV",
+  "slug": "claude",
+  "name": "Claude",
+  "url": "https://claude.com",
+  "description": "Anthropic's AI assistant. Warm terracotta accent, clean editorial layout.",
+  "tokens": {
+    "colors": [
+      {
+        "hex": "#f5f4ed",
+        "rgb": "245, 244, 237",
+        "occurrences": 1,
+        "name": "Color 1",
+        "role": "primary"
+      },
+      {
+        "hex": "#c96442",
+        "rgb": "201, 100, 66",
+        "occurrences": 1,
+        "name": "Color 2",
+        "role": "secondary"
+      },
+      {
+        "hex": "#5e5d59",
+        "rgb": "94, 93, 89",
+        "occurrences": 1,
+        "name": "Color 3",
+        "role": "neutral"
+      },
+      {
+        "hex": "#87867f",
+        "rgb": "135, 134, 127",
+        "occurrences": 1,
+        "name": "Color 4",
+        "role": "neutral"
+      },
+      {
+        "hex": "#4d4c48",
+        "rgb": "77, 76, 72",
+        "occurrences": 1,
+        "name": "Color 5",
+        "role": "neutral"
+      },
+      {
+        "hex": "#f0eee6",
+        "rgb": "240, 238, 230",
+        "occurrences": 1,
+        "name": "Color 6",
+        "role": "neutral"
+      },
+      {
+        "hex": "#e8e6dc",
+        "rgb": "232, 230, 220",
+        "occurrences": 1,
+        "name": "Color 7",
+        "role": "neutral"
+      },
+      {
+        "hex": "#141413",
+        "rgb": "20, 20, 19",
+        "occurrences": 1,
+        "name": "Color 8",
+        "role": "neutral"
+      },
+      {
+        "hex": "#30302e",
+        "rgb": "48, 48, 46",
+        "occurrences": 1,
+        "name": "Color 9",
+        "role": "neutral"
+      },
+      {
+        "hex": "#d97757",
+        "rgb": "217, 119, 87",
+        "occurrences": 1,
+        "name": "Color 10",
+        "role": "neutral"
+      },
+      {
+        "hex": "#b53333",
+        "rgb": "181, 51, 51",
+        "occurrences": 1,
+        "name": "Color 11",
+        "role": "neutral"
+      },
+      {
+        "hex": "#3898ec",
+        "rgb": "56, 152, 236",
+        "occurrences": 1,
+        "name": "Color 12",
+        "role": "neutral"
+      },
+      {
+        "hex": "#faf9f5",
+        "rgb": "250, 249, 245",
+        "occurrences": 1,
+        "name": "Color 13",
+        "role": "neutral"
+      },
+      {
+        "hex": "#ffffff",
+        "rgb": "255, 255, 255",
+        "occurrences": 1,
+        "name": "Color 14",
+        "role": "neutral"
+      },
+      {
+        "hex": "#3d3d3a",
+        "rgb": "61, 61, 58",
+        "occurrences": 1,
+        "name": "Color 15",
+        "role": "neutral"
+      },
+      {
+        "hex": "#b0aea5",
+        "rgb": "176, 174, 165",
+        "occurrences": 1,
+        "name": "Color 16",
+        "role": "neutral"
+      },
+      {
+        "hex": "#d1cfc5",
+        "rgb": "209, 207, 197",
+        "occurrences": 1,
+        "name": "Color 17",
+        "role": "neutral"
+      },
+      {
+        "hex": "#dedc01",
+        "rgb": "222, 220, 1",
+        "occurrences": 1,
+        "name": "Color 18",
+        "role": "neutral"
+      },
+      {
+        "hex": "#c2c0b6",
+        "rgb": "194, 192, 182",
+        "occurrences": 1,
+        "name": "Color 19",
+        "role": "neutral"
+      }
+    ],
+    "typography": [
+      {
+        "fontFamily": "system-ui",
+        "fallbacks": [
+          "system-ui"
+        ],
+        "weights": [
+          700
+        ],
+        "role": "heading"
+      },
+      {
+        "fontFamily": "system-ui",
+        "fallbacks": [
+          "system-ui"
+        ],
+        "weights": [
+          400
+        ],
+        "role": "body"
+      }
+    ],
+    "typeScale": [],
+    "spacing": [],
+    "shadows": [],
+    "radii": [
+      {
+        "value": "1px",
+        "px": 1,
+        "occurrences": 1
+      },
+      {
+        "value": "6px",
+        "px": 6,
+        "occurrences": 1
+      },
+      {
+        "value": "8px",
+        "px": 8,
+        "occurrences": 1
+      },
+      {
+        "value": "16px",
+        "px": 16,
+        "occurrences": 1
+      },
+      {
+        "value": "64px",
+        "px": 64,
+        "occurrences": 1
+      }
+    ],
+    "components": [],
+    "cssVariables": {},
+    "meta": {
+      "url": "https://claude.com",
+      "title": "claude",
+      "extractedAt": "2026-04-09T07:51:24.322Z"
+    }
+  },
+  "resolved": {
+    "colorPrimary": "#f5f4ed",
+    "colorSecondary": "#c96442",
+    "colorAccent": "#5e5d59",
+    "colorBackground": "#f5f4ed",
+    "colorSurface": "#f8fafc",
+    "colorTextPrimary": "#4d4c48",
+    "colorTextSecondary": "#475569",
+    "colorTextMuted": "#94a3b8",
+    "colorBorder": "#e2e8f0",
+    "colorSuccess": "#3898ec",
+    "colorWarning": "#f59e0b",
+    "colorError": "#ef4444",
+    "fontHeading": "system-ui",
+    "fontBody": "system-ui",
+    "fontMono": "ui-monospace",
+    "fontWeightHeading": 700,
+    "fontWeightBody": 400,
+    "textXs": "0.75rem",
+    "textSm": "0.875rem",
+    "textBase": "1rem",
+    "textLg": "1.125rem",
+    "textXl": "1.25rem",
+    "text2xl": "1.5rem",
+    "text3xl": "1.875rem",
+    "text4xl": "2.25rem",
+    "spacingXs": "4px",
+    "spacingSm": "8px",
+    "spacingMd": "16px",
+    "spacingLg": "24px",
+    "spacingXl": "32px",
+    "spacing2xl": "48px",
+    "radiusSm": "1px",
+    "radiusMd": "6px",
+    "radiusLg": "8px",
+    "radiusFull": "9999px",
+    "shadowSm": "0 1px 2px 0 rgba(0,0,0,0.05)",
+    "shadowMd": "0 4px 6px -1px rgba(0,0,0,0.1)",
+    "shadowLg": "0 10px 15px -3px rgba(0,0,0,0.1)",
+    "lineHeightTight": "1.15",
+    "lineHeightNormal": "1.5",
+    "lineHeightRelaxed": "1.75"
+  },
+  "designMd": "# Design System Inspiration of Claude (Anthropic)\n\n## 1. Visual Theme & Atmosphere\n\nClaude's interface is a literary salon reimagined as a product page — warm, unhurried, and quietly intellectual. The entire experience is built on a parchment-toned canvas (`#f5f4ed`) that deliberately evokes the feeling of high-quality paper rather than a digital surface. Where most AI product pages lean into cold, futuristic aesthetics, Claude's design radiates human warmth, as if the AI itself has good taste in interior design.\n\nThe signature move is the custom Anthropic Serif typeface — a medium-weight serif with generous proportions that gives every headline the gravitas of a book title. Combined with organic, hand-drawn-feeling illustrations in terracotta (`#c96442`), black, and muted green, the visual language says \"thoughtful companion\" rather than \"powerful tool.\" The serif headlines breathe at tight-but-comfortable line-heights (1.10–1.30), creating a cadence that feels more like reading an essay than scanning a product page.\n\nWhat makes Claude's design truly distinctive is its warm neutral palette. Every gray has a yellow-brown undertone (`#5e5d59`, `#87867f`, `#4d4c48`) — there are no cool blue-grays anywhere. Borders are cream-tinted (`#f0eee6`, `#e8e6dc`), shadows use warm transparent blacks, and even the darkest surfaces (`#141413`, `#30302e`) carry a barely perceptible olive warmth. This chromatic consistency creates a space that feels lived-in and trustworthy.\n\n**Key Characteristics:**\n- Warm parchment canvas (`#f5f4ed`) evoking premium paper, not screens\n- Custom Anthropic type family: Serif for headlines, Sans for UI, Mono for code\n- Terracotta brand accent (`#c96442`) — warm, earthy, deliberately un-tech\n- Exclusively warm-toned neutrals — every gray has a yellow-brown undertone\n- Organic, editorial illustrations replacing typical tech iconography\n- Ring-based shadow system (`0px 0px 0px 1px`) creating border-like depth without visible borders\n- Magazine-like pacing with generous section spacing and serif-driven hierarchy\n\n## 2. Color Palette & Roles\n\n### Primary\n- **Anthropic Near Black** (`#141413`): The primary text color and dark-theme surface — not pure black but a warm, almost olive-tinted dark that's gentler on the eyes. The warmest \"black\" in any major tech brand.\n- **Terracotta Brand** (`#c96442`): The core brand color — a burnt orange-brown used for primary CTA buttons, brand moments, and the signature accent. Deliberately earthy and un-tech.\n- **Coral Accent** (`#d97757`): A lighter, warmer variant of the brand color used for text accents, links on dark surfaces, and secondary emphasis.\n\n### Secondary & Accent\n- **Error Crimson** (`#b53333`): A deep, warm red for error states — serious without being alarming.\n- **Focus Blue** (`#3898ec`): Standard blue for input focus rings — the only cool color in the entire system, used purely for accessibility.\n\n### Surface & Background\n- **Parchment** (`#f5f4ed`): The primary page background — a warm cream with a yellow-green tint that feels like aged paper. The emotional foundation of the entire design.\n- **Ivory** (`#faf9f5`): The lightest surface — used for cards and elevated containers on the Parchment background. Barely distinguishable but creates subtle layering.\n- **Pure White** (`#ffffff`): Reserved for specific button surfaces and maximum-contrast elements.\n- **Warm Sand** (`#e8e6dc`): Button backgrounds and prominent interactive surfaces — a noticeably warm light gray.\n- **Dark Surface** (`#30302e`): Dark-theme containers, nav borders, and elevated dark elements — warm charcoal.\n- **Deep Dark** (`#141413`): Dark-theme page background and primary dark surface.\n\n### Neutrals & Text\n- **Charcoal Warm** (`#4d4c48`): Button text on light warm surfaces — the go-to dark-on-light text.\n- **Olive Gray** (`#5e5d59`): Secondary body text — a distinctly warm medium-dark gray.\n- **Stone Gray** (`#87867f`): Tertiary text, footnotes, and de-emphasized metadata.\n- **Dark Warm** (`#3d3d3a`): Dark text links and emphasized secondary text.\n- **Warm Silver** (`#b0aea5`): Text on dark surfaces — a warm, parchment-tinted light gray.\n\n### Semantic & Accent\n- **Border Cream** (`#f0eee6`): Standard light-theme border — barely visible warm cream, creating the gentlest possible containment.\n- **Border Warm** (`#e8e6dc`): Prominent borders, section dividers, and emphasized containment on light surfaces.\n- **Border Dark** (`#30302e`): Standard border on dark surfaces — maintains the warm tone.\n- **Ring Warm** (`#d1cfc5`): Shadow ring color for button hover/focus states.\n- **Ring Subtle** (`#dedc01`): Secondary ring variant for lighter interactive surfaces.\n- **Ring Deep** (`#c2c0b6`): Deeper ring for active/pressed states.\n\n### Gradient System\n- Claude's design is **gradient-free** in the traditional sense. Depth and visual richness come from the interplay of warm surface tones, organic illustrations, and light/dark section alternation. The warm palette itself creates a \"gradient\" effect as the eye moves through cream → sand → stone → charcoal → black sections.\n\n## 3. Typography Rules\n\n### Font Family\n- **Headline**: `Anthropic Serif`, with fallback: `Georgia`\n- **Body / UI**: `Anthropic Sans`, with fallback: `Arial`\n- **Code**: `Anthropic Mono`, with fallback: `Arial`\n\n*Note: These are custom typefaces. For external implementations, Georgia serves as the serif substitute and system-ui/Inter as the sans substitute.*\n\n### Hierarchy\n\n| Role | Font | Size | Weight | Line Height | Letter Spacing | Notes |\n|------|------|------|--------|-------------|----------------|-------|\n| Display / Hero | Anthropic Serif | 64px (4rem) | 500 | 1.10 (tight) | normal | Maximum impact, book-title presence |\n| Section Heading | Anthropic Serif | 52px (3.25rem) | 500 | 1.20 (tight) | normal | Feature section anchors |\n| Sub-heading Large | Anthropic Serif | 36–36.8px (~2.3rem) | 500 | 1.30 | normal | Secondary section markers |\n| Sub-heading | Anthropic Serif | 32px (2rem) | 500 | 1.10 (tight) | normal | Card titles, feature names |\n| Sub-heading Small | Anthropic Serif | 25–25.6px (~1.6rem) | 500 | 1.20 | normal | Smaller section titles |\n| Feature Title | Anthropic Serif | 20.8px (1.3rem) | 500 | 1.20 | normal | Small feature headings |\n| Body Serif | Anthropic Serif | 17px (1.06rem) | 400 | 1.60 (relaxed) | normal | Serif body text (editorial passages) |\n| Body Large | Anthropic Sans | 20px (1.25rem) | 400 | 1.60 (relaxed) | normal | Intro paragraphs |\n| Body / Nav | Anthropic Sans | 17px (1.06rem) | 400–500 | 1.00–1.60 | normal | Navigation links, UI text |\n| Body Standard | Anthropic Sans | 16px (1rem) | 400–500 | 1.25–1.60 | normal | Standard body, button text |\n| Body Small | Anthropic Sans | 15px (0.94rem) | 400–500 | 1.00–1.60 | normal | Compact body text |\n| Caption | Anthropic Sans | 14px (0.88rem) | 400 | 1.43 | normal | Metadata, descriptions |\n| Label | Anthropic Sans | 12px (0.75rem) | 400–500 | 1.25–1.60 | 0.12px | Badges, small labels |\n| Overline | Anthropic Sans | 10px (0.63rem) | 400 | 1.60 | 0.5px | Uppercase overline labels |\n| Micro | Anthropic Sans | 9.6px (0.6rem) | 400 | 1.60 | 0.096px | Smallest text |\n| Code | Anthropic Mono | 15px (0.94rem) | 400 | 1.60 | -0.32px | Inline code, terminal |\n\n### Principles\n- **Serif for authority, sans for utility**: Anthropic Serif carries all headline content with medium weight (500), giving every heading the gravitas of a published title. Anthropic Sans handles all functional UI text — buttons, labels, navigation — with quiet efficiency.\n- **Single weight for serifs**: All Anthropic Serif headings use weight 500 — no bold, no light. This creates a consistent \"voice\" across all headline sizes, as if the same author wrote every heading.\n- **Relaxed body line-height**: Most body text uses 1.60 line-height — significantly more generous than typical tech sites (1.4–1.5). This creates a reading experience closer to a book than a dashboard.\n- **Tight-but-not-compressed headings**: Line-heights of 1.10–1.30 for headings are tight but never claustrophobic. The serif letterforms need breathing room that sans-serif fonts don't.\n- **Micro letter-spacing on labels**: Small sans text (12px and below) uses deliberate letter-spacing (0.12px–0.5px) to maintain readability at tiny sizes.\n\n## 4. Component Stylings\n\n### Buttons\n\n**Warm Sand (Secondary)**\n- Background: Warm Sand (`#e8e6dc`)\n- Text: Charcoal Warm (`#4d4c48`)\n- Padding: 0px 12px 0px 8px (asymmetric — icon-first layout)\n- Radius: comfortably rounded (8px)\n- Shadow: ring-based (`#e8e6dc 0px 0px 0px 0px, #d1cfc5 0px 0px 0px 1px`)\n- The workhorse button — warm, unassuming, clearly interactive\n\n**White Surface**\n- Background: Pure White (`#ffffff`)\n- Text: Anthropic Near Black (`#141413`)\n- Padding: 8px 16px 8px 12px\n- Radius: generously rounded (12px)\n- Hover: shifts to secondary background color\n- Clean, elevated button for light surfaces\n\n**Dark Charcoal**\n- Background: Dark Surface (`#30302e`)\n- Text: Ivory (`#faf9f5`)\n- Padding: 0px 12px 0px 8px\n- Radius: comfortably rounded (8px)\n- Shadow: ring-based (`#30302e 0px 0px 0px 0px, ring 0px 0px 0px 1px`)\n- The inverted variant for dark-on-light emphasis\n\n**Brand Terracotta**\n- Background: Terracotta Brand (`#c96442`)\n- Text: Ivory (`#faf9f5`)\n- Radius: 8–12px\n- Shadow: ring-based (`#c96442 0px 0px 0px 0px, #c96442 0px 0px 0px 1px`)\n- The primary CTA — the only button with chromatic color\n\n**Dark Primary**\n- Background: Anthropic Near Black (`#141413`)\n- Text: Warm Silver (`#b0aea5`)\n- Padding: 9.6px 16.8px\n- Radius: generously rounded (12px)\n- Border: thin solid Dark Surface (`1px solid #30302e`)\n- Used on dark theme surfaces\n\n### Cards & Containers\n- Background: Ivory (`#faf9f5`) or Pure White (`#ffffff`) on light surfaces; Dark Surface (`#30302e`) on dark\n- Border: thin solid Border Cream (`1px solid #f0eee6`) on light; `1px solid #30302e` on dark\n- Radius: comfortably rounded (8px) for standard cards; generously rounded (16px) for featured; very rounded (32px) for hero containers and embedded media\n- Shadow: whisper-soft (`rgba(0,0,0,0.05) 0px 4px 24px`) for elevated content\n- Ring shadow: `0px 0px 0px 1px` patterns for interactive card states\n- Section borders: `1px 0px 0px` (top-only) for list item separators\n\n### Inputs & Forms\n- Text: Anthropic Near Black (`#141413`)\n- Padding: 1.6px 12px (very compact vertical)\n- Border: standard warm borders\n- Focus: ring with Focus Blue (`#3898ec`) border-color — the only cool color moment\n- Radius: generously rounded (12px)\n\n### Navigation\n- Sticky top nav with warm background\n- Logo: Claude wordmark in Anthropic Near Black\n- Links: mix of Near Black (`#141413`), Olive Gray (`#5e5d59`), and Dark Warm (`#3d3d3a`)\n- Nav border: `1px solid #30302e` (dark) or `1px solid #f0eee6` (light)\n- CTA: Terracotta Brand button or White Surface button\n- Hover: text shifts to foreground-primary, no decoration\n\n### Image Treatment\n- Product screenshots showing the Claude chat interface\n- Generous border-radius on media (16–32px)\n- Embedded video players with rounded corners\n- Dark UI screenshots provide contrast against warm light canvas\n- Organic, hand-drawn illustrations for conceptual sections\n\n### Distinctive Components\n\n**Model Comparison Cards**\n- Opus 4.5, Sonnet 4.5, Haiku 4.5 presented in a clean card grid\n- Each model gets a bordered card with name, description, and capability badges\n- Border Warm (`#e8e6dc`) separation between items\n\n**Organic Illustrations**\n- Hand-drawn-feeling vector illustrations in terracotta, black, and muted green\n- Abstract, conceptual rather than literal product diagrams\n- The primary visual personality — no other AI company uses this style\n\n**Dark/Light Section Alternation**\n- The page alternates between Parchment light and Near Black dark sections\n- Creates a reading rhythm like chapters in a book\n- Each section feels like a distinct environment\n\n## 5. Layout Principles\n\n### Spacing System\n- Base unit: 8px\n- Scale: 3px, 4px, 6px, 8px, 10px, 12px, 16px, 20px, 24px, 30px\n- Button padding: asymmetric (0px 12px 0px 8px) or balanced (8px 16px)\n- Card internal padding: approximately 24–32px\n- Section vertical spacing: generous (estimated 80–120px between major sections)\n\n### Grid & Container\n- Max container width: approximately 1200px, centered\n- Hero: centered with editorial layout\n- Feature sections: single-column or 2–3 column card grids\n- Model comparison: clean 3-column grid\n- Full-width dark sections breaking the container for emphasis\n\n### Whitespace Philosophy\n- **Editorial pacing**: Each section breathes like a magazine spread — generous top/bottom margins create natural reading pauses.\n- **Serif-driven rhythm**: The serif headings establish a literary cadence that demands more whitespace than sans-serif designs.\n- **Content island approach**: Sections alternate between light and dark environments, creating distinct \"rooms\" for each message.\n\n### Border Radius Scale\n- Sharp (4px): Minimal inline elements\n- Subtly rounded (6–7.5px): Small buttons, secondary interactive elements\n- Comfortably rounded (8–8.5px): Standard buttons, cards, containers\n- Generously rounded (12px): Primary buttons, input fields, nav elements\n- Very rounded (16px): Featured containers, video players, tab lists\n- Highly rounded (24px): Tag-like elements, highlighted containers\n- Maximum rounded (32px): Hero containers, embedded media, large cards\n\n## 6. Depth & Elevation\n\n| Level | Treatment | Use |\n|-------|-----------|-----|\n| Flat (Level 0) | No shadow, no border | Parchment background, inline text |\n| Contained (Level 1) | `1px solid #f0eee6` (light) or `1px solid #30302e` (dark) | Standard cards, sections |\n| Ring (Level 2) | `0px 0px 0px 1px` ring shadows using warm grays | Interactive cards, buttons, hover states |\n| Whisper (Level 3) | `rgba(0,0,0,0.05) 0px 4px 24px` | Elevated feature cards, product screenshots |\n| Inset (Level 4) | `inset 0px 0px 0px 1px` at 15% opacity | Active/pressed button states |\n\n**Shadow Philosophy**: Claude communicates depth through **warm-toned ring shadows** rather than traditional drop shadows. The signature `0px 0px 0px 1px` pattern creates a border-like halo that's softer than an actual border — it's a shadow pretending to be a border, or a border that's technically a shadow. When drop shadows do appear, they're extremely soft (0.05 opacity, 24px blur) — barely visible lifts that suggest floating rather than casting.\n\n### Decorative Depth\n- **Light/Dark alternation**: The most dramatic depth effect comes from alternating between Parchment (`#f5f4ed`) and Near Black (`#141413`) sections — entire sections shift elevation by changing the ambient light level.\n- **Warm ring halos**: Button and card interactions use ring shadows that match the warm palette — never cool-toned or generic gray.\n\n## 7. Do's and Don'ts\n\n### Do\n- Use Parchment (`#f5f4ed`) as the primary light background — the warm cream tone IS the Claude personality\n- Use Anthropic Serif at weight 500 for all headlines — the single-weight consistency is intentional\n- Use Terracotta Brand (`#c96442`) only for primary CTAs and the highest-signal brand moments\n- Keep all neutrals warm-toned — every gray should have a yellow-brown undertone\n- Use ring shadows (`0px 0px 0px 1px`) for interactive element states instead of drop shadows\n- Maintain the editorial serif/sans hierarchy — serif for content headlines, sans for UI\n- Use generous body line-height (1.60) for a literary reading experience\n- Alternate between light and dark sections to create chapter-like page rhythm\n- Apply generous border-radius (12–32px) for a soft, approachable feel\n\n### Don't\n- Don't use cool blue-grays anywhere — the palette is exclusively warm-toned\n- Don't use bold (700+) weight on Anthropic Serif — weight 500 is the ceiling for serifs\n- Don't introduce saturated colors beyond Terracotta — the palette is deliberately muted\n- Don't use sharp corners (< 6px radius) on buttons or cards — softness is core to the identity\n- Don't apply heavy drop shadows — depth comes from ring shadows and background color shifts\n- Don't use pure white (`#ffffff`) as a page background — Parchment (`#f5f4ed`) or Ivory (`#faf9f5`) are always warmer\n- Don't use geometric/tech-style illustrations — Claude's illustrations are organic and hand-drawn-feeling\n- Don't reduce body line-height below 1.40 — the generous spacing supports the editorial personality\n- Don't use monospace fonts for non-code content — Anthropic Mono is strictly for code\n- Don't mix in sans-serif for headlines — the serif/sans split is the typographic identity\n\n## 8. Responsive Behavior\n\n### Breakpoints\n| Name | Width | Key Changes |\n|------|-------|-------------|\n| Small Mobile | <479px | Minimum layout, stacked everything, compact typography |\n| Mobile | 479–640px | Single column, hamburger nav, reduced heading sizes |\n| Large Mobile | 640–767px | Slightly wider content area |\n| Tablet | 768–991px | 2-column grids begin, condensed nav |\n| Desktop | 992px+ | Full multi-column layout, expanded nav, maximum hero typography (64px) |\n\n### Touch Targets\n- Buttons use generous padding (8–16px vertical minimum)\n- Navigation links adequately spaced for thumb navigation\n- Card surfaces serve as large touch targets\n- Minimum recommended: 44x44px\n\n### Collapsing Strategy\n- **Navigation**: Full horizontal nav collapses to hamburger on mobile\n- **Feature sections**: Multi-column → stacked single column\n- **Hero text**: 64px → 36px → ~25px progressive scaling\n- **Model cards**: 3-column → stacked vertical\n- **Section padding**: Reduces proportionally but maintains editorial rhythm\n- **Illustrations**: Scale proportionally, maintain aspect ratios\n\n### Image Behavior\n- Product screenshots scale proportionally within rounded containers\n- Illustrations maintain quality at all sizes\n- Video embeds maintain 16:9 aspect ratio with rounded corners\n- No art direction changes between breakpoints\n\n## 9. Agent Prompt Guide\n\n### Quick Color Reference\n- Brand CTA: \"Terracotta Brand (#c96442)\"\n- Page Background: \"Parchment (#f5f4ed)\"\n- Card Surface: \"Ivory (#faf9f5)\"\n- Primary Text: \"Anthropic Near Black (#141413)\"\n- Secondary Text: \"Olive Gray (#5e5d59)\"\n- Tertiary Text: \"Stone Gray (#87867f)\"\n- Borders (light): \"Border Cream (#f0eee6)\"\n- Dark Surface: \"Dark Surface (#30302e)\"\n\n### Example Component Prompts\n- \"Create a hero section on Parchment (#f5f4ed) with a headline at 64px Anthropic Serif weight 500, line-height 1.10. Use Anthropic Near Black (#141413) text. Add a subtitle in Olive Gray (#5e5d59) at 20px Anthropic Sans with 1.60 line-height. Place a Terracotta Brand (#c96442) CTA button with Ivory text, 12px radius.\"\n- \"Design a feature card on Ivory (#faf9f5) with a 1px solid Border Cream (#f0eee6) border and comfortably rounded corners (8px). Title in Anthropic Serif at 25px weight 500, description in Olive Gray (#5e5d59) at 16px Anthropic Sans. Add a whisper shadow (rgba(0,0,0,0.05) 0px 4px 24px).\"\n- \"Build a dark section on Anthropic Near Black (#141413) with Ivory (#faf9f5) headline text in Anthropic Serif at 52px weight 500. Use Warm Silver (#b0aea5) for body text. Borders in Dark Surface (#30302e).\"\n- \"Create a button in Warm Sand (#e8e6dc) with Charcoal Warm (#4d4c48) text, 8px radius, and a ring shadow (0px 0px 0px 1px #d1cfc5). Padding: 0px 12px 0px 8px.\"\n- \"Design a model comparison grid with three cards on Ivory surfaces. Each card gets a Border Warm (#e8e6dc) top border, model name in Anthropic Serif at 25px, and description in Olive Gray at 15px Anthropic Sans.\"\n\n### Iteration Guide\n1. Focus on ONE component at a time\n2. Reference specific color names — \"use Olive Gray (#5e5d59)\" not \"make it gray\"\n3. Always specify warm-toned variants — no cool grays\n4. Describe serif vs sans usage explicitly — \"Anthropic Serif for the heading, Anthropic Sans for the label\"\n5. For shadows, use \"ring shadow (0px 0px 0px 1px)\" or \"whisper shadow\" — never generic \"drop shadow\"\n6. Specify the warm background — \"on Parchment (#f5f4ed)\" or \"on Near Black (#141413)\"\n7. Keep illustrations organic and conceptual — describe \"hand-drawn-feeling\" style\n",
+  "createdAt": "2026-04-09T07:51:24.322Z",
+  "updatedAt": "2026-04-09T07:51:24.322Z",
+  "source": "imported"
+}

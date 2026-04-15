@@ -1,0 +1,262 @@
+{
+  "id": "lOInxZ-tv8z4AAc8CuuTI",
+  "slug": "raycast",
+  "name": "Raycast",
+  "url": "https://raycast.com",
+  "description": "Productivity launcher. Sleek dark chrome, vibrant gradient accents.",
+  "tokens": {
+    "colors": [
+      {
+        "hex": "#07080a",
+        "rgb": "7, 8, 10",
+        "occurrences": 1,
+        "name": "Color 1",
+        "role": "primary"
+      },
+      {
+        "hex": "#FF6363",
+        "rgb": "255, 99, 99",
+        "occurrences": 1,
+        "name": "Color 2",
+        "role": "secondary"
+      },
+      {
+        "hex": "#ffffff",
+        "rgb": "255, 255, 255",
+        "occurrences": 1,
+        "name": "Color 3",
+        "role": "neutral"
+      },
+      {
+        "hex": "#55b3ff",
+        "rgb": "85, 179, 255",
+        "occurrences": 1,
+        "name": "Color 4",
+        "role": "neutral"
+      },
+      {
+        "hex": "#5fc992",
+        "rgb": "95, 201, 146",
+        "occurrences": 1,
+        "name": "Color 5",
+        "role": "neutral"
+      },
+      {
+        "hex": "#ffbc33",
+        "rgb": "255, 188, 51",
+        "occurrences": 1,
+        "name": "Color 6",
+        "role": "neutral"
+      },
+      {
+        "hex": "#101111",
+        "rgb": "16, 17, 17",
+        "occurrences": 1,
+        "name": "Color 7",
+        "role": "neutral"
+      },
+      {
+        "hex": "#121212",
+        "rgb": "18, 18, 18",
+        "occurrences": 1,
+        "name": "Color 8",
+        "role": "neutral"
+      },
+      {
+        "hex": "#0d0d0d",
+        "rgb": "13, 13, 13",
+        "occurrences": 1,
+        "name": "Color 9",
+        "role": "neutral"
+      },
+      {
+        "hex": "#1b1c1e",
+        "rgb": "27, 28, 30",
+        "occurrences": 1,
+        "name": "Color 10",
+        "role": "neutral"
+      },
+      {
+        "hex": "#18191a",
+        "rgb": "24, 25, 26",
+        "occurrences": 1,
+        "name": "Color 11",
+        "role": "neutral"
+      },
+      {
+        "hex": "#f9f9f9",
+        "rgb": "249, 249, 249",
+        "occurrences": 1,
+        "name": "Color 12",
+        "role": "neutral"
+      },
+      {
+        "hex": "#cecece",
+        "rgb": "206, 206, 206",
+        "occurrences": 1,
+        "name": "Color 13",
+        "role": "neutral"
+      },
+      {
+        "hex": "#cdcdce",
+        "rgb": "205, 205, 206",
+        "occurrences": 1,
+        "name": "Color 14",
+        "role": "neutral"
+      },
+      {
+        "hex": "#c0c0c0",
+        "rgb": "192, 192, 192",
+        "occurrences": 1,
+        "name": "Color 15",
+        "role": "neutral"
+      },
+      {
+        "hex": "#9c9c9d",
+        "rgb": "156, 156, 157",
+        "occurrences": 1,
+        "name": "Color 16",
+        "role": "neutral"
+      },
+      {
+        "hex": "#6a6b6c",
+        "rgb": "106, 107, 108",
+        "occurrences": 1,
+        "name": "Color 17",
+        "role": "neutral"
+      },
+      {
+        "hex": "#434345",
+        "rgb": "67, 67, 69",
+        "occurrences": 1,
+        "name": "Color 18",
+        "role": "neutral"
+      },
+      {
+        "hex": "#252829",
+        "rgb": "37, 40, 41",
+        "occurrences": 1,
+        "name": "Color 19",
+        "role": "neutral"
+      },
+      {
+        "hex": "#2f3031",
+        "rgb": "47, 48, 49",
+        "occurrences": 1,
+        "name": "Color 20",
+        "role": "neutral"
+      }
+    ],
+    "typography": [
+      {
+        "fontFamily": "Inter",
+        "fallbacks": [
+          "system-ui"
+        ],
+        "weights": [
+          700
+        ],
+        "role": "heading"
+      },
+      {
+        "fontFamily": "Inter",
+        "fallbacks": [
+          "system-ui"
+        ],
+        "weights": [
+          400
+        ],
+        "role": "body"
+      }
+    ],
+    "typeScale": [],
+    "spacing": [],
+    "shadows": [],
+    "radii": [
+      {
+        "value": "1px",
+        "px": 1,
+        "occurrences": 1
+      },
+      {
+        "value": "4px",
+        "px": 4,
+        "occurrences": 1
+      },
+      {
+        "value": "6px",
+        "px": 6,
+        "occurrences": 1
+      },
+      {
+        "value": "16px",
+        "px": 16,
+        "occurrences": 1
+      },
+      {
+        "value": "64px",
+        "px": 64,
+        "occurrences": 1
+      },
+      {
+        "value": "86px",
+        "px": 86,
+        "occurrences": 1
+      }
+    ],
+    "components": [],
+    "cssVariables": {},
+    "meta": {
+      "url": "https://raycast.com",
+      "title": "raycast",
+      "extractedAt": "2026-04-09T07:51:58.519Z"
+    }
+  },
+  "resolved": {
+    "colorPrimary": "#07080a",
+    "colorSecondary": "#FF6363",
+    "colorAccent": "#ffffff",
+    "colorBackground": "#07080a",
+    "colorSurface": "#f8fafc",
+    "colorTextPrimary": "#07080a",
+    "colorTextSecondary": "#475569",
+    "colorTextMuted": "#94a3b8",
+    "colorBorder": "#e2e8f0",
+    "colorSuccess": "#55b3ff",
+    "colorWarning": "#f59e0b",
+    "colorError": "#ef4444",
+    "fontHeading": "Inter",
+    "fontBody": "Inter",
+    "fontMono": "ui-monospace",
+    "fontWeightHeading": 700,
+    "fontWeightBody": 400,
+    "textXs": "0.75rem",
+    "textSm": "0.875rem",
+    "textBase": "1rem",
+    "textLg": "1.125rem",
+    "textXl": "1.25rem",
+    "text2xl": "1.5rem",
+    "text3xl": "1.875rem",
+    "text4xl": "2.25rem",
+    "spacingXs": "4px",
+    "spacingSm": "8px",
+    "spacingMd": "16px",
+    "spacingLg": "24px",
+    "spacingXl": "32px",
+    "spacing2xl": "48px",
+    "radiusSm": "1px",
+    "radiusMd": "4px",
+    "radiusLg": "6px",
+    "radiusFull": "9999px",
+    "shadowSm": "0 1px 2px 0 rgba(0,0,0,0.05)",
+    "shadowMd": "0 4px 6px -1px rgba(0,0,0,0.1)",
+    "shadowLg": "0 10px 15px -3px rgba(0,0,0,0.1)",
+    "lineHeightTight": "1.15",
+    "lineHeightNormal": "1.5",
+    "lineHeightRelaxed": "1.75"
+  },
+  "designMd": "# Design System Inspiration of Raycast\n\n## 1. Visual Theme & Atmosphere\n\nRaycast's marketing site feels like the dark interior of a precision instrument — a Swiss watch case carved from obsidian. The background isn't just dark, it's an almost-black blue-tint (`#07080a`) that creates a sense of being inside a macOS native application rather than a website. Every surface, every border, every shadow is calibrated to evoke the feeling of a high-performance desktop utility: fast, minimal, trustworthy.\n\nThe signature move is the layered shadow system borrowed from macOS window chrome: multi-layer box-shadows with inset highlights that simulate physical depth, as if cards and buttons are actual pressed or raised glass elements on a dark desk. Combined with Raycast Red (`#FF6363`) — deployed almost exclusively in the hero's iconic diagonal stripe pattern — the palette creates a brand that reads as \"powerful tool with personality.\" The red doesn't dominate; it punctuates.\n\nInter is used everywhere — headings, body, buttons, captions — with extensive OpenType features (`calt`, `kern`, `liga`, `ss03`) creating a consistent, readable typographic voice. The positive letter-spacing (0.2px–0.4px on body text) is unusual for a dark UI and gives the text an airy, breathable quality that counterbalances the dense, dark surfaces. GeistMono appears for code elements, reinforcing the developer-tool identity.\n\n**Key Characteristics:**\n- Near-black blue-tinted background (`#07080a`) — not pure black, subtly blue-shifted\n- macOS-native shadow system with multi-layer inset highlights simulating physical depth\n- Raycast Red (`#FF6363`) as a punctuation color — hero stripes, not pervasive\n- Inter with positive letter-spacing (0.2px) for an airy, readable dark-mode experience\n- Radix UI component primitives powering the interaction layer\n- Subtle rgba white borders (0.06–0.1 opacity) for containment on dark surfaces\n- Keyboard shortcut styling with gradient key caps and heavy shadows\n\n## 2. Color Palette & Roles\n\n### Primary\n- **Near-Black Blue** (`#07080a`): Primary page background — the foundational void with a subtle blue-cold undertone\n- **Pure White** (`#ffffff`): Primary heading text, high-emphasis elements\n- **Raycast Red** (`#FF6363` / `hsl(0, 100%, 69%)`): Brand accent — hero stripes, danger states, critical highlights\n\n### Secondary & Accent\n- **Raycast Blue** (`hsl(202, 100%, 67%)` / ~`#55b3ff`): Interactive accent — links, focus states, selected items\n- **Raycast Green** (`hsl(151, 59%, 59%)` / ~`#5fc992`): Success states, positive indicators\n- **Raycast Yellow** (`hsl(43, 100%, 60%)` / ~`#ffbc33`): Warning accents, highlights\n- **Blue Transparent** (`hsla(202, 100%, 67%, 0.15)`): Blue tint overlay for interactive surfaces\n- **Red Transparent** (`hsla(0, 100%, 69%, 0.15)`): Red tint overlay for danger/error surfaces\n\n### Surface & Background\n- **Deep Background** (`#07080a`): Page canvas, the darkest surface\n- **Surface 100** (`#101111`): Elevated surface, card backgrounds\n- **Key Start** (`#121212`): Keyboard key gradient start\n- **Key End** (`#0d0d0d`): Keyboard key gradient end\n- **Card Surface** (`#1b1c1e`): Badge backgrounds, tag fills, elevated containers\n- **Button Foreground** (`#18191a`): Dark surface for button text on light backgrounds\n\n### Neutrals & Text\n- **Near White** (`#f9f9f9` / `hsl(240, 11%, 96%)`): Primary body text, high-emphasis content\n- **Light Gray** (`#cecece` / `#cdcdce`): Secondary body text, descriptions\n- **Silver** (`#c0c0c0`): Tertiary text, subdued labels\n- **Medium Gray** (`#9c9c9d`): Link default color, secondary navigation\n- **Dim Gray** (`#6a6b6c`): Disabled text, low-emphasis labels\n- **Dark Gray** (`#434345`): Muted borders, inactive navigation links\n- **Border** (`hsl(195, 5%, 15%)` / ~`#252829`): Standard border color for cards and dividers\n- **Dark Border** (`#2f3031`): Separator lines, table borders\n\n### Semantic & Accent\n- **Error Red** (`hsl(0, 100%, 69%)`): Error states, destructive actions\n- **Success Green** (`hsl(151, 59%, 59%)`): Success confirmations, positive states\n- **Warning Yellow** (`hsl(43, 100%, 60%)`): Warnings, attention-needed states\n- **Info Blue** (`hsl(202, 100%, 67%)`): Informational highlights, links\n\n### Gradient System\n- **Keyboard Key Gradient**: Linear gradient from `#121212` (top) to `#0d0d0d` (bottom) — simulates physical key depth\n- **Warm Glow**: `rgba(215, 201, 175, 0.05)` radial spread — subtle warm ambient glow behind featured elements\n\n## 3. Typography Rules\n\n### Font Family\n- **Primary**: `Inter` — humanist sans-serif, used everywhere. Fallbacks: `Inter Fallback`, system sans-serif\n- **System**: `SF Pro Text` — Apple system font for select macOS-native UI elements. Fallbacks: `SF Pro Icons`, `Inter`, `Inter Fallback`\n- **Monospace**: `GeistMono` — Vercel's monospace font for code elements. Fallbacks: `ui-monospace`, `SFMono-Regular`, `Roboto Mono`, `Menlo`, `Monaco`\n- **OpenType features**: `calt`, `kern`, `liga`, `ss03` enabled globally; `ss02`, `ss08` on display text; `liga` disabled (`\"liga\" 0`) on hero headings\n\n### Hierarchy\n\n| Role | Size | Weight | Line Height | Letter Spacing | Notes |\n|------|------|--------|-------------|----------------|-------|\n| Display Hero | 64px | 600 | 1.10 | 0px | OpenType: liga 0, ss02, ss08 |\n| Section Display | 56px | 400 | 1.17 | 0.2px | OpenType: calt, kern, liga, ss03 |\n| Section Heading | 24px | 500 | normal | 0.2px | OpenType: calt, kern, liga, ss03 |\n| Card Heading | 22px | 400 | 1.15 | 0px | OpenType: calt, kern, liga, ss03 |\n| Sub-heading | 20px | 500 | 1.60 | 0.2px | Relaxed line-height for readability |\n| Body Large | 18px | 400 | 1.15 | 0.2px | OpenType: calt, kern, liga, ss03 |\n| Body | 16px | 500 | 1.60 | 0.2px | Primary body text, relaxed rhythm |\n| Body Tight | 16px | 400 | 1.15 | 0.1px | UI labels, compact contexts |\n| Button | 16px | 600 | 1.15 | 0.3px | Semibold, slightly wider tracking |\n| Nav Link | 16px | 500 | 1.40 | 0.3px | Links in navigation |\n| Caption | 14px | 500 | 1.14 | 0.2px | Small labels, metadata |\n| Caption Bold | 14px | 600 | 1.40 | 0px | Emphasized captions |\n| Small | 12px | 600 | 1.33 | 0px | Badges, tags, micro-labels |\n| Small Link | 12px | 400 | 1.50 | 0.4px | Footer links, fine print |\n| Code | 14px (GeistMono) | 500 | 1.60 | 0.3px | Code blocks, technical content |\n| Code Small | 12px (GeistMono) | 400 | 1.60 | 0.2px | Inline code, terminal output |\n\n### Principles\n- **Positive tracking on dark**: Unlike most dark UIs that use tight or neutral letter-spacing, Raycast applies +0.2px to +0.4px — creating an airy, readable feel that compensates for the dark background\n- **Weight 500 as baseline**: Most body text uses medium weight (500), not regular (400) — subtle extra heft improves legibility on dark surfaces\n- **Display restraint**: Hero text at 64px/600 is confident but not oversized — Raycast avoids typographic spectacle in favor of functional elegance\n- **OpenType everywhere**: `ss03` (stylistic set 3) is enabled globally across Inter, giving the typeface a slightly more geometric, tool-like quality\n\n## 4. Component Stylings\n\n### Buttons\n- **Primary Pill**: Transparent background, white text, pill shape (86px radius), multi-layer inset shadow (`rgba(255, 255, 255, 0.1) 0px 1px 0px 0px inset`). Hover: opacity 0.6\n- **Secondary Button**: Transparent background, white text, 6px radius, `1px solid rgba(255, 255, 255, 0.1)` border, subtle drop shadow (`rgba(0, 0, 0, 0.03) 0px 7px 3px`). Hover: opacity 0.6\n- **Ghost Button**: No background or border, gray text (`#6a6b6c`), 86px radius, same inset shadow. Hover: opacity 0.6, text brightens to white\n- **CTA (Download)**: Semi-transparent white background (`hsla(0, 0%, 100%, 0.815)`), dark text (`#18191a`), pill shape. Hover: full white background (`hsl(0, 0%, 100%)`)\n- **Transition**: All buttons use opacity transition for hover rather than background-color change — a signature Raycast interaction pattern\n\n### Cards & Containers\n- **Standard Card**: `#101111` surface, `1px solid rgba(255, 255, 255, 0.06)` border, 12px–16px border-radius\n- **Elevated Card**: Ring shadow `rgb(27, 28, 30) 0px 0px 0px 1px` outer + `rgb(7, 8, 10) 0px 0px 0px 1px inset` inner — creates a double-ring containment\n- **Feature Card**: 16px–20px border-radius, subtle warm glow (`rgba(215, 201, 175, 0.05) 0px 0px 20px 5px`) behind hero elements\n- **Hover**: Cards brighten slightly via border opacity increase or subtle shadow enhancement\n\n### Inputs & Forms\n- Dark input fields with `#07080a` background, `1px solid rgba(255, 255, 255, 0.08)` border, 8px border-radius\n- Focus state: Border brightens, blue glow (`hsla(202, 100%, 67%, 0.15)`) ring appears\n- Text: `#f9f9f9` input color, `#6a6b6c` placeholder\n- Labels: `#9c9c9d` at 14px weight 500\n\n### Navigation\n- **Top nav**: Dark background blending with page, white text links at 16px weight 500\n- **Nav links**: Gray text (`#9c9c9d`) → white on hover, underline decoration on hover\n- **CTA button**: Semi-transparent white pill at nav end\n- **Mobile**: Collapses to hamburger, maintains dark theme\n- **Sticky**: Nav fixed at top with subtle border separator\n\n### Image Treatment\n- **Product screenshots**: macOS window chrome style — rounded corners (12px), deep shadows simulating floating windows\n- **Full-bleed sections**: Dark screenshots blend seamlessly into the dark background\n- **Hero illustration**: Diagonal stripe pattern in Raycast Red — abstract, geometric, brand-defining\n- **App UI embeds**: Showing actual Raycast command palette and extensions — product as content\n\n### Keyboard Shortcut Keys\n- **Key cap styling**: Gradient background (`#121212` → `#0d0d0d`), heavy multi-layer shadow (`rgba(0, 0, 0, 0.4) 0px 1.5px 0.5px 2.5px` + inset shadows), creating realistic physical key appearance\n- Border-radius: 4px–6px for individual keys\n\n### Badges & Tags\n- **Neutral badge**: `#1b1c1e` background, white text, 6px radius, 14px font at weight 500, `0px 6px` padding\n- Compact, pill-like treatment for categorization\n\n## 5. Layout Principles\n\n### Spacing System\n- **Base unit**: 8px\n- **Scale**: 1px, 2px, 3px, 4px, 8px, 10px, 12px, 16px, 20px, 24px, 32px, 40px\n- **Section padding**: 80px–120px vertical between major sections\n- **Card padding**: 16px–32px internal spacing\n- **Component gaps**: 8px–16px between related elements\n\n### Grid & Container\n- **Max width**: ~1200px container (breakpoint at 1204px), centered\n- **Column patterns**: Single-column hero, 2–3 column feature grids, full-width showcase sections\n- **App showcase**: Product UI presented in centered window frames\n\n### Whitespace Philosophy\n- **Dramatic negative space**: Sections float in vast dark void, creating cinematic pacing between features\n- **Dense product, sparse marketing**: The product UI screenshots are information-dense, but the surrounding marketing copy uses minimal text with generous spacing\n- **Vertical rhythm**: Consistent 24px–32px gaps between elements within sections\n\n### Border Radius Scale\n- **2px–3px**: Micro-elements, code spans, tiny indicators\n- **4px–5px**: Keyboard keys, small interactive elements\n- **6px**: Buttons, badges, tags — the workhorse radius\n- **8px**: Input fields, inline components\n- **9px–11px**: Images, medium containers\n- **12px**: Standard cards, product screenshots\n- **16px**: Large cards, feature sections\n- **20px**: Hero cards, prominent containers\n- **86px+**: Pill buttons, nav CTAs — full pill shape\n\n## 6. Depth & Elevation\n\n| Level | Treatment | Use |\n|-------|-----------|-----|\n| Level 0 (Void) | No shadow, `#07080a` surface | Page background |\n| Level 1 (Subtle) | `rgba(0, 0, 0, 0.28) 0px 1.189px 2.377px` | Minimal lift, inline elements |\n| Level 2 (Ring) | `rgb(27, 28, 30) 0px 0px 0px 1px` outer + `rgb(7, 8, 10) 0px 0px 0px 1px inset` inner | Card containment, double-ring technique |\n| Level 3 (Button) | `rgba(255, 255, 255, 0.05) 0px 1px 0px 0px inset` + `rgba(255, 255, 255, 0.25) 0px 0px 0px 1px` + `rgba(0, 0, 0, 0.2) 0px -1px 0px 0px inset` | macOS-native button press — white highlight top, dark inset bottom |\n| Level 4 (Key) | 5-layer shadow stack with inset press effects | Keyboard shortcut key caps — physical 3D appearance |\n| Level 5 (Floating) | `rgba(0, 0, 0, 0.5) 0px 0px 0px 2px` + `rgba(255, 255, 255, 0.19) 0px 0px 14px` + insets | Command palette, floating panels — heavy depth with glow |\n\n### Shadow Philosophy\nRaycast's shadow system is the most macOS-native on the web. Multi-layer shadows combine:\n- **Outer rings** for containment (replacing traditional borders)\n- **Inset top highlights** (`rgba(255, 255, 255, 0.05–0.25)`) simulating light source from above\n- **Inset bottom darks** (`rgba(0, 0, 0, 0.2)`) simulating shadow underneath\n- The effect is physical: elements feel like glass or brushed metal, not flat rectangles\n\n### Decorative Depth\n- **Warm glow**: `rgba(215, 201, 175, 0.05) 0px 0px 20px 5px` behind featured elements — a subtle warm aura on the cold dark canvas\n- **Blue info glow**: `rgba(0, 153, 255, 0.15)` for interactive state emphasis\n- **Red danger glow**: `rgba(255, 99, 99, 0.15)` for error/destructive state emphasis\n\n## 7. Do's and Don'ts\n\n### Do\n- Use `#07080a` (not pure black) as the background — the blue-cold tint is essential to the Raycast feel\n- Apply positive letter-spacing (+0.2px) on body text — this is deliberately different from most dark UIs\n- Use multi-layer shadows with inset highlights for interactive elements — the macOS-native depth is signature\n- Keep Raycast Red (`#FF6363`) as punctuation, not pervasive — reserve it for hero moments and error states\n- Use `rgba(255, 255, 255, 0.06)` borders for card containment — barely visible, structurally essential\n- Apply weight 500 as the body text baseline — medium weight improves dark-mode legibility\n- Use pill shapes (86px+ radius) for primary CTAs, rectangular shapes (6px–8px) for secondary actions\n- Enable OpenType features `calt`, `kern`, `liga`, `ss03` on all Inter text\n- Use opacity transitions (hover: opacity 0.6) for button interactions, not color changes\n\n### Don't\n- Use pure black (`#000000`) as the background — the blue tint differentiates Raycast from generic dark themes\n- Apply negative letter-spacing on body text — Raycast deliberately uses positive spacing for readability\n- Use Raycast Blue as the primary accent for everything — blue is for interactive/info, red is the brand color\n- Create single-layer flat shadows — the multi-layer inset system is core to the macOS-native aesthetic\n- Use regular weight (400) for body text when 500 is available — the extra weight prevents dark-mode text from feeling thin\n- Mix warm and cool borders — stick to the cool gray (`hsl(195, 5%, 15%)`) border palette\n- Apply heavy drop shadows without inset companions — shadows always come in pairs (outer + inset)\n- Use decorative elements, gradients, or colorful backgrounds — the dark void is the stage, content is the performer\n\n## 8. Responsive Behavior\n\n### Breakpoints\n| Name | Width | Key Changes |\n|------|-------|-------------|\n| Mobile | <600px | Single column, stacked cards, hamburger nav, hero text reduces to ~40px |\n| Small Tablet | 600px–768px | 2-column grid begins, nav partially visible |\n| Tablet | 768px–1024px | 2–3 column features, nav expanding, screenshots scale |\n| Desktop | 1024px–1200px | Full layout, all nav links visible, 64px hero display |\n| Large Desktop | >1200px | Max-width container centered, generous side margins |\n\n### Touch Targets\n- Pill buttons: 86px radius with 20px padding — well above 44px minimum\n- Secondary buttons: 8px padding minimum, but border provides visual target expansion\n- Nav links: 16px text with surrounding padding for accessible touch targets\n\n### Collapsing Strategy\n- **Navigation**: Full horizontal nav → hamburger at mobile with slide-out menu\n- **Hero**: 64px display → 48px → 36px across breakpoints\n- **Feature grids**: 3-column → 2-column → single-column stack\n- **Product screenshots**: Scale within containers, maintaining macOS window chrome proportions\n- **Keyboard shortcut displays**: Simplify or hide on mobile where keyboard shortcuts are irrelevant\n\n### Image Behavior\n- Product screenshots scale responsively within fixed-ratio containers\n- Hero diagonal stripe pattern scales proportionally\n- macOS window chrome rounded corners maintained at all sizes\n- No lazy-loading artifacts — images are critical to the product narrative\n\n## 9. Agent Prompt Guide\n\n### Quick Color Reference\n- Primary Background: Near-Black Blue (`#07080a`)\n- Primary Text: Near White (`#f9f9f9`)\n- Brand Accent: Raycast Red (`#FF6363`)\n- Interactive Blue: Raycast Blue (`hsl(202, 100%, 67%)` / ~`#55b3ff`)\n- Secondary Text: Medium Gray (`#9c9c9d`)\n- Card Surface: Surface 100 (`#101111`)\n- Border: Dark Border (`hsl(195, 5%, 15%)` / ~`#252829`)\n\n### Example Component Prompts\n- \"Create a hero section on #07080a background with 64px Inter heading (weight 600, line-height 1.1), near-white text (#f9f9f9), and a semi-transparent white pill CTA button (hsla(0,0%,100%,0.815), 86px radius, dark text #18191a)\"\n- \"Design a feature card with #101111 background, 1px solid rgba(255,255,255,0.06) border, 16px border-radius, double-ring shadow (rgb(27,28,30) 0px 0px 0px 1px outer), 22px Inter heading, and #9c9c9d body text\"\n- \"Build a navigation bar on dark background (#07080a), Inter links at 16px weight 500 in #9c9c9d, hover to white, and a translucent white pill button at the right end\"\n- \"Create a keyboard shortcut display with key caps using gradient background (#121212→#0d0d0d), 5-layer shadow for physical depth, 4px radius, Inter 12px weight 600 text\"\n- \"Design an alert card with #101111 surface, Raycast Red (#FF6363) left border accent, translucent red glow (hsla(0,100%,69%,0.15)), white heading, and #cecece description text\"\n\n### Iteration Guide\nWhen refining existing screens generated with this design system:\n1. Check the background is `#07080a` not pure black — the blue tint is critical\n2. Verify letter-spacing is positive (+0.2px) on body text — negative spacing breaks the Raycast aesthetic\n3. Ensure shadows have both outer and inset layers — single-layer shadows look flat and wrong\n4. Confirm Inter has OpenType features `calt`, `kern`, `liga`, `ss03` enabled\n5. Test that hover states use opacity transitions (0.6) not color swaps — this is a core interaction pattern\n",
+  "createdAt": "2026-04-09T07:51:58.519Z",
+  "updatedAt": "2026-04-09T07:51:58.519Z",
+  "source": "imported"
+}

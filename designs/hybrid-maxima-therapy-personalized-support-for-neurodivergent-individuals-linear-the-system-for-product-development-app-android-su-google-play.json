@@ -1,0 +1,1272 @@
+{
+  "id": "QoDWLWxHl_5_34fuLZNva",
+  "slug": "hybrid-maxima-therapy-personalized-support-for-neurodivergent-individuals-linear-the-system-for-product-development-app-android-su-google-play",
+  "name": "Hybrid — Maxima Therapy | Personalized Support for Neurodivergent Individuals + Linear – The system for product development + App Android su Google Play",
+  "url": "https://maximatherapy.com/, https://linear.app/, https://play.google.com/",
+  "description": "Hybrid design blended from 3 inspirations",
+  "tokens": {
+    "colors": [
+      {
+        "hex": "#000000",
+        "rgb": "0, 0, 0",
+        "occurrences": 24422,
+        "name": "Black",
+        "role": "background"
+      },
+      {
+        "hex": "#5f6368",
+        "rgb": "95, 99, 104",
+        "occurrences": 8374,
+        "name": "Charcoal",
+        "role": "surface"
+      },
+      {
+        "hex": "#202124",
+        "rgb": "32, 33, 36",
+        "occurrences": 1598,
+        "name": "Dark Blue",
+        "role": "neutral"
+      },
+      {
+        "hex": "#ffffff",
+        "rgb": "255, 255, 255",
+        "occurrences": 464,
+        "name": "White",
+        "role": "text-primary"
+      },
+      {
+        "hex": "#e8eaed",
+        "rgb": "232, 234, 237",
+        "occurrences": 292,
+        "name": "Light Gray",
+        "role": "text-secondary"
+      },
+      {
+        "hex": "#056449",
+        "rgb": "5, 100, 73",
+        "occurrences": 40,
+        "name": "Dark Teal",
+        "role": "neutral"
+      },
+      {
+        "hex": "#dadce0",
+        "rgb": "218, 220, 224",
+        "occurrences": 16,
+        "name": "Gray",
+        "role": "text-muted"
+      },
+      {
+        "hex": "#01875f",
+        "rgb": "1, 135, 95",
+        "occurrences": 8,
+        "name": "Dark Teal",
+        "role": "accent"
+      },
+      {
+        "hex": "#0179ca",
+        "rgb": "1, 121, 202",
+        "occurrences": 2,
+        "name": "Dark Cyan",
+        "role": "secondary"
+      },
+      {
+        "hex": "#5bcbfe",
+        "rgb": "91, 203, 254",
+        "occurrences": 1,
+        "name": "Cyan",
+        "role": "info"
+      },
+      {
+        "hex": "#d486c4",
+        "rgb": "212, 134, 196",
+        "occurrences": 1,
+        "name": "Pink",
+        "role": "neutral"
+      },
+      {
+        "hex": "#6fd1e9",
+        "rgb": "111, 209, 233",
+        "occurrences": 1,
+        "name": "Cyan",
+        "role": "neutral"
+      },
+      {
+        "hex": "#42292f",
+        "rgb": "66, 41, 47",
+        "occurrences": 1,
+        "name": "Dark Red",
+        "role": "error"
+      },
+      {
+        "hex": "#edf4b1",
+        "rgb": "237, 244, 177",
+        "occurrences": 1,
+        "name": "Light Lime",
+        "role": "neutral"
+      },
+      {
+        "hex": "#e40101",
+        "rgb": "228, 1, 1",
+        "occurrences": 1,
+        "name": "Dark Red",
+        "role": "primary"
+      },
+      {
+        "hex": "#59194e",
+        "rgb": "89, 25, 78",
+        "occurrences": 1,
+        "name": "Dark Purple",
+        "role": "neutral"
+      },
+      {
+        "hex": "#aec355",
+        "rgb": "174, 195, 85",
+        "occurrences": 1,
+        "name": "Lime",
+        "role": "neutral"
+      },
+      {
+        "hex": "#dc7d08",
+        "rgb": "220, 125, 8",
+        "occurrences": 1,
+        "name": "Orange",
+        "role": "warning"
+      }
+    ],
+    "typography": [
+      {
+        "fontFamily": "Google Sans",
+        "fallbacks": [
+          "system-ui",
+          "-apple-system",
+          "sans-serif"
+        ],
+        "weights": [
+          400,
+          500
+        ],
+        "role": "heading"
+      },
+      {
+        "fontFamily": "Roboto",
+        "fallbacks": [
+          "system-ui",
+          "-apple-system",
+          "sans-serif"
+        ],
+        "weights": [
+          100,
+          300,
+          400,
+          500,
+          700
+        ],
+        "role": "body"
+      },
+      {
+        "fontFamily": "Google Material Icons",
+        "fallbacks": [
+          "system-ui",
+          "-apple-system",
+          "sans-serif"
+        ],
+        "weights": [
+          400
+        ],
+        "role": "body"
+      },
+      {
+        "fontFamily": "Google Symbols",
+        "fallbacks": [
+          "system-ui",
+          "-apple-system",
+          "sans-serif"
+        ],
+        "weights": [
+          400
+        ],
+        "role": "body"
+      },
+      {
+        "fontFamily": "Material Icons Extended",
+        "fallbacks": [
+          "system-ui",
+          "-apple-system",
+          "sans-serif"
+        ],
+        "weights": [
+          400
+        ],
+        "role": "body"
+      }
+    ],
+    "typeScale": [
+      {
+        "role": "Body",
+        "fontFamily": "Google Sans",
+        "size": "14px",
+        "weight": 400,
+        "lineHeight": "32px",
+        "letterSpacing": "0.2px"
+      },
+      {
+        "role": "Caption",
+        "fontFamily": "Google Sans",
+        "size": "12px",
+        "weight": 400,
+        "lineHeight": "1.4",
+        "letterSpacing": "normal"
+      },
+      {
+        "role": "Small",
+        "fontFamily": "Google Sans",
+        "size": "13px",
+        "weight": 400,
+        "lineHeight": "1.4",
+        "letterSpacing": "normal"
+      }
+    ],
+    "spacing": [
+      {
+        "value": "1px",
+        "px": 1,
+        "occurrences": 8
+      },
+      {
+        "value": "3px",
+        "px": 3,
+        "occurrences": 20
+      },
+      {
+        "value": "6px",
+        "px": 6,
+        "occurrences": 40
+      },
+      {
+        "value": "8px",
+        "px": 8,
+        "occurrences": 861
+      },
+      {
+        "value": "10px",
+        "px": 10,
+        "occurrences": 20
+      },
+      {
+        "value": "12px",
+        "px": 12,
+        "occurrences": 1390
+      },
+      {
+        "value": "16px",
+        "px": 16,
+        "occurrences": 549
+      },
+      {
+        "value": "20px",
+        "px": 20,
+        "occurrences": 15
+      },
+      {
+        "value": "24px",
+        "px": 24,
+        "occurrences": 76
+      },
+      {
+        "value": "30px",
+        "px": 30,
+        "occurrences": 15
+      },
+      {
+        "value": "32px",
+        "px": 32,
+        "occurrences": 1
+      },
+      {
+        "value": "36px",
+        "px": 36,
+        "occurrences": 2
+      }
+    ],
+    "shadows": [
+      {
+        "value": "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px",
+        "level": "sm",
+        "occurrences": 515
+      }
+    ],
+    "radii": [
+      {
+        "value": "3px 3px 0px 0px",
+        "px": 3,
+        "occurrences": 4
+      },
+      {
+        "value": "8px",
+        "px": 8,
+        "occurrences": 1506
+      },
+      {
+        "value": "12px",
+        "px": 12,
+        "occurrences": 270
+      },
+      {
+        "value": "20%",
+        "px": 20,
+        "occurrences": 20
+      },
+      {
+        "value": "50%",
+        "px": 50,
+        "occurrences": 176
+      },
+      {
+        "value": "100%",
+        "px": 100,
+        "occurrences": 1
+      }
+    ],
+    "components": [
+      {
+        "type": "button",
+        "styles": {
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "color": "rgb(0, 0, 0)",
+          "padding": "0px 16px",
+          "borderRadius": "0px",
+          "border": "0px none rgb(0, 0, 0)",
+          "fontSize": "14px",
+          "fontWeight": "500",
+          "fontFamily": "Google Sans",
+          "boxShadow": "none"
+        },
+        "variants": [
+          {
+            "name": "variant-1",
+            "styles": {
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "color": "rgb(0, 0, 0)",
+              "padding": "0px 16px",
+              "borderRadius": "0px",
+              "border": "0px none rgb(0, 0, 0)",
+              "fontSize": "14px",
+              "fontWeight": "500",
+              "fontFamily": "Google Sans",
+              "boxShadow": "none"
+            }
+          },
+          {
+            "name": "variant-2",
+            "styles": {
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "color": "rgb(0, 0, 0)",
+              "padding": "0px 16px",
+              "borderRadius": "0px",
+              "border": "0px none rgb(0, 0, 0)",
+              "fontSize": "14px",
+              "fontWeight": "500",
+              "fontFamily": "Google Sans",
+              "boxShadow": "none"
+            }
+          },
+          {
+            "name": "variant-3",
+            "styles": {
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "color": "rgb(0, 0, 0)",
+              "padding": "0px 16px",
+              "borderRadius": "0px",
+              "border": "0px none rgb(0, 0, 0)",
+              "fontSize": "14px",
+              "fontWeight": "500",
+              "fontFamily": "Google Sans",
+              "boxShadow": "none"
+            }
+          },
+          {
+            "name": "variant-4",
+            "styles": {
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "color": "rgb(0, 0, 0)",
+              "padding": "12px",
+              "borderRadius": "0px",
+              "border": "0px none rgb(0, 0, 0)",
+              "fontSize": "24px",
+              "fontWeight": "400",
+              "fontFamily": "Google Sans",
+              "boxShadow": "none"
+            }
+          },
+          {
+            "name": "variant-5",
+            "styles": {
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "color": "rgb(0, 0, 0)",
+              "padding": "12px",
+              "borderRadius": "0px",
+              "border": "0px none rgb(0, 0, 0)",
+              "fontSize": "24px",
+              "fontWeight": "400",
+              "fontFamily": "Google Sans",
+              "boxShadow": "none"
+            }
+          },
+          {
+            "name": "variant-6",
+            "styles": {
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "color": "rgb(0, 0, 0)",
+              "padding": "8px",
+              "borderRadius": "0px",
+              "border": "0px none rgb(0, 0, 0)",
+              "fontSize": "32px",
+              "fontWeight": "400",
+              "fontFamily": "Google Sans",
+              "boxShadow": "none"
+            }
+          },
+          {
+            "name": "variant-7",
+            "styles": {
+              "backgroundColor": "rgb(255, 255, 255)",
+              "color": "rgb(95, 99, 104)",
+              "padding": "0px",
+              "borderRadius": "9999px",
+              "border": "1px solid rgb(218, 220, 224)",
+              "fontSize": "14px",
+              "fontWeight": "500",
+              "fontFamily": "Google Sans",
+              "boxShadow": "none"
+            }
+          },
+          {
+            "name": "variant-8",
+            "styles": {
+              "backgroundColor": "rgb(230, 243, 239)",
+              "color": "rgb(5, 100, 73)",
+              "padding": "1px",
+              "borderRadius": "9999px",
+              "border": "0px none rgb(5, 100, 73)",
+              "fontSize": "14px",
+              "fontWeight": "500",
+              "fontFamily": "Google Sans",
+              "boxShadow": "none"
+            }
+          },
+          {
+            "name": "variant-9",
+            "styles": {
+              "backgroundColor": "rgb(255, 255, 255)",
+              "color": "rgb(95, 99, 104)",
+              "padding": "0px",
+              "borderRadius": "9999px",
+              "border": "1px solid rgb(218, 220, 224)",
+              "fontSize": "14px",
+              "fontWeight": "500",
+              "fontFamily": "Google Sans",
+              "boxShadow": "none"
+            }
+          },
+          {
+            "name": "variant-10",
+            "styles": {
+              "backgroundColor": "rgb(255, 255, 255)",
+              "color": "rgb(95, 99, 104)",
+              "padding": "0px",
+              "borderRadius": "9999px",
+              "border": "1px solid rgb(218, 220, 224)",
+              "fontSize": "14px",
+              "fontWeight": "500",
+              "fontFamily": "Google Sans",
+              "boxShadow": "none"
+            }
+          },
+          {
+            "name": "variant-11",
+            "styles": {
+              "backgroundColor": "rgb(255, 255, 255)",
+              "color": "rgb(95, 99, 104)",
+              "padding": "0px",
+              "borderRadius": "9999px",
+              "border": "1px solid rgb(218, 220, 224)",
+              "fontSize": "14px",
+              "fontWeight": "500",
+              "fontFamily": "Google Sans",
+              "boxShadow": "none"
+            }
+          },
+          {
+            "name": "variant-12",
+            "styles": {
+              "backgroundColor": "rgb(255, 255, 255)",
+              "color": "rgb(95, 99, 104)",
+              "padding": "0px",
+              "borderRadius": "9999px",
+              "border": "1px solid rgb(218, 220, 224)",
+              "fontSize": "14px",
+              "fontWeight": "500",
+              "fontFamily": "Google Sans",
+              "boxShadow": "none"
+            }
+          },
+          {
+            "name": "variant-13",
+            "styles": {
+              "backgroundColor": "rgb(255, 255, 255)",
+              "color": "rgb(95, 99, 104)",
+              "padding": "0px",
+              "borderRadius": "9999px",
+              "border": "1px solid rgb(218, 220, 224)",
+              "fontSize": "14px",
+              "fontWeight": "500",
+              "fontFamily": "Google Sans",
+              "boxShadow": "none"
+            }
+          },
+          {
+            "name": "variant-14",
+            "styles": {
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "color": "rgb(0, 0, 0)",
+              "padding": "0px",
+              "borderRadius": "0px",
+              "border": "0px none rgb(0, 0, 0)",
+              "fontSize": "14px",
+              "fontWeight": "400",
+              "fontFamily": "Google Sans",
+              "boxShadow": "none"
+            }
+          }
+        ]
+      },
+      {
+        "type": "card",
+        "styles": {
+          "backgroundColor": "rgb(255, 255, 255)",
+          "borderRadius": "8px",
+          "border": "0px none rgb(0, 0, 0)",
+          "boxShadow": "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px",
+          "padding": "0px"
+        },
+        "variants": [
+          {
+            "name": "variant-1",
+            "styles": {
+              "backgroundColor": "rgb(255, 255, 255)",
+              "borderRadius": "8px",
+              "border": "0px none rgb(0, 0, 0)",
+              "boxShadow": "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px",
+              "padding": "0px"
+            }
+          },
+          {
+            "name": "variant-2",
+            "styles": {
+              "backgroundColor": "rgb(255, 255, 255)",
+              "borderRadius": "8px",
+              "border": "0px none rgb(0, 0, 0)",
+              "boxShadow": "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px",
+              "padding": "0px"
+            }
+          },
+          {
+            "name": "variant-3",
+            "styles": {
+              "backgroundColor": "rgb(255, 255, 255)",
+              "borderRadius": "8px",
+              "border": "0px none rgb(0, 0, 0)",
+              "boxShadow": "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px",
+              "padding": "0px"
+            }
+          },
+          {
+            "name": "variant-4",
+            "styles": {
+              "backgroundColor": "rgb(255, 255, 255)",
+              "borderRadius": "8px",
+              "border": "0px none rgb(0, 0, 0)",
+              "boxShadow": "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px",
+              "padding": "0px"
+            }
+          },
+          {
+            "name": "variant-5",
+            "styles": {
+              "backgroundColor": "rgb(255, 255, 255)",
+              "borderRadius": "8px",
+              "border": "0px none rgb(0, 0, 0)",
+              "boxShadow": "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px",
+              "padding": "0px"
+            }
+          },
+          {
+            "name": "variant-6",
+            "styles": {
+              "backgroundColor": "rgb(255, 255, 255)",
+              "borderRadius": "8px",
+              "border": "0px none rgb(0, 0, 0)",
+              "boxShadow": "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px",
+              "padding": "0px"
+            }
+          },
+          {
+            "name": "variant-7",
+            "styles": {
+              "backgroundColor": "rgb(255, 255, 255)",
+              "borderRadius": "8px",
+              "border": "0px none rgb(0, 0, 0)",
+              "boxShadow": "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px",
+              "padding": "0px"
+            }
+          }
+        ]
+      }
+    ],
+    "fontSources": [],
+    "fontFaces": [
+      {
+        "family": "Roboto",
+        "weight": "100",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/roboto/v18/KFOkCnqEu92Fr1MmgVxFIzIXKMnyrYk.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Roboto",
+        "weight": "100",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/roboto/v18/KFOkCnqEu92Fr1MmgVxMIzIXKMnyrYk.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Roboto",
+        "weight": "100",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/roboto/v18/KFOkCnqEu92Fr1MmgVxEIzIXKMnyrYk.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Roboto",
+        "weight": "100",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/roboto/v18/KFOkCnqEu92Fr1MmgVxLIzIXKMnyrYk.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Roboto",
+        "weight": "100",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/roboto/v18/KFOkCnqEu92Fr1MmgVxHIzIXKMnyrYk.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Roboto",
+        "weight": "100",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/roboto/v18/KFOkCnqEu92Fr1MmgVxGIzIXKMnyrYk.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Roboto",
+        "weight": "100",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/roboto/v18/KFOkCnqEu92Fr1MmgVxIIzIXKMny.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Roboto",
+        "weight": "300",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmSU5fCRc4AMP6lbBP.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Roboto",
+        "weight": "300",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmSU5fABc4AMP6lbBP.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Roboto",
+        "weight": "300",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmSU5fCBc4AMP6lbBP.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Roboto",
+        "weight": "300",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmSU5fBxc4AMP6lbBP.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Roboto",
+        "weight": "300",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmSU5fCxc4AMP6lbBP.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Roboto",
+        "weight": "300",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmSU5fChc4AMP6lbBP.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Roboto",
+        "weight": "300",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmSU5fBBc4AMP6lQ.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Roboto",
+        "weight": "400",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/roboto/v18/KFOmCnqEu92Fr1Mu72xKKTU1Kvnz.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Roboto",
+        "weight": "400",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/roboto/v18/KFOmCnqEu92Fr1Mu5mxKKTU1Kvnz.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Roboto",
+        "weight": "400",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/roboto/v18/KFOmCnqEu92Fr1Mu7mxKKTU1Kvnz.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Roboto",
+        "weight": "400",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/roboto/v18/KFOmCnqEu92Fr1Mu4WxKKTU1Kvnz.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Roboto",
+        "weight": "400",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/roboto/v18/KFOmCnqEu92Fr1Mu7WxKKTU1Kvnz.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Roboto",
+        "weight": "400",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/roboto/v18/KFOmCnqEu92Fr1Mu7GxKKTU1Kvnz.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Roboto",
+        "weight": "400",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/roboto/v18/KFOmCnqEu92Fr1Mu4mxKKTU1Kg.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Roboto",
+        "weight": "500",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmEU9fCRc4AMP6lbBP.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Roboto",
+        "weight": "500",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmEU9fABc4AMP6lbBP.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Roboto",
+        "weight": "500",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmEU9fCBc4AMP6lbBP.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Roboto",
+        "weight": "500",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmEU9fBxc4AMP6lbBP.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Roboto",
+        "weight": "500",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmEU9fCxc4AMP6lbBP.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Roboto",
+        "weight": "500",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmEU9fChc4AMP6lbBP.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Roboto",
+        "weight": "500",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmEU9fBBc4AMP6lQ.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Roboto",
+        "weight": "700",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmWUlfCRc4AMP6lbBP.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Roboto",
+        "weight": "700",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmWUlfABc4AMP6lbBP.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Roboto",
+        "weight": "700",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmWUlfCBc4AMP6lbBP.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Roboto",
+        "weight": "700",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmWUlfBxc4AMP6lbBP.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Roboto",
+        "weight": "700",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmWUlfCxc4AMP6lbBP.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Roboto",
+        "weight": "700",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmWUlfChc4AMP6lbBP.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Roboto",
+        "weight": "700",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmWUlfBBc4AMP6lQ.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Material Icons Extended",
+        "weight": "400",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/materialiconsextended/v154/kJEjBvgX7BgnkSrUwT8UnLVc38YydejYY-oE_LvJHMXBBA.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Google Material Icons",
+        "weight": "400",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/googlematerialicons/v144/Gw6kwdfw6UnXLJCcmafZyFRXb3BL9rvi0QZG3Sy7X00.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Google Sans",
+        "weight": "400",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/googlesans/v58/4UasrENHsxJlGDuGo1OIlJfC6l_24rlCK1Yo_Iqcsih3SAyH6cAwhX9RPiIUvbQoi-Entw.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Google Sans",
+        "weight": "400",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/googlesans/v58/4UasrENHsxJlGDuGo1OIlJfC6l_24rlCK1Yo_Iqcsih3SAyH6cAwhX9RPiAUvbQoi-Entw.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Google Sans",
+        "weight": "400",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/googlesans/v58/4UasrENHsxJlGDuGo1OIlJfC6l_24rlCK1Yo_Iqcsih3SAyH6cAwhX9RPj8UvbQoi-Entw.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Google Sans",
+        "weight": "400",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/googlesans/v58/4UasrENHsxJlGDuGo1OIlJfC6l_24rlCK1Yo_Iqcsih3SAyH6cAwhX9RPjYUvbQoi-Entw.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Google Sans",
+        "weight": "400",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/googlesans/v58/4UasrENHsxJlGDuGo1OIlJfC6l_24rlCK1Yo_Iqcsih3SAyH6cAwhX9RPjMUvbQoi-Entw.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Google Sans",
+        "weight": "400",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/googlesans/v58/4UasrENHsxJlGDuGo1OIlJfC6l_24rlCK1Yo_Iqcsih3SAyH6cAwhX9RPiMUvbQoi-Entw.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Google Sans",
+        "weight": "400",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/googlesans/v58/4UasrENHsxJlGDuGo1OIlJfC6l_24rlCK1Yo_Iqcsih3SAyH6cAwhX9RPi0UvbQoi-Entw.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Google Sans",
+        "weight": "400",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/googlesans/v58/4UasrENHsxJlGDuGo1OIlJfC6l_24rlCK1Yo_Iqcsih3SAyH6cAwhX9RPjEUvbQoi-Entw.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Google Sans",
+        "weight": "400",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/googlesans/v58/4UasrENHsxJlGDuGo1OIlJfC6l_24rlCK1Yo_Iqcsih3SAyH6cAwhX9RPikUvbQoi-Entw.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Google Sans",
+        "weight": "400",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/googlesans/v58/4UasrENHsxJlGDuGo1OIlJfC6l_24rlCK1Yo_Iqcsih3SAyH6cAwhX9RPhEUvbQoi-Entw.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Google Sans",
+        "weight": "400",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/googlesans/v58/4UasrENHsxJlGDuGo1OIlJfC6l_24rlCK1Yo_Iqcsih3SAyH6cAwhX9RPjAUvbQoi-Entw.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Google Sans",
+        "weight": "400",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/googlesans/v58/4UasrENHsxJlGDuGo1OIlJfC6l_24rlCK1Yo_Iqcsih3SAyH6cAwhX9RPjkUvbQoi-Entw.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Google Sans",
+        "weight": "400",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/googlesans/v58/4UasrENHsxJlGDuGo1OIlJfC6l_24rlCK1Yo_Iqcsih3SAyH6cAwhX9RPjsUvbQoi-Entw.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Google Sans",
+        "weight": "400",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/googlesans/v58/4UasrENHsxJlGDuGo1OIlJfC6l_24rlCK1Yo_Iqcsih3SAyH6cAwhX9RPisUvbQoi-Entw.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Google Sans",
+        "weight": "400",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/googlesans/v58/4UasrENHsxJlGDuGo1OIlJfC6l_24rlCK1Yo_Iqcsih3SAyH6cAwhX9RPi8UvbQoi-Entw.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Google Sans",
+        "weight": "400",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/googlesans/v58/4UasrENHsxJlGDuGo1OIlJfC6l_24rlCK1Yo_Iqcsih3SAyH6cAwhX9RPiQUvbQoi-Entw.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Google Sans",
+        "weight": "400",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/googlesans/v58/4UasrENHsxJlGDuGo1OIlJfC6l_24rlCK1Yo_Iqcsih3SAyH6cAwhX9RPi4UvbQoi-Entw.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Google Sans",
+        "weight": "400",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/googlesans/v58/4UasrENHsxJlGDuGo1OIlJfC6l_24rlCK1Yo_Iqcsih3SAyH6cAwhX9RPiYUvbQoi-Entw.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Google Sans",
+        "weight": "400",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/googlesans/v58/4UasrENHsxJlGDuGo1OIlJfC6l_24rlCK1Yo_Iqcsih3SAyH6cAwhX9RPj0UvbQoi-Entw.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Google Sans",
+        "weight": "400",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/googlesans/v58/4UasrENHsxJlGDuGo1OIlJfC6l_24rlCK1Yo_Iqcsih3SAyH6cAwhX9RPjwUvbQoi-Entw.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Google Sans",
+        "weight": "400",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/googlesans/v58/4UasrENHsxJlGDuGo1OIlJfC6l_24rlCK1Yo_Iqcsih3SAyH6cAwhX9RPjIUvbQoi-E.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Google Sans",
+        "weight": "500",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/googlesans/v58/4UasrENHsxJlGDuGo1OIlJfC6l_24rlCK1Yo_Iqcsih3SAyH6cAwhX9RPiIUvbQoi-Entw.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Google Sans",
+        "weight": "500",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/googlesans/v58/4UasrENHsxJlGDuGo1OIlJfC6l_24rlCK1Yo_Iqcsih3SAyH6cAwhX9RPiAUvbQoi-Entw.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Google Sans",
+        "weight": "500",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/googlesans/v58/4UasrENHsxJlGDuGo1OIlJfC6l_24rlCK1Yo_Iqcsih3SAyH6cAwhX9RPj8UvbQoi-Entw.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Google Sans",
+        "weight": "500",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/googlesans/v58/4UasrENHsxJlGDuGo1OIlJfC6l_24rlCK1Yo_Iqcsih3SAyH6cAwhX9RPjYUvbQoi-Entw.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Google Sans",
+        "weight": "500",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/googlesans/v58/4UasrENHsxJlGDuGo1OIlJfC6l_24rlCK1Yo_Iqcsih3SAyH6cAwhX9RPjMUvbQoi-Entw.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Google Sans",
+        "weight": "500",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/googlesans/v58/4UasrENHsxJlGDuGo1OIlJfC6l_24rlCK1Yo_Iqcsih3SAyH6cAwhX9RPiMUvbQoi-Entw.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Google Sans",
+        "weight": "500",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/googlesans/v58/4UasrENHsxJlGDuGo1OIlJfC6l_24rlCK1Yo_Iqcsih3SAyH6cAwhX9RPi0UvbQoi-Entw.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Google Sans",
+        "weight": "500",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/googlesans/v58/4UasrENHsxJlGDuGo1OIlJfC6l_24rlCK1Yo_Iqcsih3SAyH6cAwhX9RPjEUvbQoi-Entw.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Google Sans",
+        "weight": "500",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/googlesans/v58/4UasrENHsxJlGDuGo1OIlJfC6l_24rlCK1Yo_Iqcsih3SAyH6cAwhX9RPikUvbQoi-Entw.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Google Sans",
+        "weight": "500",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/googlesans/v58/4UasrENHsxJlGDuGo1OIlJfC6l_24rlCK1Yo_Iqcsih3SAyH6cAwhX9RPhEUvbQoi-Entw.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Google Sans",
+        "weight": "500",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/googlesans/v58/4UasrENHsxJlGDuGo1OIlJfC6l_24rlCK1Yo_Iqcsih3SAyH6cAwhX9RPjAUvbQoi-Entw.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Google Sans",
+        "weight": "500",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/googlesans/v58/4UasrENHsxJlGDuGo1OIlJfC6l_24rlCK1Yo_Iqcsih3SAyH6cAwhX9RPjkUvbQoi-Entw.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Google Sans",
+        "weight": "500",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/googlesans/v58/4UasrENHsxJlGDuGo1OIlJfC6l_24rlCK1Yo_Iqcsih3SAyH6cAwhX9RPjsUvbQoi-Entw.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Google Sans",
+        "weight": "500",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/googlesans/v58/4UasrENHsxJlGDuGo1OIlJfC6l_24rlCK1Yo_Iqcsih3SAyH6cAwhX9RPisUvbQoi-Entw.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Google Sans",
+        "weight": "500",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/googlesans/v58/4UasrENHsxJlGDuGo1OIlJfC6l_24rlCK1Yo_Iqcsih3SAyH6cAwhX9RPi8UvbQoi-Entw.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Google Sans",
+        "weight": "500",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/googlesans/v58/4UasrENHsxJlGDuGo1OIlJfC6l_24rlCK1Yo_Iqcsih3SAyH6cAwhX9RPiQUvbQoi-Entw.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Google Sans",
+        "weight": "500",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/googlesans/v58/4UasrENHsxJlGDuGo1OIlJfC6l_24rlCK1Yo_Iqcsih3SAyH6cAwhX9RPi4UvbQoi-Entw.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Google Sans",
+        "weight": "500",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/googlesans/v58/4UasrENHsxJlGDuGo1OIlJfC6l_24rlCK1Yo_Iqcsih3SAyH6cAwhX9RPiYUvbQoi-Entw.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Google Sans",
+        "weight": "500",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/googlesans/v58/4UasrENHsxJlGDuGo1OIlJfC6l_24rlCK1Yo_Iqcsih3SAyH6cAwhX9RPj0UvbQoi-Entw.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Google Sans",
+        "weight": "500",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/googlesans/v58/4UasrENHsxJlGDuGo1OIlJfC6l_24rlCK1Yo_Iqcsih3SAyH6cAwhX9RPjwUvbQoi-Entw.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Google Sans",
+        "weight": "500",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/s/googlesans/v58/4UasrENHsxJlGDuGo1OIlJfC6l_24rlCK1Yo_Iqcsih3SAyH6cAwhX9RPjIUvbQoi-E.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Google Symbols",
+        "weight": "400 700",
+        "style": "normal",
+        "src": "url(\"https://fonts.gstatic.com/l/font?kit=HhyqU5Ak9u-oMExPeInvcuEmPosC9zS3FYkFU68cPrjdKM1XMoDZlWmzc3IiWvF1SbxVhQidBnv_C-yl9mm4T0vRGJykWfHS-1ctmXdD2lXZATD63HxaGG71rPMXXydSgjyQXGf9wYMjEVL-11s1cl4ICQsOnA&skey=f8ec4d50247dc1c1&v=v414\") format(\"woff2\")",
+        "display": "swap"
+      }
+    ],
+    "downloadedFonts": [
+      {
+        "family": "Roboto",
+        "url": "https://fonts.gstatic.com/l/font?kit=HhyqU5Ak9u-oMExPeInvcuEmPosC9zS3FYkFU68cPrjdKM1XMoDZlWmzc3IiWvF1SbxVhQidBnv_C-yl9mm4T0vRGJykWfHS-1ctmXdD2lXZATD63HxaGG71rPMXXydSgjyQXGf9wYMjEVL-11s1cl4ICQsOnA&skey=f8ec4d50247dc1c1&v=v414",
+        "localPath": "/fonts/play-google-com/0-font",
+        "format": "woff2"
+      },
+      {
+        "family": "Google Sans",
+        "url": "https://fonts.gstatic.com/s/googlesans/v58/4UasrENHsxJlGDuGo1OIlJfC6l_24rlCK1Yo_Iqcsih3SAyH6cAwhX9RPjIUvbQoi-E.woff2",
+        "localPath": "/fonts/play-google-com/1-4UasrENHsxJlGDuGo1OIlJfC6l_24rlCK1Yo_Iqcsih3SAyH6cAwhX9RPjIUvbQoi-E.woff2",
+        "format": "woff2"
+      },
+      {
+        "family": "Google Material Icons",
+        "url": "https://fonts.gstatic.com/s/googlematerialicons/v144/Gw6kwdfw6UnXLJCcmafZyFRXb3BL9rvi0QZG3Sy7X00.woff2",
+        "localPath": "/fonts/play-google-com/2-Gw6kwdfw6UnXLJCcmafZyFRXb3BL9rvi0QZG3Sy7X00.woff2",
+        "format": "woff2"
+      },
+      {
+        "family": "Roboto",
+        "url": "https://fonts.gstatic.com/s/roboto/v18/KFOmCnqEu92Fr1Mu4mxKKTU1Kg.woff2",
+        "localPath": "/fonts/play-google-com/3-KFOmCnqEu92Fr1Mu4mxKKTU1Kg.woff2",
+        "format": "woff2"
+      }
+    ],
+    "cssVariables": {
+      "--boq-chrometransition-background": "#eee",
+      "--boq-chrometransition-active-background-opacity": "0.8"
+    },
+    "meta": {
+      "url": "https://maximatherapy.com/, https://linear.app/, https://play.google.com/",
+      "title": "Hybrid — Maxima Therapy | Personalized Support for Neurodivergent Individuals + Linear – The system for product development + App Android su Google Play",
+      "extractedAt": "2026-04-09T08:42:30.861Z"
+    }
+  },
+  "resolved": {
+    "colorPrimary": "#4c911f",
+    "colorSecondary": "#aa3f44",
+    "colorAccent": "#0e8db8",
+    "colorBackground": "#000000",
+    "colorSurface": "#f8fafc",
+    "colorTextPrimary": "#ffffff",
+    "colorTextSecondary": "#d0cebf",
+    "colorTextMuted": "#9a9995",
+    "colorBorder": "#e6d9df",
+    "colorSuccess": "#a7eb98",
+    "colorWarning": "#fdcb40",
+    "colorError": "#ef4444",
+    "fontHeading": "ui-sans-serif",
+    "fontBody": "Robuck Rounded",
+    "fontMono": "ABC Diatype Rounded Mono",
+    "fontWeightHeading": 600,
+    "fontWeightBody": 400,
+    "textXs": "0.75rem",
+    "textSm": "0.875rem",
+    "textBase": "1rem",
+    "textLg": "1.125rem",
+    "textXl": "1.25rem",
+    "text2xl": "1.5rem",
+    "text3xl": "1.875rem",
+    "text4xl": "2.25rem",
+    "spacingXs": "5px",
+    "spacingSm": "9px",
+    "spacingMd": "18px",
+    "spacingLg": "27px",
+    "spacingXl": "36px",
+    "spacing2xl": "54px",
+    "radiusSm": "7px",
+    "radiusMd": "14px",
+    "radiusLg": "21px",
+    "radiusFull": "9999px",
+    "shadowSm": "0 1px 2px 0 rgba(0,0,0,0.05)",
+    "shadowMd": "0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1)",
+    "shadowLg": "0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1)",
+    "lineHeightTight": "1.15",
+    "lineHeightNormal": "1.5",
+    "lineHeightRelaxed": "1.75"
+  },
+  "designMd": "# Hybrid Design System — Generated by Ditto\n\n> Blended from 3 inspirations\n> Generated on April 9, 2026\n\n## Inspirations\n- [Maxima Therapy | Personalized Support for Neurodivergent Individuals](https://maximatherapy.com/) — weight: 33%\n- [Linear – The system for product development](https://linear.app/) — weight: 33%\n- [App Android su Google Play](https://play.google.com/) — weight: 33%\n\n## Mood Profile\n- **Tono**: Giocoso (-0.5)\n- **Formalità**: Casual (-0.4)\n- **Energia**: Bilanciato (+0.2)\n- **Temperatura**: Bilanciato (0.0)\n- **Densità**: Arioso (-0.5)\n- **Forma**: Bilanciato (-0.3)\n- **Profondità**: Bilanciato (-0.0)\n- **Palette**: Bilanciato (+0.1)\n- **Tipografia**: Espressiva (-0.5)\n- **Movimento**: Bilanciato (+0.3)\n\n## Font Setup\n\n### Fonts Used\n- **Heading**: `ui-sans-serif`\n- **Body**: `Robuck Rounded`\n- **Mono**: `ABC Diatype Rounded Mono`\n\n### CSS Custom Properties\n```css\n:root {\n  --font-heading: 'ui-sans-serif', system-ui, sans-serif;\n  --font-body: 'Robuck Rounded', system-ui, sans-serif;\n  --font-mono: 'ABC Diatype Rounded Mono', ui-monospace, monospace;\n  --font-weight-heading: 600;\n  --font-weight-body: 400;\n}\n```\n\n## Color Palette & Roles\n\n### Primary\n- **Primary** (`#4c911f`): CTAs, interactive elements, brand moments\n- **Secondary** (`#aa3f44`): Supporting accents\n- **Accent** (`#0e8db8`): Decorative highlights\n\n### Surfaces\n- **Background** (`#000000`): Page background\n- **Surface** (`#f8fafc`): Cards, elevated elements\n\n### Text\n- **Primary** (`#ffffff`): Headings, strong labels\n- **Secondary** (`#d0cebf`): Body text, descriptions\n- **Muted** (`#9a9995`): Placeholders, captions\n\n### Semantic\n- **Border** (`#e6d9df`): Dividers, container borders\n- **Success** (`#a7eb98`): Confirmations\n- **Warning** (`#fdcb40`): Caution states\n- **Error** (`#ef4444`): Destructive actions\n\n## Typography Rules\n\n| Role | Font | Weight | Notes |\n|------|------|--------|-------|\n| Display | ui-sans-serif | 600 | Hero headlines |\n| Heading | ui-sans-serif | 600 | Section titles |\n| Body | Robuck Rounded | 400 | Standard text |\n| Mono | ABC Diatype Rounded Mono | 400 | Code, technical |\n\n## Component Stylings\n\n### Buttons\n**Primary**\n- Background: `#4c911f`\n- Text: `#ffffff`\n- Padding: 9px 18px\n- Radius: 14px\n\n**Secondary**\n- Background: transparent\n- Text: `#4c911f`\n- Border: 1px solid `#e6d9df`\n- Radius: 14px\n\n### Cards\n- Background: `#f8fafc`\n- Border: 1px solid `#e6d9df`\n- Radius: 21px\n- Shadow: `0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1)`\n\n### Inputs\n- Background: `#000000`\n- Border: 1px solid `#e6d9df`\n- Radius: 14px\n- Focus: 1px solid `#4c911f`\n\n## Layout Principles\n\n### Spacing Scale\n- XS: 5px, SM: 9px, MD: 18px\n- LG: 27px, XL: 36px, 2XL: 54px\n\n### Border Radius\n- Small: 7px\n- Medium: 14px\n- Large: 21px\n- Full: 9999px\n\n### Shadows\n- SM: `0 1px 2px 0 rgba(0,0,0,0.05)`\n- MD: `0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1)`\n- LG: `0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1)`\n\n## Design Decisions (from Mood Profile)\n\n- **Subtle depth**: Moderate shadows for gentle elevation\n- **Balanced shapes**: Moderate corner rounding\n- **Generous whitespace**: Breathing room between elements\n- **Medium headlines**: Clear hierarchy without overwhelming\n\n## Agent Prompt Guide\n\n### Quick Reference\n- Primary: `#4c911f`, Background: `#000000`\n- Heading: ui-sans-serif @ 600, Body: Robuck Rounded @ 400\n- Radius: 7px / 14px / 21px\n- Spacing: 5px / 9px / 18px / 27px\n\n### CSS Variables (ready to paste)\n```css\n:root {\n  --color-primary: #4c911f;\n  --color-secondary: #aa3f44;\n  --color-accent: #0e8db8;\n  --color-bg: #000000;\n  --color-surface: #f8fafc;\n  --color-text: #ffffff;\n  --color-text-secondary: #d0cebf;\n  --color-text-muted: #9a9995;\n  --color-border: #e6d9df;\n  --color-success: #a7eb98;\n  --color-warning: #fdcb40;\n  --color-error: #ef4444;\n  --radius-sm: 7px;\n  --radius-md: 14px;\n  --radius-lg: 21px;\n  --shadow-sm: 0 1px 2px 0 rgba(0,0,0,0.05);\n  --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);\n  --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1);\n}\n```\n",
+  "createdAt": "2026-04-09T08:42:30.861Z",
+  "updatedAt": "2026-04-09T08:42:30.861Z",
+  "source": "extracted"
+}

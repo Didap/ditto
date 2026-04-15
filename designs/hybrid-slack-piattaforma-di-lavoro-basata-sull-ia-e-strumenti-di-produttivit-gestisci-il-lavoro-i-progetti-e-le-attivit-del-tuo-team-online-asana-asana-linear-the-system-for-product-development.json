@@ -1,0 +1,909 @@
+{
+  "id": "dbe-gjiGdaWTPsG5b5oRM",
+  "slug": "hybrid-slack-piattaforma-di-lavoro-basata-sull-ia-e-strumenti-di-produttivit-gestisci-il-lavoro-i-progetti-e-le-attivit-del-tuo-team-online-asana-asana-linear-the-system-for-product-development",
+  "name": "Hybrid — Slack | Piattaforma di lavoro basata sull'IA e strumenti di produttività + Gestisci il lavoro, i progetti e le attività del tuo team online • Asana • Asana + Linear – The system for product development",
+  "url": "https://slack.com, https://asana.com/it, https://linear.app/",
+  "description": "Hybrid design blended from 3 inspirations",
+  "tokens": {
+    "colors": [
+      {
+        "hex": "#000000",
+        "rgb": "0, 0, 0",
+        "occurrences": 2390,
+        "name": "Black",
+        "role": "background"
+      },
+      {
+        "hex": "#696969",
+        "rgb": "105, 105, 105",
+        "occurrences": 1035,
+        "name": "Charcoal",
+        "role": "surface"
+      },
+      {
+        "hex": "#1264a3",
+        "rgb": "18, 100, 163",
+        "occurrences": 340,
+        "name": "Dark Cyan",
+        "role": "info"
+      },
+      {
+        "hex": "#1e1c1e",
+        "rgb": "30, 28, 30",
+        "occurrences": 160,
+        "name": "Black",
+        "role": "neutral"
+      },
+      {
+        "hex": "#ffffff",
+        "rgb": "255, 255, 255",
+        "occurrences": 99,
+        "name": "White",
+        "role": "text-primary"
+      },
+      {
+        "hex": "#481a54",
+        "rgb": "72, 26, 84",
+        "occurrences": 86,
+        "name": "Dark Purple",
+        "role": "neutral"
+      },
+      {
+        "hex": "#757575",
+        "rgb": "117, 117, 117",
+        "occurrences": 68,
+        "name": "Charcoal",
+        "role": "neutral"
+      },
+      {
+        "hex": "#d17dfe",
+        "rgb": "209, 125, 254",
+        "occurrences": 32,
+        "name": "Indigo",
+        "role": "neutral"
+      },
+      {
+        "hex": "#808080",
+        "rgb": "128, 128, 128",
+        "occurrences": 20,
+        "name": "Dark Gray",
+        "role": "neutral"
+      },
+      {
+        "hex": "#5e5d60",
+        "rgb": "94, 93, 96",
+        "occurrences": 20,
+        "name": "Charcoal",
+        "role": "neutral"
+      },
+      {
+        "hex": "#611f69",
+        "rgb": "97, 31, 105",
+        "occurrences": 19,
+        "name": "Dark Purple",
+        "role": "neutral"
+      },
+      {
+        "hex": "#730394",
+        "rgb": "115, 3, 148",
+        "occurrences": 16,
+        "name": "Dark Purple",
+        "role": "neutral"
+      },
+      {
+        "hex": "#3d0157",
+        "rgb": "61, 1, 87",
+        "occurrences": 16,
+        "name": "Dark Purple",
+        "role": "accent"
+      },
+      {
+        "hex": "#9602c7",
+        "rgb": "150, 2, 199",
+        "occurrences": 16,
+        "name": "Dark Purple",
+        "role": "secondary"
+      },
+      {
+        "hex": "#454245",
+        "rgb": "69, 66, 69",
+        "occurrences": 16,
+        "name": "Charcoal",
+        "role": "neutral"
+      },
+      {
+        "hex": "#f9edff",
+        "rgb": "249, 237, 255",
+        "occurrences": 12,
+        "name": "Light Gray",
+        "role": "text-secondary"
+      },
+      {
+        "hex": "#f4ede4",
+        "rgb": "244, 237, 228",
+        "occurrences": 9,
+        "name": "Light Gray",
+        "role": "text-muted"
+      },
+      {
+        "hex": "#f2defe",
+        "rgb": "242, 222, 254",
+        "occurrences": 6,
+        "name": "Light Indigo",
+        "role": "border"
+      },
+      {
+        "hex": "#eac8fe",
+        "rgb": "234, 200, 254",
+        "occurrences": 2,
+        "name": "Indigo",
+        "role": "neutral"
+      },
+      {
+        "hex": "#2e0039",
+        "rgb": "46, 0, 57",
+        "occurrences": 1,
+        "name": "Dark Purple",
+        "role": "primary"
+      }
+    ],
+    "typography": [
+      {
+        "fontFamily": "Salesforce-Sans",
+        "fallbacks": [
+          "system-ui",
+          "-apple-system",
+          "sans-serif"
+        ],
+        "weights": [
+          100,
+          200,
+          300,
+          400,
+          600,
+          700
+        ],
+        "role": "heading"
+      },
+      {
+        "fontFamily": "Salesforce-Avant-Garde",
+        "fallbacks": [
+          "system-ui",
+          "-apple-system",
+          "sans-serif"
+        ],
+        "weights": [
+          400,
+          600,
+          700
+        ],
+        "role": "body"
+      },
+      {
+        "fontFamily": "MXiangHeHeiSCProBold",
+        "fallbacks": [
+          "system-ui",
+          "-apple-system",
+          "sans-serif"
+        ],
+        "weights": [
+          400
+        ],
+        "role": "body"
+      },
+      {
+        "fontFamily": "MXiangHeHeiTCBold",
+        "fallbacks": [
+          "system-ui",
+          "-apple-system",
+          "sans-serif"
+        ],
+        "weights": [
+          400
+        ],
+        "role": "body"
+      },
+      {
+        "fontFamily": "SeolSansHeavy",
+        "fallbacks": [
+          "system-ui",
+          "-apple-system",
+          "sans-serif"
+        ],
+        "weights": [
+          400
+        ],
+        "role": "body"
+      }
+    ],
+    "typeScale": [
+      {
+        "role": "H1",
+        "fontFamily": "Salesforce-Avant-Garde",
+        "size": "64px",
+        "weight": 700,
+        "lineHeight": "72px",
+        "letterSpacing": "-0.768px"
+      },
+      {
+        "role": "H2",
+        "fontFamily": "Salesforce-Avant-Garde",
+        "size": "58px",
+        "weight": 600,
+        "lineHeight": "72.5px",
+        "letterSpacing": "-0.464px"
+      },
+      {
+        "role": "H3",
+        "fontFamily": "Salesforce-Avant-Garde",
+        "size": "24px",
+        "weight": 700,
+        "lineHeight": "31.2px",
+        "letterSpacing": "normal"
+      },
+      {
+        "role": "Body",
+        "fontFamily": "Salesforce-Sans",
+        "size": "16px",
+        "weight": 700,
+        "lineHeight": "24px",
+        "letterSpacing": "-0.064px"
+      },
+      {
+        "role": "Small",
+        "fontFamily": "Salesforce-Sans",
+        "size": "15px",
+        "weight": 700,
+        "lineHeight": "1.4",
+        "letterSpacing": "normal"
+      },
+      {
+        "role": "Small",
+        "fontFamily": "Salesforce-Sans",
+        "size": "14px",
+        "weight": 700,
+        "lineHeight": "1.4",
+        "letterSpacing": "normal"
+      }
+    ],
+    "spacing": [
+      {
+        "value": "4px",
+        "px": 4,
+        "occurrences": 26
+      },
+      {
+        "value": "6px",
+        "px": 6,
+        "occurrences": 138
+      },
+      {
+        "value": "8px",
+        "px": 8,
+        "occurrences": 36
+      },
+      {
+        "value": "10px",
+        "px": 10,
+        "occurrences": 31
+      },
+      {
+        "value": "12px",
+        "px": 12,
+        "occurrences": 66
+      },
+      {
+        "value": "16px",
+        "px": 16,
+        "occurrences": 168
+      },
+      {
+        "value": "18px",
+        "px": 18,
+        "occurrences": 13
+      },
+      {
+        "value": "20px",
+        "px": 20,
+        "occurrences": 7
+      },
+      {
+        "value": "24px",
+        "px": 24,
+        "occurrences": 18
+      },
+      {
+        "value": "30px",
+        "px": 30,
+        "occurrences": 12
+      },
+      {
+        "value": "32px",
+        "px": 32,
+        "occurrences": 26
+      },
+      {
+        "value": "36px",
+        "px": 36,
+        "occurrences": 1
+      }
+    ],
+    "shadows": [
+      {
+        "value": "rgba(0, 0, 0, 0.1) 0px 0px 32px 0px",
+        "level": "sm",
+        "occurrences": 5
+      },
+      {
+        "value": "rgba(0, 0, 0, 0.2) 0px 1px 10px 0px",
+        "level": "md",
+        "occurrences": 3
+      },
+      {
+        "value": "rgb(97, 31, 105) 0px 0px 0px 1px inset",
+        "level": "lg",
+        "occurrences": 3
+      },
+      {
+        "value": "rgba(0, 0, 0, 0.1) 0px 5px 20px 0px",
+        "level": "xl",
+        "occurrences": 1
+      }
+    ],
+    "radii": [
+      {
+        "value": "4px",
+        "px": 4,
+        "occurrences": 14
+      },
+      {
+        "value": "8px",
+        "px": 8,
+        "occurrences": 8
+      },
+      {
+        "value": "12px",
+        "px": 12,
+        "occurrences": 1
+      },
+      {
+        "value": "16px",
+        "px": 16,
+        "occurrences": 46
+      },
+      {
+        "value": "48px",
+        "px": 48,
+        "occurrences": 5
+      },
+      {
+        "value": "50%",
+        "px": 50,
+        "occurrences": 1
+      }
+    ],
+    "components": [
+      {
+        "type": "button",
+        "styles": {
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "color": "rgb(0, 0, 0)",
+          "padding": "0px",
+          "borderRadius": "4px",
+          "border": "0px none rgb(0, 0, 0)",
+          "fontSize": "15px",
+          "fontWeight": "400",
+          "fontFamily": "Salesforce-Sans",
+          "boxShadow": "none"
+        },
+        "variants": [
+          {
+            "name": "variant-1",
+            "styles": {
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "color": "rgb(0, 0, 0)",
+              "padding": "0px",
+              "borderRadius": "4px",
+              "border": "0px none rgb(0, 0, 0)",
+              "fontSize": "15px",
+              "fontWeight": "400",
+              "fontFamily": "Salesforce-Sans",
+              "boxShadow": "none"
+            }
+          },
+          {
+            "name": "variant-2",
+            "styles": {
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "color": "rgb(0, 0, 0)",
+              "padding": "0px",
+              "borderRadius": "4px",
+              "border": "0px none rgb(0, 0, 0)",
+              "fontSize": "15px",
+              "fontWeight": "400",
+              "fontFamily": "Salesforce-Sans",
+              "boxShadow": "none"
+            }
+          },
+          {
+            "name": "variant-3",
+            "styles": {
+              "backgroundColor": "rgb(97, 31, 105)",
+              "color": "rgb(255, 255, 255)",
+              "padding": "19px 40px 20px",
+              "borderRadius": "4px",
+              "border": "0px none rgb(255, 255, 255)",
+              "fontSize": "14px",
+              "fontWeight": "700",
+              "fontFamily": "Salesforce-Sans",
+              "boxShadow": "none"
+            }
+          },
+          {
+            "name": "variant-4",
+            "styles": {
+              "backgroundColor": "rgb(255, 255, 255)",
+              "color": "rgb(97, 31, 105)",
+              "padding": "19px 40px 20px",
+              "borderRadius": "4px",
+              "border": "0px none rgb(97, 31, 105)",
+              "fontSize": "14px",
+              "fontWeight": "700",
+              "fontFamily": "Salesforce-Sans",
+              "boxShadow": "rgb(97, 31, 105) 0px 0px 0px 1px inset"
+            }
+          },
+          {
+            "name": "variant-5",
+            "styles": {
+              "backgroundColor": "rgb(249, 240, 255)",
+              "color": "rgb(0, 0, 0)",
+              "padding": "10px 30px",
+              "borderRadius": "0px",
+              "border": "0px none rgb(0, 0, 0)",
+              "fontSize": "16px",
+              "fontWeight": "700",
+              "fontFamily": "Salesforce-Sans",
+              "boxShadow": "rgba(0, 0, 0, 0.1) 0px 5px 20px 0px"
+            }
+          },
+          {
+            "name": "variant-6",
+            "styles": {
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "color": "rgb(105, 105, 105)",
+              "padding": "10px 30px",
+              "borderRadius": "0px",
+              "border": "",
+              "fontSize": "16px",
+              "fontWeight": "700",
+              "fontFamily": "Salesforce-Sans",
+              "boxShadow": "none"
+            }
+          },
+          {
+            "name": "variant-7",
+            "styles": {
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "color": "rgb(105, 105, 105)",
+              "padding": "10px 30px",
+              "borderRadius": "0px",
+              "border": "",
+              "fontSize": "16px",
+              "fontWeight": "700",
+              "fontFamily": "Salesforce-Sans",
+              "boxShadow": "none"
+            }
+          },
+          {
+            "name": "variant-8",
+            "styles": {
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "color": "rgb(105, 105, 105)",
+              "padding": "10px 30px",
+              "borderRadius": "0px",
+              "border": "",
+              "fontSize": "16px",
+              "fontWeight": "700",
+              "fontFamily": "Salesforce-Sans",
+              "boxShadow": "none"
+            }
+          },
+          {
+            "name": "variant-9",
+            "styles": {
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "color": "rgb(105, 105, 105)",
+              "padding": "10px 30px",
+              "borderRadius": "0px",
+              "border": "",
+              "fontSize": "16px",
+              "fontWeight": "700",
+              "fontFamily": "Salesforce-Sans",
+              "boxShadow": "none"
+            }
+          },
+          {
+            "name": "variant-10",
+            "styles": {
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "color": "rgb(105, 105, 105)",
+              "padding": "10px 30px",
+              "borderRadius": "0px",
+              "border": "",
+              "fontSize": "16px",
+              "fontWeight": "700",
+              "fontFamily": "Salesforce-Sans",
+              "boxShadow": "none"
+            }
+          },
+          {
+            "name": "variant-11",
+            "styles": {
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "color": "rgb(61, 1, 87)",
+              "padding": "12px",
+              "borderRadius": "90px",
+              "border": "0px none rgb(61, 1, 87)",
+              "fontSize": "18px",
+              "fontWeight": "400",
+              "fontFamily": "Salesforce-Avant-Garde",
+              "boxShadow": "none"
+            }
+          },
+          {
+            "name": "variant-12",
+            "styles": {
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "color": "rgb(61, 1, 87)",
+              "padding": "12px",
+              "borderRadius": "90px",
+              "border": "0px none rgb(61, 1, 87)",
+              "fontSize": "18px",
+              "fontWeight": "400",
+              "fontFamily": "Salesforce-Avant-Garde",
+              "boxShadow": "none"
+            }
+          },
+          {
+            "name": "variant-13",
+            "styles": {
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "color": "rgb(61, 1, 87)",
+              "padding": "12px",
+              "borderRadius": "90px",
+              "border": "0px none rgb(61, 1, 87)",
+              "fontSize": "18px",
+              "fontWeight": "400",
+              "fontFamily": "Salesforce-Avant-Garde",
+              "boxShadow": "none"
+            }
+          },
+          {
+            "name": "variant-14",
+            "styles": {
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "color": "rgb(61, 1, 87)",
+              "padding": "12px",
+              "borderRadius": "90px",
+              "border": "0px none rgb(61, 1, 87)",
+              "fontSize": "18px",
+              "fontWeight": "400",
+              "fontFamily": "Salesforce-Avant-Garde",
+              "boxShadow": "none"
+            }
+          }
+        ]
+      },
+      {
+        "type": "card",
+        "styles": {
+          "backgroundColor": "rgb(249, 240, 255)",
+          "borderRadius": "60px",
+          "border": "1px solid rgb(234, 200, 254)",
+          "boxShadow": "rgba(106, 106, 106, 0.25) 0px 3.073px 9.372px 0px",
+          "padding": "5px 6.4px"
+        },
+        "variants": []
+      }
+    ],
+    "fontSources": [],
+    "fontFaces": [
+      {
+        "family": "Salesforce-Avant-Garde",
+        "weight": "700",
+        "style": "normal",
+        "src": "local(\"☺\"), url(\"./avant-garde-8402dfbd4149ce947d8b.woff2\") format(\"woff2\"), url(\"./avant-garde-d1c099d0212142aabd54.woff\") format(\"woff\")",
+        "display": "swap"
+      },
+      {
+        "family": "Salesforce-Sans",
+        "weight": "100",
+        "style": "normal",
+        "src": "local(\"☺\"), url(\"./salesforce-sans-thin-5190fc3646d3fbdd3f60.woff2\") format(\"woff2\"), url(\"./salesforce-sans-thin-75ee6d756840be559773.woff\") format(\"woff\")",
+        "display": "swap"
+      },
+      {
+        "family": "Salesforce-Sans",
+        "weight": "400",
+        "style": "italic",
+        "src": "local(\"☺\"), url(\"./salesforce-sans-italic-64ed4696e597b09875fb.woff2\") format(\"woff2\"), url(\"./salesforce-sans-italic-6ff76dd92861d61ab205.woff\") format(\"woff\")",
+        "display": "swap"
+      },
+      {
+        "family": "Salesforce-Sans",
+        "weight": "100",
+        "style": "italic",
+        "src": "local(\"☺\"), url(\"./salesforce-sans-thin-italic-f0803daf6469607dfe14.woff2\") format(\"woff2\"), url(\"./salesforce-sans-thin-italic-6cb7292f08e2db035915.woff\") format(\"woff\")",
+        "display": "swap"
+      },
+      {
+        "family": "Salesforce-Sans",
+        "weight": "400",
+        "style": "normal",
+        "src": "local(\"☺\"), url(\"./salesforce-sans-regular-679547df303acfaf9b97.woff2\") format(\"woff2\"), url(\"./salesforce-sans-regular-a361cf0439289bfd8839.woff\") format(\"woff\")",
+        "display": "swap"
+      },
+      {
+        "family": "Salesforce-Sans",
+        "weight": "200",
+        "style": "italic",
+        "src": "local(\"☺\"), url(\"./salesforce-sans-light-italic-4033c989dfb65fb9645e.woff2\") format(\"woff2\"), url(\"./salesforce-sans-light-italic-f0c647518032099954ab.woff\") format(\"woff\")",
+        "display": "swap"
+      },
+      {
+        "family": "Salesforce-Sans",
+        "weight": "200",
+        "style": "normal",
+        "src": "local(\"☺\"), url(\"./salesforce-sans-light-7d60aed7319d75b829f5.woff2\") format(\"woff2\"), url(\"./salesforce-sans-light-7311644a8dd80b969872.woff\") format(\"woff\")",
+        "display": "swap"
+      },
+      {
+        "family": "Salesforce-Sans",
+        "weight": "700",
+        "style": "normal",
+        "src": "local(\"☺\"), url(\"./salesforce-sans-bold-edf948a2181aa81e6045.woff2\") format(\"woff2\"), url(\"./salesforce-sans-bold-2f31b1d340484b82ef37.woff\") format(\"woff\")",
+        "display": "swap"
+      },
+      {
+        "family": "Salesforce-Sans",
+        "weight": "700",
+        "style": "italic",
+        "src": "local(\"☺\"), url(\"./salesforce-sans-bold-italic-ad46fbeaedc190d6d3db.woff2\") format(\"woff2\"), url(\"./salesforce-sans-bold-italic-97b8c8cbc8cfb200e1c5.woff\") format(\"woff\")",
+        "display": "swap"
+      },
+      {
+        "family": "Salesforce-Sans",
+        "weight": "600",
+        "style": "normal",
+        "src": "local(\"☺\"), url(\"./salesforce-sans-semi-bold-f3873250b116e522a23d.woff2\") format(\"woff2\"), url(\"./salesforce-sans-semi-bold-65e2ad083607d35d0f88.woff\") format(\"woff\")",
+        "display": "swap"
+      },
+      {
+        "family": "Salesforce-Sans",
+        "weight": "300",
+        "style": "normal",
+        "src": "local(\"☺\"), url(\"./salesforce-sans-book-e71e6c0595be7a07330a.woff2\") format(\"woff2\"), url(\"./salesforce-sans-book-74366b901406541fa0de.woff\") format(\"woff\")",
+        "display": "swap"
+      },
+      {
+        "family": "MXiangHeHeiSCProBold",
+        "weight": "400",
+        "style": "normal",
+        "src": "local(\"☺\"), url(\"./m-xianghe-hei-sc-bold-6b69c5203108a4c8d3f3.woff2\") format(\"woff2\"), url(\"./m-xianghe-hei-sc-bold-8e1fa9c4e82aa2cf548d.woff\") format(\"woff\")",
+        "display": "swap"
+      },
+      {
+        "family": "MXiangHeHeiTCBold",
+        "weight": "400",
+        "style": "normal",
+        "src": "local(\"☺\"), url(\"./m-xianghe-hei-tc-bold-71cb9264300457bb17c4.woff2\") format(\"woff2\"), url(\"./m-xianghe-hei-tc-bold-a20b4b40af5fa9136285.woff\") format(\"woff\")",
+        "display": "swap"
+      },
+      {
+        "family": "SeolSansHeavy",
+        "weight": "400",
+        "style": "normal",
+        "src": "local(\"☺\"), url(\"./seol-sans-heavy-5a7faec6ee183432b1ce.woff2\") format(\"woff2\"), url(\"./seol-sans-heavy-731b9aff6de2fcd04eea.woff\") format(\"woff\")",
+        "display": "swap"
+      },
+      {
+        "family": "NotoSansJP",
+        "weight": "400",
+        "style": "normal",
+        "src": "local(\"☺\"), url(\"./NotoSansJP-Regular.min-441edbfa56e52a256989.woff2\") format(\"woff2\"), url(\"./NotoSansJP-Regular.min-925c895991160b5b0b8b.woff\") format(\"woff\")",
+        "display": "swap"
+      },
+      {
+        "family": "NotoSansJP",
+        "weight": "700",
+        "style": "normal",
+        "src": "local(\"☺\"), url(\"./NotoSansJP-Bold.min-23e09956fb8a16859e3a.woff2\") format(\"woff2\"), url(\"./NotoSansJP-Bold.min-160c942a1e5c793d9fb9.woff\") format(\"woff\")",
+        "display": "swap"
+      },
+      {
+        "family": "NotoSansJP",
+        "weight": "900",
+        "style": "normal",
+        "src": "local(\"☺\"), url(\"./NotoSansJP-Bold.min-23e09956fb8a16859e3a.woff2\") format(\"woff2\"), url(\"./NotoSansJP-Bold.min-160c942a1e5c793d9fb9.woff\") format(\"woff\")",
+        "display": "swap"
+      },
+      {
+        "family": "NotoSansKR",
+        "weight": "400",
+        "style": "normal",
+        "src": "local(\"☺\"), url(\"./NotoSansKR-Regular.min-043fb8d4e2bbade86b4f.woff2\") format(\"woff2\"), url(\"./NotoSansKR-Regular.min-641cd397143fe0b689db.woff\") format(\"woff\")",
+        "display": "swap"
+      },
+      {
+        "family": "NotoSansKR",
+        "weight": "700",
+        "style": "normal",
+        "src": "local(\"☺\"), url(\"./NotoSansKR-Bold.min-990c700bd56a565acd95.woff2\") format(\"woff2\"), url(\"./NotoSansKR-Bold.min-cbb622f044746ac7b579.woff\") format(\"woff\")",
+        "display": "swap"
+      },
+      {
+        "family": "NotoSansKR",
+        "weight": "900",
+        "style": "normal",
+        "src": "local(\"☺\"), url(\"./NotoSansKR-Bold.min-990c700bd56a565acd95.woff2\") format(\"woff2\"), url(\"./NotoSansKR-Bold.min-cbb622f044746ac7b579.woff\") format(\"woff\")",
+        "display": "swap"
+      },
+      {
+        "family": "NotoSansSC",
+        "weight": "400",
+        "style": "normal",
+        "src": "local(\"☺\"), url(\"./NotoSansSC-Regular.min-7f0eac48a83aa3c05b93.woff2\") format(\"woff2\"), url(\"./NotoSansSC-Regular.min-ed8f94356ff8dda13157.woff\") format(\"woff\")",
+        "display": "swap"
+      },
+      {
+        "family": "NotoSansSC",
+        "weight": "700",
+        "style": "normal",
+        "src": "local(\"☺\"), url(\"./NotoSansSC-Bold.min-8ee7b974356ec24ed23d.woff2\") format(\"woff2\"), url(\"./NotoSansSC-Bold.min-ad11fc939e521a4c0626.woff\") format(\"woff\")",
+        "display": "swap"
+      },
+      {
+        "family": "NotoSansSC",
+        "weight": "900",
+        "style": "normal",
+        "src": "local(\"☺\"), url(\"./NotoSansSC-Bold.min-8ee7b974356ec24ed23d.woff2\") format(\"woff2\"), url(\"./NotoSansSC-Bold.min-ad11fc939e521a4c0626.woff\") format(\"woff\")",
+        "display": "swap"
+      },
+      {
+        "family": "NotoSansTC",
+        "weight": "400",
+        "style": "normal",
+        "src": "local(\"☺\"), url(\"./NotoSansTC-Regular.min-606e9a6bff3b9e630a3e.woff2\") format(\"woff2\"), url(\"./NotoSansTC-Regular.min-3e16a8a611f7268f4f94.woff\") format(\"woff\")",
+        "display": "swap"
+      },
+      {
+        "family": "NotoSansTC",
+        "weight": "700",
+        "style": "normal",
+        "src": "local(\"☺\"), url(\"./NotoSansTC-Bold.min-bf6f9a33e6a20d8f9d5c.woff2\") format(\"woff2\"), url(\"./NotoSansTC-Bold.min-383ab0ffed5225e82ead.woff\") format(\"woff\")",
+        "display": "swap"
+      },
+      {
+        "family": "NotoSansTC",
+        "weight": "900",
+        "style": "normal",
+        "src": "local(\"☺\"), url(\"./NotoSansTC-Bold.min-bf6f9a33e6a20d8f9d5c.woff2\") format(\"woff2\"), url(\"./NotoSansTC-Bold.min-383ab0ffed5225e82ead.woff\") format(\"woff\")",
+        "display": "swap"
+      },
+      {
+        "family": "swiper-icons",
+        "weight": "400",
+        "style": "normal",
+        "src": "url(\"data:application/font-woff;charset=utf-8;base64, d09GRgABAAAAAAZgABAAAAAADAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGRlRNAAAGRAAAABoAAAAci6qHkUdERUYAAAWgAAAAIwAAACQAYABXR1BPUwAABhQAAAAuAAAANuAY7+xHU1VCAAAFxAAAAFAAAABm2fPczU9TLzIAAAHcAAAASgAAAGBP9V5RY21hcAAAAkQAAACIAAABYt6F0cBjdnQgAAACzAAAAAQAAAAEABEBRGdhc3AAAAWYAAAACAAAAAj//wADZ2x5ZgAAAywAAADMAAAD2MHtryVoZWFkAAABbAAAADAAAAA2E2+eoWhoZWEAAAGcAAAAHwAAACQC9gDzaG10eAAAAigAAAAZAAAArgJkABFsb2NhAAAC0AAAAFoAAABaFQAUGG1heHAAAAG8AAAAHwAAACAAcABAbmFtZQAAA/gAAAE5AAACXvFdBwlwb3N0AAAFNAAAAGIAAACE5s74hXjaY2BkYGAAYpf5Hu/j+W2+MnAzMYDAzaX6QjD6/4//Bxj5GA8AuRwMYGkAPywL13jaY2BkYGA88P8Agx4j+/8fQDYfA1AEBWgDAIB2BOoAeNpjYGRgYNBh4GdgYgABEMnIABJzYNADCQAACWgAsQB42mNgYfzCOIGBlYGB0YcxjYGBwR1Kf2WQZGhhYGBiYGVmgAFGBiQQkOaawtDAoMBQxXjg/wEGPcYDDA4wNUA2CCgwsAAAO4EL6gAAeNpj2M0gyAACqxgGNWBkZ2D4/wMA+xkDdgAAAHjaY2BgYGaAYBkGRgYQiAHyGMF8FgYHIM3DwMHABGQrMOgyWDLEM1T9/w8UBfEMgLzE////P/5//f/V/xv+r4eaAAeMbAxwIUYmIMHEgKYAYjUcsDAwsLKxc3BycfPw8jEQA/gZBASFhEVExcQlJKWkZWTl5BUUlZRVVNXUNTQZBgMAAMR+E+gAEQFEAAAAKgAqACoANAA+AEgAUgBcAGYAcAB6AIQAjgCYAKIArAC2AMAAygDUAN4A6ADyAPwBBgEQARoBJAEuATgBQgFMAVYBYAFqAXQBfgGIAZIBnAGmAbIBzgHsAAB42u2NMQ6CUAyGW568x9AneYYgm4MJbhKFaExIOAVX8ApewSt4Bic4AfeAid3VOBixDxfPYEza5O+Xfi04YADggiUIULCuEJK8VhO4bSvpdnktHI5QCYtdi2sl8ZnXaHlqUrNKzdKcT8cjlq+rwZSvIVczNiezsfnP/uznmfPFBNODM2K7MTQ45YEAZqGP81AmGGcF3iPqOop0r1SPTaTbVkfUe4HXj97wYE+yNwWYxwWu4v1ugWHgo3S1XdZEVqWM7ET0cfnLGxWfkgR42o2PvWrDMBSFj/IHLaF0zKjRgdiVMwScNRAoWUoH78Y2icB/yIY09An6AH2Bdu/UB+yxopYshQiEvnvu0dURgDt8QeC8PDw7Fpji3fEA4z/PEJ6YOB5hKh4dj3EvXhxPqH/SKUY3rJ7srZ4FZnh1PMAtPhwP6fl2PMJMPDgeQ4rY8YT6Gzao0eAEA409DuggmTnFnOcSCiEiLMgxCiTI6Cq5DZUd3Qmp10vO0LaLTd2cjN4fOumlc7lUYbSQcZFkutRG7g6JKZKy0RmdLY680CDnEJ+UMkpFFe1RN7nxdVpXrC4aTtnaurOnYercZg2YVmLN/d/gczfEimrE/fs/bOuq29Zmn8tloORaXgZgGa78yO9/cnXm2BpaGvq25Dv9S4E9+5SIc9PqupJKhYFSSl47+Qcr1mYNAAAAeNptw0cKwkAAAMDZJA8Q7OUJvkLsPfZ6zFVERPy8qHh2YER+3i/BP83vIBLLySsoKimrqKqpa2hp6+jq6RsYGhmbmJqZSy0sraxtbO3sHRydnEMU4uR6yx7JJXveP7WrDycAAAAAAAH//wACeNpjYGRgYOABYhkgZgJCZgZNBkYGLQZtIJsFLMYAAAw3ALgAeNolizEKgDAQBCchRbC2sFER0YD6qVQiBCv/H9ezGI6Z5XBAw8CBK/m5iQQVauVbXLnOrMZv2oLdKFa8Pjuru2hJzGabmOSLzNMzvutpB3N42mNgZGBg4GKQYzBhYMxJLMlj4GBgAYow/P/PAJJhLM6sSoWKfWCAAwDAjgbRAAB42mNgYGBkAIIbCZo5IPrmUn0hGA0AO8EFTQAA\") format(\"woff\")",
+        "display": "swap"
+      }
+    ],
+    "downloadedFonts": [
+      {
+        "family": "Salesforce-Sans",
+        "url": "https://a.slack-edge.com/bv1-13-br/salesforce-sans-semi-bold-f3873250b116e522a23d.woff2",
+        "localPath": "/fonts/slack-com/0-salesforce-sans-semi-bold-f3873250b116e522a23d.woff2",
+        "format": "woff2"
+      },
+      {
+        "family": "Salesforce-Sans",
+        "url": "https://a.slack-edge.com/bv1-13-br/salesforce-sans-regular-679547df303acfaf9b97.woff2",
+        "localPath": "/fonts/slack-com/0-salesforce-sans-regular-679547df303acfaf9b97.woff2",
+        "format": "woff2"
+      },
+      {
+        "family": "Salesforce-Sans",
+        "url": "https://a.slack-edge.com/bv1-13-br/salesforce-sans-bold-edf948a2181aa81e6045.woff2",
+        "localPath": "/fonts/slack-com/0-salesforce-sans-bold-edf948a2181aa81e6045.woff2",
+        "format": "woff2"
+      },
+      {
+        "family": "Salesforce-Sans",
+        "url": "https://a.slack-edge.com/bv1-13-br/salesforce-sans-book-e71e6c0595be7a07330a.woff2",
+        "localPath": "/fonts/slack-com/3-salesforce-sans-book-e71e6c0595be7a07330a.woff2",
+        "format": "woff2"
+      },
+      {
+        "family": "Salesforce-Sans",
+        "url": "https://a.slack-edge.com/bv1-13-br/salesforce-sans-light-italic-4033c989dfb65fb9645e.woff2",
+        "localPath": "/fonts/slack-com/3-salesforce-sans-light-italic-4033c989dfb65fb9645e.woff2",
+        "format": "woff2"
+      },
+      {
+        "family": "Salesforce-Avant-Garde",
+        "url": "https://a.slack-edge.com/bv1-13-br/avant-garde-8402dfbd4149ce947d8b.woff2",
+        "localPath": "/fonts/slack-com/3-avant-garde-8402dfbd4149ce947d8b.woff2",
+        "format": "woff2"
+      },
+      {
+        "family": "",
+        "url": "https://fonts.gstatic.com/s/roboto/v48/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3yUBHMdazQ.woff2",
+        "localPath": "/fonts/slack-com/6-KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3yUBHMdazQ.woff2",
+        "format": "woff2"
+      }
+    ],
+    "cssVariables": {
+      "--article-theme-primary": "#4a154b",
+      "--article-theme-secondary": "#fff",
+      "--sidebar-color": "#400d40",
+      "--sidebar-highlight-color": "#1264a3",
+      "--attachment-color": "#000",
+      "--more-count": "\"+1\"",
+      "--swiper-theme-color": "#007aff",
+      "--swiper-navigation-size": "44px"
+    },
+    "meta": {
+      "url": "https://slack.com, https://asana.com/it, https://linear.app/",
+      "title": "Hybrid — Slack | Piattaforma di lavoro basata sull'IA e strumenti di produttività + Gestisci il lavoro, i progetti e le attività del tuo team online • Asana • Asana + Linear – The system for product development",
+      "extractedAt": "2026-04-09T08:33:58.144Z"
+    }
+  },
+  "resolved": {
+    "colorPrimary": "#324d29",
+    "colorSecondary": "#89155f",
+    "colorAccent": "#3b3b71",
+    "colorBackground": "#000000",
+    "colorSurface": "#696969",
+    "colorTextPrimary": "#ffffff",
+    "colorTextSecondary": "#d2cfd9",
+    "colorTextMuted": "#aea5a2",
+    "colorBorder": "#e3d1e5",
+    "colorSuccess": "#22c55e",
+    "colorWarning": "#f59e0b",
+    "colorError": "#ef4444",
+    "fontHeading": "Salesforce-Sans",
+    "fontBody": "Salesforce-Avant-Garde",
+    "fontMono": "ui-monospace",
+    "fontWeightHeading": 300,
+    "fontWeightBody": 400,
+    "textXs": "0.75rem",
+    "textSm": "0.875rem",
+    "textBase": "1rem",
+    "textLg": "1.125rem",
+    "textXl": "1.25rem",
+    "text2xl": "1.5rem",
+    "text3xl": "1.875rem",
+    "text4xl": "2.25rem",
+    "spacingXs": "4px",
+    "spacingSm": "7px",
+    "spacingMd": "14px",
+    "spacingLg": "21px",
+    "spacingXl": "28px",
+    "spacing2xl": "42px",
+    "radiusSm": "7px",
+    "radiusMd": "13px",
+    "radiusLg": "20px",
+    "radiusFull": "9999px",
+    "shadowSm": "rgba(0, 0, 0, 0.1) 0px 0px 32px 0px",
+    "shadowMd": "rgba(0, 0, 0, 0.2) 0px 1px 10px 0px",
+    "shadowLg": "rgb(97, 31, 105) 0px 0px 0px 1px inset",
+    "lineHeightTight": "1.15",
+    "lineHeightNormal": "1.5",
+    "lineHeightRelaxed": "1.75"
+  },
+  "designMd": "# Hybrid Design System — Generated by Ditto\n\n> Blended from 3 inspirations\n> Generated on April 9, 2026\n\n## Inspirations\n- [Slack | Piattaforma di lavoro basata sull'IA e strumenti di produttività](https://slack.com) — weight: 40%\n- [Gestisci il lavoro, i progetti e le attività del tuo team online • Asana • Asana](https://asana.com/it) — weight: 30%\n- [Linear – The system for product development](https://linear.app/) — weight: 30%\n\n## Mood Profile\n- **Tono**: Bilanciato (+0.2)\n- **Formalità**: Bilanciato (+0.3)\n- **Energia**: Calmo (-0.3)\n- **Temperatura**: Freddo (+0.6)\n- **Densità**: Denso (+0.5)\n- **Forma**: Bilanciato (-0.1)\n- **Profondità**: Bilanciato (+0.1)\n- **Palette**: Bilanciato (-0.0)\n- **Tipografia**: Minimale (+0.5)\n- **Movimento**: Bilanciato (-0.2)\n\n## Font Setup\n\n### Fonts Used\n- **Heading**: `Salesforce-Sans`\n- **Body**: `Salesforce-Avant-Garde`\n- **Mono**: `ui-monospace`\n\n### CSS Custom Properties\n```css\n:root {\n  --font-heading: 'Salesforce-Sans', system-ui, sans-serif;\n  --font-body: 'Salesforce-Avant-Garde', system-ui, sans-serif;\n  --font-mono: 'ui-monospace', ui-monospace, monospace;\n  --font-weight-heading: 300;\n  --font-weight-body: 400;\n}\n```\n\n## Color Palette & Roles\n\n### Primary\n- **Primary** (`#324d29`): CTAs, interactive elements, brand moments\n- **Secondary** (`#89155f`): Supporting accents\n- **Accent** (`#3b3b71`): Decorative highlights\n\n### Surfaces\n- **Background** (`#000000`): Page background\n- **Surface** (`#696969`): Cards, elevated elements\n\n### Text\n- **Primary** (`#ffffff`): Headings, strong labels\n- **Secondary** (`#d2cfd9`): Body text, descriptions\n- **Muted** (`#aea5a2`): Placeholders, captions\n\n### Semantic\n- **Border** (`#e3d1e5`): Dividers, container borders\n- **Success** (`#22c55e`): Confirmations\n- **Warning** (`#f59e0b`): Caution states\n- **Error** (`#ef4444`): Destructive actions\n\n## Typography Rules\n\n| Role | Font | Weight | Notes |\n|------|------|--------|-------|\n| Display | Salesforce-Sans | 300 | Hero headlines |\n| Heading | Salesforce-Sans | 300 | Section titles |\n| Body | Salesforce-Avant-Garde | 400 | Standard text |\n| Mono | ui-monospace | 400 | Code, technical |\n\n## Component Stylings\n\n### Buttons\n**Primary**\n- Background: `#324d29`\n- Text: `#ffffff`\n- Padding: 7px 14px\n- Radius: 13px\n\n**Secondary**\n- Background: transparent\n- Text: `#324d29`\n- Border: 1px solid `#e3d1e5`\n- Radius: 13px\n\n### Cards\n- Background: `#696969`\n- Border: 1px solid `#e3d1e5`\n- Radius: 20px\n- Shadow: `rgba(0, 0, 0, 0.2) 0px 1px 10px 0px`\n\n### Inputs\n- Background: `#000000`\n- Border: 1px solid `#e3d1e5`\n- Radius: 13px\n- Focus: 1px solid `#324d29`\n\n## Layout Principles\n\n### Spacing Scale\n- XS: 4px, SM: 7px, MD: 14px\n- LG: 21px, XL: 28px, 2XL: 42px\n\n### Border Radius\n- Small: 7px\n- Medium: 13px\n- Large: 20px\n- Full: 9999px\n\n### Shadows\n- SM: `rgba(0, 0, 0, 0.1) 0px 0px 32px 0px`\n- MD: `rgba(0, 0, 0, 0.2) 0px 1px 10px 0px`\n- LG: `rgb(97, 31, 105) 0px 0px 0px 1px inset`\n\n## Design Decisions (from Mood Profile)\n\n- **Subtle depth**: Moderate shadows for gentle elevation\n- **Balanced shapes**: Moderate corner rounding\n- **Compact layout**: Information-dense, efficient use of space\n- **Light headlines**: Subtle, elegant, understated authority\n\n## Agent Prompt Guide\n\n### Quick Reference\n- Primary: `#324d29`, Background: `#000000`\n- Heading: Salesforce-Sans @ 300, Body: Salesforce-Avant-Garde @ 400\n- Radius: 7px / 13px / 20px\n- Spacing: 4px / 7px / 14px / 21px\n\n### CSS Variables (ready to paste)\n```css\n:root {\n  --color-primary: #324d29;\n  --color-secondary: #89155f;\n  --color-accent: #3b3b71;\n  --color-bg: #000000;\n  --color-surface: #696969;\n  --color-text: #ffffff;\n  --color-text-secondary: #d2cfd9;\n  --color-text-muted: #aea5a2;\n  --color-border: #e3d1e5;\n  --color-success: #22c55e;\n  --color-warning: #f59e0b;\n  --color-error: #ef4444;\n  --radius-sm: 7px;\n  --radius-md: 13px;\n  --radius-lg: 20px;\n  --shadow-sm: rgba(0, 0, 0, 0.1) 0px 0px 32px 0px;\n  --shadow-md: rgba(0, 0, 0, 0.2) 0px 1px 10px 0px;\n  --shadow-lg: rgb(97, 31, 105) 0px 0px 0px 1px inset;\n}\n```\n",
+  "createdAt": "2026-04-09T08:33:58.144Z",
+  "updatedAt": "2026-04-09T08:33:58.144Z",
+  "source": "extracted"
+}

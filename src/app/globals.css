@@ -1,0 +1,360 @@
+@import "tailwindcss";
+
+/* ── Leonardo-inspired Design Tokens ── */
+
+@font-face {
+  font-family: 'canvaSans';
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: url('/fonts/canvaSans-Regular.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'canvaSans';
+  font-weight: 500 600;
+  font-style: normal;
+  font-display: swap;
+  src: url('/fonts/canvaSans-Medium.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'canvaSans';
+  font-weight: 700 900;
+  font-style: normal;
+  font-display: swap;
+  src: url('/fonts/canvaSans-Bold.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'leoSans';
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: url('/fonts/leoSans-Bold.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'leoSans';
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  src: url('/fonts/leoSans-Bold.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'leoSans';
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+  src: url('/fonts/leoSans-Bold.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'leoSans';
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  src: url('/fonts/leoSans-Bold.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'leoSans';
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+  src: url('/fonts/leoSans-Bold.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'leoSans';
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+  src: url('/fonts/leoSans-Bold.woff2') format('woff2');
+}
+
+/* ── Dark mode (default) ── */
+:root {
+  --ditto-bg: #0a0a0a;
+  --ditto-surface: #141414;
+  --ditto-surface-2: #1e1e1e;
+  --ditto-border: rgba(161, 161, 161, 0.2);
+  --ditto-text: #e5e5e5;
+  --ditto-text-secondary: #ffffff;
+  --ditto-text-muted: #94a3b8;
+  --ditto-primary: #03e65b;
+  --ditto-primary-hover: #2aff7a;
+  --ditto-accent: #ff3386;
+  --ditto-secondary: #ffc533;
+  --ditto-success: #22c55e;
+  --ditto-warning: #f59e0b;
+  --ditto-error: #ff5d4b;
+  --ditto-info: #33d0ff;
+  --ditto-radius-sm: 6px;
+  --ditto-radius-md: 8.4375px;
+  --ditto-radius-lg: 12.4375px;
+  --ditto-font-heading: 'leoSans', 'canvaSans', system-ui, -apple-system, sans-serif;
+  --ditto-font-body: 'canvaSans', system-ui, -apple-system, sans-serif;
+  --ditto-font-mono: ui-monospace, monospace;
+}
+
+/* ── Light mode ── */
+html.light {
+  --ditto-bg: #f5f5f5;
+  --ditto-surface: #ffffff;
+  --ditto-surface-2: #eaeaea;
+  --ditto-border: rgba(0, 0, 0, 0.1);
+  --ditto-text: #1a1a1a;
+  --ditto-text-secondary: #333333;
+  --ditto-text-muted: #6b7280;
+  --ditto-primary: #03c04a;
+  --ditto-primary-hover: #02a33f;
+  --ditto-accent: #e6005c;
+  --ditto-secondary: #d4a000;
+  --ditto-success: #16a34a;
+  --ditto-warning: #d97706;
+  --ditto-error: #dc2626;
+  --ditto-info: #0891b2;
+}
+
+body {
+  background: var(--ditto-bg);
+  color: var(--ditto-text);
+  font-family: var(--ditto-font-body);
+  font-weight: 500;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--ditto-font-heading);
+  font-weight: 700;
+}
+
+/* Map Tailwind radius to design system */
+.rounded-lg {
+  border-radius: var(--ditto-radius-md) !important;
+}
+.rounded-xl {
+  border-radius: var(--ditto-radius-lg) !important;
+}
+.rounded-md {
+  border-radius: var(--ditto-radius-sm) !important;
+}
+
+/* Accent gradient for hero elements */
+.ditto-gradient-text {
+  background: linear-gradient(135deg, #03e65b 0%, #33d0ff 40%, #ffc533 70%, #03e65b 100%);
+  background-size: 300% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradient-shift 6s ease-in-out infinite;
+}
+html.light .ditto-gradient-text {
+  background: linear-gradient(135deg, #03c04a 0%, #0891b2 40%, #d4a000 70%, #03c04a 100%);
+  background-size: 300% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% center; }
+  50% { background-position: 100% center; }
+}
+
+/* Glow effect for primary buttons */
+.ditto-glow {
+  box-shadow: 0 0 20px rgba(3, 230, 91, 0.25), 0 0 60px rgba(3, 230, 91, 0.08);
+}
+.ditto-glow:hover {
+  box-shadow: 0 0 30px rgba(3, 230, 91, 0.4), 0 0 80px rgba(3, 230, 91, 0.12);
+}
+html.light .ditto-glow {
+  box-shadow: 0 0 15px rgba(3, 192, 74, 0.15), 0 0 40px rgba(3, 192, 74, 0.05);
+}
+html.light .ditto-glow:hover {
+  box-shadow: 0 0 20px rgba(3, 192, 74, 0.25), 0 0 60px rgba(3, 192, 74, 0.08);
+}
+
+/* ── Ditto Blob Logo ── */
+.ditto-blob {
+  background: linear-gradient(135deg, #03e65b 0%, #33d0ff 40%, #ffc533 70%, #03e65b 100%);
+  background-size: 300% auto;
+  animation: blob-morph 4s ease-in-out infinite, gradient-shift 6s ease-in-out infinite;
+  border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%;
+  will-change: border-radius, background-position;
+}
+.ditto-blob-loading {
+  background: var(--ditto-primary);
+  border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%;
+  animation: blob-morph 1.2s ease-in-out infinite, blob-pulse 1.2s ease-in-out infinite;
+  will-change: border-radius, transform, opacity;
+}
+@keyframes blob-morph {
+  0%   { border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%; }
+  25%  { border-radius: 58% 42% 30% 70% / 55% 30% 70% 45%; }
+  50%  { border-radius: 35% 65% 55% 45% / 60% 40% 60% 40%; }
+  75%  { border-radius: 65% 35% 45% 55% / 35% 65% 35% 65%; }
+  100% { border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%; }
+}
+@keyframes blob-surface {
+  0%, 100% { border-radius: 55% 45% 0 0 / 18% 18% 0 0; }
+  25%  { border-radius: 45% 55% 0 0 / 22% 14% 0 0; }
+  50%  { border-radius: 60% 40% 0 0 / 14% 22% 0 0; }
+  75%  { border-radius: 40% 60% 0 0 / 20% 16% 0 0; }
+}
+@keyframes blob-pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50%      { transform: scale(1.15); opacity: 0.7; }
+}
+
+/* ── Blob Button ── */
+.btn-blob {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 24px;
+  background: var(--ditto-primary);
+  color: var(--ditto-bg);
+  font-family: 'leoSans', 'canvaSans', system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 0.875rem;
+  border: none;
+  border-radius: var(--ditto-radius-md);
+  transition: border-radius 0.8s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  text-decoration: none;
+}
+.btn-blob:hover {
+  animation: btn-breathe 3s ease-in-out infinite;
+  box-shadow: 0 0 16px rgba(3, 230, 91, 0.2);
+}
+@keyframes btn-breathe {
+  0%, 100% { border-radius: 8px 8px 8px 8px; }
+  20%  { border-radius: 12px 6px 14px 6px; }
+  40%  { border-radius: 6px 14px 6px 12px; }
+  60%  { border-radius: 14px 8px 6px 14px; }
+  80%  { border-radius: 6px 12px 14px 8px; }
+}
+
+.btn-blob-outline {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 24px;
+  background: transparent;
+  color: var(--ditto-primary);
+  font-family: 'leoSans', 'canvaSans', system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 0.875rem;
+  border: 2px solid var(--ditto-primary);
+  border-radius: var(--ditto-radius-md);
+  transition: border-radius 0.8s ease, transform 0.2s ease, background 0.3s ease;
+  text-decoration: none;
+}
+.btn-blob-outline:hover {
+  animation: btn-breathe 3s ease-in-out infinite;
+  background: rgba(3, 230, 91, 0.05);
+}
+
+/* ── Pixel Art Cursor (desktop only, opt-in pages) ── */
+@media (pointer: fine) {
+  .custom-cursor * { cursor: none !important; }
+}
+
+/* Wiggle cursor on hover via JS-driven custom cursor */
+.cursor-follower {
+  position: fixed;
+  pointer-events: none;
+  z-index: 99999;
+  width: 40px;
+  height: 32px;
+  background: url('/cursor-anim.gif') no-repeat center/contain;
+  image-rendering: pixelated;
+  transform: translate(-20px, 0) rotate(-45deg);
+  transition: transform 0.08s ease;
+}
+.cursor-follower.wiggle {
+  animation: cursor-wiggle 0.3s ease-in-out infinite;
+}
+@keyframes cursor-wiggle {
+  0%, 100% { transform: translate(-20px, 0) rotate(-45deg); }
+  25% { transform: translate(-20px, 0) rotate(-33deg); }
+  75% { transform: translate(-20px, 0) rotate(-57deg); }
+}
+
+/* ── Blob Row Top Edge ── */
+.blob-row-top {
+  border-radius: 50% 50% 0 0 / 5% 5% 0 0;
+  animation: row-blob-top 5s ease-in-out infinite;
+}
+@keyframes row-blob-top {
+  0%, 100% { border-radius: 50% 50% 0 0 / 5% 5% 0 0; }
+  25%  { border-radius: 55% 45% 0 0 / 6% 4% 0 0; }
+  50%  { border-radius: 45% 55% 0 0 / 4% 6% 0 0; }
+  75%  { border-radius: 52% 48% 0 0 / 5.5% 4.5% 0 0; }
+}
+
+/* ── Mobile Menu Link ── */
+.mobile-menu-link {
+  display: block;
+  padding: 12px 0;
+  font-size: 1rem;
+  color: var(--ditto-text-secondary);
+  border-bottom: 1px solid var(--ditto-border);
+  transition: color 0.2s;
+}
+.mobile-menu-link:hover {
+  color: var(--ditto-primary);
+}
+
+/* ── Pixel Star Sparkle ── */
+.pixel-star {
+  width: 8px;
+  height: 8px;
+  image-rendering: pixelated;
+  background: var(--ditto-primary);
+  clip-path: polygon(50% 0%, 50% 33%, 100% 50%, 50% 50%, 50% 100%, 50% 50%, 0% 50%, 50% 50%);
+  animation: pixel-twinkle 2s steps(2) infinite;
+}
+@keyframes pixel-twinkle {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.3; transform: scale(0.6); }
+}
+
+/* ── Theme Toggle ── */
+.theme-toggle {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 9999;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid var(--ditto-border);
+  background: var(--ditto-surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-radius 0.4s ease, background 0.3s, border-color 0.3s;
+}
+.theme-toggle:hover {
+  border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%;
+  border-color: var(--ditto-primary);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--ditto-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: #353535;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ditto-text-muted);
+}
+html.light ::-webkit-scrollbar-thumb {
+  background: #ccc;
+}
+html.light ::-webkit-scrollbar-track {
+  background: var(--ditto-bg);
+}

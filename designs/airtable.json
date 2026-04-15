@@ -1,0 +1,168 @@
+{
+  "id": "M6wRfPDl15SjvoOW6rFI6",
+  "slug": "airtable",
+  "name": "Airtable",
+  "url": "https://airtable.com",
+  "description": "Spreadsheet-database hybrid. Colorful, friendly, structured data aesthetic.",
+  "tokens": {
+    "colors": [
+      {
+        "hex": "#181d26",
+        "rgb": "24, 29, 38",
+        "occurrences": 1,
+        "name": "Color 1",
+        "role": "primary"
+      },
+      {
+        "hex": "#1b61c9",
+        "rgb": "27, 97, 201",
+        "occurrences": 1,
+        "name": "Color 2",
+        "role": "secondary"
+      },
+      {
+        "hex": "#ffffff",
+        "rgb": "255, 255, 255",
+        "occurrences": 1,
+        "name": "Color 3",
+        "role": "neutral"
+      },
+      {
+        "hex": "#006400",
+        "rgb": "0, 100, 0",
+        "occurrences": 1,
+        "name": "Color 4",
+        "role": "neutral"
+      },
+      {
+        "hex": "#333333",
+        "rgb": "51, 51, 51",
+        "occurrences": 1,
+        "name": "Color 5",
+        "role": "neutral"
+      },
+      {
+        "hex": "#254fad",
+        "rgb": "37, 79, 173",
+        "occurrences": 1,
+        "name": "Color 6",
+        "role": "neutral"
+      },
+      {
+        "hex": "#e0e2e6",
+        "rgb": "224, 226, 230",
+        "occurrences": 1,
+        "name": "Color 7",
+        "role": "neutral"
+      },
+      {
+        "hex": "#f8fafc",
+        "rgb": "248, 250, 252",
+        "occurrences": 1,
+        "name": "Color 8",
+        "role": "neutral"
+      }
+    ],
+    "typography": [
+      {
+        "fontFamily": "Haas",
+        "fallbacks": [
+          "system-ui"
+        ],
+        "weights": [
+          700
+        ],
+        "role": "heading"
+      },
+      {
+        "fontFamily": "Haas",
+        "fallbacks": [
+          "system-ui"
+        ],
+        "weights": [
+          400
+        ],
+        "role": "body"
+      }
+    ],
+    "typeScale": [],
+    "spacing": [],
+    "shadows": [],
+    "radii": [
+      {
+        "value": "1px",
+        "px": 1,
+        "occurrences": 1
+      },
+      {
+        "value": "2px",
+        "px": 2,
+        "occurrences": 1
+      },
+      {
+        "value": "12px",
+        "px": 12,
+        "occurrences": 1
+      },
+      {
+        "value": "16px",
+        "px": 16,
+        "occurrences": 1
+      }
+    ],
+    "components": [],
+    "cssVariables": {},
+    "meta": {
+      "url": "https://airtable.com",
+      "title": "airtable",
+      "extractedAt": "2026-04-09T07:51:19.275Z"
+    }
+  },
+  "resolved": {
+    "colorPrimary": "#181d26",
+    "colorSecondary": "#1b61c9",
+    "colorAccent": "#ffffff",
+    "colorBackground": "#ffffff",
+    "colorSurface": "#f8fafc",
+    "colorTextPrimary": "#181d26",
+    "colorTextSecondary": "#475569",
+    "colorTextMuted": "#94a3b8",
+    "colorBorder": "#e2e8f0",
+    "colorSuccess": "#22c55e",
+    "colorWarning": "#f59e0b",
+    "colorError": "#ef4444",
+    "fontHeading": "Haas",
+    "fontBody": "Haas",
+    "fontMono": "ui-monospace",
+    "fontWeightHeading": 700,
+    "fontWeightBody": 400,
+    "textXs": "0.75rem",
+    "textSm": "0.875rem",
+    "textBase": "1rem",
+    "textLg": "1.125rem",
+    "textXl": "1.25rem",
+    "text2xl": "1.5rem",
+    "text3xl": "1.875rem",
+    "text4xl": "2.25rem",
+    "spacingXs": "4px",
+    "spacingSm": "8px",
+    "spacingMd": "16px",
+    "spacingLg": "24px",
+    "spacingXl": "32px",
+    "spacing2xl": "48px",
+    "radiusSm": "1px",
+    "radiusMd": "2px",
+    "radiusLg": "12px",
+    "radiusFull": "9999px",
+    "shadowSm": "0 1px 2px 0 rgba(0,0,0,0.05)",
+    "shadowMd": "0 4px 6px -1px rgba(0,0,0,0.1)",
+    "shadowLg": "0 10px 15px -3px rgba(0,0,0,0.1)",
+    "lineHeightTight": "1.15",
+    "lineHeightNormal": "1.5",
+    "lineHeightRelaxed": "1.75"
+  },
+  "designMd": "# Design System Inspiration of Airtable\n\n## 1. Visual Theme & Atmosphere\n\nAirtable's website is a clean, enterprise-friendly platform that communicates \"sophisticated simplicity\" through a white canvas with deep navy text (`#181d26`) and Airtable Blue (`#1b61c9`) as the primary interactive accent. The Haas font family (display + text variants) creates a Swiss-precision typography system with positive letter-spacing throughout.\n\n**Key Characteristics:**\n- White canvas with deep navy text (`#181d26`)\n- Airtable Blue (`#1b61c9`) as primary CTA and link color\n- Haas + Haas Groot Disp dual font system\n- Positive letter-spacing on body text (0.08px–0.28px)\n- 12px radius buttons, 16px–32px for cards\n- Multi-layer blue-tinted shadow: `rgba(45,127,249,0.28) 0px 1px 3px`\n- Semantic theme tokens: `--theme_*` CSS variable naming\n\n## 2. Color Palette & Roles\n\n### Primary\n- **Deep Navy** (`#181d26`): Primary text\n- **Airtable Blue** (`#1b61c9`): CTA buttons, links\n- **White** (`#ffffff`): Primary surface\n- **Spotlight** (`rgba(249,252,255,0.97)`): `--theme_button-text-spotlight`\n\n### Semantic\n- **Success Green** (`#006400`): `--theme_success-text`\n- **Weak Text** (`rgba(4,14,32,0.69)`): `--theme_text-weak`\n- **Secondary Active** (`rgba(7,12,20,0.82)`): `--theme_button-text-secondary-active`\n\n### Neutral\n- **Dark Gray** (`#333333`): Secondary text\n- **Mid Blue** (`#254fad`): Link/accent blue variant\n- **Border** (`#e0e2e6`): Card borders\n- **Light Surface** (`#f8fafc`): Subtle surface\n\n### Shadows\n- **Blue-tinted** (`rgba(0,0,0,0.32) 0px 0px 1px, rgba(0,0,0,0.08) 0px 0px 2px, rgba(45,127,249,0.28) 0px 1px 3px, rgba(0,0,0,0.06) 0px 0px 0px 0.5px inset`)\n- **Soft** (`rgba(15,48,106,0.05) 0px 0px 20px`)\n\n## 3. Typography Rules\n\n### Font Families\n- **Primary**: `Haas`, fallbacks: `-apple-system, system-ui, Segoe UI, Roboto`\n- **Display**: `Haas Groot Disp`, fallback: `Haas`\n\n### Hierarchy\n\n| Role | Font | Size | Weight | Line Height | Letter Spacing |\n|------|------|------|--------|-------------|----------------|\n| Display Hero | Haas | 48px | 400 | 1.15 | normal |\n| Display Bold | Haas Groot Disp | 48px | 900 | 1.50 | normal |\n| Section Heading | Haas | 40px | 400 | 1.25 | normal |\n| Sub-heading | Haas | 32px | 400–500 | 1.15–1.25 | normal |\n| Card Title | Haas | 24px | 400 | 1.20–1.30 | 0.12px |\n| Feature | Haas | 20px | 400 | 1.25–1.50 | 0.1px |\n| Body | Haas | 18px | 400 | 1.35 | 0.18px |\n| Body Medium | Haas | 16px | 500 | 1.30 | 0.08–0.16px |\n| Button | Haas | 16px | 500 | 1.25–1.30 | 0.08px |\n| Caption | Haas | 14px | 400–500 | 1.25–1.35 | 0.07–0.28px |\n\n## 4. Component Stylings\n\n### Buttons\n- **Primary Blue**: `#1b61c9`, white text, 16px 24px padding, 12px radius\n- **White**: white bg, `#181d26` text, 12px radius, 1px border white\n- **Cookie Consent**: `#1b61c9` bg, 2px radius (sharp)\n\n### Cards: `1px solid #e0e2e6`, 16px–24px radius\n### Inputs: Standard Haas styling\n\n## 5. Layout\n- Spacing: 1–48px (8px base)\n- Radius: 2px (small), 12px (buttons), 16px (cards), 24px (sections), 32px (large), 50% (circles)\n\n## 6. Depth\n- Blue-tinted multi-layer shadow system\n- Soft ambient: `rgba(15,48,106,0.05) 0px 0px 20px`\n\n## 7. Do's and Don'ts\n### Do: Use Airtable Blue for CTAs, Haas with positive tracking, 12px radius buttons\n### Don't: Skip positive letter-spacing, use heavy shadows\n\n## 8. Responsive Behavior\nBreakpoints: 425–1664px (23 breakpoints)\n\n## 9. Agent Prompt Guide\n- Text: Deep Navy (`#181d26`)\n- CTA: Airtable Blue (`#1b61c9`)\n- Background: White (`#ffffff`)\n- Border: `#e0e2e6`\n",
+  "createdAt": "2026-04-09T07:51:19.275Z",
+  "updatedAt": "2026-04-09T07:51:19.275Z",
+  "source": "imported"
+}

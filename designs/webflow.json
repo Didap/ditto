@@ -1,0 +1,228 @@
+{
+  "id": "VY9yF2Bq-w5abxSBTaT8v",
+  "slug": "webflow",
+  "name": "Webflow",
+  "url": "https://webflow.com",
+  "description": "Visual web builder. Blue-accented, polished marketing site aesthetic.",
+  "tokens": {
+    "colors": [
+      {
+        "hex": "#146ef5",
+        "rgb": "20, 110, 245",
+        "occurrences": 1,
+        "name": "Color 1",
+        "role": "primary"
+      },
+      {
+        "hex": "#080808",
+        "rgb": "8, 8, 8",
+        "occurrences": 1,
+        "name": "Color 2",
+        "role": "secondary"
+      },
+      {
+        "hex": "#7a3dff",
+        "rgb": "122, 61, 255",
+        "occurrences": 1,
+        "name": "Color 3",
+        "role": "neutral"
+      },
+      {
+        "hex": "#ed52cb",
+        "rgb": "237, 82, 203",
+        "occurrences": 1,
+        "name": "Color 4",
+        "role": "neutral"
+      },
+      {
+        "hex": "#00d722",
+        "rgb": "0, 215, 34",
+        "occurrences": 1,
+        "name": "Color 5",
+        "role": "neutral"
+      },
+      {
+        "hex": "#ff6b00",
+        "rgb": "255, 107, 0",
+        "occurrences": 1,
+        "name": "Color 6",
+        "role": "neutral"
+      },
+      {
+        "hex": "#ffae13",
+        "rgb": "255, 174, 19",
+        "occurrences": 1,
+        "name": "Color 7",
+        "role": "neutral"
+      },
+      {
+        "hex": "#ee1d36",
+        "rgb": "238, 29, 54",
+        "occurrences": 1,
+        "name": "Color 8",
+        "role": "neutral"
+      },
+      {
+        "hex": "#3b89ff",
+        "rgb": "59, 137, 255",
+        "occurrences": 1,
+        "name": "Color 9",
+        "role": "neutral"
+      },
+      {
+        "hex": "#006acc",
+        "rgb": "0, 106, 204",
+        "occurrences": 1,
+        "name": "Color 10",
+        "role": "neutral"
+      },
+      {
+        "hex": "#0055d4",
+        "rgb": "0, 85, 212",
+        "occurrences": 1,
+        "name": "Color 11",
+        "role": "neutral"
+      },
+      {
+        "hex": "#222222",
+        "rgb": "34, 34, 34",
+        "occurrences": 1,
+        "name": "Color 12",
+        "role": "neutral"
+      },
+      {
+        "hex": "#363636",
+        "rgb": "54, 54, 54",
+        "occurrences": 1,
+        "name": "Color 13",
+        "role": "neutral"
+      },
+      {
+        "hex": "#ababab",
+        "rgb": "171, 171, 171",
+        "occurrences": 1,
+        "name": "Color 14",
+        "role": "neutral"
+      },
+      {
+        "hex": "#5a5a5a",
+        "rgb": "90, 90, 90",
+        "occurrences": 1,
+        "name": "Color 15",
+        "role": "neutral"
+      },
+      {
+        "hex": "#d8d8d8",
+        "rgb": "216, 216, 216",
+        "occurrences": 1,
+        "name": "Color 16",
+        "role": "neutral"
+      },
+      {
+        "hex": "#898989",
+        "rgb": "137, 137, 137",
+        "occurrences": 1,
+        "name": "Color 17",
+        "role": "neutral"
+      },
+      {
+        "hex": "#ffffff",
+        "rgb": "255, 255, 255",
+        "occurrences": 1,
+        "name": "Color 18",
+        "role": "neutral"
+      }
+    ],
+    "typography": [
+      {
+        "fontFamily": "system-ui",
+        "fallbacks": [
+          "system-ui"
+        ],
+        "weights": [
+          700
+        ],
+        "role": "heading"
+      },
+      {
+        "fontFamily": "system-ui",
+        "fallbacks": [
+          "system-ui"
+        ],
+        "weights": [
+          400
+        ],
+        "role": "body"
+      }
+    ],
+    "typeScale": [],
+    "spacing": [],
+    "shadows": [],
+    "radii": [
+      {
+        "value": "1px",
+        "px": 1,
+        "occurrences": 1
+      },
+      {
+        "value": "4px",
+        "px": 4,
+        "occurrences": 1
+      }
+    ],
+    "components": [],
+    "cssVariables": {},
+    "meta": {
+      "url": "https://webflow.com",
+      "title": "webflow",
+      "extractedAt": "2026-04-09T07:52:20.943Z"
+    }
+  },
+  "resolved": {
+    "colorPrimary": "#146ef5",
+    "colorSecondary": "#080808",
+    "colorAccent": "#7a3dff",
+    "colorBackground": "#080808",
+    "colorSurface": "#f8fafc",
+    "colorTextPrimary": "#146ef5",
+    "colorTextSecondary": "#475569",
+    "colorTextMuted": "#94a3b8",
+    "colorBorder": "#e2e8f0",
+    "colorSuccess": "#00d722",
+    "colorWarning": "#f59e0b",
+    "colorError": "#ef4444",
+    "fontHeading": "system-ui",
+    "fontBody": "system-ui",
+    "fontMono": "ui-monospace",
+    "fontWeightHeading": 700,
+    "fontWeightBody": 400,
+    "textXs": "0.75rem",
+    "textSm": "0.875rem",
+    "textBase": "1rem",
+    "textLg": "1.125rem",
+    "textXl": "1.25rem",
+    "text2xl": "1.5rem",
+    "text3xl": "1.875rem",
+    "text4xl": "2.25rem",
+    "spacingXs": "4px",
+    "spacingSm": "8px",
+    "spacingMd": "16px",
+    "spacingLg": "24px",
+    "spacingXl": "32px",
+    "spacing2xl": "48px",
+    "radiusSm": "1px",
+    "radiusMd": "4px",
+    "radiusLg": "4px",
+    "radiusFull": "9999px",
+    "shadowSm": "0 1px 2px 0 rgba(0,0,0,0.05)",
+    "shadowMd": "0 4px 6px -1px rgba(0,0,0,0.1)",
+    "shadowLg": "0 10px 15px -3px rgba(0,0,0,0.1)",
+    "lineHeightTight": "1.15",
+    "lineHeightNormal": "1.5",
+    "lineHeightRelaxed": "1.75"
+  },
+  "designMd": "# Design System Inspiration of Webflow\n\n## 1. Visual Theme & Atmosphere\n\nWebflow's website is a visually rich, tool-forward platform that communicates \"design without code\" through clean white surfaces, the signature Webflow Blue (`#146ef5`), and a rich secondary color palette (purple, pink, green, orange, yellow, red). The custom WF Visual Sans Variable font creates a confident, precise typographic system with weight 600 for display and 500 for body.\n\n**Key Characteristics:**\n- White canvas with near-black (`#080808`) text\n- Webflow Blue (`#146ef5`) as primary brand + interactive color\n- WF Visual Sans Variable — custom variable font with weight 500–600\n- Rich secondary palette: purple `#7a3dff`, pink `#ed52cb`, green `#00d722`, orange `#ff6b00`, yellow `#ffae13`, red `#ee1d36`\n- Conservative 4px–8px border-radius — sharp, not rounded\n- Multi-layer shadow stacks (5-layer cascading shadows)\n- Uppercase labels: 10px–15px, weight 500–600, wide letter-spacing (0.6px–1.5px)\n- translate(6px) hover animation on buttons\n\n## 2. Color Palette & Roles\n\n### Primary\n- **Near Black** (`#080808`): Primary text\n- **Webflow Blue** (`#146ef5`): `--_color---primary--webflow-blue`, primary CTA and links\n- **Blue 400** (`#3b89ff`): `--_color---primary--blue-400`, lighter interactive blue\n- **Blue 300** (`#006acc`): `--_color---blue-300`, darker blue variant\n- **Button Hover Blue** (`#0055d4`): `--mkto-embed-color-button-hover`\n\n### Secondary Accents\n- **Purple** (`#7a3dff`): `--_color---secondary--purple`\n- **Pink** (`#ed52cb`): `--_color---secondary--pink`\n- **Green** (`#00d722`): `--_color---secondary--green`\n- **Orange** (`#ff6b00`): `--_color---secondary--orange`\n- **Yellow** (`#ffae13`): `--_color---secondary--yellow`\n- **Red** (`#ee1d36`): `--_color---secondary--red`\n\n### Neutral\n- **Gray 800** (`#222222`): Dark secondary text\n- **Gray 700** (`#363636`): Mid text\n- **Gray 300** (`#ababab`): Muted text, placeholder\n- **Mid Gray** (`#5a5a5a`): Link text\n- **Border Gray** (`#d8d8d8`): Borders, dividers\n- **Border Hover** (`#898989`): Hover border\n\n### Shadows\n- **5-layer cascade**: `rgba(0,0,0,0) 0px 84px 24px, rgba(0,0,0,0.01) 0px 54px 22px, rgba(0,0,0,0.04) 0px 30px 18px, rgba(0,0,0,0.08) 0px 13px 13px, rgba(0,0,0,0.09) 0px 3px 7px`\n\n## 3. Typography Rules\n\n### Font: `WF Visual Sans Variable`, fallback: `Arial`\n\n| Role | Size | Weight | Line Height | Letter Spacing | Notes |\n|------|------|--------|-------------|----------------|-------|\n| Display Hero | 80px | 600 | 1.04 | -0.8px | |\n| Section Heading | 56px | 600 | 1.04 | normal | |\n| Sub-heading | 32px | 500 | 1.30 | normal | |\n| Feature Title | 24px | 500–600 | 1.30 | normal | |\n| Body | 20px | 400–500 | 1.40–1.50 | normal | |\n| Body Standard | 16px | 400–500 | 1.60 | -0.16px | |\n| Button | 16px | 500 | 1.60 | -0.16px | |\n| Uppercase Label | 15px | 500 | 1.30 | 1.5px | uppercase |\n| Caption | 14px | 400–500 | 1.40–1.60 | normal | |\n| Badge Uppercase | 12.8px | 550 | 1.20 | normal | uppercase |\n| Micro Uppercase | 10px | 500–600 | 1.30 | 1px | uppercase |\n| Code: Inconsolata (companion monospace font)\n\n## 4. Component Stylings\n\n### Buttons\n- Transparent: text `#080808`, translate(6px) on hover\n- White circle: 50% radius, white bg\n- Blue badge: `#146ef5` bg, 4px radius, weight 550\n\n### Cards: `1px solid #d8d8d8`, 4px–8px radius\n### Badges: Blue-tinted bg at 10% opacity, 4px radius\n\n## 5. Layout\n- Spacing: fractional scale (1px, 2.4px, 3.2px, 4px, 5.6px, 6px, 7.2px, 8px, 9.6px, 12px, 16px, 24px)\n- Radius: 2px, 4px, 8px, 50% — conservative, sharp\n- Breakpoints: 479px, 768px, 992px\n\n## 6. Depth: 5-layer cascading shadow system\n\n## 7. Do's and Don'ts\n- Do: Use WF Visual Sans Variable at 500–600. Blue (#146ef5) for CTAs. 4px radius. translate(6px) hover.\n- Don't: Round beyond 8px for functional elements. Use secondary colors on primary CTAs.\n\n## 8. Responsive: 479px, 768px, 992px\n\n## 9. Agent Prompt Guide\n- Text: Near Black (`#080808`)\n- CTA: Webflow Blue (`#146ef5`)\n- Background: White (`#ffffff`)\n- Border: `#d8d8d8`\n- Secondary: Purple `#7a3dff`, Pink `#ed52cb`, Green `#00d722`\n",
+  "createdAt": "2026-04-09T07:52:20.943Z",
+  "updatedAt": "2026-04-09T07:52:20.943Z",
+  "source": "imported"
+}

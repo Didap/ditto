@@ -1,0 +1,242 @@
+{
+  "id": "E65qJ9WfmDpki96QsvDSm",
+  "slug": "nvidia",
+  "name": "Nvidia",
+  "url": "https://nvidia.com",
+  "description": "GPU computing. Green-black energy, technical power aesthetic.",
+  "tokens": {
+    "colors": [
+      {
+        "hex": "#000000",
+        "rgb": "0, 0, 0",
+        "occurrences": 1,
+        "name": "Color 1",
+        "role": "primary"
+      },
+      {
+        "hex": "#ffffff",
+        "rgb": "255, 255, 255",
+        "occurrences": 1,
+        "name": "Color 2",
+        "role": "secondary"
+      },
+      {
+        "hex": "#76b900",
+        "rgb": "118, 185, 0",
+        "occurrences": 1,
+        "name": "Color 3",
+        "role": "neutral"
+      },
+      {
+        "hex": "#bff230",
+        "rgb": "191, 242, 48",
+        "occurrences": 1,
+        "name": "Color 4",
+        "role": "neutral"
+      },
+      {
+        "hex": "#df6500",
+        "rgb": "223, 101, 0",
+        "occurrences": 1,
+        "name": "Color 5",
+        "role": "neutral"
+      },
+      {
+        "hex": "#ef9100",
+        "rgb": "239, 145, 0",
+        "occurrences": 1,
+        "name": "Color 6",
+        "role": "neutral"
+      },
+      {
+        "hex": "#feeeb2",
+        "rgb": "254, 238, 178",
+        "occurrences": 1,
+        "name": "Color 7",
+        "role": "neutral"
+      },
+      {
+        "hex": "#e52020",
+        "rgb": "229, 32, 32",
+        "occurrences": 1,
+        "name": "Color 8",
+        "role": "neutral"
+      },
+      {
+        "hex": "#650b0b",
+        "rgb": "101, 11, 11",
+        "occurrences": 1,
+        "name": "Color 9",
+        "role": "neutral"
+      },
+      {
+        "hex": "#3f8500",
+        "rgb": "63, 133, 0",
+        "occurrences": 1,
+        "name": "Color 10",
+        "role": "neutral"
+      },
+      {
+        "hex": "#0046a4",
+        "rgb": "0, 70, 164",
+        "occurrences": 1,
+        "name": "Color 11",
+        "role": "neutral"
+      },
+      {
+        "hex": "#4d1368",
+        "rgb": "77, 19, 104",
+        "occurrences": 1,
+        "name": "Color 12",
+        "role": "neutral"
+      },
+      {
+        "hex": "#f9d4ff",
+        "rgb": "249, 212, 255",
+        "occurrences": 1,
+        "name": "Color 13",
+        "role": "neutral"
+      },
+      {
+        "hex": "#8c1c55",
+        "rgb": "140, 28, 85",
+        "occurrences": 1,
+        "name": "Color 14",
+        "role": "neutral"
+      },
+      {
+        "hex": "#a7a7a7",
+        "rgb": "167, 167, 167",
+        "occurrences": 1,
+        "name": "Color 15",
+        "role": "neutral"
+      },
+      {
+        "hex": "#898989",
+        "rgb": "137, 137, 137",
+        "occurrences": 1,
+        "name": "Color 16",
+        "role": "neutral"
+      },
+      {
+        "hex": "#757575",
+        "rgb": "117, 117, 117",
+        "occurrences": 1,
+        "name": "Color 17",
+        "role": "neutral"
+      },
+      {
+        "hex": "#5e5e5e",
+        "rgb": "94, 94, 94",
+        "occurrences": 1,
+        "name": "Color 18",
+        "role": "neutral"
+      },
+      {
+        "hex": "#1a1a1a",
+        "rgb": "26, 26, 26",
+        "occurrences": 1,
+        "name": "Color 19",
+        "role": "neutral"
+      },
+      {
+        "hex": "#3860be",
+        "rgb": "56, 96, 190",
+        "occurrences": 1,
+        "name": "Color 20",
+        "role": "neutral"
+      }
+    ],
+    "typography": [
+      {
+        "fontFamily": "NVIDIA-EMEA",
+        "fallbacks": [
+          "system-ui"
+        ],
+        "weights": [
+          700
+        ],
+        "role": "heading"
+      },
+      {
+        "fontFamily": "NVIDIA-EMEA",
+        "fallbacks": [
+          "system-ui"
+        ],
+        "weights": [
+          400
+        ],
+        "role": "body"
+      }
+    ],
+    "typeScale": [],
+    "spacing": [],
+    "shadows": [],
+    "radii": [
+      {
+        "value": "2px",
+        "px": 2,
+        "occurrences": 1
+      },
+      {
+        "value": "36px",
+        "px": 36,
+        "occurrences": 1
+      }
+    ],
+    "components": [],
+    "cssVariables": {},
+    "meta": {
+      "url": "https://nvidia.com",
+      "title": "nvidia",
+      "extractedAt": "2026-04-09T07:51:53.906Z"
+    }
+  },
+  "resolved": {
+    "colorPrimary": "#000000",
+    "colorSecondary": "#ffffff",
+    "colorAccent": "#76b900",
+    "colorBackground": "#000000",
+    "colorSurface": "#f8fafc",
+    "colorTextPrimary": "#000000",
+    "colorTextSecondary": "#475569",
+    "colorTextMuted": "#94a3b8",
+    "colorBorder": "#e2e8f0",
+    "colorSuccess": "#22c55e",
+    "colorWarning": "#f59e0b",
+    "colorError": "#ef4444",
+    "fontHeading": "NVIDIA-EMEA",
+    "fontBody": "NVIDIA-EMEA",
+    "fontMono": "ui-monospace",
+    "fontWeightHeading": 700,
+    "fontWeightBody": 400,
+    "textXs": "0.75rem",
+    "textSm": "0.875rem",
+    "textBase": "1rem",
+    "textLg": "1.125rem",
+    "textXl": "1.25rem",
+    "text2xl": "1.5rem",
+    "text3xl": "1.875rem",
+    "text4xl": "2.25rem",
+    "spacingXs": "4px",
+    "spacingSm": "8px",
+    "spacingMd": "16px",
+    "spacingLg": "24px",
+    "spacingXl": "32px",
+    "spacing2xl": "48px",
+    "radiusSm": "2px",
+    "radiusMd": "36px",
+    "radiusLg": "36px",
+    "radiusFull": "9999px",
+    "shadowSm": "0 1px 2px 0 rgba(0,0,0,0.05)",
+    "shadowMd": "0 4px 6px -1px rgba(0,0,0,0.1)",
+    "shadowLg": "0 10px 15px -3px rgba(0,0,0,0.1)",
+    "lineHeightTight": "1.15",
+    "lineHeightNormal": "1.5",
+    "lineHeightRelaxed": "1.75"
+  },
+  "designMd": "# Design System Inspiration of NVIDIA\n\n## 1. Visual Theme & Atmosphere\n\nNVIDIA's website is a high-contrast, technology-forward experience that communicates raw computational power through design restraint. The page is built on a stark black (`#000000`) and white (`#ffffff`) foundation, punctuated by NVIDIA's signature green (`#76b900`) -- a color so specific it functions as a brand fingerprint. This is not the lush green of nature; it's the electric, lime-shifted green of GPU-rendered light, a color that sits between chartreuse and kelly green and immediately signals \"NVIDIA\" to anyone in technology.\n\nThe custom NVIDIA-EMEA font family (with Arial and Helvetica fallbacks) creates a clean, industrial typographic voice. Headings at 36px bold with tight 1.25 line-height create dense, authoritative blocks of text. The font lacks the geometric playfulness of Silicon Valley sans-serifs -- it's European, pragmatic, and engineering-focused. Body text runs at 15-16px, comfortable for reading but not generous, maintaining the sense that screen real estate is optimized like GPU memory.\n\nWhat distinguishes NVIDIA's design from other dark-background tech sites is the disciplined use of the green accent. The `#76b900` appears in borders (`2px solid #76b900`), link underlines (`underline 2px rgb(118, 185, 0)`), and CTAs -- but never as backgrounds or large surface areas on the main content. The green is a signal, not a surface. Combined with a deep shadow system (`rgba(0, 0, 0, 0.3) 0px 0px 5px`) and minimal border radius (1-2px), the overall effect is of precision engineering hardware rendered in pixels.\n\n**Key Characteristics:**\n- NVIDIA Green (`#76b900`) as pure accent -- borders, underlines, and interactive highlights only\n- Black (`#000000`) dominant background with white (`#ffffff`) text on dark sections\n- NVIDIA-EMEA custom font with Arial/Helvetica fallback -- industrial, European, clean\n- Tight line-heights (1.25 for headings) creating dense, authoritative text blocks\n- Minimal border radius (1-2px) -- sharp, engineered corners throughout\n- Green-bordered buttons (`2px solid #76b900`) as primary interactive pattern\n- Font Awesome 6 Pro/Sharp icon system at weight 900 for sharp iconography\n- Multi-framework architecture (PrimeReact, Fluent UI, Element Plus) enabling rich interactive components\n\n## 2. Color Palette & Roles\n\n### Primary Brand\n- **NVIDIA Green** (`#76b900`): The signature -- borders, link underlines, CTA outlines, active indicators. Never used as large surface fills.\n- **True Black** (`#000000`): Primary page background, text on light surfaces, dominant tone.\n- **Pure White** (`#ffffff`): Text on dark backgrounds, light section backgrounds, card surfaces.\n\n### Extended Brand Palette\n- **NVIDIA Green Light** (`#bff230`): Bright lime accent for highlights and hover states.\n- **Orange 400** (`#df6500`): Warm accent for alerts, featured badges, or energy-related contexts.\n- **Yellow 300** (`#ef9100`): Secondary warm accent, product category highlights.\n- **Yellow 050** (`#feeeb2`): Light warm surface for callout backgrounds.\n\n### Status & Semantic\n- **Red 500** (`#e52020`): Error states, destructive actions, critical alerts.\n- **Red 800** (`#650b0b`): Deep red for severe warning backgrounds.\n- **Green 500** (`#3f8500`): Success states, positive indicators (darker than brand green).\n- **Blue 700** (`#0046a4`): Informational accents, link hover alternative.\n\n### Decorative\n- **Purple 800** (`#4d1368`): Deep purple for gradient ends, premium/AI contexts.\n- **Purple 100** (`#f9d4ff`): Light purple surface tint.\n- **Fuchsia 700** (`#8c1c55`): Rich accent for special promotions or featured content.\n\n### Neutral Scale\n- **Gray 300** (`#a7a7a7`): Muted text, disabled labels.\n- **Gray 400** (`#898989`): Secondary text, metadata.\n- **Gray 500** (`#757575`): Tertiary text, placeholders, footers.\n- **Gray Border** (`#5e5e5e`): Subtle borders, divider lines.\n- **Near Black** (`#1a1a1a`): Dark surfaces, card backgrounds on black pages.\n\n### Interactive States\n- **Link Default (dark bg)** (`#ffffff`): White links on dark backgrounds.\n- **Link Default (light bg)** (`#000000`): Black links with green underline on light backgrounds.\n- **Link Hover** (`#3860be`): Blue shift on hover across all link variants.\n- **Button Hover** (`#1eaedb`): Teal highlight for button hover states.\n- **Button Active** (`#007fff`): Bright blue for active/pressed button states.\n- **Focus Ring** (`#000000 solid 2px`): Black outline for keyboard focus.\n\n### Shadows & Depth\n- **Card Shadow** (`rgba(0, 0, 0, 0.3) 0px 0px 5px 0px`): Subtle ambient shadow for elevated cards.\n\n## 3. Typography Rules\n\n### Font Family\n- **Primary**: `NVIDIA-EMEA`, with fallbacks: `Arial, Helvetica, sans-serif`\n- **Icon Font**: `Font Awesome 6 Pro` (weight 900 for solid icons, 700 for regular)\n- **Icon Sharp**: `Font Awesome 6 Sharp` (weight 300 for light icons, 400 for regular)\n\n### Hierarchy\n\n| Role | Font | Size | Weight | Line Height | Letter Spacing | Notes |\n|------|------|------|--------|-------------|----------------|-------|\n| Display Hero | NVIDIA-EMEA | 36px (2.25rem) | 700 | 1.25 (tight) | normal | Maximum impact headlines |\n| Section Heading | NVIDIA-EMEA | 24px (1.50rem) | 700 | 1.25 (tight) | normal | Section titles, card headings |\n| Sub-heading | NVIDIA-EMEA | 22px (1.38rem) | 400 | 1.75 (relaxed) | normal | Feature descriptions, subtitles |\n| Card Title | NVIDIA-EMEA | 20px (1.25rem) | 700 | 1.25 (tight) | normal | Card and module headings |\n| Body Large | NVIDIA-EMEA | 18px (1.13rem) | 700 | 1.67 (relaxed) | normal | Emphasized body, lead paragraphs |\n| Body | NVIDIA-EMEA | 16px (1.00rem) | 400 | 1.50 | normal | Standard reading text |\n| Body Bold | NVIDIA-EMEA | 16px (1.00rem) | 700 | 1.50 | normal | Strong labels, nav items |\n| Body Small | NVIDIA-EMEA | 15px (0.94rem) | 400 | 1.67 (relaxed) | normal | Secondary content, descriptions |\n| Body Small Bold | NVIDIA-EMEA | 15px (0.94rem) | 700 | 1.50 | normal | Emphasized secondary content |\n| Button Large | NVIDIA-EMEA | 18px (1.13rem) | 700 | 1.25 (tight) | normal | Primary CTA buttons |\n| Button | NVIDIA-EMEA | 16px (1.00rem) | 700 | 1.25 (tight) | normal | Standard buttons |\n| Button Compact | NVIDIA-EMEA | 14.4px (0.90rem) | 700 | 1.00 (tight) | 0.144px | Small/compact buttons |\n| Link | NVIDIA-EMEA | 14px (0.88rem) | 700 | 1.43 | normal | Navigation links |\n| Link Uppercase | NVIDIA-EMEA | 14px (0.88rem) | 700 | 1.43 | normal | `text-transform: uppercase`, nav labels |\n| Caption | NVIDIA-EMEA | 14px (0.88rem) | 600 | 1.50 | normal | Metadata, timestamps |\n| Caption Small | NVIDIA-EMEA | 12px (0.75rem) | 400 | 1.25 (tight) | normal | Fine print, legal |\n| Micro Label | NVIDIA-EMEA | 10px (0.63rem) | 700 | 1.50 | normal | `text-transform: uppercase`, tiny badges |\n| Micro | NVIDIA-EMEA | 11px (0.69rem) | 700 | 1.00 (tight) | normal | Smallest UI text |\n\n### Principles\n- **Bold as the default voice**: NVIDIA leans heavily on weight 700 for headings, buttons, links, and labels. The 400 weight is reserved for body text and descriptions -- everything else is bold, projecting confidence and authority.\n- **Tight headings, relaxed body**: Heading line-height is consistently 1.25 (tight), while body text relaxes to 1.50-1.67. This contrast creates visual density at the top of content blocks and comfortable readability in paragraphs.\n- **Uppercase for navigation**: Link labels use `text-transform: uppercase` with weight 700, creating a navigation voice that reads like hardware specification labels.\n- **No decorative tracking**: Letter-spacing is normal throughout, except for compact buttons (0.144px). The font itself carries the industrial character without manipulation.\n\n## 4. Component Stylings\n\n### Buttons\n\n**Primary (Green Border)**\n- Background: `transparent`\n- Text: `#000000`\n- Padding: 11px 13px\n- Border: `2px solid #76b900`\n- Radius: 2px\n- Font: 16px weight 700\n- Hover: background `#1eaedb`, text `#ffffff`\n- Active: background `#007fff`, text `#ffffff`, border `1px solid #003eff`, scale(1)\n- Focus: background `#1eaedb`, text `#ffffff`, outline `#000000 solid 2px`, opacity 0.9\n- Use: Primary CTA (\"Learn More\", \"Explore Solutions\")\n\n**Secondary (Green Border Thin)**\n- Background: transparent\n- Border: `1px solid #76b900`\n- Radius: 2px\n- Use: Secondary actions, alternative CTAs\n\n**Compact / Inline**\n- Font: 14.4px weight 700\n- Letter-spacing: 0.144px\n- Line-height: 1.00\n- Use: Inline CTAs, compact navigation\n\n### Cards & Containers\n- Background: `#ffffff` (light) or `#1a1a1a` (dark sections)\n- Border: none (clean edges) or `1px solid #5e5e5e`\n- Radius: 2px\n- Shadow: `rgba(0, 0, 0, 0.3) 0px 0px 5px 0px` for elevated cards\n- Hover: shadow intensification\n- Padding: 16-24px internal\n\n### Links\n- **On Dark Background**: `#ffffff`, no underline, hover shifts to `#3860be`\n- **On Light Background**: `#000000` or `#1a1a1a`, underline `2px solid #76b900`, hover shifts to `#3860be`, underline removed\n- **Green Links**: `#76b900`, hover shifts to `#3860be`\n- **Muted Links**: `#666666`, hover shifts to `#3860be`\n\n### Navigation\n- Dark black background (`#000000`)\n- Logo left-aligned, prominent NVIDIA wordmark\n- Links: NVIDIA-EMEA 14px weight 700 uppercase, `#ffffff`\n- Hover: color shift, no underline change\n- Mega-menu dropdowns for product categories\n- Sticky on scroll with backdrop\n\n### Image Treatment\n- Product/GPU renders as hero images, often full-width\n- Screenshot images with subtle shadow for depth\n- Green gradient overlays on dark hero sections\n- Circular avatar containers with 50% radius\n\n### Distinctive Components\n\n**Product Cards**\n- Clean white or dark card with minimal radius (2px)\n- Green accent border or underline on title\n- Bold heading + lighter description pattern\n- CTA with green border at bottom\n\n**Tech Spec Tables**\n- Industrial grid layouts\n- Alternating row backgrounds (subtle gray shift)\n- Bold labels, regular values\n- Green highlights for key metrics\n\n**Cookie/Consent Banner**\n- Fixed bottom positioning\n- Rounded buttons (2px radius)\n- Gray border treatments\n\n## 5. Layout Principles\n\n### Spacing System\n- Base unit: 8px\n- Scale: 1px, 2px, 3px, 4px, 5px, 6px, 7px, 8px, 9px, 10px, 11px, 12px, 13px, 15px\n- Primary padding values: 8px, 11px, 13px, 16px, 24px, 32px\n- Section spacing: 48-80px vertical padding\n\n### Grid & Container\n- Max content width: approximately 1200px (contained)\n- Full-width hero sections with contained text\n- Feature sections: 2-3 column grids for product cards\n- Single-column for article/blog content\n- Sidebar layouts for documentation\n\n### Whitespace Philosophy\n- **Purposeful density**: NVIDIA uses tighter spacing than typical SaaS sites, reflecting the density of technical content. White space exists to separate concepts, not to create luxury emptiness.\n- **Section rhythm**: Dark sections alternate with white sections, using background color (not just spacing) to separate content blocks.\n- **Card density**: Product cards sit close together with 16-20px gaps, creating a catalog feel rather than a gallery feel.\n\n### Border Radius Scale\n- Micro (1px): Inline spans, tiny elements\n- Standard (2px): Buttons, cards, containers, inputs -- the default for nearly everything\n- Circle (50%): Avatar images, circular tab indicators\n\n## 6. Depth & Elevation\n\n| Level | Treatment | Use |\n|-------|-----------|-----|\n| Flat (Level 0) | No shadow | Page backgrounds, inline text |\n| Subtle (Level 1) | `rgba(0,0,0,0.3) 0px 0px 5px 0px` | Standard cards, modals |\n| Border (Level 1b) | `1px solid #5e5e5e` | Content dividers, section borders |\n| Green accent (Level 2) | `2px solid #76b900` | Active elements, CTAs, selected items |\n| Focus (Accessibility) | `2px solid #000000` outline | Keyboard focus ring |\n\n**Shadow Philosophy**: NVIDIA's depth system is minimal and utilitarian. There is essentially one shadow value -- a 5px ambient blur at 30% opacity -- used sparingly for cards and modals. The primary depth signal is not shadow but _color contrast_: black backgrounds next to white sections, green borders on black surfaces. This creates hardware-like visual layering where depth comes from material difference, not simulated light.\n\n### Decorative Depth\n- Green gradient washes behind hero content\n- Dark-to-darker gradients (black to near-black) for section transitions\n- No glassmorphism or blur effects -- clarity over atmosphere\n\n## 7. Responsive Behavior\n\n### Breakpoints\n| Name | Width | Key Changes |\n|------|-------|-------------|\n| Mobile Small | <375px | Compact single column, reduced padding |\n| Mobile | 375-425px | Standard mobile layout |\n| Mobile Large | 425-600px | Wider mobile, some 2-col hints |\n| Tablet Small | 600-768px | 2-column grids begin |\n| Tablet | 768-1024px | Full card grids, expanded nav |\n| Desktop | 1024-1350px | Standard desktop layout |\n| Large Desktop | >1350px | Maximum content width, generous margins |\n\n### Touch Targets\n- Buttons use 11px 13px padding for comfortable tap targets\n- Navigation links at 14px uppercase with adequate spacing\n- Green-bordered buttons provide high-contrast touch targets on dark backgrounds\n- Mobile: hamburger menu collapse with full-screen overlay\n\n### Collapsing Strategy\n- Hero: 36px heading scales down proportionally\n- Navigation: full horizontal nav collapses to hamburger menu at ~1024px\n- Product cards: 3-column to 2-column to single column stacked\n- Footer: multi-column grid collapses to single stacked column\n- Section spacing: 64-80px reduces to 32-48px on mobile\n- Images: maintain aspect ratio, scale to container width\n\n### Image Behavior\n- GPU/product renders maintain high resolution at all sizes\n- Hero images scale proportionally with viewport\n- Card images use consistent aspect ratios\n- Full-bleed dark sections maintain edge-to-edge treatment\n\n## 8. Responsive Behavior (Extended)\n\n### Typography Scaling\n- Display 36px scales to ~24px on mobile\n- Section headings 24px scale to ~20px on mobile\n- Body text maintains 15-16px across all breakpoints\n- Button text maintains 16px for consistent tap targets\n\n### Dark/Light Section Strategy\n- Dark sections (black bg, white text) alternate with light sections (white bg, black text)\n- The green accent remains consistent across both surface types\n- On dark: links are white, underlines are green\n- On light: links are black, underlines are green\n- This alternation creates natural scroll rhythm and content grouping\n\n## 9. Agent Prompt Guide\n\n### Quick Color Reference\n- Primary accent: NVIDIA Green (`#76b900`)\n- Background dark: True Black (`#000000`)\n- Background light: Pure White (`#ffffff`)\n- Heading text (dark bg): White (`#ffffff`)\n- Heading text (light bg): Black (`#000000`)\n- Body text (light bg): Black (`#000000`) or Near Black (`#1a1a1a`)\n- Body text (dark bg): White (`#ffffff`) or Gray 300 (`#a7a7a7`)\n- Link hover: Blue (`#3860be`)\n- Border accent: `2px solid #76b900`\n- Button hover: Teal (`#1eaedb`)\n\n### Example Component Prompts\n- \"Create a hero section on black background. Headline at 36px NVIDIA-EMEA weight 700, line-height 1.25, color #ffffff. Subtitle at 18px weight 400, line-height 1.67, color #a7a7a7. CTA button with transparent background, 2px solid #76b900 border, 2px radius, 11px 13px padding, text #ffffff. Hover: background #1eaedb, text white.\"\n- \"Design a product card: white background, 2px border-radius, box-shadow rgba(0,0,0,0.3) 0px 0px 5px. Title at 20px NVIDIA-EMEA weight 700, line-height 1.25, color #000000. Body at 15px weight 400, line-height 1.67, color #757575. Green underline accent on title: border-bottom 2px solid #76b900.\"\n- \"Build a navigation bar: #000000 background, sticky top. NVIDIA logo left-aligned. Links at 14px NVIDIA-EMEA weight 700 uppercase, color #ffffff. Hover: color #3860be. Green-bordered CTA button right-aligned.\"\n- \"Create a dark feature section: #000000 background. Section label at 14px weight 700 uppercase, color #76b900. Heading at 24px weight 700, color #ffffff. Description at 16px weight 400, color #a7a7a7. Three product cards in a row with 20px gap.\"\n- \"Design a footer: #000000 background. Multi-column layout with link groups. Links at 14px weight 400, color #a7a7a7. Hover: color #76b900. Bottom bar with legal text at 12px, color #757575.\"\n\n### Iteration Guide\n1. Always use `#76b900` as accent, never as a background fill -- it's a signal color for borders, underlines, and highlights\n2. Buttons are transparent with green borders by default -- filled backgrounds appear only on hover/active states\n3. Weight 700 is the dominant voice for all interactive and heading elements; 400 is only for body paragraphs\n4. Border radius is 2px for everything -- this sharp, minimal rounding is core to the industrial aesthetic\n5. Dark sections use white text; light sections use black text -- green accent works identically on both\n6. Link hover is always `#3860be` (blue) regardless of the link's default color\n7. Line-height 1.25 for headings, 1.50-1.67 for body text -- maintain this contrast for visual hierarchy\n8. Navigation uses uppercase 14px bold -- this hardware-label typography is part of the brand voice\n",
+  "createdAt": "2026-04-09T07:51:53.906Z",
+  "updatedAt": "2026-04-09T07:51:53.906Z",
+  "source": "imported"
+}

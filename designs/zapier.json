@@ -1,0 +1,206 @@
+{
+  "id": "9gE1mRmOj4Bey7d7IkGfb",
+  "slug": "zapier",
+  "name": "Zapier",
+  "url": "https://zapier.com",
+  "description": "Automation platform. Warm orange, friendly illustration-driven.",
+  "tokens": {
+    "colors": [
+      {
+        "hex": "#fffefb",
+        "rgb": "255, 254, 251",
+        "occurrences": 1,
+        "name": "Color 1",
+        "role": "primary"
+      },
+      {
+        "hex": "#201515",
+        "rgb": "32, 21, 21",
+        "occurrences": 1,
+        "name": "Color 2",
+        "role": "secondary"
+      },
+      {
+        "hex": "#ff4f00",
+        "rgb": "255, 79, 0",
+        "occurrences": 1,
+        "name": "Color 3",
+        "role": "neutral"
+      },
+      {
+        "hex": "#c5c0b1",
+        "rgb": "197, 192, 177",
+        "occurrences": 1,
+        "name": "Color 4",
+        "role": "neutral"
+      },
+      {
+        "hex": "#939084",
+        "rgb": "147, 144, 132",
+        "occurrences": 1,
+        "name": "Color 5",
+        "role": "neutral"
+      },
+      {
+        "hex": "#eceae3",
+        "rgb": "236, 234, 227",
+        "occurrences": 1,
+        "name": "Color 6",
+        "role": "neutral"
+      },
+      {
+        "hex": "#fffdf9",
+        "rgb": "255, 253, 249",
+        "occurrences": 1,
+        "name": "Color 7",
+        "role": "neutral"
+      },
+      {
+        "hex": "#36342e",
+        "rgb": "54, 52, 46",
+        "occurrences": 1,
+        "name": "Color 8",
+        "role": "neutral"
+      },
+      {
+        "hex": "#b5b2aa",
+        "rgb": "181, 178, 170",
+        "occurrences": 1,
+        "name": "Color 9",
+        "role": "neutral"
+      },
+      {
+        "hex": "#2d2d2e",
+        "rgb": "45, 45, 46",
+        "occurrences": 1,
+        "name": "Color 10",
+        "role": "neutral"
+      },
+      {
+        "hex": "#ffffff",
+        "rgb": "255, 255, 255",
+        "occurrences": 1,
+        "name": "Color 11",
+        "role": "neutral"
+      },
+      {
+        "hex": "#000000",
+        "rgb": "0, 0, 0",
+        "occurrences": 1,
+        "name": "Color 12",
+        "role": "neutral"
+      }
+    ],
+    "typography": [
+      {
+        "fontFamily": "Inter",
+        "fallbacks": [
+          "system-ui"
+        ],
+        "weights": [
+          700
+        ],
+        "role": "heading"
+      },
+      {
+        "fontFamily": "Inter",
+        "fallbacks": [
+          "system-ui"
+        ],
+        "weights": [
+          400
+        ],
+        "role": "body"
+      }
+    ],
+    "typeScale": [],
+    "spacing": [],
+    "shadows": [],
+    "radii": [
+      {
+        "value": "0px",
+        "px": 0,
+        "occurrences": 1
+      },
+      {
+        "value": "1px",
+        "px": 1,
+        "occurrences": 1
+      },
+      {
+        "value": "8px",
+        "px": 8,
+        "occurrences": 1
+      },
+      {
+        "value": "14px",
+        "px": 14,
+        "occurrences": 1
+      },
+      {
+        "value": "16px",
+        "px": 16,
+        "occurrences": 1
+      },
+      {
+        "value": "56px",
+        "px": 56,
+        "occurrences": 1
+      }
+    ],
+    "components": [],
+    "cssVariables": {},
+    "meta": {
+      "url": "https://zapier.com",
+      "title": "zapier",
+      "extractedAt": "2026-04-09T07:52:23.203Z"
+    }
+  },
+  "resolved": {
+    "colorPrimary": "#fffefb",
+    "colorSecondary": "#201515",
+    "colorAccent": "#ff4f00",
+    "colorBackground": "#fffefb",
+    "colorSurface": "#f8fafc",
+    "colorTextPrimary": "#201515",
+    "colorTextSecondary": "#475569",
+    "colorTextMuted": "#94a3b8",
+    "colorBorder": "#e2e8f0",
+    "colorSuccess": "#22c55e",
+    "colorWarning": "#f59e0b",
+    "colorError": "#ef4444",
+    "fontHeading": "Inter",
+    "fontBody": "Inter",
+    "fontMono": "ui-monospace",
+    "fontWeightHeading": 700,
+    "fontWeightBody": 400,
+    "textXs": "0.75rem",
+    "textSm": "0.875rem",
+    "textBase": "1rem",
+    "textLg": "1.125rem",
+    "textXl": "1.25rem",
+    "text2xl": "1.5rem",
+    "text3xl": "1.875rem",
+    "text4xl": "2.25rem",
+    "spacingXs": "4px",
+    "spacingSm": "8px",
+    "spacingMd": "16px",
+    "spacingLg": "24px",
+    "spacingXl": "32px",
+    "spacing2xl": "48px",
+    "radiusSm": "4px",
+    "radiusMd": "1px",
+    "radiusLg": "8px",
+    "radiusFull": "9999px",
+    "shadowSm": "0 1px 2px 0 rgba(0,0,0,0.05)",
+    "shadowMd": "0 4px 6px -1px rgba(0,0,0,0.1)",
+    "shadowLg": "0 10px 15px -3px rgba(0,0,0,0.1)",
+    "lineHeightTight": "1.15",
+    "lineHeightNormal": "1.5",
+    "lineHeightRelaxed": "1.75"
+  },
+  "designMd": "# Design System Inspiration of Zapier\n\n## 1. Visual Theme & Atmosphere\n\nZapier's website radiates warm, approachable professionalism. It rejects the cold monochrome minimalism of developer tools in favor of a cream-tinted canvas (`#fffefb`) that feels like unbleached paper -- the digital equivalent of a well-organized notebook. The near-black (`#201515`) text has a faint reddish-brown warmth, creating an atmosphere more human than mechanical. This is automation designed to feel effortless, not technical.\n\nThe typographic system is a deliberate interplay of two distinct personalities. **Degular Display** -- a geometric, wide-set display face -- handles hero-scale headlines at 56-80px with medium weight (500) and extraordinarily tight line-heights (0.90), creating headlines that compress vertically like stacked blocks. **Inter** serves as the workhorse for everything else, from section headings to body text and navigation, with fallbacks to Helvetica and Arial. **GT Alpina**, an elegant thin-weight serif with aggressive negative letter-spacing (-1.6px to -1.92px), makes occasional appearances for softer editorial moments. This three-font system gives Zapier the ability to shift register -- from bold and punchy (Degular) to clean and functional (Inter) to refined and literary (GT Alpina).\n\nThe brand's signature orange (`#ff4f00`) is unmistakable -- a vivid, saturated red-orange that sits precisely between traffic-cone urgency and sunset warmth. It's used sparingly but decisively: primary CTA buttons, active state underlines, and accent borders. Against the warm cream background, this orange creates a color relationship that feels energetic without being aggressive.\n\n**Key Characteristics:**\n- Warm cream canvas (`#fffefb`) instead of pure white -- organic, paper-like warmth\n- Near-black with reddish undertone (`#201515`) -- text that breathes rather than dominates\n- Degular Display for hero headlines at 0.90 line-height -- compressed, impactful, modern\n- Inter as the universal UI font across all functional typography\n- GT Alpina for editorial accents -- thin-weight serif with extreme negative tracking\n- Zapier Orange (`#ff4f00`) as the single accent -- vivid, warm, sparingly applied\n- Warm neutral palette: borders (`#c5c0b1`), muted text (`#939084`), surface tints (`#eceae3`)\n- 8px base spacing system with generous padding on CTAs (20px 24px)\n- Border-forward design: `1px solid` borders in warm grays define structure over shadows\n\n## 2. Color Palette & Roles\n\n### Primary\n- **Zapier Black** (`#201515`): Primary text, headings, dark button backgrounds. A warm near-black with reddish undertones -- never cold.\n- **Cream White** (`#fffefb`): Page background, card surfaces, light button fills. Not pure white; the yellowish warmth is intentional.\n- **Off-White** (`#fffdf9`): Secondary background surface, subtle alternate tint. Nearly indistinguishable from cream white but creates depth.\n\n### Brand Accent\n- **Zapier Orange** (`#ff4f00`): Primary CTA buttons, active underline indicators, accent borders. The signature color -- vivid and warm.\n\n### Neutral Scale\n- **Dark Charcoal** (`#36342e`): Secondary text, footer text, border color for strong dividers. A warm dark gray-brown with 70% opacity variant.\n- **Warm Gray** (`#939084`): Tertiary text, muted labels, timestamp-style content. Mid-range with greenish-warm undertone.\n- **Sand** (`#c5c0b1`): Primary border color, hover state backgrounds, divider lines. The backbone of Zapier's structural elements.\n- **Light Sand** (`#eceae3`): Secondary button backgrounds, light borders, subtle card surfaces.\n- **Mid Warm** (`#b5b2aa`): Alternate border tone, used on specific span elements.\n\n### Interactive\n- **Orange CTA** (`#ff4f00`): Primary action buttons and active tab underlines.\n- **Dark CTA** (`#201515`): Secondary dark buttons with sand hover state.\n- **Light CTA** (`#eceae3`): Tertiary/ghost buttons with sand hover.\n- **Link Default** (`#201515`): Standard link color, matching body text.\n- **Hover Underline**: Links remove `text-decoration: underline` on hover (inverse pattern).\n\n### Overlay & Surface\n- **Semi-transparent Dark** (`rgba(45, 45, 46, 0.5)`): Overlay button variant, backdrop-like elements.\n- **Pill Surface** (`#fffefb`): White pill buttons with sand borders.\n\n### Shadows & Depth\n- **Inset Underline** (`rgb(255, 79, 0) 0px -4px 0px 0px inset`): Active tab indicator -- orange underline using inset box-shadow.\n- **Hover Underline** (`rgb(197, 192, 177) 0px -4px 0px 0px inset`): Inactive tab hover -- sand-colored underline.\n\n## 3. Typography Rules\n\n### Font Families\n- **Display**: `Degular Display` -- wide geometric display face for hero headlines\n- **Primary**: `Inter`, with fallbacks: `Helvetica, Arial`\n- **Editorial**: `GT Alpina` -- thin-weight serif for editorial moments\n- **System**: `Arial` -- fallback for form elements and system UI\n\n### Hierarchy\n\n| Role | Font | Size | Weight | Line Height | Letter Spacing | Notes |\n|------|------|------|--------|-------------|----------------|-------|\n| Display Hero XL | Degular Display | 80px (5.00rem) | 500 | 0.90 (tight) | normal | Maximum impact, compressed block |\n| Display Hero | Degular Display | 56px (3.50rem) | 500 | 0.90-1.10 (tight) | 0-1.12px | Primary hero headlines |\n| Display Hero SM | Degular Display | 40px (2.50rem) | 500 | 0.90 (tight) | normal | Smaller hero variant |\n| Display Button | Degular Display | 24px (1.50rem) | 600 | 1.00 (tight) | 1px | Large CTA button text |\n| Section Heading | Inter | 48px (3.00rem) | 500 | 1.04 (tight) | normal | Major section titles |\n| Editorial Heading | GT Alpina | 48px (3.00rem) | 250 | normal | -1.92px | Thin editorial headlines |\n| Editorial Sub | GT Alpina | 40px (2.50rem) | 300 | 1.08 (tight) | -1.6px | Editorial subheadings |\n| Sub-heading LG | Inter | 36px (2.25rem) | 500 | normal | -1px | Large sub-sections |\n| Sub-heading | Inter | 32px (2.00rem) | 400 | 1.25 (tight) | normal | Standard sub-sections |\n| Sub-heading MD | Inter | 28px (1.75rem) | 500 | normal | normal | Medium sub-headings |\n| Card Title | Inter | 24px (1.50rem) | 600 | normal | -0.48px | Card headings |\n| Body Large | Inter | 20px (1.25rem) | 400-500 | 1.00-1.20 (tight) | -0.2px | Feature descriptions |\n| Body Emphasis | Inter | 18px (1.13rem) | 600 | 1.00 (tight) | normal | Emphasized body text |\n| Body | Inter | 16px (1.00rem) | 400-500 | 1.20-1.25 | -0.16px | Standard reading text |\n| Body Semibold | Inter | 16px (1.00rem) | 600 | 1.16 (tight) | normal | Strong labels |\n| Button | Inter | 16px (1.00rem) | 600 | normal | normal | Standard buttons |\n| Button SM | Inter | 14px (0.88rem) | 600 | normal | normal | Small buttons |\n| Caption | Inter | 14px (0.88rem) | 500 | 1.25-1.43 | normal | Labels, metadata |\n| Caption Upper | Inter | 14px (0.88rem) | 600 | normal | 0.5px | Uppercase section labels |\n| Micro | Inter | 12px (0.75rem) | 600 | 0.90-1.33 | 0.5px | Tiny labels, often uppercase |\n| Micro SM | Inter | 13px (0.81rem) | 500 | 1.00-1.54 | normal | Small metadata text |\n\n### Principles\n- **Three-font system, clear roles**: Degular Display commands attention at hero scale only. Inter handles everything functional. GT Alpina adds editorial warmth sparingly.\n- **Compressed display**: Degular at 0.90 line-height creates vertically compressed headline blocks that feel modern and architectural.\n- **Weight as hierarchy signal**: Inter uses 400 (reading), 500 (navigation/emphasis), 600 (headings/CTAs). Degular uses 500 (display) and 600 (buttons).\n- **Uppercase for labels**: Section labels (like \"01 / Colors\") and small categorization use `text-transform: uppercase` with 0.5px letter-spacing.\n- **Negative tracking for elegance**: GT Alpina uses -1.6px to -1.92px letter-spacing for its thin-weight editorial headlines.\n\n## 4. Component Stylings\n\n### Buttons\n\n**Primary Orange**\n- Background: `#ff4f00`\n- Text: `#fffefb`\n- Padding: 8px 16px\n- Radius: 4px\n- Border: `1px solid #ff4f00`\n- Use: Primary CTA (\"Start free with email\", \"Sign up free\")\n\n**Primary Dark**\n- Background: `#201515`\n- Text: `#fffefb`\n- Padding: 20px 24px\n- Radius: 8px\n- Border: `1px solid #201515`\n- Hover: background shifts to `#c5c0b1`, text to `#201515`\n- Use: Large secondary CTA buttons\n\n**Light / Ghost**\n- Background: `#eceae3`\n- Text: `#36342e`\n- Padding: 20px 24px\n- Radius: 8px\n- Border: `1px solid #c5c0b1`\n- Hover: background shifts to `#c5c0b1`, text to `#201515`\n- Use: Tertiary actions, filter buttons\n\n**Pill Button**\n- Background: `#fffefb`\n- Text: `#36342e`\n- Padding: 0px 16px\n- Radius: 20px\n- Border: `1px solid #c5c0b1`\n- Use: Tag-like selections, filter pills\n\n**Overlay Semi-transparent**\n- Background: `rgba(45, 45, 46, 0.5)`\n- Text: `#fffefb`\n- Radius: 20px\n- Hover: background becomes fully opaque `#2d2d2e`\n- Use: Video play buttons, floating actions\n\n**Tab / Navigation (Inset Shadow)**\n- Background: transparent\n- Text: `#201515`\n- Padding: 12px 16px\n- Shadow: `rgb(255, 79, 0) 0px -4px 0px 0px inset` (active orange underline)\n- Hover shadow: `rgb(197, 192, 177) 0px -4px 0px 0px inset` (sand underline)\n- Use: Horizontal tab navigation\n\n### Cards & Containers\n- Background: `#fffefb`\n- Border: `1px solid #c5c0b1` (warm sand border)\n- Radius: 5px (standard), 8px (featured)\n- No shadow elevation by default -- borders define containment\n- Hover: subtle border color intensification\n\n### Inputs & Forms\n- Background: `#fffefb`\n- Text: `#201515`\n- Border: `1px solid #c5c0b1`\n- Radius: 5px\n- Focus: border color shifts to `#ff4f00` (orange)\n- Placeholder: `#939084`\n\n### Navigation\n- Clean horizontal nav on cream background\n- Zapier logotype left-aligned, 104x28px\n- Links: Inter 16px weight 500, `#201515` text\n- CTA: Orange button (\"Start free with email\")\n- Tab navigation uses inset box-shadow underline technique\n- Mobile: hamburger collapse\n\n### Image Treatment\n- Product screenshots with `1px solid #c5c0b1` border\n- Rounded corners: 5-8px\n- Dashboard/workflow screenshots prominent in feature sections\n- Light gradient backgrounds behind hero content\n\n### Distinctive Components\n\n**Workflow Integration Cards**\n- Display connected app icons in pairs\n- Arrow or connection indicator between apps\n- Sand border containment\n- Inter weight 500 for app names\n\n**Stat Counter**\n- Large display number using Inter 48px weight 500\n- Muted description below in `#36342e`\n- Used for social proof metrics\n\n**Social Proof Icons**\n- Circular icon buttons: 14px radius\n- Sand border: `1px solid #c5c0b1`\n- Used for social media follow links in footer\n\n## 5. Layout Principles\n\n### Spacing System\n- Base unit: 8px\n- Scale: 1px, 4px, 6px, 8px, 10px, 12px, 16px, 20px, 24px, 32px, 40px, 48px, 56px, 64px, 72px\n- CTA buttons use generous padding: 20px 24px for large, 8px 16px for standard\n- Section padding: 64px-80px vertical\n\n### Grid & Container\n- Max content width: approximately 1200px\n- Hero: centered single-column with large top padding\n- Feature sections: 2-3 column grids for integration cards\n- Full-width sand-bordered dividers between sections\n- Footer: multi-column dark background (`#201515`)\n\n### Whitespace Philosophy\n- **Warm breathing room**: Generous vertical spacing between sections (64px-80px), but content areas are relatively dense -- Zapier packs information efficiently within its cream canvas.\n- **Architectural compression**: Degular Display headlines at 0.90 line-height compress vertically, contrasting with the open spacing around them.\n- **Section rhythm**: Cream background throughout, with sections separated by sand-colored borders rather than background color changes.\n\n### Border Radius Scale\n- Tight (3px): Small inline spans\n- Standard (4px): Buttons (orange CTA), tags, small elements\n- Content (5px): Cards, links, general containers\n- Comfortable (8px): Featured cards, large buttons, tabs\n- Social (14px): Social icon buttons, pill-like elements\n- Pill (20px): Play buttons, large pill buttons, floating actions\n\n## 6. Depth & Elevation\n\n| Level | Treatment | Use |\n|-------|-----------|-----|\n| Flat (Level 0) | No shadow | Page background, text blocks |\n| Bordered (Level 1) | `1px solid #c5c0b1` | Standard cards, containers, inputs |\n| Strong Border (Level 1b) | `1px solid #36342e` | Dark dividers, emphasized sections |\n| Active Tab (Level 2) | `rgb(255, 79, 0) 0px -4px 0px 0px inset` | Active tab underline (orange) |\n| Hover Tab (Level 2b) | `rgb(197, 192, 177) 0px -4px 0px 0px inset` | Hover tab underline (sand) |\n| Focus (Accessibility) | `1px solid #ff4f00` outline | Focus ring on interactive elements |\n\n**Shadow Philosophy**: Zapier deliberately avoids traditional shadow-based elevation. Structure is defined almost entirely through borders -- warm sand (`#c5c0b1`) borders for standard containment, dark charcoal (`#36342e`) borders for emphasis. The only shadow-like technique is the inset box-shadow used for tab underlines, where a `0px -4px 0px 0px inset` shadow creates a bottom-bar indicator. This border-first approach keeps the design grounded and tangible rather than floating.\n\n### Decorative Depth\n- Orange inset underline on active tabs creates visual \"weight\" at the bottom of elements\n- Sand hover underlines provide preview states without layout shifts\n- No background gradients in main content -- the cream canvas is consistent\n- Footer uses full dark background (`#201515`) for contrast reversal\n\n## 7. Do's and Don'ts\n\n### Do\n- Use Degular Display exclusively for hero-scale headlines (40px+) with 0.90 line-height for compressed impact\n- Use Inter for all functional UI -- navigation, body text, buttons, labels\n- Apply warm cream (`#fffefb`) as the background, never pure white\n- Use `#201515` for text, never pure black -- the reddish warmth matters\n- Keep Zapier Orange (`#ff4f00`) reserved for primary CTAs and active state indicators\n- Use sand (`#c5c0b1`) borders as the primary structural element instead of shadows\n- Apply generous button padding (20px 24px) for large CTAs to match Zapier's spacious button style\n- Use inset box-shadow underlines for tab navigation rather than border-bottom\n- Apply uppercase with 0.5px letter-spacing for section labels and micro-categorization\n\n### Don't\n- Don't use Degular Display for body text or UI elements -- it's display-only\n- Don't use pure white (`#ffffff`) or pure black (`#000000`) -- Zapier's palette is warm-shifted\n- Don't apply box-shadow elevation to cards -- use borders instead\n- Don't scatter Zapier Orange across the UI -- it's reserved for CTAs and active states\n- Don't use tight padding on large CTA buttons -- Zapier's buttons are deliberately spacious\n- Don't ignore the warm neutral system -- borders should be `#c5c0b1`, not gray\n- Don't use GT Alpina for functional UI -- it's an editorial accent at thin weights only\n- Don't apply positive letter-spacing to GT Alpina -- it uses aggressive negative tracking (-1.6px to -1.92px)\n- Don't use rounded pill shapes (9999px) for primary buttons -- pills are for tags and social icons\n\n## 8. Responsive Behavior\n\n### Breakpoints\n| Name | Width | Key Changes |\n|------|-------|-------------|\n| Mobile Small | <450px | Tight single column, reduced hero text |\n| Mobile | 450-600px | Standard mobile, stacked layout |\n| Mobile Large | 600-640px | Slight horizontal breathing room |\n| Tablet Small | 640-680px | 2-column grids begin |\n| Tablet | 680-768px | Card grids expand |\n| Tablet Large | 768-991px | Full card grids, expanded padding |\n| Desktop Small | 991-1024px | Desktop layout initiates |\n| Desktop | 1024-1280px | Full layout, maximum content width |\n| Large Desktop | >1280px | Centered with generous margins |\n\n### Touch Targets\n- Large CTA buttons: 20px 24px padding (comfortable 60px+ height)\n- Standard buttons: 8px 16px padding\n- Navigation links: 16px weight 500 with adequate spacing\n- Social icons: 14px radius circular buttons\n- Tab items: 12px 16px padding\n\n### Collapsing Strategy\n- Hero: Degular 80px display scales to 40-56px on smaller screens\n- Navigation: horizontal links + CTA collapse to hamburger menu\n- Feature cards: 3-column grid to 2-column to single-column stacked\n- Integration workflow illustrations: maintain aspect ratio, may simplify\n- Footer: multi-column dark section collapses to stacked\n- Section spacing: 64-80px reduces to 40-48px on mobile\n\n### Image Behavior\n- Product screenshots maintain sand border treatment at all sizes\n- Integration app icons maintain fixed sizes within responsive containers\n- Hero illustrations scale proportionally\n- Full-width sections maintain edge-to-edge treatment\n\n## 9. Agent Prompt Guide\n\n### Quick Color Reference\n- Primary CTA: Zapier Orange (`#ff4f00`)\n- Background: Cream White (`#fffefb`)\n- Heading text: Zapier Black (`#201515`)\n- Body text: Dark Charcoal (`#36342e`)\n- Border: Sand (`#c5c0b1`)\n- Secondary surface: Light Sand (`#eceae3`)\n- Muted text: Warm Gray (`#939084`)\n\n### Example Component Prompts\n- \"Create a hero section on cream background (`#fffefb`). Headline at 56px Degular Display weight 500, line-height 0.90, color `#201515`. Subtitle at 20px Inter weight 400, line-height 1.20, color `#36342e`. Orange CTA button (`#ff4f00`, 4px radius, 8px 16px padding, white text) and dark button (`#201515`, 8px radius, 20px 24px padding, white text).\"\n- \"Design a card: cream background (`#fffefb`), `1px solid #c5c0b1` border, 5px radius. Title at 24px Inter weight 600, letter-spacing -0.48px, `#201515`. Body at 16px weight 400, `#36342e`. No box-shadow.\"\n- \"Build a tab navigation: transparent background. Inter 16px weight 500, `#201515` text. Active tab: `box-shadow: rgb(255, 79, 0) 0px -4px 0px 0px inset`. Hover: `box-shadow: rgb(197, 192, 177) 0px -4px 0px 0px inset`. Padding 12px 16px.\"\n- \"Create navigation: cream sticky header (`#fffefb`). Inter 16px weight 500 for links, `#201515` text. Orange pill CTA 'Start free with email' right-aligned (`#ff4f00`, 4px radius, 8px 16px padding).\"\n- \"Design a footer with dark background (`#201515`). Text `#fffefb`. Links in `#c5c0b1` with hover to `#fffefb`. Multi-column layout. Social icons as 14px-radius circles with sand borders.\"\n\n### Iteration Guide\n1. Always use warm cream (`#fffefb`) background, never pure white -- the warmth defines Zapier\n2. Borders (`1px solid #c5c0b1`) are the structural backbone -- avoid shadow elevation\n3. Zapier Orange (`#ff4f00`) is the only accent color; everything else is warm neutrals\n4. Three fonts, strict roles: Degular Display (hero), Inter (UI), GT Alpina (editorial)\n5. Large CTA buttons need generous padding (20px 24px) -- Zapier buttons feel spacious\n6. Tab navigation uses inset box-shadow underlines, not border-bottom\n7. Text is always warm: `#201515` for dark, `#36342e` for body, `#939084` for muted\n8. Uppercase labels at 12-14px with 0.5px letter-spacing for section categorization\n",
+  "createdAt": "2026-04-09T07:52:23.203Z",
+  "updatedAt": "2026-04-09T07:52:23.203Z",
+  "source": "imported"
+}

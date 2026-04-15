@@ -1,0 +1,235 @@
+{
+  "id": "uVwivRjgzdsGvdDgy5hFW",
+  "slug": "intercom",
+  "name": "Intercom",
+  "url": "https://intercom.com",
+  "description": "Customer messaging. Friendly blue palette, conversational UI patterns.",
+  "tokens": {
+    "colors": [
+      {
+        "hex": "#faf9f6",
+        "rgb": "250, 249, 246",
+        "occurrences": 1,
+        "name": "Color 1",
+        "role": "primary"
+      },
+      {
+        "hex": "#111111",
+        "rgb": "17, 17, 17",
+        "occurrences": 1,
+        "name": "Color 2",
+        "role": "secondary"
+      },
+      {
+        "hex": "#ff5600",
+        "rgb": "255, 86, 0",
+        "occurrences": 1,
+        "name": "Color 3",
+        "role": "neutral"
+      },
+      {
+        "hex": "#dedbd6",
+        "rgb": "222, 219, 214",
+        "occurrences": 1,
+        "name": "Color 4",
+        "role": "neutral"
+      },
+      {
+        "hex": "#ffffff",
+        "rgb": "255, 255, 255",
+        "occurrences": 1,
+        "name": "Color 5",
+        "role": "neutral"
+      },
+      {
+        "hex": "#fe4c02",
+        "rgb": "254, 76, 2",
+        "occurrences": 1,
+        "name": "Color 6",
+        "role": "neutral"
+      },
+      {
+        "hex": "#65b5ff",
+        "rgb": "101, 181, 255",
+        "occurrences": 1,
+        "name": "Color 7",
+        "role": "neutral"
+      },
+      {
+        "hex": "#0bdf50",
+        "rgb": "11, 223, 80",
+        "occurrences": 1,
+        "name": "Color 8",
+        "role": "neutral"
+      },
+      {
+        "hex": "#c41c1c",
+        "rgb": "196, 28, 28",
+        "occurrences": 1,
+        "name": "Color 9",
+        "role": "neutral"
+      },
+      {
+        "hex": "#ff2067",
+        "rgb": "255, 32, 103",
+        "occurrences": 1,
+        "name": "Color 10",
+        "role": "neutral"
+      },
+      {
+        "hex": "#b3e01c",
+        "rgb": "179, 224, 28",
+        "occurrences": 1,
+        "name": "Color 11",
+        "role": "neutral"
+      },
+      {
+        "hex": "#00da00",
+        "rgb": "0, 218, 0",
+        "occurrences": 1,
+        "name": "Color 12",
+        "role": "neutral"
+      },
+      {
+        "hex": "#0007cb",
+        "rgb": "0, 7, 203",
+        "occurrences": 1,
+        "name": "Color 13",
+        "role": "neutral"
+      },
+      {
+        "hex": "#313130",
+        "rgb": "49, 49, 48",
+        "occurrences": 1,
+        "name": "Color 14",
+        "role": "neutral"
+      },
+      {
+        "hex": "#626260",
+        "rgb": "98, 98, 96",
+        "occurrences": 1,
+        "name": "Color 15",
+        "role": "neutral"
+      },
+      {
+        "hex": "#7b7b78",
+        "rgb": "123, 123, 120",
+        "occurrences": 1,
+        "name": "Color 16",
+        "role": "neutral"
+      },
+      {
+        "hex": "#9c9fa5",
+        "rgb": "156, 159, 165",
+        "occurrences": 1,
+        "name": "Color 17",
+        "role": "neutral"
+      },
+      {
+        "hex": "#d3cec6",
+        "rgb": "211, 206, 198",
+        "occurrences": 1,
+        "name": "Color 18",
+        "role": "neutral"
+      },
+      {
+        "hex": "#2c6415",
+        "rgb": "44, 100, 21",
+        "occurrences": 1,
+        "name": "Color 19",
+        "role": "neutral"
+      }
+    ],
+    "typography": [
+      {
+        "fontFamily": "Saans",
+        "fallbacks": [
+          "system-ui"
+        ],
+        "weights": [
+          700
+        ],
+        "role": "heading"
+      },
+      {
+        "fontFamily": "Saans",
+        "fallbacks": [
+          "system-ui"
+        ],
+        "weights": [
+          400
+        ],
+        "role": "body"
+      }
+    ],
+    "typeScale": [],
+    "spacing": [],
+    "shadows": [],
+    "radii": [
+      {
+        "value": "4px",
+        "px": 4,
+        "occurrences": 1
+      },
+      {
+        "value": "80px",
+        "px": 80,
+        "occurrences": 1
+      }
+    ],
+    "components": [],
+    "cssVariables": {},
+    "meta": {
+      "url": "https://intercom.com",
+      "title": "intercom",
+      "extractedAt": "2026-04-09T07:51:40.666Z"
+    }
+  },
+  "resolved": {
+    "colorPrimary": "#faf9f6",
+    "colorSecondary": "#111111",
+    "colorAccent": "#ff5600",
+    "colorBackground": "#faf9f6",
+    "colorSurface": "#f8fafc",
+    "colorTextPrimary": "#111111",
+    "colorTextSecondary": "#475569",
+    "colorTextMuted": "#94a3b8",
+    "colorBorder": "#e2e8f0",
+    "colorSuccess": "#0bdf50",
+    "colorWarning": "#f59e0b",
+    "colorError": "#ef4444",
+    "fontHeading": "Saans",
+    "fontBody": "Saans",
+    "fontMono": "ui-monospace",
+    "fontWeightHeading": 700,
+    "fontWeightBody": 400,
+    "textXs": "0.75rem",
+    "textSm": "0.875rem",
+    "textBase": "1rem",
+    "textLg": "1.125rem",
+    "textXl": "1.25rem",
+    "text2xl": "1.5rem",
+    "text3xl": "1.875rem",
+    "text4xl": "2.25rem",
+    "spacingXs": "4px",
+    "spacingSm": "8px",
+    "spacingMd": "16px",
+    "spacingLg": "24px",
+    "spacingXl": "32px",
+    "spacing2xl": "48px",
+    "radiusSm": "4px",
+    "radiusMd": "80px",
+    "radiusLg": "80px",
+    "radiusFull": "9999px",
+    "shadowSm": "0 1px 2px 0 rgba(0,0,0,0.05)",
+    "shadowMd": "0 4px 6px -1px rgba(0,0,0,0.1)",
+    "shadowLg": "0 10px 15px -3px rgba(0,0,0,0.1)",
+    "lineHeightTight": "1.15",
+    "lineHeightNormal": "1.5",
+    "lineHeightRelaxed": "1.75"
+  },
+  "designMd": "# Design System Inspiration of Intercom\n\n## 1. Visual Theme & Atmosphere\n\nIntercom's website is a warm, confident customer service platform that communicates \"AI-first helpdesk\" through a clean, editorial design language. The page operates on a warm off-white canvas (`#faf9f6`) with off-black (`#111111`) text, creating an intimate, magazine-like reading experience. The signature Fin Orange (`#ff5600`) — named after Intercom's AI agent — serves as the singular vibrant accent against the warm neutral palette.\n\nThe typography uses Saans — a custom geometric sans-serif with aggressive negative letter-spacing (-2.4px at 80px, -0.48px at 24px) and a consistent 1.00 line-height across all heading sizes. This creates ultra-compressed, billboard-like headlines that feel engineered and precise. Serrif provides the serif companion for editorial moments, and SaansMono handles code and uppercase technical labels. MediumLL and LLMedium appear for specific UI contexts, creating a rich five-font ecosystem.\n\nWhat distinguishes Intercom is its remarkably sharp geometry — 4px border-radius on buttons creates near-rectangular interactive elements that feel industrial and precise, contrasting with the warm surface colors. Button hover states use `scale(1.1)` expansion, creating a physical \"growing\" interaction. The border system uses warm oat tones (`#dedbd6`) and oklab-based opacity values for sophisticated color management.\n\n**Key Characteristics:**\n- Warm off-white canvas (`#faf9f6`) with oat-toned borders (`#dedbd6`)\n- Saans font with extreme negative tracking (-2.4px at 80px) and 1.00 line-height\n- Fin Orange (`#ff5600`) as singular brand accent\n- Sharp 4px border-radius — near-rectangular buttons and elements\n- Scale(1.1) hover with scale(0.85) active — physical button interaction\n- SaansMono uppercase labels with wide tracking (0.6px–1.2px)\n- Rich multi-color report palette (blue, green, red, pink, lime, orange)\n- oklab color values for sophisticated opacity management\n\n## 2. Color Palette & Roles\n\n### Primary\n- **Off Black** (`#111111`): `--color-off-black`, primary text, button backgrounds\n- **Pure White** (`#ffffff`): `--wsc-color-content-primary`, primary surface\n- **Warm Cream** (`#faf9f6`): Button backgrounds, card surfaces\n- **Fin Orange** (`#ff5600`): `--color-fin`, primary brand accent\n- **Report Orange** (`#fe4c02`): `--color-report-orange`, data visualization\n\n### Report Palette\n- **Report Blue** (`#65b5ff`): `--color-report-blue`\n- **Report Green** (`#0bdf50`): `--color-report-green`\n- **Report Red** (`#c41c1c`): `--color-report-red`\n- **Report Pink** (`#ff2067`): `--color-report-pink`\n- **Report Lime** (`#b3e01c`): `--color-report-lime-300`\n- **Green** (`#00da00`): `--color-green`\n- **Deep Blue** (`#0007cb`): Deep blue accent\n\n### Neutral Scale (Warm)\n- **Black 80** (`#313130`): `--wsc-color-black-80`, dark neutral\n- **Black 60** (`#626260`): `--wsc-color-black-60`, mid neutral\n- **Black 50** (`#7b7b78`): `--wsc-color-black-50`, muted text\n- **Content Tertiary** (`#9c9fa5`): `--wsc-color-content-tertiary`\n- **Oat Border** (`#dedbd6`): Warm border color\n- **Warm Sand** (`#d3cec6`): Light warm neutral\n\n## 3. Typography Rules\n\n### Font Families\n- **Primary**: `Saans`, fallbacks: `Saans Fallback, ui-sans-serif, system-ui`\n- **Serif**: `Serrif`, fallbacks: `Serrif Fallback, ui-serif, Georgia`\n- **Monospace**: `SaansMono`, fallbacks: `SaansMono Fallback, ui-monospace`\n- **UI**: `MediumLL` / `LLMedium`, fallbacks: `system-ui, -apple-system`\n\n### Hierarchy\n\n| Role | Font | Size | Weight | Line Height | Letter Spacing |\n|------|------|------|--------|-------------|----------------|\n| Display Hero | Saans | 80px | 400 | 1.00 (tight) | -2.4px |\n| Section Heading | Saans | 54px | 400 | 1.00 | -1.6px |\n| Sub-heading | Saans | 40px | 400 | 1.00 | -1.2px |\n| Card Title | Saans | 32px | 400 | 1.00 | -0.96px |\n| Feature Title | Saans | 24px | 400 | 1.00 | -0.48px |\n| Body Emphasis | Saans | 20px | 400 | 0.95 | -0.2px |\n| Nav / UI | Saans | 18px | 400 | 1.00 | normal |\n| Body | Saans | 16px | 400 | 1.50 | normal |\n| Body Light | Saans | 14px | 300 | 1.40 | normal |\n| Button | Saans | 16px / 14px | 400 | 1.50 / 1.43 | normal |\n| Button Bold | LLMedium | 16px | 700 | 1.20 | 0.16px |\n| Serif Body | Serrif | 16px | 300 | 1.40 | -0.16px |\n| Mono Label | SaansMono | 12px | 400–500 | 1.00–1.30 | 0.6px–1.2px uppercase |\n\n## 4. Component Stylings\n\n### Buttons\n\n**Primary Dark**\n- Background: `#111111`\n- Text: `#ffffff`\n- Padding: 0px 14px\n- Radius: 4px\n- Hover: white background, dark text, scale(1.1)\n- Active: green background (`#2c6415`), scale(0.85)\n\n**Outlined**\n- Background: transparent\n- Text: `#111111`\n- Border: `1px solid #111111`\n- Radius: 4px\n- Same scale hover/active behavior\n\n**Warm Card Button**\n- Background: `#faf9f6`\n- Text: `#111111`\n- Padding: 16px\n- Border: `1px solid oklab(... / 0.1)`\n\n### Cards & Containers\n- Background: `#faf9f6` (warm cream)\n- Border: `1px solid #dedbd6` (warm oat)\n- Radius: 8px\n- No visible shadows\n\n### Navigation\n- Saans 16px for links\n- Off-black text on white\n- Small 4px–6px radius buttons\n- Orange Fin accent for AI features\n\n## 5. Layout Principles\n\n### Spacing: 8px, 10px, 12px, 14px, 16px, 20px, 24px, 32px, 40px, 48px, 60px, 64px, 80px, 96px\n### Border Radius: 4px (buttons), 6px (nav items), 8px (cards, containers)\n\n## 6. Depth & Elevation\nMinimal shadows. Depth through warm border colors and surface tints.\n\n## 7. Do's and Don'ts\n\n### Do\n- Use Saans with 1.00 line-height and negative tracking on all headings\n- Apply 4px radius on buttons — sharp geometry is the identity\n- Use Fin Orange (#ff5600) for AI/brand accent only\n- Apply scale(1.1) hover on buttons\n- Use warm neutrals (#faf9f6, #dedbd6)\n\n### Don't\n- Don't round buttons beyond 4px\n- Don't use Fin Orange decoratively\n- Don't use cool gray borders — always warm oat tones\n- Don't skip the negative tracking on headings\n\n## 8. Responsive Behavior\nBreakpoints: 425px, 530px, 600px, 640px, 768px, 896px\n\n## 9. Agent Prompt Guide\n\n### Quick Color Reference\n- Text: Off Black (`#111111`)\n- Background: Warm Cream (`#faf9f6`)\n- Accent: Fin Orange (`#ff5600`)\n- Border: Oat (`#dedbd6`)\n- Muted: `#7b7b78`\n\n### Example Component Prompts\n- \"Create hero: warm cream (#faf9f6) background. Saans 80px weight 400, line-height 1.00, letter-spacing -2.4px, #111111. Dark button (#111111, 4px radius). Hover: scale(1.1), white bg.\"\n",
+  "createdAt": "2026-04-09T07:51:40.666Z",
+  "updatedAt": "2026-04-09T07:51:40.666Z",
+  "source": "imported"
+}

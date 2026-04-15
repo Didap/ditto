@@ -1,0 +1,272 @@
+{
+  "id": "_4H0qKGbBWbwNctl2JgV7",
+  "slug": "clay",
+  "name": "Clay",
+  "url": "https://clay.com",
+  "description": "Creative agency. Organic shapes, soft gradients, art-directed layout.",
+  "tokens": {
+    "colors": [
+      {
+        "hex": "#faf9f7",
+        "rgb": "250, 249, 247",
+        "occurrences": 1,
+        "name": "Color 1",
+        "role": "primary"
+      },
+      {
+        "hex": "#dad4c8",
+        "rgb": "218, 212, 200",
+        "occurrences": 1,
+        "name": "Color 2",
+        "role": "secondary"
+      },
+      {
+        "hex": "#eee9df",
+        "rgb": "238, 233, 223",
+        "occurrences": 1,
+        "name": "Color 3",
+        "role": "neutral"
+      },
+      {
+        "hex": "#000000",
+        "rgb": "0, 0, 0",
+        "occurrences": 1,
+        "name": "Color 4",
+        "role": "neutral"
+      },
+      {
+        "hex": "#ffffff",
+        "rgb": "255, 255, 255",
+        "occurrences": 1,
+        "name": "Color 5",
+        "role": "neutral"
+      },
+      {
+        "hex": "#84e7a5",
+        "rgb": "132, 231, 165",
+        "occurrences": 1,
+        "name": "Color 6",
+        "role": "neutral"
+      },
+      {
+        "hex": "#078a52",
+        "rgb": "7, 138, 82",
+        "occurrences": 1,
+        "name": "Color 7",
+        "role": "neutral"
+      },
+      {
+        "hex": "#02492a",
+        "rgb": "2, 73, 42",
+        "occurrences": 1,
+        "name": "Color 8",
+        "role": "neutral"
+      },
+      {
+        "hex": "#3bd3fd",
+        "rgb": "59, 211, 253",
+        "occurrences": 1,
+        "name": "Color 9",
+        "role": "neutral"
+      },
+      {
+        "hex": "#0089ad",
+        "rgb": "0, 137, 173",
+        "occurrences": 1,
+        "name": "Color 10",
+        "role": "neutral"
+      },
+      {
+        "hex": "#f8cc65",
+        "rgb": "248, 204, 101",
+        "occurrences": 1,
+        "name": "Color 11",
+        "role": "neutral"
+      },
+      {
+        "hex": "#fbbd41",
+        "rgb": "251, 189, 65",
+        "occurrences": 1,
+        "name": "Color 12",
+        "role": "neutral"
+      },
+      {
+        "hex": "#d08a11",
+        "rgb": "208, 138, 17",
+        "occurrences": 1,
+        "name": "Color 13",
+        "role": "neutral"
+      },
+      {
+        "hex": "#9d6a09",
+        "rgb": "157, 106, 9",
+        "occurrences": 1,
+        "name": "Color 14",
+        "role": "neutral"
+      },
+      {
+        "hex": "#c1b0ff",
+        "rgb": "193, 176, 255",
+        "occurrences": 1,
+        "name": "Color 15",
+        "role": "neutral"
+      },
+      {
+        "hex": "#43089f",
+        "rgb": "67, 8, 159",
+        "occurrences": 1,
+        "name": "Color 16",
+        "role": "neutral"
+      },
+      {
+        "hex": "#32037d",
+        "rgb": "50, 3, 125",
+        "occurrences": 1,
+        "name": "Color 17",
+        "role": "neutral"
+      },
+      {
+        "hex": "#fc7981",
+        "rgb": "252, 121, 129",
+        "occurrences": 1,
+        "name": "Color 18",
+        "role": "neutral"
+      },
+      {
+        "hex": "#01418d",
+        "rgb": "1, 65, 141",
+        "occurrences": 1,
+        "name": "Color 19",
+        "role": "neutral"
+      },
+      {
+        "hex": "#9f9b93",
+        "rgb": "159, 155, 147",
+        "occurrences": 1,
+        "name": "Color 20",
+        "role": "neutral"
+      }
+    ],
+    "typography": [
+      {
+        "fontFamily": "Roobert",
+        "fallbacks": [
+          "system-ui"
+        ],
+        "weights": [
+          700
+        ],
+        "role": "heading"
+      },
+      {
+        "fontFamily": "Roobert",
+        "fallbacks": [
+          "system-ui"
+        ],
+        "weights": [
+          400
+        ],
+        "role": "body"
+      }
+    ],
+    "typeScale": [],
+    "spacing": [],
+    "shadows": [],
+    "radii": [
+      {
+        "value": "1px",
+        "px": 1,
+        "occurrences": 1
+      },
+      {
+        "value": "4px",
+        "px": 4,
+        "occurrences": 1
+      },
+      {
+        "value": "7px",
+        "px": 7,
+        "occurrences": 1
+      },
+      {
+        "value": "8px",
+        "px": 8,
+        "occurrences": 1
+      },
+      {
+        "value": "24px",
+        "px": 24,
+        "occurrences": 1
+      },
+      {
+        "value": "40px",
+        "px": 40,
+        "occurrences": 1
+      },
+      {
+        "value": "44px",
+        "px": 44,
+        "occurrences": 1
+      },
+      {
+        "value": "80px",
+        "px": 80,
+        "occurrences": 1
+      }
+    ],
+    "components": [],
+    "cssVariables": {},
+    "meta": {
+      "url": "https://clay.com",
+      "title": "clay",
+      "extractedAt": "2026-04-09T07:51:26.616Z"
+    }
+  },
+  "resolved": {
+    "colorPrimary": "#faf9f7",
+    "colorSecondary": "#dad4c8",
+    "colorAccent": "#eee9df",
+    "colorBackground": "#faf9f7",
+    "colorSurface": "#f8fafc",
+    "colorTextPrimary": "#000000",
+    "colorTextSecondary": "#475569",
+    "colorTextMuted": "#94a3b8",
+    "colorBorder": "#e2e8f0",
+    "colorSuccess": "#3bd3fd",
+    "colorWarning": "#f59e0b",
+    "colorError": "#ef4444",
+    "fontHeading": "Roobert",
+    "fontBody": "Roobert",
+    "fontMono": "ui-monospace",
+    "fontWeightHeading": 700,
+    "fontWeightBody": 400,
+    "textXs": "0.75rem",
+    "textSm": "0.875rem",
+    "textBase": "1rem",
+    "textLg": "1.125rem",
+    "textXl": "1.25rem",
+    "text2xl": "1.5rem",
+    "text3xl": "1.875rem",
+    "text4xl": "2.25rem",
+    "spacingXs": "4px",
+    "spacingSm": "8px",
+    "spacingMd": "16px",
+    "spacingLg": "24px",
+    "spacingXl": "32px",
+    "spacing2xl": "48px",
+    "radiusSm": "1px",
+    "radiusMd": "4px",
+    "radiusLg": "7px",
+    "radiusFull": "9999px",
+    "shadowSm": "0 1px 2px 0 rgba(0,0,0,0.05)",
+    "shadowMd": "0 4px 6px -1px rgba(0,0,0,0.1)",
+    "shadowLg": "0 10px 15px -3px rgba(0,0,0,0.1)",
+    "lineHeightTight": "1.15",
+    "lineHeightNormal": "1.5",
+    "lineHeightRelaxed": "1.75"
+  },
+  "designMd": "# Design System Inspiration of Clay\n\n## 1. Visual Theme & Atmosphere\n\nClay's website is a warm, playful celebration of color that treats B2B data enrichment like a craft rather than an enterprise chore. The design language is built on a foundation of warm cream backgrounds (`#faf9f7`) and oat-toned borders (`#dad4c8`, `#eee9df`) that give every surface the tactile quality of handmade paper. Against this artisanal canvas, a vivid swatch palette explodes with personality — Matcha green, Slushie cyan, Lemon gold, Ube purple, Pomegranate pink, Blueberry navy, and Dragonfruit magenta — each named like flavors at a juice bar, not colors in an enterprise UI kit.\n\nThe typography is anchored by Roobert, a geometric sans-serif with character, loaded with an extensive set of OpenType stylistic sets (`\"ss01\"`, `\"ss03\"`, `\"ss10\"`, `\"ss11\"`, `\"ss12\"`) that give the text a distinctive, slightly quirky personality. At display scale (80px, weight 600), Roobert uses aggressive negative letter-spacing (-3.2px) that compresses headlines into punchy, billboard-like statements. Space Mono serves as the monospace companion for code and technical labels, completing the craft-meets-tech duality.\n\nWhat makes Clay truly distinctive is its hover micro-animations: buttons on hover rotate slightly (`rotateZ(-8deg)`), translate upward (`translateY(-80%)`), change background to a contrasting swatch color, and cast a hard offset shadow (`rgb(0,0,0) -7px 7px`). This playful hover behavior — where a button literally tilts and jumps on interaction — creates a sense of physical delight that's rare in B2B software. Combined with generously rounded containers (24px–40px radius), dashed borders alongside solid ones, and a multi-layer shadow system that includes inset highlights, Clay feels like a design system that was made by people who genuinely enjoy making things.\n\n**Key Characteristics:**\n- Warm cream canvas (`#faf9f7`) with oat-toned borders (`#dad4c8`) — artisanal, not clinical\n- Named swatch palette: Matcha, Slushie, Lemon, Ube, Pomegranate, Blueberry, Dragonfruit\n- Roobert font with 5 OpenType stylistic sets — quirky geometric character\n- Playful hover animations: rotateZ(-8deg) + translateY(-80%) + hard offset shadow\n- Space Mono for code and technical labels\n- Generous border radius: 24px cards, 40px sections, 1584px pills\n- Mixed border styles: solid + dashed in the same interface\n- Multi-layer shadow with inset highlight: `0px 1px 1px` + `-1px inset` + `-0.5px`\n\n## 2. Color Palette & Roles\n\n### Primary\n- **Clay Black** (`#000000`): Text, headings, pricing card text, `--_theme--pricing-cards---text`\n- **Pure White** (`#ffffff`): Card backgrounds, button backgrounds, inverse text\n- **Warm Cream** (`#faf9f7`): Page background — the warm, paper-like canvas\n\n### Swatch Palette — Named Colors\n\n**Matcha (Green)**\n- **Matcha 300** (`#84e7a5`): `--_swatches---color--matcha-300`, light green accent\n- **Matcha 600** (`#078a52`): `--_swatches---color--matcha-600`, mid green\n- **Matcha 800** (`#02492a`): `--_swatches---color--matcha-800`, deep green for dark sections\n\n**Slushie (Cyan)**\n- **Slushie 500** (`#3bd3fd`): `--_swatches---color--slushie-500`, bright cyan accent\n- **Slushie 800** (`#0089ad`): `--_swatches---color--slushie-800`, deep teal\n\n**Lemon (Gold)**\n- **Lemon 400** (`#f8cc65`): `--_swatches---color--lemon-400`, warm pale gold\n- **Lemon 500** (`#fbbd41`): `--_swatches---color--lemon-500`, primary gold\n- **Lemon 700** (`#d08a11`): `--_swatches---color--lemon-700`, deep amber\n- **Lemon 800** (`#9d6a09`): `--_swatches---color--lemon-800`, dark amber\n\n**Ube (Purple)**\n- **Ube 300** (`#c1b0ff`): `--_swatches---color--ube-300`, soft lavender\n- **Ube 800** (`#43089f`): `--_swatches---color--ube-800`, deep purple\n- **Ube 900** (`#32037d`): `--_swatches---color--ube-900`, darkest purple\n\n**Pomegranate (Pink/Red)**\n- **Pomegranate 400** (`#fc7981`): `--_swatches---color--pomegranate-400`, warm coral-pink\n\n**Blueberry (Navy Blue)**\n- **Blueberry 800** (`#01418d`): `--_swatches---color--blueberry-800`, deep navy\n\n### Neutral Scale (Warm)\n- **Warm Silver** (`#9f9b93`): Secondary/muted text, footer links\n- **Warm Charcoal** (`#55534e`): Tertiary text, dark muted links\n- **Dark Charcoal** (`#333333`): Link text on light backgrounds\n\n### Surface & Border\n- **Oat Border** (`#dad4c8`): Primary border — warm, cream-toned structural lines\n- **Oat Light** (`#eee9df`): Secondary lighter border\n- **Cool Border** (`#e6e8ec`): Cool-toned border for contrast sections\n- **Dark Border** (`#525a69`): Border on dark sections\n- **Light Frost** (`#eff1f3`): Subtle button background (at 0% opacity on hover)\n\n### Badges\n- **Badge Blue Bg** (`#f0f8ff`): Blue-tinted badge surface\n- **Badge Blue Text** (`#3859f9`): Vivid blue badge text\n- **Focus Ring** (`rgb(20, 110, 245) solid 2px`): Accessibility focus indicator\n\n### Shadows\n- **Clay Shadow** (`rgba(0,0,0,0.1) 0px 1px 1px, rgba(0,0,0,0.04) 0px -1px 1px inset, rgba(0,0,0,0.05) 0px -0.5px 1px`): Multi-layer with inset highlight — the signature\n- **Hard Offset** (`rgb(0,0,0) -7px 7px`): Hover state — playful hard shadow\n\n## 3. Typography Rules\n\n### Font Families\n- **Primary**: `Roobert`, fallback: `Arial`\n- **Monospace**: `Space Mono`\n- **OpenType Features**: `\"ss01\"`, `\"ss03\"`, `\"ss10\"`, `\"ss11\"`, `\"ss12\"` on all Roobert text (display uses all 5; body/UI uses `\"ss03\"`, `\"ss10\"`, `\"ss11\"`, `\"ss12\"`)\n\n### Hierarchy\n\n| Role | Font | Size | Weight | Line Height | Letter Spacing | Notes |\n|------|------|------|--------|-------------|----------------|-------|\n| Display Hero | Roobert | 80px (5.00rem) | 600 | 1.00 (tight) | -3.2px | All 5 stylistic sets |\n| Display Secondary | Roobert | 60px (3.75rem) | 600 | 1.00 (tight) | -2.4px | All 5 stylistic sets |\n| Section Heading | Roobert | 44px (2.75rem) | 600 | 1.10 (tight) | -0.88px to -1.32px | All 5 stylistic sets |\n| Card Heading | Roobert | 32px (2.00rem) | 600 | 1.10 (tight) | -0.64px | All 5 stylistic sets |\n| Feature Title | Roobert | 20px (1.25rem) | 600 | 1.40 | -0.4px | All 5 stylistic sets |\n| Sub-heading | Roobert | 20px (1.25rem) | 500 | 1.50 | -0.16px | 4 stylistic sets (no ss01) |\n| Body Large | Roobert | 20px (1.25rem) | 400 | 1.40 | normal | 4 stylistic sets |\n| Body | Roobert | 18px (1.13rem) | 400 | 1.60 (relaxed) | -0.36px | 4 stylistic sets |\n| Body Standard | Roobert | 16px (1.00rem) | 400 | 1.50 | normal | 4 stylistic sets |\n| Body Medium | Roobert | 16px (1.00rem) | 500 | 1.20–1.40 | -0.16px to -0.32px | 4–5 stylistic sets |\n| Button | Roobert | 16px (1.00rem) | 500 | 1.50 | -0.16px | 4 stylistic sets |\n| Button Large | Roobert | 24px (1.50rem) | 400 | 1.50 | normal | 4 stylistic sets |\n| Button Small | Roobert | 12.8px (0.80rem) | 500 | 1.50 | -0.128px | 4 stylistic sets |\n| Nav Link | Roobert | 15px (0.94rem) | 500 | 1.60 (relaxed) | normal | 4 stylistic sets |\n| Caption | Roobert | 14px (0.88rem) | 400 | 1.50–1.60 | -0.14px | 4 stylistic sets |\n| Small | Roobert | 12px (0.75rem) | 400 | 1.50 | normal | 4 stylistic sets |\n| Uppercase Label | Roobert | 12px (0.75rem) | 600 | 1.20 (tight) | 1.08px | `text-transform: uppercase`, 4 sets |\n| Badge | Roobert | 9.6px | 600 | — | — | Pill badges |\n\n### Principles\n- **Five stylistic sets as identity**: The combination of `\"ss01\"`, `\"ss03\"`, `\"ss10\"`, `\"ss11\"`, `\"ss12\"` on Roobert creates a distinctive typographic personality. `ss01` is reserved for headings and emphasis — body text omits it, creating a subtle hierarchy through glyph variation.\n- **Aggressive display compression**: -3.2px at 80px, -2.4px at 60px — the most compressed display tracking alongside the most generous body spacing (1.60 line-height), creating dramatic contrast.\n- **Weight 600 for headings, 500 for UI, 400 for body**: Clean three-tier system where each weight has a strict role.\n- **Uppercase labels with positive tracking**: 12px uppercase at 1.08px letter-spacing creates the systematic wayfinding pattern.\n\n## 4. Component Stylings\n\n### Buttons\n\n**Primary (Transparent with Hover Animation)**\n- Background: transparent (`rgba(239, 241, 243, 0)`)\n- Text: `#000000`\n- Padding: 6.4px 12.8px\n- Border: none (or `1px solid #717989` for outlined variant)\n- Hover: background shifts to swatch color (e.g., `#434346`), text to white, `rotateZ(-8deg)`, `translateY(-80%)`, hard shadow `rgb(0,0,0) -7px 7px`\n- Focus: `rgb(20, 110, 245) solid 2px` outline\n\n**White Solid**\n- Background: `#ffffff`\n- Text: `#000000`\n- Padding: 6.4px\n- Hover: oat-200 swatch color, animated rotation + shadow\n- Use: Primary CTA on colored sections\n\n**Ghost Outlined**\n- Background: transparent\n- Text: `#000000`\n- Padding: 8px\n- Border: `1px solid #717989`\n- Radius: 4px\n- Hover: dragonfruit swatch color, white text, animated rotation\n\n### Cards & Containers\n- Background: `#ffffff` on cream canvas\n- Border: `1px solid #dad4c8` (warm oat) or `1px dashed #dad4c8`\n- Radius: 12px (standard cards), 24px (feature cards/images), 40px (section containers/footer)\n- Shadow: `rgba(0,0,0,0.1) 0px 1px 1px, rgba(0,0,0,0.04) 0px -1px 1px inset, rgba(0,0,0,0.05) 0px -0.5px 1px`\n- Colorful section backgrounds using swatch palette (matcha, slushie, ube, lemon)\n\n### Inputs & Forms\n- Text: `#000000`\n- Border: `1px solid #717989`\n- Radius: 4px\n- Focus: `rgb(20, 110, 245) solid 2px` outline\n\n### Navigation\n- Sticky top nav on cream background\n- Roobert 15px weight 500 for nav links\n- Clay logo left-aligned\n- CTA buttons right-aligned with pill radius\n- Border bottom: `1px solid #dad4c8`\n- Mobile: hamburger collapse at 767px\n\n### Image Treatment\n- Product screenshots in white cards with oat borders\n- Colorful illustrated sections with swatch background colors\n- 8px–24px radius on images\n- Full-width colorful section backgrounds\n\n### Distinctive Components\n\n**Swatch Color Sections**\n- Full-width sections with swatch-colored backgrounds (matcha green, slushie cyan, ube purple, lemon gold)\n- White text on dark swatches, black text on light swatches\n- Each section tells a distinct product story through its color\n\n**Playful Hover Buttons**\n- Rotate -8deg + translate upward on hover\n- Hard offset shadow (`-7px 7px`) instead of soft blur\n- Background transitions to contrasting swatch color\n- Creates a physical, toy-like interaction quality\n\n**Dashed Border Elements**\n- Dashed borders (`1px dashed #dad4c8`) alongside solid borders\n- Used for secondary containers and decorative elements\n- Adds a hand-drawn, craft-like quality\n\n## 5. Layout Principles\n\n### Spacing System\n- Base unit: 8px\n- Scale: 1px, 2px, 4px, 6.4px, 8px, 12px, 12.8px, 16px, 18px, 20px, 24px\n\n### Grid & Container\n- Max content width centered\n- Feature sections alternate between white cards and colorful swatch backgrounds\n- Card grids: 2–3 columns on desktop\n- Full-width colorful sections break the grid\n- Footer with generous 40px radius container\n\n### Whitespace Philosophy\n- **Warm, generous breathing**: The cream background provides a warm rest between content blocks. Spacing is generous but not austere — it feels inviting, like a well-set table.\n- **Color as spatial rhythm**: The alternating swatch-colored sections create visual rhythm through hue rather than just whitespace. Each color section is its own \"room.\"\n- **Craft-like density inside cards**: Within cards, content is compact and well-organized, contrasting with the generous outer spacing.\n\n### Border Radius Scale\n- Sharp (4px): Ghost buttons, inputs\n- Standard (8px): Small cards, images, links\n- Badge (11px): Tag badges\n- Card (12px): Standard cards, buttons\n- Feature (24px): Feature cards, images, panels\n- Section (40px): Large sections, footer, containers\n- Pill (1584px): CTAs, pill-shaped buttons\n\n## 6. Depth & Elevation\n\n| Level | Treatment | Use |\n|-------|-----------|-----|\n| Flat (Level 0) | No shadow, cream canvas | Page background |\n| Clay Shadow (Level 1) | `rgba(0,0,0,0.1) 0px 1px 1px, rgba(0,0,0,0.04) 0px -1px inset, rgba(0,0,0,0.05) 0px -0.5px` | Cards, buttons — multi-layer with inset highlight |\n| Hover Hard (Level 2) | `rgb(0,0,0) -7px 7px` | Hover state — playful hard offset shadow |\n| Focus (Level 3) | `rgb(20, 110, 245) solid 2px` | Keyboard focus ring |\n\n**Shadow Philosophy**: Clay's shadow system is uniquely three-layered: a downward cast (`0px 1px 1px`), an upward inset highlight (`0px -1px 1px inset`), and a subtle edge (`0px -0.5px 1px`). This creates a \"pressed into clay\" quality where elements feel both raised AND embedded — like a clay tablet where content is stamped into the surface. The hover hard shadow (`-7px 7px`) is deliberately retro-graphic, referencing print-era drop shadows and adding physical playfulness.\n\n### Decorative Depth\n- Full-width swatch-colored sections create dramatic depth through color contrast\n- Dashed borders add visual texture alongside solid borders\n- Product illustrations with warm, organic art style\n\n## 7. Do's and Don'ts\n\n### Do\n- Use warm cream (`#faf9f7`) as the page background — the warmth is the identity\n- Apply all 5 OpenType stylistic sets on Roobert headings: `\"ss01\", \"ss03\", \"ss10\", \"ss11\", \"ss12\"`\n- Use the named swatch palette (Matcha, Slushie, Lemon, Ube, Pomegranate, Blueberry) for section backgrounds\n- Apply the playful hover animation: `rotateZ(-8deg)`, `translateY(-80%)`, hard shadow `-7px 7px`\n- Use warm oat borders (`#dad4c8`) — not neutral gray\n- Mix solid and dashed borders for visual variety\n- Use generous radius: 24px for cards, 40px for sections\n- Use weight 600 exclusively for headings, 500 for UI, 400 for body\n\n### Don't\n- Don't use cool gray backgrounds — the warm cream (`#faf9f7`) is non-negotiable\n- Don't use neutral gray borders (`#ccc`, `#ddd`) — always use the warm oat tones\n- Don't mix more than 2 swatch colors in the same section\n- Don't skip the OpenType stylistic sets — they define Roobert's character\n- Don't use subtle hover effects — the rotation + hard shadow is the signature interaction\n- Don't use small border radius (<12px) on feature cards — the generous rounding is structural\n- Don't use standard shadows (blur-based) — Clay uses hard offset and multi-layer inset\n- Don't forget the uppercase labels with 1.08px tracking — they're the wayfinding system\n\n## 8. Responsive Behavior\n\n### Breakpoints\n| Name | Width | Key Changes |\n|------|-------|-------------|\n| Mobile Small | <479px | Single column, tight padding |\n| Mobile | 479–767px | Standard mobile, stacked layout |\n| Tablet | 768–991px | 2-column grids, condensed nav |\n| Desktop | 992px+ | Full layout, 3-column grids, expanded sections |\n\n### Touch Targets\n- Buttons: minimum 6.4px + 12.8px padding for adequate touch area\n- Nav links: 15px font with generous spacing\n- Mobile: full-width buttons for easy tapping\n\n### Collapsing Strategy\n- Hero: 80px → 60px → smaller display text\n- Navigation: horizontal → hamburger at 767px\n- Feature sections: multi-column → stacked\n- Colorful sections: maintain full-width but compress padding\n- Card grids: 3-column → 2-column → single column\n\n### Image Behavior\n- Product screenshots scale proportionally\n- Colorful section illustrations adapt to viewport width\n- Rounded corners maintained across breakpoints\n\n## 9. Agent Prompt Guide\n\n### Quick Color Reference\n- Background: Warm Cream (`#faf9f7`)\n- Text: Clay Black (`#000000`)\n- Secondary text: Warm Silver (`#9f9b93`)\n- Border: Oat Border (`#dad4c8`)\n- Green accent: Matcha 600 (`#078a52`)\n- Cyan accent: Slushie 500 (`#3bd3fd`)\n- Gold accent: Lemon 500 (`#fbbd41`)\n- Purple accent: Ube 800 (`#43089f`)\n- Pink accent: Pomegranate 400 (`#fc7981`)\n\n### Example Component Prompts\n- \"Create a hero on warm cream (#faf9f7) background. Headline at 80px Roobert weight 600, line-height 1.00, letter-spacing -3.2px, OpenType 'ss01 ss03 ss10 ss11 ss12', black text. Subtitle at 20px weight 400, line-height 1.40, #9f9b93 text. Two buttons: white solid pill (12px radius) and ghost outlined (4px radius, 1px solid #717989).\"\n- \"Design a colorful section with Matcha 800 (#02492a) background. Heading at 44px Roobert weight 600, letter-spacing -1.32px, white text. Body at 18px weight 400, line-height 1.60, #84e7a5 text. White card inset with oat border (#dad4c8), 24px radius.\"\n- \"Build a button with playful hover: default transparent background, black text, 16px Roobert weight 500. On hover: background #434346, text white, transform rotateZ(-8deg) translateY(-80%), hard shadow rgb(0,0,0) -7px 7px.\"\n- \"Create a card: white background, 1px solid #dad4c8 border, 24px radius. Shadow: rgba(0,0,0,0.1) 0px 1px 1px, rgba(0,0,0,0.04) 0px -1px 1px inset. Title at 32px Roobert weight 600, letter-spacing -0.64px.\"\n- \"Design an uppercase label: 12px Roobert weight 600, text-transform uppercase, letter-spacing 1.08px, OpenType 'ss03 ss10 ss11 ss12'.\"\n\n### Iteration Guide\n1. Start with warm cream (#faf9f7) — never cool white\n2. Swatch colors are for full sections, not small accents — go bold with matcha, slushie, ube\n3. Oat borders (#dad4c8) everywhere — dashed variants for decoration\n4. OpenType stylistic sets are mandatory — they make Roobert look like Roobert\n5. Hover animations are the signature — rotation + hard shadow, not subtle fades\n6. Generous radius: 24px cards, 40px sections — nothing looks sharp or corporate\n7. Three weights: 600 (headings), 500 (UI), 400 (body) — strict roles\n",
+  "createdAt": "2026-04-09T07:51:26.616Z",
+  "updatedAt": "2026-04-09T07:51:26.616Z",
+  "source": "imported"
+}

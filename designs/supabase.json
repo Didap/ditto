@@ -1,0 +1,210 @@
+{
+  "id": "6eweJM4FeSkhvAnOK-dPC",
+  "slug": "supabase",
+  "name": "Supabase",
+  "url": "https://supabase.com",
+  "description": "Open-source Firebase alternative. Dark emerald theme, code-first.",
+  "tokens": {
+    "colors": [
+      {
+        "hex": "#0f0f0f",
+        "rgb": "15, 15, 15",
+        "occurrences": 1,
+        "name": "Color 1",
+        "role": "primary"
+      },
+      {
+        "hex": "#171717",
+        "rgb": "23, 23, 23",
+        "occurrences": 1,
+        "name": "Color 2",
+        "role": "secondary"
+      },
+      {
+        "hex": "#3ecf8e",
+        "rgb": "62, 207, 142",
+        "occurrences": 1,
+        "name": "Color 3",
+        "role": "neutral"
+      },
+      {
+        "hex": "#00c573",
+        "rgb": "0, 197, 115",
+        "occurrences": 1,
+        "name": "Color 4",
+        "role": "neutral"
+      },
+      {
+        "hex": "#898989",
+        "rgb": "137, 137, 137",
+        "occurrences": 1,
+        "name": "Color 5",
+        "role": "neutral"
+      },
+      {
+        "hex": "#fafafa",
+        "rgb": "250, 250, 250",
+        "occurrences": 1,
+        "name": "Color 6",
+        "role": "neutral"
+      },
+      {
+        "hex": "#2e2e2e",
+        "rgb": "46, 46, 46",
+        "occurrences": 1,
+        "name": "Color 7",
+        "role": "neutral"
+      },
+      {
+        "hex": "#363636",
+        "rgb": "54, 54, 54",
+        "occurrences": 1,
+        "name": "Color 8",
+        "role": "neutral"
+      },
+      {
+        "hex": "#393939",
+        "rgb": "57, 57, 57",
+        "occurrences": 1,
+        "name": "Color 9",
+        "role": "neutral"
+      },
+      {
+        "hex": "#242424",
+        "rgb": "36, 36, 36",
+        "occurrences": 1,
+        "name": "Color 10",
+        "role": "neutral"
+      },
+      {
+        "hex": "#434343",
+        "rgb": "67, 67, 67",
+        "occurrences": 1,
+        "name": "Color 11",
+        "role": "neutral"
+      },
+      {
+        "hex": "#4d4d4d",
+        "rgb": "77, 77, 77",
+        "occurrences": 1,
+        "name": "Color 12",
+        "role": "neutral"
+      },
+      {
+        "hex": "#b4b4b4",
+        "rgb": "180, 180, 180",
+        "occurrences": 1,
+        "name": "Color 13",
+        "role": "neutral"
+      },
+      {
+        "hex": "#efefef",
+        "rgb": "239, 239, 239",
+        "occurrences": 1,
+        "name": "Color 14",
+        "role": "neutral"
+      }
+    ],
+    "typography": [
+      {
+        "fontFamily": "Circular",
+        "fallbacks": [
+          "system-ui"
+        ],
+        "weights": [
+          700
+        ],
+        "role": "heading"
+      },
+      {
+        "fontFamily": "Circular",
+        "fallbacks": [
+          "system-ui"
+        ],
+        "weights": [
+          400
+        ],
+        "role": "body"
+      }
+    ],
+    "typeScale": [],
+    "spacing": [],
+    "shadows": [],
+    "radii": [
+      {
+        "value": "1px",
+        "px": 1,
+        "occurrences": 1
+      },
+      {
+        "value": "6px",
+        "px": 6,
+        "occurrences": 1
+      },
+      {
+        "value": "72px",
+        "px": 72,
+        "occurrences": 1
+      },
+      {
+        "value": "9999px",
+        "px": 9999,
+        "occurrences": 1
+      }
+    ],
+    "components": [],
+    "cssVariables": {},
+    "meta": {
+      "url": "https://supabase.com",
+      "title": "supabase",
+      "extractedAt": "2026-04-09T07:52:12.031Z"
+    }
+  },
+  "resolved": {
+    "colorPrimary": "#0f0f0f",
+    "colorSecondary": "#171717",
+    "colorAccent": "#3ecf8e",
+    "colorBackground": "#0f0f0f",
+    "colorSurface": "#f8fafc",
+    "colorTextPrimary": "#0f0f0f",
+    "colorTextSecondary": "#475569",
+    "colorTextMuted": "#94a3b8",
+    "colorBorder": "#e2e8f0",
+    "colorSuccess": "#3ecf8e",
+    "colorWarning": "#f59e0b",
+    "colorError": "#ef4444",
+    "fontHeading": "Circular",
+    "fontBody": "Circular",
+    "fontMono": "ui-monospace",
+    "fontWeightHeading": 700,
+    "fontWeightBody": 400,
+    "textXs": "0.75rem",
+    "textSm": "0.875rem",
+    "textBase": "1rem",
+    "textLg": "1.125rem",
+    "textXl": "1.25rem",
+    "text2xl": "1.5rem",
+    "text3xl": "1.875rem",
+    "text4xl": "2.25rem",
+    "spacingXs": "4px",
+    "spacingSm": "8px",
+    "spacingMd": "16px",
+    "spacingLg": "24px",
+    "spacingXl": "32px",
+    "spacing2xl": "48px",
+    "radiusSm": "1px",
+    "radiusMd": "6px",
+    "radiusLg": "72px",
+    "radiusFull": "9999px",
+    "shadowSm": "0 1px 2px 0 rgba(0,0,0,0.05)",
+    "shadowMd": "0 4px 6px -1px rgba(0,0,0,0.1)",
+    "shadowLg": "0 10px 15px -3px rgba(0,0,0,0.1)",
+    "lineHeightTight": "1.15",
+    "lineHeightNormal": "1.5",
+    "lineHeightRelaxed": "1.75"
+  },
+  "designMd": "# Design System Inspiration of Supabase\n\n## 1. Visual Theme & Atmosphere\n\nSupabase's website is a dark-mode-native developer platform that channels the aesthetic of a premium code editor — deep black backgrounds (`#0f0f0f`, `#171717`) with emerald green accents (`#3ecf8e`, `#00c573`) that reference the brand's open-source, PostgreSQL-green identity. The design system feels like it was born in a terminal window and evolved into a sophisticated marketing surface without losing its developer soul.\n\nThe typography is built on \"Circular\" — a geometric sans-serif with rounded terminals that softens the technical edge. At 72px with a 1.00 line-height, the hero text is compressed to its absolute minimum vertical space, creating dense, impactful statements that waste nothing. The monospace companion (Source Code Pro) appears sparingly for uppercase technical labels with 1.2px letter-spacing, creating the \"developer console\" markers that connect the marketing site to the product experience.\n\nWhat makes Supabase distinctive is its sophisticated HSL-based color token system. Rather than flat hex values, Supabase uses HSL with alpha channels for nearly every color (`--colors-crimson4`, `--colors-purple5`, `--colors-slateA12`), enabling a nuanced layering system where colors interact through transparency. This creates depth through translucency — borders at `rgba(46, 46, 46)`, surfaces at `rgba(41, 41, 41, 0.84)`, and accents at partial opacity all blend with the dark background to create a rich, dimensional palette from minimal color ingredients.\n\nThe green accent (`#3ecf8e`) appears selectively — in the Supabase logo, in link colors (`#00c573`), and in border highlights (`rgba(62, 207, 142, 0.3)`) — always as a signal of \"this is Supabase\" rather than as a decorative element. Pill-shaped buttons (9999px radius) for primary CTAs contrast with standard 6px radius for secondary elements, creating a clear visual hierarchy of importance.\n\n**Key Characteristics:**\n- Dark-mode-native: near-black backgrounds (`#0f0f0f`, `#171717`) — never pure black\n- Emerald green brand accent (`#3ecf8e`, `#00c573`) used sparingly as identity marker\n- Circular font — geometric sans-serif with rounded terminals\n- Source Code Pro for uppercase technical labels (1.2px letter-spacing)\n- HSL-based color token system with alpha channels for translucent layering\n- Pill buttons (9999px) for primary CTAs, 6px radius for secondary\n- Neutral gray scale from `#171717` through `#898989` to `#fafafa`\n- Border system using dark grays (`#2e2e2e`, `#363636`, `#393939`)\n- Minimal shadows — depth through border contrast and transparency\n- Radix color primitives (crimson, purple, violet, indigo, yellow, tomato, orange, slate)\n\n## 2. Color Palette & Roles\n\n### Brand\n- **Supabase Green** (`#3ecf8e`): Primary brand color, logo, accent borders\n- **Green Link** (`#00c573`): Interactive green for links and actions\n- **Green Border** (`rgba(62, 207, 142, 0.3)`): Subtle green border accent\n\n### Neutral Scale (Dark Mode)\n- **Near Black** (`#0f0f0f`): Primary button background, deepest surface\n- **Dark** (`#171717`): Page background, primary canvas\n- **Dark Border** (`#242424`): Horizontal rule, section dividers\n- **Border Dark** (`#2e2e2e`): Card borders, tab borders\n- **Mid Border** (`#363636`): Button borders, dividers\n- **Border Light** (`#393939`): Secondary borders\n- **Charcoal** (`#434343`): Tertiary borders, dark accents\n- **Dark Gray** (`#4d4d4d`): Heavy secondary text\n- **Mid Gray** (`#898989`): Muted text, link color\n- **Light Gray** (`#b4b4b4`): Secondary link text\n- **Near White** (`#efefef`): Light border, subtle surface\n- **Off White** (`#fafafa`): Primary text, button text\n\n### Radix Color Tokens (HSL-based)\n- **Slate Scale**: `--colors-slate5` through `--colors-slateA12` — neutral progression\n- **Purple**: `--colors-purple4`, `--colors-purple5`, `--colors-purpleA7` — accent spectrum\n- **Violet**: `--colors-violet10` (`hsl(251, 63.2%, 63.2%)`) — vibrant accent\n- **Crimson**: `--colors-crimson4`, `--colors-crimsonA9` — warm accent / alert\n- **Indigo**: `--colors-indigoA2` — subtle blue wash\n- **Yellow**: `--colors-yellowA7` — attention/warning\n- **Tomato**: `--colors-tomatoA4` — error accent\n- **Orange**: `--colors-orange6` — warm accent\n\n### Surface & Overlay\n- **Glass Dark** (`rgba(41, 41, 41, 0.84)`): Translucent dark overlay\n- **Slate Alpha** (`hsla(210, 87.8%, 16.1%, 0.031)`): Ultra-subtle blue wash\n- **Fixed Scale Alpha** (`hsla(200, 90.3%, 93.4%, 0.109)`): Light frost overlay\n\n### Shadows\n- Supabase uses **almost no shadows** in its dark theme. Depth is created through border contrast and surface color differences rather than box-shadows. Focus states use `rgba(0, 0, 0, 0.1) 0px 4px 12px` — minimal, functional.\n\n## 3. Typography Rules\n\n### Font Families\n- **Primary**: `Circular`, with fallbacks: `custom-font, Helvetica Neue, Helvetica, Arial`\n- **Monospace**: `Source Code Pro`, with fallbacks: `Office Code Pro, Menlo`\n\n### Hierarchy\n\n| Role | Font | Size | Weight | Line Height | Letter Spacing | Notes |\n|------|------|------|--------|-------------|----------------|-------|\n| Display Hero | Circular | 72px (4.50rem) | 400 | 1.00 (tight) | normal | Maximum density, zero waste |\n| Section Heading | Circular | 36px (2.25rem) | 400 | 1.25 (tight) | normal | Feature section titles |\n| Card Title | Circular | 24px (1.50rem) | 400 | 1.33 | -0.16px | Slight negative tracking |\n| Sub-heading | Circular | 18px (1.13rem) | 400 | 1.56 | normal | Secondary headings |\n| Body | Circular | 16px (1.00rem) | 400 | 1.50 | normal | Standard body text |\n| Nav Link | Circular | 14px (0.88rem) | 500 | 1.00–1.43 | normal | Navigation items |\n| Button | Circular | 14px (0.88rem) | 500 | 1.14 (tight) | normal | Button labels |\n| Caption | Circular | 14px (0.88rem) | 400–500 | 1.43 | normal | Metadata, tags |\n| Small | Circular | 12px (0.75rem) | 400 | 1.33 | normal | Fine print, footer links |\n| Code Label | Source Code Pro | 12px (0.75rem) | 400 | 1.33 | 1.2px | `text-transform: uppercase` |\n\n### Principles\n- **Weight restraint**: Nearly all text uses weight 400 (regular/book). Weight 500 appears only for navigation links and button labels. There is no bold (700) in the detected system — hierarchy is created through size, not weight.\n- **1.00 hero line-height**: The hero text is compressed to absolute zero leading. This is the defining typographic gesture — text that feels like a terminal command: dense, efficient, no wasted vertical space.\n- **Negative tracking on cards**: Card titles use -0.16px letter-spacing, a subtle tightening that differentiates them from body text without being obvious.\n- **Monospace as ritual**: Source Code Pro in uppercase with 1.2px letter-spacing is the \"developer console\" voice — used sparingly for technical labels that connect to the product experience.\n- **Geometric personality**: Circular's rounded terminals create warmth in what could otherwise be a cold, technical interface. The font is the humanizing element.\n\n## 4. Component Stylings\n\n### Buttons\n\n**Primary Pill (Dark)**\n- Background: `#0f0f0f`\n- Text: `#fafafa`\n- Padding: 8px 32px\n- Radius: 9999px (full pill)\n- Border: `1px solid #fafafa` (white border on dark)\n- Focus shadow: `rgba(0, 0, 0, 0.1) 0px 4px 12px`\n- Use: Primary CTA (\"Start your project\")\n\n**Secondary Pill (Dark, Muted)**\n- Background: `#0f0f0f`\n- Text: `#fafafa`\n- Padding: 8px 32px\n- Radius: 9999px\n- Border: `1px solid #2e2e2e` (dark border)\n- Opacity: 0.8\n- Use: Secondary CTA alongside primary\n\n**Ghost Button**\n- Background: transparent\n- Text: `#fafafa`\n- Padding: 8px\n- Radius: 6px\n- Border: `1px solid transparent`\n- Use: Tertiary actions, icon buttons\n\n### Cards & Containers\n- Background: dark surfaces (`#171717` or slightly lighter)\n- Border: `1px solid #2e2e2e` or `#363636`\n- Radius: 8px–16px\n- No visible shadows — borders define edges\n- Internal padding: 16px–24px\n\n### Tabs\n- Border: `1px solid #2e2e2e`\n- Radius: 9999px (pill tabs)\n- Active: green accent or lighter surface\n- Inactive: dark, muted\n\n### Links\n- **Green**: `#00c573` — Supabase-branded links\n- **Primary Light**: `#fafafa` — standard links on dark\n- **Secondary**: `#b4b4b4` — muted links\n- **Muted**: `#898989` — tertiary links, footer\n\n### Navigation\n- Dark background matching page (`#171717`)\n- Supabase logo with green icon\n- Circular 14px weight 500 for nav links\n- Clean horizontal layout with product dropdown\n- Green \"Start your project\" CTA pill button\n- Sticky header behavior\n\n## 5. Layout Principles\n\n### Spacing System\n- Base unit: 8px\n- Scale: 1px, 4px, 6px, 8px, 12px, 16px, 20px, 24px, 32px, 40px, 48px, 90px, 96px, 128px\n- Notable large jumps: 48px → 90px → 96px → 128px for major section spacing\n\n### Grid & Container\n- Centered content with generous max-width\n- Full-width dark sections with constrained inner content\n- Feature grids: icon-based grids with consistent card sizes\n- Logo grids for \"Trusted by\" sections\n- Footer: multi-column on dark background\n\n### Breakpoints\n| Name | Width | Key Changes |\n|------|-------|-------------|\n| Mobile | <600px | Single column, stacked layout |\n| Desktop | >600px | Multi-column grids, expanded layout |\n\n*Note: Supabase uses a notably minimal breakpoint system — primarily a single 600px breakpoint, suggesting a mobile-first approach with progressive enhancement.*\n\n### Whitespace Philosophy\n- **Dramatic section spacing**: 90px–128px between major sections creates a cinematic pacing — each section is its own scene in the dark void.\n- **Dense content blocks**: Within sections, spacing is tight (16px–24px), creating concentrated information clusters.\n- **Border-defined space**: Instead of whitespace + shadows for separation, Supabase uses thin borders on dark backgrounds — separation through line, not gap.\n\n### Border Radius Scale\n- Standard (6px): Ghost buttons, small elements\n- Comfortable (8px): Cards, containers\n- Medium (11px–12px): Mid-size panels\n- Large (16px): Feature cards, major containers\n- Pill (9999px): Primary buttons, tab indicators\n\n## 6. Depth & Elevation\n\n| Level | Treatment | Use |\n|-------|-----------|-----|\n| Flat (Level 0) | No shadow, border `#2e2e2e` | Default state, most surfaces |\n| Subtle Border (Level 1) | Border `#363636` or `#393939` | Interactive elements, hover |\n| Focus (Level 2) | `rgba(0, 0, 0, 0.1) 0px 4px 12px` | Focus states only |\n| Green Accent (Level 3) | Border `rgba(62, 207, 142, 0.3)` | Brand-highlighted elements |\n\n**Shadow Philosophy**: Supabase deliberately avoids shadows. In a dark-mode-native design, shadows are nearly invisible and serve no purpose. Instead, depth is communicated through a sophisticated border hierarchy — from `#242424` (barely visible) through `#2e2e2e` (standard) to `#393939` (prominent). The green accent border (`rgba(62, 207, 142, 0.3)`) at 30% opacity is the \"elevated\" state — the brand color itself becomes the depth signal.\n\n## 7. Do's and Don'ts\n\n### Do\n- Use near-black backgrounds (`#0f0f0f`, `#171717`) — depth comes from the gray border hierarchy\n- Apply Supabase green (`#3ecf8e`, `#00c573`) sparingly — it's an identity marker, not a decoration\n- Use Circular at weight 400 for nearly everything — 500 only for buttons and nav\n- Set hero text to 1.00 line-height — the zero-leading is the typographic signature\n- Create depth through border color differences (`#242424` → `#2e2e2e` → `#363636`)\n- Use pill shape (9999px) exclusively for primary CTAs and tabs\n- Employ HSL-based colors with alpha for translucent layering effects\n- Use Source Code Pro uppercase labels for developer-context markers\n\n### Don't\n- Don't add box-shadows — they're invisible on dark backgrounds and break the border-defined depth system\n- Don't use bold (700) text weight — the system uses 400 and 500 only\n- Don't apply green to backgrounds or large surfaces — it's for borders, links, and small accents\n- Don't use warm colors (crimson, orange) as primary design elements — they exist as semantic tokens for states\n- Don't increase hero line-height above 1.00 — the density is intentional\n- Don't use large border radius (16px+) on buttons — pills (9999px) or standard (6px), nothing in between\n- Don't lighten the background above `#171717` for primary surfaces — the darkness is structural\n- Don't forget the translucent borders — `rgba` border colors are the layering mechanism\n\n## 8. Responsive Behavior\n\n### Breakpoints\n| Name | Width | Key Changes |\n|------|-------|-------------|\n| Mobile | <600px | Single column, stacked features, condensed nav |\n| Desktop | >600px | Multi-column grids, full nav, expanded sections |\n\n### Collapsing Strategy\n- Hero: 72px → scales down proportionally\n- Feature grids: multi-column → single column stacked\n- Logo row: horizontal → wrapped grid\n- Navigation: full → hamburger\n- Section spacing: 90–128px → 48–64px\n- Buttons: inline → full-width stacked\n\n## 9. Agent Prompt Guide\n\n### Quick Color Reference\n- Background: `#0f0f0f` (button), `#171717` (page)\n- Text: `#fafafa` (primary), `#b4b4b4` (secondary), `#898989` (muted)\n- Brand green: `#3ecf8e` (brand), `#00c573` (links)\n- Borders: `#242424` (subtle), `#2e2e2e` (standard), `#363636` (prominent)\n- Green border: `rgba(62, 207, 142, 0.3)` (accent)\n\n### Example Component Prompts\n- \"Create a hero section on #171717 background. Headline at 72px Circular weight 400, line-height 1.00, #fafafa text. Sub-text at 16px Circular weight 400, line-height 1.50, #b4b4b4. Pill CTA button (#0f0f0f bg, #fafafa text, 9999px radius, 8px 32px padding, 1px solid #fafafa border).\"\n- \"Design a feature card: #171717 background, 1px solid #2e2e2e border, 16px radius. Title at 24px Circular weight 400, letter-spacing -0.16px. Body at 14px weight 400, #898989 text.\"\n- \"Build navigation bar: #171717 background. Circular 14px weight 500 for links, #fafafa text. Supabase logo with green icon left-aligned. Green pill CTA 'Start your project' right-aligned.\"\n- \"Create a technical label: Source Code Pro 12px, uppercase, letter-spacing 1.2px, #898989 text.\"\n- \"Design a framework logo grid: 6-column layout on dark, grayscale logos at 60% opacity, 1px solid #2e2e2e border between sections.\"\n\n### Iteration Guide\n1. Start with #171717 background — everything is dark-mode-native\n2. Green is the brand identity marker — use it for links, logo, and accent borders only\n3. Depth comes from borders (#242424 → #2e2e2e → #363636), not shadows\n4. Weight 400 is the default for everything — 500 only for interactive elements\n5. Hero line-height of 1.00 is the signature typographic move\n6. Pill (9999px) for primary actions, 6px for secondary, 8-16px for cards\n7. HSL with alpha channels creates the sophisticated translucent layering\n",
+  "createdAt": "2026-04-09T07:52:12.031Z",
+  "updatedAt": "2026-04-09T07:52:12.031Z",
+  "source": "imported"
+}

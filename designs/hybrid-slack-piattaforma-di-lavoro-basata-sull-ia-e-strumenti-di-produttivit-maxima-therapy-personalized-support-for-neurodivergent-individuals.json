@@ -1,0 +1,896 @@
+{
+  "id": "I2_bHEygJxt-S-bTc8Xm2",
+  "slug": "hybrid-slack-piattaforma-di-lavoro-basata-sull-ia-e-strumenti-di-produttivit-maxima-therapy-personalized-support-for-neurodivergent-individuals",
+  "name": "Hybrid — Slack | Piattaforma di lavoro basata sull'IA e strumenti di produttività + Maxima Therapy | Personalized Support for Neurodivergent Individuals",
+  "url": "https://slack.com/intl/it-it, https://maximatherapy.com/",
+  "description": "Hybrid design blended from 2 inspirations",
+  "tokens": {
+    "colors": [
+      {
+        "hex": "#000000",
+        "rgb": "0, 0, 0",
+        "occurrences": 1032,
+        "name": "Black",
+        "role": "text-primary"
+      },
+      {
+        "hex": "#fd4401",
+        "rgb": "253, 68, 1",
+        "occurrences": 298,
+        "name": "Orange",
+        "role": "text-secondary"
+      },
+      {
+        "hex": "#2668fd",
+        "rgb": "38, 104, 253",
+        "occurrences": 281,
+        "name": "Dark Blue",
+        "role": "text-muted"
+      },
+      {
+        "hex": "#ffffff",
+        "rgb": "255, 255, 255",
+        "occurrences": 105,
+        "name": "White",
+        "role": "background"
+      },
+      {
+        "hex": "#a7eb98",
+        "rgb": "167, 235, 152",
+        "occurrences": 24,
+        "name": "Green",
+        "role": "accent"
+      },
+      {
+        "hex": "#fff2b7",
+        "rgb": "255, 242, 183",
+        "occurrences": 22,
+        "name": "Light Yellow",
+        "role": "warning"
+      },
+      {
+        "hex": "#fdcb40",
+        "rgb": "253, 203, 64",
+        "occurrences": 7,
+        "name": "Yellow",
+        "role": "secondary"
+      },
+      {
+        "hex": "#f3efe0",
+        "rgb": "243, 239, 224",
+        "occurrences": 4,
+        "name": "Light Gray",
+        "role": "border"
+      },
+      {
+        "hex": "#ffcccd",
+        "rgb": "255, 204, 205",
+        "occurrences": 3,
+        "name": "Red",
+        "role": "neutral"
+      },
+      {
+        "hex": "#00b351",
+        "rgb": "0, 179, 81",
+        "occurrences": 2,
+        "name": "Green",
+        "role": "primary"
+      }
+    ],
+    "typography": [
+      {
+        "fontFamily": "ui-sans-serif",
+        "fallbacks": [
+          "system-ui",
+          "-apple-system",
+          "sans-serif"
+        ],
+        "weights": [
+          400
+        ],
+        "role": "heading"
+      },
+      {
+        "fontFamily": "Robuck Rounded",
+        "fallbacks": [
+          "system-ui",
+          "-apple-system",
+          "sans-serif"
+        ],
+        "weights": [
+          400
+        ],
+        "role": "body"
+      },
+      {
+        "fontFamily": "ABC Diatype Rounded Plus",
+        "fallbacks": [
+          "system-ui",
+          "-apple-system",
+          "sans-serif"
+        ],
+        "weights": [
+          300,
+          500,
+          700
+        ],
+        "role": "display"
+      },
+      {
+        "fontFamily": "ABC Diatype Rounded",
+        "fallbacks": [
+          "system-ui",
+          "-apple-system",
+          "sans-serif"
+        ],
+        "weights": [
+          300,
+          900
+        ],
+        "role": "display"
+      },
+      {
+        "fontFamily": "ABC Diatype Rounded Mono",
+        "fallbacks": [
+          "SFMono-Regular",
+          "Menlo",
+          "monospace"
+        ],
+        "weights": [
+          500
+        ],
+        "role": "mono"
+      }
+    ],
+    "typeScale": [
+      {
+        "role": "H1",
+        "fontFamily": "Robuck Rounded",
+        "size": "214.286px",
+        "weight": 400,
+        "lineHeight": "171.428px",
+        "letterSpacing": "normal"
+      },
+      {
+        "role": "H2",
+        "fontFamily": "ABC Diatype Rounded Plus",
+        "size": "33.3333px",
+        "weight": 700,
+        "lineHeight": "35px",
+        "letterSpacing": "-0.666666px"
+      },
+      {
+        "role": "H3",
+        "fontFamily": "Robuck Rounded",
+        "size": "61.9047px",
+        "weight": 400,
+        "lineHeight": "49.5238px",
+        "letterSpacing": "normal"
+      },
+      {
+        "role": "H4",
+        "fontFamily": "ABC Diatype Rounded Plus",
+        "size": "33.3333px",
+        "weight": 700,
+        "lineHeight": "35px",
+        "letterSpacing": "-0.666666px"
+      },
+      {
+        "role": "Body",
+        "fontFamily": "ABC Diatype Rounded Plus",
+        "size": "19.0476px",
+        "weight": 500,
+        "lineHeight": "22.8571px",
+        "letterSpacing": "-0.380952px"
+      },
+      {
+        "role": "Small",
+        "fontFamily": "ABC Diatype Rounded Plus",
+        "size": "15.2381px",
+        "weight": 500,
+        "lineHeight": "1.4",
+        "letterSpacing": "normal"
+      },
+      {
+        "role": "Small",
+        "fontFamily": "ABC Diatype Rounded Plus",
+        "size": "13.7143px",
+        "weight": 500,
+        "lineHeight": "1.4",
+        "letterSpacing": "normal"
+      }
+    ],
+    "spacing": [
+      {
+        "value": "4.19047px",
+        "px": 4.19047,
+        "occurrences": 8
+      },
+      {
+        "value": "6.66666px",
+        "px": 6.66666,
+        "occurrences": 24
+      },
+      {
+        "value": "13.3333px",
+        "px": 13.3333,
+        "occurrences": 4
+      },
+      {
+        "value": "19.0476px",
+        "px": 19.0476,
+        "occurrences": 2
+      },
+      {
+        "value": "24.3809px normal",
+        "px": 24.3809,
+        "occurrences": 4
+      },
+      {
+        "value": "26.6666px",
+        "px": 26.6666,
+        "occurrences": 14
+      },
+      {
+        "value": "29.9531px",
+        "px": 29.9531,
+        "occurrences": 2
+      },
+      {
+        "value": "38.0952px",
+        "px": 38.0952,
+        "occurrences": 5
+      },
+      {
+        "value": "42.6666px",
+        "px": 42.6666,
+        "occurrences": 8
+      },
+      {
+        "value": "47.619px",
+        "px": 47.619,
+        "occurrences": 38
+      },
+      {
+        "value": "57.1428px",
+        "px": 57.1428,
+        "occurrences": 9
+      },
+      {
+        "value": "76.1904px",
+        "px": 76.1904,
+        "occurrences": 1
+      }
+    ],
+    "shadows": [],
+    "radii": [
+      {
+        "value": "4.7619px",
+        "px": 4.7619,
+        "occurrences": 8
+      },
+      {
+        "value": "9.5238px",
+        "px": 9.5238,
+        "occurrences": 2
+      },
+      {
+        "value": "14.2857px",
+        "px": 14.2857,
+        "occurrences": 9
+      },
+      {
+        "value": "23.8095px",
+        "px": 23.8095,
+        "occurrences": 10
+      },
+      {
+        "value": "33.3333px",
+        "px": 33.3333,
+        "occurrences": 2
+      },
+      {
+        "value": "47.619px",
+        "px": 47.619,
+        "occurrences": 10
+      }
+    ],
+    "components": [
+      {
+        "type": "button",
+        "styles": {
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "color": "rgb(255, 255, 255)",
+          "padding": "0px 26.6666px",
+          "borderRadius": "47.619px",
+          "border": "0px solid rgb(255, 255, 255)",
+          "fontSize": "19.0476px",
+          "fontWeight": "500",
+          "fontFamily": "ABC Diatype Rounded Plus",
+          "boxShadow": "none"
+        },
+        "variants": [
+          {
+            "name": "variant-1",
+            "styles": {
+              "backgroundColor": "rgb(255, 255, 255)",
+              "color": "rgb(0, 0, 0)",
+              "padding": "0px",
+              "borderRadius": "50%",
+              "border": "0px solid rgb(0, 0, 0)",
+              "fontSize": "19.0476px",
+              "fontWeight": "500",
+              "fontFamily": "ABC Diatype Rounded Plus",
+              "boxShadow": "none"
+            }
+          },
+          {
+            "name": "variant-2",
+            "styles": {
+              "backgroundColor": "rgb(255, 255, 255)",
+              "color": "rgb(0, 0, 0)",
+              "padding": "0px",
+              "borderRadius": "50%",
+              "border": "0px solid rgb(0, 0, 0)",
+              "fontSize": "19.0476px",
+              "fontWeight": "500",
+              "fontFamily": "ABC Diatype Rounded Plus",
+              "boxShadow": "none"
+            }
+          },
+          {
+            "name": "variant-3",
+            "styles": {
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "color": "rgb(0, 0, 0)",
+              "padding": "0px",
+              "borderRadius": "50%",
+              "border": "2px solid rgb(255, 255, 255)",
+              "fontSize": "19.0476px",
+              "fontWeight": "500",
+              "fontFamily": "ABC Diatype Rounded Plus",
+              "boxShadow": "none"
+            }
+          },
+          {
+            "name": "variant-4",
+            "styles": {
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "color": "rgb(0, 0, 0)",
+              "padding": "0px",
+              "borderRadius": "50%",
+              "border": "2px solid rgb(255, 255, 255)",
+              "fontSize": "19.0476px",
+              "fontWeight": "500",
+              "fontFamily": "ABC Diatype Rounded Plus",
+              "boxShadow": "none"
+            }
+          },
+          {
+            "name": "variant-5",
+            "styles": {
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "color": "rgb(0, 0, 0)",
+              "padding": "0px",
+              "borderRadius": "50%",
+              "border": "2px solid rgb(255, 255, 255)",
+              "fontSize": "19.0476px",
+              "fontWeight": "500",
+              "fontFamily": "ABC Diatype Rounded Plus",
+              "boxShadow": "none"
+            }
+          },
+          {
+            "name": "variant-6",
+            "styles": {
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "color": "rgb(0, 0, 0)",
+              "padding": "0px",
+              "borderRadius": "50%",
+              "border": "2px solid rgb(255, 255, 255)",
+              "fontSize": "19.0476px",
+              "fontWeight": "500",
+              "fontFamily": "ABC Diatype Rounded Plus",
+              "boxShadow": "none"
+            }
+          },
+          {
+            "name": "variant-7",
+            "styles": {
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "color": "rgb(255, 255, 255)",
+              "padding": "0px 26.6666px",
+              "borderRadius": "47.619px",
+              "border": "0px solid rgb(255, 255, 255)",
+              "fontSize": "19.0476px",
+              "fontWeight": "500",
+              "fontFamily": "ABC Diatype Rounded Plus",
+              "boxShadow": "none"
+            }
+          },
+          {
+            "name": "variant-8",
+            "styles": {
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "color": "rgb(0, 0, 0)",
+              "padding": "0px",
+              "borderRadius": "0px",
+              "border": "0px solid rgb(0, 0, 0)",
+              "fontSize": "19.0476px",
+              "fontWeight": "500",
+              "fontFamily": "ABC Diatype Rounded Plus",
+              "boxShadow": "none"
+            }
+          },
+          {
+            "name": "variant-9",
+            "styles": {
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "color": "rgb(0, 0, 0)",
+              "padding": "0px",
+              "borderRadius": "0px",
+              "border": "0px solid rgb(0, 0, 0)",
+              "fontSize": "15.2381px",
+              "fontWeight": "500",
+              "fontFamily": "ABC Diatype Rounded Plus",
+              "boxShadow": "none"
+            }
+          }
+        ]
+      }
+    ],
+    "fontSources": [],
+    "fontFaces": [
+      {
+        "family": "ABC Diatype Rounded",
+        "weight": "300 900",
+        "style": "normal",
+        "src": "url(\"/assets/fonts/ABCDiatypeRoundedVariable-Trial.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "ABC Diatype Rounded Plus",
+        "weight": "300 900",
+        "style": "normal",
+        "src": "url(\"/assets/fonts/ABCDiatypeRoundedPlusVariable-Trial.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "ABC Diatype Rounded Mono",
+        "weight": "500",
+        "style": "normal",
+        "src": "url(\"/assets/fonts/ABCDiatypeRoundedMono-Medium-Trial.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Robuck",
+        "weight": "400",
+        "style": "normal",
+        "src": "url(\"/assets/fonts/Robuck%20Regular.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Robuck Rounded",
+        "weight": "400",
+        "style": "normal",
+        "src": "url(\"/assets/fonts/RobuckRounded.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "ABC Diatype Rounded",
+        "weight": "300 900",
+        "style": "normal",
+        "src": "url(\"/assets/fonts/ABCDiatypeRoundedVariable-Trial.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "ABC Diatype Rounded Plus",
+        "weight": "300 900",
+        "style": "normal",
+        "src": "url(\"/assets/fonts/ABCDiatypeRoundedPlusVariable-Trial.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "ABC Diatype Rounded Mono",
+        "weight": "500",
+        "style": "normal",
+        "src": "url(\"/assets/fonts/ABCDiatypeRoundedMono-Medium-Trial.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Robuck",
+        "weight": "400",
+        "style": "normal",
+        "src": "url(\"/assets/fonts/Robuck%20Regular.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Robuck Rounded",
+        "weight": "400",
+        "style": "normal",
+        "src": "url(\"/assets/fonts/RobuckRounded.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "ABC Diatype Rounded",
+        "weight": "300 900",
+        "style": "normal",
+        "src": "url(\"/assets/fonts/ABCDiatypeRoundedVariable-Trial.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "ABC Diatype Rounded Plus",
+        "weight": "300 900",
+        "style": "normal",
+        "src": "url(\"/assets/fonts/ABCDiatypeRoundedPlusVariable-Trial.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "ABC Diatype Rounded Mono",
+        "weight": "500",
+        "style": "normal",
+        "src": "url(\"/assets/fonts/ABCDiatypeRoundedMono-Medium-Trial.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Robuck",
+        "weight": "400",
+        "style": "normal",
+        "src": "url(\"/assets/fonts/Robuck%20Regular.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Robuck Rounded",
+        "weight": "400",
+        "style": "normal",
+        "src": "url(\"/assets/fonts/RobuckRounded.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "ABC Diatype Rounded",
+        "weight": "300 900",
+        "style": "normal",
+        "src": "url(\"/assets/fonts/ABCDiatypeRoundedVariable-Trial.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "ABC Diatype Rounded Plus",
+        "weight": "300 900",
+        "style": "normal",
+        "src": "url(\"/assets/fonts/ABCDiatypeRoundedPlusVariable-Trial.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "ABC Diatype Rounded Mono",
+        "weight": "500",
+        "style": "normal",
+        "src": "url(\"/assets/fonts/ABCDiatypeRoundedMono-Medium-Trial.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Robuck",
+        "weight": "400",
+        "style": "normal",
+        "src": "url(\"/assets/fonts/Robuck%20Regular.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Robuck Rounded",
+        "weight": "400",
+        "style": "normal",
+        "src": "url(\"/assets/fonts/RobuckRounded.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "ABC Diatype Rounded",
+        "weight": "300 900",
+        "style": "normal",
+        "src": "url(\"/assets/fonts/ABCDiatypeRoundedVariable-Trial.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "ABC Diatype Rounded Plus",
+        "weight": "300 900",
+        "style": "normal",
+        "src": "url(\"/assets/fonts/ABCDiatypeRoundedPlusVariable-Trial.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "ABC Diatype Rounded Mono",
+        "weight": "500",
+        "style": "normal",
+        "src": "url(\"/assets/fonts/ABCDiatypeRoundedMono-Medium-Trial.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Robuck",
+        "weight": "400",
+        "style": "normal",
+        "src": "url(\"/assets/fonts/Robuck%20Regular.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Robuck Rounded",
+        "weight": "400",
+        "style": "normal",
+        "src": "url(\"/assets/fonts/RobuckRounded.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "ABC Diatype Rounded",
+        "weight": "300 900",
+        "style": "normal",
+        "src": "url(\"/assets/fonts/ABCDiatypeRoundedVariable-Trial.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "ABC Diatype Rounded Plus",
+        "weight": "300 900",
+        "style": "normal",
+        "src": "url(\"/assets/fonts/ABCDiatypeRoundedPlusVariable-Trial.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "ABC Diatype Rounded Mono",
+        "weight": "500",
+        "style": "normal",
+        "src": "url(\"/assets/fonts/ABCDiatypeRoundedMono-Medium-Trial.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Robuck",
+        "weight": "400",
+        "style": "normal",
+        "src": "url(\"/assets/fonts/Robuck%20Regular.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Robuck Rounded",
+        "weight": "400",
+        "style": "normal",
+        "src": "url(\"/assets/fonts/RobuckRounded.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "ABC Diatype Rounded",
+        "weight": "300 900",
+        "style": "normal",
+        "src": "url(\"/assets/fonts/ABCDiatypeRoundedVariable-Trial.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "ABC Diatype Rounded Plus",
+        "weight": "300 900",
+        "style": "normal",
+        "src": "url(\"/assets/fonts/ABCDiatypeRoundedPlusVariable-Trial.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "ABC Diatype Rounded Mono",
+        "weight": "500",
+        "style": "normal",
+        "src": "url(\"/assets/fonts/ABCDiatypeRoundedMono-Medium-Trial.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Robuck",
+        "weight": "400",
+        "style": "normal",
+        "src": "url(\"/assets/fonts/Robuck%20Regular.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Robuck Rounded",
+        "weight": "400",
+        "style": "normal",
+        "src": "url(\"/assets/fonts/RobuckRounded.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "ABC Diatype Rounded",
+        "weight": "300 900",
+        "style": "normal",
+        "src": "url(\"/assets/fonts/ABCDiatypeRoundedVariable-Trial.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "ABC Diatype Rounded Plus",
+        "weight": "300 900",
+        "style": "normal",
+        "src": "url(\"/assets/fonts/ABCDiatypeRoundedPlusVariable-Trial.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "ABC Diatype Rounded Mono",
+        "weight": "500",
+        "style": "normal",
+        "src": "url(\"/assets/fonts/ABCDiatypeRoundedMono-Medium-Trial.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Robuck",
+        "weight": "400",
+        "style": "normal",
+        "src": "url(\"/assets/fonts/Robuck%20Regular.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Robuck Rounded",
+        "weight": "400",
+        "style": "normal",
+        "src": "url(\"/assets/fonts/RobuckRounded.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "ABC Diatype Rounded",
+        "weight": "300 900",
+        "style": "normal",
+        "src": "url(\"/assets/fonts/ABCDiatypeRoundedVariable-Trial.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "ABC Diatype Rounded Plus",
+        "weight": "300 900",
+        "style": "normal",
+        "src": "url(\"/assets/fonts/ABCDiatypeRoundedPlusVariable-Trial.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "ABC Diatype Rounded Mono",
+        "weight": "500",
+        "style": "normal",
+        "src": "url(\"/assets/fonts/ABCDiatypeRoundedMono-Medium-Trial.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Robuck",
+        "weight": "400",
+        "style": "normal",
+        "src": "url(\"/assets/fonts/Robuck%20Regular.woff2\") format(\"woff2\")",
+        "display": "swap"
+      },
+      {
+        "family": "Robuck Rounded",
+        "weight": "400",
+        "style": "normal",
+        "src": "url(\"/assets/fonts/RobuckRounded.woff2\") format(\"woff2\")",
+        "display": "swap"
+      }
+    ],
+    "downloadedFonts": [
+      {
+        "family": "Robuck Rounded",
+        "url": "https://maximatherapy.com/assets/fonts/RobuckRounded.woff2",
+        "localPath": "/fonts/maximatherapy-com/0-RobuckRounded.woff2",
+        "format": "woff2"
+      },
+      {
+        "family": "ABC Diatype Rounded Plus",
+        "url": "https://maximatherapy.com/assets/fonts/ABCDiatypeRoundedPlusVariable-Trial.woff2",
+        "localPath": "/fonts/maximatherapy-com/0-ABCDiatypeRoundedPlusVariable-Trial.woff2",
+        "format": "woff2"
+      },
+      {
+        "family": "ABC Diatype Rounded",
+        "url": "https://maximatherapy.com/assets/fonts/ABCDiatypeRoundedVariable-Trial.woff2",
+        "localPath": "/fonts/maximatherapy-com/0-ABCDiatypeRoundedVariable-Trial.woff2",
+        "format": "woff2"
+      },
+      {
+        "family": "ABC Diatype Rounded Mono",
+        "url": "https://maximatherapy.com/assets/fonts/ABCDiatypeRoundedMono-Medium-Trial.woff2",
+        "localPath": "/fonts/maximatherapy-com/3-ABCDiatypeRoundedMono-Medium-Trial.woff2",
+        "format": "woff2"
+      },
+      {
+        "family": "Robuck",
+        "url": "https://maximatherapy.com/assets/fonts/Robuck%20Regular.woff2",
+        "localPath": "/fonts/maximatherapy-com/4-Robuck%20Regular.woff2",
+        "format": "woff2"
+      }
+    ],
+    "cssVariables": {
+      "--cc-font-family": "-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\",\"Segoe UI Symbol\"",
+      "--cc-modal-border-radius": ".5rem",
+      "--cc-btn-border-radius": ".4rem",
+      "--cc-modal-transition-duration": ".25s",
+      "--cc-link-color": "var(--cc-btn-primary-bg)",
+      "--cc-modal-margin": "1rem",
+      "--cc-z-index": "2147483647",
+      "--cc-bg": "#fff",
+      "--cc-primary-color": "#2c2f31",
+      "--cc-secondary-color": "#5e6266",
+      "--cc-btn-primary-bg": "#30363c",
+      "--cc-btn-primary-color": "#fff",
+      "--cc-btn-primary-border-color": "var(--cc-btn-primary-bg)",
+      "--cc-btn-primary-hover-bg": "#000",
+      "--cc-btn-primary-hover-color": "#fff",
+      "--cc-btn-primary-hover-border-color": "var(--cc-btn-primary-hover-bg)",
+      "--cc-btn-secondary-bg": "#eaeff2",
+      "--cc-btn-secondary-color": "var(--cc-primary-color)",
+      "--cc-btn-secondary-border-color": "var(--cc-btn-secondary-bg)",
+      "--cc-btn-secondary-hover-bg": "#d4dae0",
+      "--cc-btn-secondary-hover-color": "#000",
+      "--cc-btn-secondary-hover-border-color": "#d4dae0",
+      "--cc-separator-border-color": "#f0f4f7",
+      "--cc-toggle-on-bg": "var(--cc-btn-primary-bg)",
+      "--cc-toggle-off-bg": "#667481",
+      "--cc-toggle-on-knob-bg": "#fff",
+      "--cc-toggle-off-knob-bg": "var(--cc-toggle-on-knob-bg)",
+      "--cc-toggle-enabled-icon-color": "var(--cc-bg)",
+      "--cc-toggle-disabled-icon-color": "var(--cc-bg)",
+      "--cc-toggle-readonly-bg": "#d5dee2",
+      "--cc-toggle-readonly-knob-bg": "#fff",
+      "--cc-toggle-readonly-knob-icon-color": "var(--cc-toggle-readonly-bg)",
+      "--cc-section-category-border": "var(--cc-cookie-category-block-bg)",
+      "--cc-cookie-category-block-bg": "#f0f4f7",
+      "--cc-cookie-category-block-border": "#f0f4f7",
+      "--cc-cookie-category-block-hover-bg": "#e9eff4",
+      "--cc-cookie-category-block-hover-border": "#e9eff4",
+      "--cc-cookie-category-expanded-block-bg": "transparent",
+      "--cc-cookie-category-expanded-block-hover-bg": "#dee4e9",
+      "--cc-overlay-bg": "rgba(0,0,0,.65)",
+      "--cc-webkit-scrollbar-bg": "var(--cc-section-category-border)",
+      "--cc-webkit-scrollbar-hover-bg": "var(--cc-btn-primary-hover-bg)",
+      "--cc-footer-bg": "var(--cc-btn-secondary-bg)",
+      "--cc-footer-color": "var(--cc-secondary-color)",
+      "--cc-footer-border-color": "#e4eaed",
+      "--cc-pm-toggle-border-radius": "4em",
+      "--color-light-gray": "#f1f1f1",
+      "--font-size": "16px",
+      "--ease-expo-out": "cubic-bezier(.16,1,.3,1)"
+    },
+    "meta": {
+      "url": "https://slack.com/intl/it-it, https://maximatherapy.com/",
+      "title": "Hybrid — Slack | Piattaforma di lavoro basata sull'IA e strumenti di produttività + Maxima Therapy | Personalized Support for Neurodivergent Individuals",
+      "extractedAt": "2026-04-09T09:12:49.358Z"
+    }
+  },
+  "resolved": {
+    "colorPrimary": "#175a45",
+    "colorSecondary": "#ca6784",
+    "colorAccent": "#727678",
+    "colorBackground": "#ffffff",
+    "colorSurface": "#f4ede4",
+    "colorTextPrimary": "#000000",
+    "colorTextSecondary": "#b35735",
+    "colorTextMuted": "#1c66d0",
+    "colorBorder": "#f6eef0",
+    "colorSuccess": "#22c55e",
+    "colorWarning": "#f59e0b",
+    "colorError": "#ef4444",
+    "fontHeading": "Salesforce-Sans",
+    "fontBody": "Salesforce-Avant-Garde",
+    "fontMono": "ui-monospace",
+    "fontWeightHeading": 600,
+    "fontWeightBody": 400,
+    "textXs": "0.75rem",
+    "textSm": "0.875rem",
+    "textBase": "1rem",
+    "textLg": "1.125rem",
+    "textXl": "1.25rem",
+    "text2xl": "1.5rem",
+    "text3xl": "1.875rem",
+    "text4xl": "2.25rem",
+    "spacingXs": "4px",
+    "spacingSm": "9px",
+    "spacingMd": "18px",
+    "spacingLg": "26px",
+    "spacingXl": "35px",
+    "spacing2xl": "53px",
+    "radiusSm": "8px",
+    "radiusMd": "15px",
+    "radiusLg": "23px",
+    "radiusFull": "9999px",
+    "shadowSm": "rgba(0, 0, 0, 0.1) 0px 0px 32px 0px",
+    "shadowMd": "rgba(0, 0, 0, 0.2) 0px 1px 10px 0px",
+    "shadowLg": "rgb(97, 31, 105) 0px 0px 0px 1px inset",
+    "lineHeightTight": "1.15",
+    "lineHeightNormal": "1.5",
+    "lineHeightRelaxed": "1.75"
+  },
+  "designMd": "# Hybrid Design System — Generated by Ditto\n\n> Blended from 2 inspirations\n> Generated on April 9, 2026\n\n## Inspirations\n- [Slack | Piattaforma di lavoro basata sull'IA e strumenti di produttività](https://slack.com/intl/it-it) — weight: 50%\n- [Maxima Therapy | Personalized Support for Neurodivergent Individuals](https://maximatherapy.com/) — weight: 50%\n\n## Mood Profile\n- **Tono**: Giocoso (-0.3)\n- **Formalità**: Bilanciato (-0.2)\n- **Energia**: Bilanciato (+0.0)\n- **Temperatura**: Caldo (-0.4)\n- **Densità**: Arioso (-0.4)\n- **Forma**: Morbido (-0.4)\n- **Profondità**: Bilanciato (-0.2)\n- **Palette**: Bilanciato (+0.0)\n- **Tipografia**: Espressiva (-0.3)\n- **Movimento**: Bilanciato (+0.2)\n\n## Font Setup\n\n### Fonts Used\n- **Heading**: `Salesforce-Sans`\n- **Body**: `Salesforce-Avant-Garde`\n- **Mono**: `ui-monospace`\n\n### CSS Custom Properties\n```css\n:root {\n  --font-heading: 'Salesforce-Sans', system-ui, sans-serif;\n  --font-body: 'Salesforce-Avant-Garde', system-ui, sans-serif;\n  --font-mono: 'ui-monospace', ui-monospace, monospace;\n  --font-weight-heading: 600;\n  --font-weight-body: 400;\n}\n```\n\n## Color Palette & Roles\n\n### Primary\n- **Primary** (`#175a45`): CTAs, interactive elements, brand moments\n- **Secondary** (`#ca6784`): Supporting accents\n- **Accent** (`#727678`): Decorative highlights\n\n### Surfaces\n- **Background** (`#ffffff`): Page background\n- **Surface** (`#f4ede4`): Cards, elevated elements\n\n### Text\n- **Primary** (`#000000`): Headings, strong labels\n- **Secondary** (`#b35735`): Body text, descriptions\n- **Muted** (`#1c66d0`): Placeholders, captions\n\n### Semantic\n- **Border** (`#f6eef0`): Dividers, container borders\n- **Success** (`#22c55e`): Confirmations\n- **Warning** (`#f59e0b`): Caution states\n- **Error** (`#ef4444`): Destructive actions\n\n## Typography Rules\n\n| Role | Font | Weight | Notes |\n|------|------|--------|-------|\n| Display | Salesforce-Sans | 600 | Hero headlines |\n| Heading | Salesforce-Sans | 600 | Section titles |\n| Body | Salesforce-Avant-Garde | 400 | Standard text |\n| Mono | ui-monospace | 400 | Code, technical |\n\n## Component Stylings\n\n### Buttons\n**Primary**\n- Background: `#175a45`\n- Text: `#ffffff`\n- Padding: 9px 18px\n- Radius: 15px\n\n**Secondary**\n- Background: transparent\n- Text: `#175a45`\n- Border: 1px solid `#f6eef0`\n- Radius: 15px\n\n### Cards\n- Background: `#f4ede4`\n- Border: 1px solid `#f6eef0`\n- Radius: 23px\n- Shadow: `rgba(0, 0, 0, 0.2) 0px 1px 10px 0px`\n\n### Inputs\n- Background: `#ffffff`\n- Border: 1px solid `#f6eef0`\n- Radius: 15px\n- Focus: 1px solid `#175a45`\n\n## Layout Principles\n\n### Spacing Scale\n- XS: 4px, SM: 9px, MD: 18px\n- LG: 26px, XL: 35px, 2XL: 53px\n\n### Border Radius\n- Small: 8px\n- Medium: 15px\n- Large: 23px\n- Full: 9999px\n\n### Shadows\n- SM: `rgba(0, 0, 0, 0.1) 0px 0px 32px 0px`\n- MD: `rgba(0, 0, 0, 0.2) 0px 1px 10px 0px`\n- LG: `rgb(97, 31, 105) 0px 0px 0px 1px inset`\n\n## Design Decisions (from Mood Profile)\n\n- **Subtle depth**: Moderate shadows for gentle elevation\n- **Soft shapes**: Rounded corners, friendly feel\n- **Balanced spacing**: Standard rhythm between elements\n- **Medium headlines**: Clear hierarchy without overwhelming\n\n## Agent Prompt Guide\n\n### Quick Reference\n- Primary: `#175a45`, Background: `#ffffff`\n- Heading: Salesforce-Sans @ 600, Body: Salesforce-Avant-Garde @ 400\n- Radius: 8px / 15px / 23px\n- Spacing: 4px / 9px / 18px / 26px\n\n### CSS Variables (ready to paste)\n```css\n:root {\n  --color-primary: #175a45;\n  --color-secondary: #ca6784;\n  --color-accent: #727678;\n  --color-bg: #ffffff;\n  --color-surface: #f4ede4;\n  --color-text: #000000;\n  --color-text-secondary: #b35735;\n  --color-text-muted: #1c66d0;\n  --color-border: #f6eef0;\n  --color-success: #22c55e;\n  --color-warning: #f59e0b;\n  --color-error: #ef4444;\n  --radius-sm: 8px;\n  --radius-md: 15px;\n  --radius-lg: 23px;\n  --shadow-sm: rgba(0, 0, 0, 0.1) 0px 0px 32px 0px;\n  --shadow-md: rgba(0, 0, 0, 0.2) 0px 1px 10px 0px;\n  --shadow-lg: rgb(97, 31, 105) 0px 0px 0px 1px inset;\n}\n```\n",
+  "createdAt": "2026-04-09T09:12:49.358Z",
+  "updatedAt": "2026-04-09T09:12:49.358Z",
+  "source": "extracted"
+}

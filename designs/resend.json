@@ -1,0 +1,252 @@
+{
+  "id": "rgQSjZLU3KxY0oFd5KV2J",
+  "slug": "resend",
+  "name": "Resend",
+  "url": "https://resend.com",
+  "description": "Email API. Minimal dark theme, monospace accents.",
+  "tokens": {
+    "colors": [
+      {
+        "hex": "#000000",
+        "rgb": "0, 0, 0",
+        "occurrences": 1,
+        "name": "Color 1",
+        "role": "primary"
+      },
+      {
+        "hex": "#f0f0f0",
+        "rgb": "240, 240, 240",
+        "occurrences": 1,
+        "name": "Color 2",
+        "role": "secondary"
+      },
+      {
+        "hex": "#ffffff",
+        "rgb": "255, 255, 255",
+        "occurrences": 1,
+        "name": "Color 3",
+        "role": "neutral"
+      },
+      {
+        "hex": "#ff5900",
+        "rgb": "255, 89, 0",
+        "occurrences": 1,
+        "name": "Color 4",
+        "role": "neutral"
+      },
+      {
+        "hex": "#ff801f",
+        "rgb": "255, 128, 31",
+        "occurrences": 1,
+        "name": "Color 5",
+        "role": "neutral"
+      },
+      {
+        "hex": "#ffa057",
+        "rgb": "255, 160, 87",
+        "occurrences": 1,
+        "name": "Color 6",
+        "role": "neutral"
+      },
+      {
+        "hex": "#22ff99",
+        "rgb": "34, 255, 153",
+        "occurrences": 1,
+        "name": "Color 7",
+        "role": "neutral"
+      },
+      {
+        "hex": "#11ff99",
+        "rgb": "17, 255, 153",
+        "occurrences": 1,
+        "name": "Color 8",
+        "role": "neutral"
+      },
+      {
+        "hex": "#0075ff",
+        "rgb": "0, 117, 255",
+        "occurrences": 1,
+        "name": "Color 9",
+        "role": "neutral"
+      },
+      {
+        "hex": "#0081fd",
+        "rgb": "0, 129, 253",
+        "occurrences": 1,
+        "name": "Color 10",
+        "role": "neutral"
+      },
+      {
+        "hex": "#3b9eff",
+        "rgb": "59, 158, 255",
+        "occurrences": 1,
+        "name": "Color 11",
+        "role": "neutral"
+      },
+      {
+        "hex": "#ffc53d",
+        "rgb": "255, 197, 61",
+        "occurrences": 1,
+        "name": "Color 12",
+        "role": "neutral"
+      },
+      {
+        "hex": "#ff2047",
+        "rgb": "255, 32, 71",
+        "occurrences": 1,
+        "name": "Color 13",
+        "role": "neutral"
+      },
+      {
+        "hex": "#a1a4a5",
+        "rgb": "161, 164, 165",
+        "occurrences": 1,
+        "name": "Color 14",
+        "role": "neutral"
+      },
+      {
+        "hex": "#464a4d",
+        "rgb": "70, 74, 77",
+        "occurrences": 1,
+        "name": "Color 15",
+        "role": "neutral"
+      },
+      {
+        "hex": "#5c5c5c",
+        "rgb": "92, 92, 92",
+        "occurrences": 1,
+        "name": "Color 16",
+        "role": "neutral"
+      },
+      {
+        "hex": "#494949",
+        "rgb": "73, 73, 73",
+        "occurrences": 1,
+        "name": "Color 17",
+        "role": "neutral"
+      },
+      {
+        "hex": "#f8f8f8",
+        "rgb": "248, 248, 248",
+        "occurrences": 1,
+        "name": "Color 18",
+        "role": "neutral"
+      },
+      {
+        "hex": "#eaeaea",
+        "rgb": "234, 234, 234",
+        "occurrences": 1,
+        "name": "Color 19",
+        "role": "neutral"
+      },
+      {
+        "hex": "#ececec",
+        "rgb": "236, 236, 236",
+        "occurrences": 1,
+        "name": "Color 20",
+        "role": "neutral"
+      }
+    ],
+    "typography": [
+      {
+        "fontFamily": "system-ui",
+        "fallbacks": [
+          "system-ui"
+        ],
+        "weights": [
+          700
+        ],
+        "role": "heading"
+      },
+      {
+        "fontFamily": "system-ui",
+        "fallbacks": [
+          "system-ui"
+        ],
+        "weights": [
+          400
+        ],
+        "role": "body"
+      }
+    ],
+    "typeScale": [],
+    "spacing": [],
+    "shadows": [],
+    "radii": [
+      {
+        "value": "8px",
+        "px": 8,
+        "occurrences": 1
+      },
+      {
+        "value": "16px",
+        "px": 16,
+        "occurrences": 1
+      },
+      {
+        "value": "96px",
+        "px": 96,
+        "occurrences": 1
+      },
+      {
+        "value": "9999px",
+        "px": 9999,
+        "occurrences": 1
+      }
+    ],
+    "components": [],
+    "cssVariables": {},
+    "meta": {
+      "url": "https://resend.com",
+      "title": "resend",
+      "extractedAt": "2026-04-09T07:52:03.165Z"
+    }
+  },
+  "resolved": {
+    "colorPrimary": "#000000",
+    "colorSecondary": "#f0f0f0",
+    "colorAccent": "#ffffff",
+    "colorBackground": "#000000",
+    "colorSurface": "#f8fafc",
+    "colorTextPrimary": "#000000",
+    "colorTextSecondary": "#475569",
+    "colorTextMuted": "#94a3b8",
+    "colorBorder": "#e2e8f0",
+    "colorSuccess": "#22ff99",
+    "colorWarning": "#f59e0b",
+    "colorError": "#ef4444",
+    "fontHeading": "system-ui",
+    "fontBody": "system-ui",
+    "fontMono": "ui-monospace",
+    "fontWeightHeading": 700,
+    "fontWeightBody": 400,
+    "textXs": "0.75rem",
+    "textSm": "0.875rem",
+    "textBase": "1rem",
+    "textLg": "1.125rem",
+    "textXl": "1.25rem",
+    "text2xl": "1.5rem",
+    "text3xl": "1.875rem",
+    "text4xl": "2.25rem",
+    "spacingXs": "4px",
+    "spacingSm": "8px",
+    "spacingMd": "16px",
+    "spacingLg": "24px",
+    "spacingXl": "32px",
+    "spacing2xl": "48px",
+    "radiusSm": "8px",
+    "radiusMd": "16px",
+    "radiusLg": "96px",
+    "radiusFull": "9999px",
+    "shadowSm": "0 1px 2px 0 rgba(0,0,0,0.05)",
+    "shadowMd": "0 4px 6px -1px rgba(0,0,0,0.1)",
+    "shadowLg": "0 10px 15px -3px rgba(0,0,0,0.1)",
+    "lineHeightTight": "1.15",
+    "lineHeightNormal": "1.5",
+    "lineHeightRelaxed": "1.75"
+  },
+  "designMd": "# Design System Inspiration of Resend\n\n## 1. Visual Theme & Atmosphere\n\nResend's website is a dark, cinematic canvas that treats email infrastructure like a luxury product. The entire page is draped in pure black (`#000000`) with text that glows in near-white (`#f0f0f0`), creating a theater-like experience where content performs on a void stage. This isn't the typical developer-tool darkness — it's the controlled darkness of a photography gallery, where every element is lit with intention and nothing competes for attention.\n\nThe typography system is the star of the show. Three carefully chosen typefaces create a hierarchy that feels both editorial and technical: Domaine Display (a Klim Type Foundry serif) appears at massive 96px for hero headlines with barely-there line-height (1.00) and negative tracking (-0.96px), creating display text that feels like a magazine cover. ABC Favorit (by Dinamo) handles section headings with an even more aggressive letter-spacing (-2.8px at 56px), giving a compressed, engineered quality to mid-tier text. Inter takes over for body and UI, providing the clean readability that lets the display fonts shine. Commit Mono rounds out the family for code blocks.\n\nWhat makes Resend distinctive is its icy, blue-tinted border system. Instead of neutral gray borders, Resend uses `rgba(214, 235, 253, 0.19)` — a frosty, slightly blue-tinted line at 19% opacity that gives every container and divider a cold, crystalline quality against the black background. Combined with pill-shaped buttons (9999px radius), multi-color accent system (orange, green, blue, yellow, red — each with its own CSS variable scale), and OpenType stylistic sets (`\"ss01\"`, `\"ss03\"`, `\"ss04\"`, `\"ss11\"`), the result is a design system that feels premium, precise, and quietly confident.\n\n**Key Characteristics:**\n- Pure black background with near-white (`#f0f0f0`) text — theatrical, gallery-like darkness\n- Three-font hierarchy: Domaine Display (serif hero), ABC Favorit (geometric sections), Inter (body/UI)\n- Icy blue-tinted borders: `rgba(214, 235, 253, 0.19)` — every border has a cold, crystalline shimmer\n- Multi-color accent system: orange, green, blue, yellow, red — each with numbered CSS variable scales\n- Pill-shaped buttons and tags (9999px radius) with transparent backgrounds\n- OpenType stylistic sets (`\"ss01\"`, `\"ss03\"`, `\"ss04\"`, `\"ss11\"`) on display fonts\n- Commit Mono for code — monospace as a design element, not an afterthought\n- Whisper-level shadows using blue-tinted ring: `rgba(176, 199, 217, 0.145) 0px 0px 0px 1px`\n\n## 2. Color Palette & Roles\n\n### Primary\n- **Void Black** (`#000000`): Page background, the defining canvas color (95% opacity via `--color-black-12`)\n- **Near White** (`#f0f0f0`): Primary text, button text, high-contrast elements\n- **Pure White** (`#ffffff`): `--color-white`, maximum emphasis text, link highlights\n\n### Accent Scale — Orange\n- **Orange 4** (`#ff5900`): `--color-orange-4`, at 22% opacity — subtle warm glow\n- **Orange 10** (`#ff801f`): `--color-orange-10`, primary orange accent — warm, energetic\n- **Orange 11** (`#ffa057`): `--color-orange-11`, lighter orange for secondary use\n\n### Accent Scale — Green\n- **Green 3** (`#22ff99`): `--color-green-3`, at 12% opacity — faint emerald wash\n- **Green 4** (`#11ff99`): `--color-green-4`, at 18% opacity — success indicator glow\n\n### Accent Scale — Blue\n- **Blue 4** (`#0075ff`): `--color-blue-4`, at 34% opacity — medium blue accent\n- **Blue 5** (`#0081fd`): `--color-blue-5`, at 42% opacity — stronger blue\n- **Blue 10** (`#3b9eff`): `--color-blue-10`, bright blue — links, interactive elements\n\n### Accent Scale — Other\n- **Yellow 9** (`#ffc53d`): `--color-yellow-9`, warm gold for warnings or highlights\n- **Red 5** (`#ff2047`): `--color-red-5`, at 34% opacity — error states, destructive actions\n\n### Neutral Scale\n- **Silver** (`#a1a4a5`): Secondary text, muted links, descriptions\n- **Dark Gray** (`#464a4d`): Tertiary text, de-emphasized content\n- **Mid Gray** (`#5c5c5c`): Hover states, subtle emphasis\n- **Medium Gray** (`#494949`): Quaternary text\n- **Light Gray** (`#f8f8f8`): Light mode surface (if applicable)\n- **Border Gray** (`#eaeaea`): Light context borders\n- **Edge Gray** (`#ececec`): Subtle borders on light surfaces\n- **Mist Gray** (`#dedfdf`): Light dividers\n- **Soft Gray** (`#e5e6e6`): Alternate light border\n\n### Surface & Overlay\n- **Frost Primary** (`#fcfdff`): Primary color token (slight blue tint, 94% opacity)\n- **White Hover** (`rgba(255, 255, 255, 0.28)`): Button hover state on dark\n- **White 60%** (`oklab(0.999994 ... / 0.577)`): Semi-transparent white for muted text\n- **White 64%** (`oklab(0.999994 ... / 0.642)`): Slightly brighter semi-transparent white\n\n### Borders & Shadows\n- **Frost Border** (`rgba(214, 235, 253, 0.19)`): The signature — icy blue-tinted borders at 19% opacity\n- **Frost Border Alt** (`rgba(217, 237, 254, 0.145)`): Slightly lighter variant for list items\n- **Ring Shadow** (`rgba(176, 199, 217, 0.145) 0px 0px 0px 1px`): Blue-tinted shadow-as-border\n- **Focus Ring** (`rgb(0, 0, 0) 0px 0px 0px 8px`): Heavy black focus ring\n- **Subtle Shadow** (`rgba(0, 0, 0, 0.1) 0px 1px 3px, rgba(0, 0, 0, 0.1) 0px 1px 2px -1px`): Minimal card elevation\n\n## 3. Typography Rules\n\n### Font Families\n- **Display Serif**: `domaine` (Domaine Display by Klim Type Foundry) — hero headlines\n- **Display Sans**: `aBCFavorit` (ABC Favorit by Dinamo), fallbacks: `ui-sans-serif, system-ui` — section headings\n- **Body / UI**: `inter`, fallbacks: `ui-sans-serif, system-ui` — body text, buttons, navigation\n- **Monospace**: `commitMono`, fallbacks: `ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas`\n- **Secondary**: `Helvetica` — fallback for specific UI contexts\n- **System**: `-apple-system, system-ui, Segoe UI, Roboto` — embedded content\n\n### Hierarchy\n\n| Role | Font | Size | Weight | Line Height | Letter Spacing | Notes |\n|------|------|------|--------|-------------|----------------|-------|\n| Display Hero | domaine | 96px (6.00rem) | 400 | 1.00 (tight) | -0.96px | `\"ss01\", \"ss04\", \"ss11\"` |\n| Display Hero Mobile | domaine | 76.8px (4.80rem) | 400 | 1.00 (tight) | -0.768px | Scaled for mobile |\n| Section Heading | aBCFavorit | 56px (3.50rem) | 400 | 1.20 (tight) | -2.8px | `\"ss01\", \"ss04\", \"ss11\"` |\n| Sub-heading | aBCFavorit | 20px (1.25rem) | 400 | 1.30 (tight) | normal | `\"ss01\", \"ss04\", \"ss11\"` |\n| Sub-heading Compact | aBCFavorit | 16px (1.00rem) | 400 | 1.50 | -0.8px | `\"ss01\", \"ss04\", \"ss11\"` |\n| Feature Title | inter | 24px (1.50rem) | 500 | 1.50 | normal | Section sub-headings |\n| Body Large | inter | 18px (1.13rem) | 400 | 1.50 | normal | Introductions |\n| Body | inter | 16px (1.00rem) | 400 | 1.50 | normal | Standard body text |\n| Body Semibold | inter | 16px (1.00rem) | 600 | 1.50 | normal | Emphasis, active states |\n| Nav Link | aBCFavorit | 14px (0.88rem) | 500 | 1.43 | 0.35px | `\"ss01\", \"ss03\", \"ss04\"` — positive tracking |\n| Button / Link | inter | 14px (0.88rem) | 500–600 | 1.43 | normal | Buttons, nav, CTAs |\n| Caption | inter | 14px (0.88rem) | 400 | 1.60 (relaxed) | normal | Descriptions |\n| Helvetica Caption | Helvetica | 14px (0.88rem) | 400–600 | 1.00–1.71 | normal | UI elements |\n| Small | inter | 12px (0.75rem) | 400–500 | 1.33 | normal | Tags, meta, fine print |\n| Small Uppercase | inter | 12px (0.75rem) | 500 | 1.33 | normal | `text-transform: uppercase` |\n| Small Capitalize | inter | 12px (0.75rem) | 500 | 1.33 | normal | `text-transform: capitalize` |\n| Code Body | commitMono | 16px (1.00rem) | 400 | 1.50 | normal | Code blocks |\n| Code Small | commitMono | 14px (0.88rem) | 400 | 1.43 | normal | Inline code |\n| Code Tiny | commitMono | 12px (0.75rem) | 400 | 1.33 | normal | Small code labels |\n| Heading (Helvetica) | Helvetica | 24px (1.50rem) | 400 | 1.40 | normal | Alternate heading context |\n\n### Principles\n- **Three-font editorial hierarchy**: Domaine Display (serif, hero), ABC Favorit (geometric sans, sections), Inter (readable body). Each font has a strict role — they never cross lanes.\n- **Aggressive negative tracking on display**: Domaine at -0.96px, ABC Favorit at -2.8px. The display type feels compressed, urgent, and designed — like a magazine masthead.\n- **Positive tracking on nav**: ABC Favorit nav links use +0.35px letter-spacing — the only positive tracking in the system. This creates airy, spaced-out navigation text that contrasts with the compressed headings.\n- **OpenType as identity**: The `\"ss01\"`, `\"ss03\"`, `\"ss04\"`, `\"ss11\"` stylistic sets are enabled on all ABC Favorit and Domaine text, activating alternate glyphs that give Resend's typography its unique character.\n- **Commit Mono as design element**: The monospace font isn't hidden in code blocks — it's used prominently for code examples and technical content, treated as a first-class visual element.\n\n## 4. Component Stylings\n\n### Buttons\n\n**Primary Transparent Pill**\n- Background: transparent\n- Text: `#f0f0f0`\n- Padding: 5px 12px\n- Radius: 9999px (full pill)\n- Border: `1px solid rgba(214, 235, 253, 0.19)` (frost border)\n- Hover: background `rgba(255, 255, 255, 0.28)` (white glass)\n- Use: Primary CTA on dark backgrounds\n\n**White Solid Pill**\n- Background: `#ffffff`\n- Text: `#000000`\n- Padding: 5px 12px\n- Radius: 9999px\n- Use: High-contrast CTA (\"Get started\")\n\n**Ghost Button**\n- Background: transparent\n- Text: `#f0f0f0`\n- Radius: 4px\n- No border\n- Hover: subtle background tint\n- Use: Secondary actions, tab items\n\n### Cards & Containers\n- Background: transparent or very subtle dark tint\n- Border: `1px solid rgba(214, 235, 253, 0.19)` (frost border)\n- Radius: 16px (standard cards), 24px (large sections/panels)\n- Shadow: `rgba(176, 199, 217, 0.145) 0px 0px 0px 1px` (ring shadow)\n- Dark product screenshots and code demos as card content\n- No traditional box-shadow elevation\n\n### Inputs & Forms\n- Text: `#f0f0f0` on dark, `#000000` on light\n- Radius: 4px\n- Focus: shadow-based ring\n- Minimal styling — inherits dark theme\n\n### Navigation\n- Sticky dark header with frost border bottom: `1px solid rgba(214, 235, 253, 0.19)`\n- \"Resend\" wordmark left-aligned\n- ABC Favorit 14px weight 500 with +0.35px tracking for nav links\n- Pill CTAs right-aligned\n- Mobile: hamburger collapse\n\n### Image Treatment\n- Product screenshots and code demos dominate content sections\n- Dark-themed screenshots on dark background — seamless integration\n- Rounded corners: 12px–16px on images\n- Full-width sections with subtle gradient overlays\n\n### Distinctive Components\n\n**Tab Navigation**\n- Horizontal tabs with subtle selection indicator\n- Tab items: 8px radius\n- Active state with subtle background differentiation\n\n**Code Preview Panels**\n- Dark code blocks using Commit Mono\n- Frost borders (`rgba(214, 235, 253, 0.19)`)\n- Syntax-highlighted with multi-color accent tokens (orange, blue, green, yellow)\n\n**Multi-color Accent Badges**\n- Each product feature has its own accent color from the CSS variable scale\n- Badges use the accent color at low opacity (12–42%) for background, full opacity for text\n\n## 5. Layout Principles\n\n### Spacing System\n- Base unit: 8px\n- Scale: 1px, 2px, 4px, 5px, 6px, 7px, 8px, 10px, 12px, 16px, 20px, 24px, 30px, 32px, 40px\n\n### Grid & Container\n- Centered content with generous max-width\n- Full-width black sections with contained inner content\n- Single-column hero, expanding to feature grids below\n- Code preview panels as full-width or contained showcases\n\n### Whitespace Philosophy\n- **Cinematic black space**: The black background IS the whitespace. Generous vertical spacing (80px–120px+) between sections creates a scroll-through-darkness experience where each section emerges like a scene.\n- **Tight content, vast surrounds**: Text blocks and cards are compact internally, but float in vast dark space — creating isolated \"islands\" of content.\n- **Typography-led rhythm**: The massive display fonts (96px) create their own vertical rhythm — each headline is a visual event that anchors the surrounding space.\n\n### Border Radius Scale\n- Sharp (4px): Buttons (ghost), inputs, small interactive elements\n- Subtle (6px): Menu panels, navigation items\n- Standard (8px): Tabs, content blocks\n- Comfortable (10px): Accent elements\n- Card (12px): Clipboard buttons, medium containers\n- Large (16px): Feature cards, images, main buttons\n- Section (24px): Large panels, section containers\n- Pill (9999px): Primary CTAs, tags, badges\n\n## 6. Depth & Elevation\n\n| Level | Treatment | Use |\n|-------|-----------|-----|\n| Flat (Level 0) | No shadow, transparent background | Default — most elements on dark void |\n| Ring (Level 1) | `rgba(176, 199, 217, 0.145) 0px 0px 0px 1px` | Shadow-as-border for cards, containers |\n| Frost Border (Level 1b) | `1px solid rgba(214, 235, 253, 0.19)` | Explicit borders — buttons, dividers, tabs |\n| Subtle (Level 2) | `rgba(0, 0, 0, 0.1) 0px 1px 3px, rgba(0, 0, 0, 0.1) 0px 1px 2px -1px` | Light card elevation |\n| Focus (Level 3) | `rgb(0, 0, 0) 0px 0px 0px 8px` | Heavy black focus ring — accessibility |\n\n**Shadow Philosophy**: Resend barely uses shadows at all. On a pure black background, traditional shadows are invisible — you can't cast a shadow into the void. Instead, Resend creates depth through its signature frost borders (`rgba(214, 235, 253, 0.19)`) — thin, icy blue-tinted lines that catch light against the darkness. This creates a \"glass panel floating in space\" aesthetic where borders are the primary depth mechanism.\n\n### Decorative Depth\n- Subtle warm gradient glows behind hero content (orange/amber tints)\n- Product screenshots create visual depth through their own internal UI\n- No gradient backgrounds — depth comes from border luminance and content contrast\n\n## 7. Do's and Don'ts\n\n### Do\n- Use pure black (`#000000`) as the page background — the void is the canvas\n- Apply frost borders (`rgba(214, 235, 253, 0.19)`) for all structural lines — they're the blue-tinted signature\n- Use Domaine Display ONLY for hero headings (96px), ABC Favorit for section headings, Inter for everything else\n- Enable OpenType `\"ss01\"`, `\"ss04\"`, `\"ss11\"` on Domaine and ABC Favorit text\n- Apply pill radius (9999px) to primary CTAs and tags\n- Use the multi-color accent scale (orange/green/blue/yellow/red) with opacity variants for context-specific highlighting\n- Keep shadows at ring level (`0px 0px 0px 1px`) — on black, traditional shadows don't work\n- Use +0.35px letter-spacing on ABC Favorit nav links — the only positive tracking\n\n### Don't\n- Don't lighten the background above `#000000` — the pure black void is non-negotiable\n- Don't use neutral gray borders — all borders must have the frost blue tint\n- Don't apply Domaine Display to body text — it's a display-only serif\n- Don't mix accent colors in the same component — each feature gets one accent color\n- Don't use box-shadow for elevation on the dark background — use frost borders instead\n- Don't skip the OpenType stylistic sets — they define the typographic character\n- Don't use negative letter-spacing on nav links — ABC Favorit nav uses positive +0.35px\n- Don't make buttons opaque on dark — transparency with frost border is the pattern\n\n## 8. Responsive Behavior\n\n### Breakpoints\n| Name | Width | Key Changes |\n|------|-------|-------------|\n| Mobile Small | <480px | Single column, tight padding, 76.8px hero |\n| Mobile | 480–600px | Standard mobile, stacked layout |\n| Desktop | >600px | Full layout, 96px hero, expanded sections |\n\n*Note: Resend uses a minimal breakpoint system — only 480px and 600px detected. The design is desktop-first with a clean mobile collapse.*\n\n### Touch Targets\n- Pill buttons: adequate padding (5px 12px minimum)\n- Tab items: 8px radius with comfortable hit areas\n- Navigation links spaced with 0.35px tracking for visual separation\n\n### Collapsing Strategy\n- Hero: Domaine 96px → 76.8px on mobile\n- Navigation: horizontal → hamburger\n- Feature sections: side-by-side → stacked\n- Code panels: maintain width, horizontal scroll if needed\n- Spacing compresses proportionally\n\n### Image Behavior\n- Product screenshots maintain aspect ratio\n- Dark screenshots blend seamlessly with dark background at all sizes\n- Rounded corners (12px–16px) maintained across breakpoints\n\n## 9. Agent Prompt Guide\n\n### Quick Color Reference\n- Background: Void Black (`#000000`)\n- Primary text: Near White (`#f0f0f0`)\n- Secondary text: Silver (`#a1a4a5`)\n- Border: Frost Border (`rgba(214, 235, 253, 0.19)`)\n- Orange accent: `#ff801f`\n- Green accent: `#11ff99` (at 18% opacity)\n- Blue accent: `#3b9eff`\n- Focus ring: `rgb(0, 0, 0) 0px 0px 0px 8px`\n\n### Example Component Prompts\n- \"Create a hero section on pure black (#000000) background. Headline at 96px Domaine Display weight 400, line-height 1.00, letter-spacing -0.96px, near-white (#f0f0f0) text, OpenType 'ss01 ss04 ss11'. Subtitle at 20px ABC Favorit weight 400, line-height 1.30. Two pill buttons: white solid (#ffffff, 9999px radius) and transparent with frost border (rgba(214,235,253,0.19)).\"\n- \"Design a navigation bar: dark background with frost border bottom (1px solid rgba(214,235,253,0.19)). Nav links at 14px ABC Favorit weight 500, letter-spacing +0.35px, OpenType 'ss01 ss03 ss04'. White pill CTA right-aligned.\"\n- \"Build a feature card: transparent background, frost border (rgba(214,235,253,0.19)), 16px radius. Title at 56px ABC Favorit weight 400, letter-spacing -2.8px. Body at 16px Inter weight 400, #a1a4a5 text.\"\n- \"Create a code block using Commit Mono 16px on dark background. Frost border container (24px radius). Syntax colors: orange (#ff801f), blue (#3b9eff), green (#11ff99), yellow (#ffc53d).\"\n- \"Design an accent badge: background #ff5900 at 22% opacity, text #ffa057, 9999px radius, 12px Inter weight 500.\"\n\n### Iteration Guide\n1. Start with pure black — everything floats in the void\n2. Frost borders (`rgba(214, 235, 253, 0.19)`) are the universal structural element — not gray, not neutral\n3. Three fonts, three roles: Domaine (hero), ABC Favorit (sections), Inter (body) — never cross\n4. OpenType stylistic sets are mandatory on display fonts — they define the character\n5. Multi-color accents at low opacity (12–42%) for backgrounds, full opacity for text\n6. Pill shape (9999px) for CTAs and badges, standard radius (4px–16px) for containers\n7. No shadows — use frost borders for depth against the void\n",
+  "createdAt": "2026-04-09T07:52:03.165Z",
+  "updatedAt": "2026-04-09T07:52:03.165Z",
+  "source": "imported"
+}

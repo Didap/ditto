@@ -1,0 +1,240 @@
+{
+  "id": "DXc2nOCJshZkYW8GrVqRV",
+  "slug": "miro",
+  "name": "Miro",
+  "url": "https://miro.com",
+  "description": "Visual collaboration. Bright yellow accent, infinite canvas aesthetic.",
+  "tokens": {
+    "colors": [
+      {
+        "hex": "#1c1c1e",
+        "rgb": "28, 28, 30",
+        "occurrences": 1,
+        "name": "Color 1",
+        "role": "primary"
+      },
+      {
+        "hex": "#5b76fe",
+        "rgb": "91, 118, 254",
+        "occurrences": 1,
+        "name": "Color 2",
+        "role": "secondary"
+      },
+      {
+        "hex": "#00b473",
+        "rgb": "0, 180, 115",
+        "occurrences": 1,
+        "name": "Color 3",
+        "role": "neutral"
+      },
+      {
+        "hex": "#ffffff",
+        "rgb": "255, 255, 255",
+        "occurrences": 1,
+        "name": "Color 4",
+        "role": "neutral"
+      },
+      {
+        "hex": "#2a41b6",
+        "rgb": "42, 65, 182",
+        "occurrences": 1,
+        "name": "Color 5",
+        "role": "neutral"
+      },
+      {
+        "hex": "#ffc6c6",
+        "rgb": "255, 198, 198",
+        "occurrences": 1,
+        "name": "Color 6",
+        "role": "neutral"
+      },
+      {
+        "hex": "#600000",
+        "rgb": "96, 0, 0",
+        "occurrences": 1,
+        "name": "Color 7",
+        "role": "neutral"
+      },
+      {
+        "hex": "#ffd8f4",
+        "rgb": "255, 216, 244",
+        "occurrences": 1,
+        "name": "Color 8",
+        "role": "neutral"
+      },
+      {
+        "hex": "#c3faf5",
+        "rgb": "195, 250, 245",
+        "occurrences": 1,
+        "name": "Color 9",
+        "role": "neutral"
+      },
+      {
+        "hex": "#187574",
+        "rgb": "24, 117, 116",
+        "occurrences": 1,
+        "name": "Color 10",
+        "role": "neutral"
+      },
+      {
+        "hex": "#ffe6cd",
+        "rgb": "255, 230, 205",
+        "occurrences": 1,
+        "name": "Color 11",
+        "role": "neutral"
+      },
+      {
+        "hex": "#746019",
+        "rgb": "116, 96, 25",
+        "occurrences": 1,
+        "name": "Color 12",
+        "role": "neutral"
+      },
+      {
+        "hex": "#fde0f0",
+        "rgb": "253, 224, 240",
+        "occurrences": 1,
+        "name": "Color 13",
+        "role": "neutral"
+      },
+      {
+        "hex": "#fbd4d4",
+        "rgb": "251, 212, 212",
+        "occurrences": 1,
+        "name": "Color 14",
+        "role": "neutral"
+      },
+      {
+        "hex": "#e3c5c5",
+        "rgb": "227, 197, 197",
+        "occurrences": 1,
+        "name": "Color 15",
+        "role": "neutral"
+      },
+      {
+        "hex": "#555a6a",
+        "rgb": "85, 90, 106",
+        "occurrences": 1,
+        "name": "Color 16",
+        "role": "neutral"
+      },
+      {
+        "hex": "#a5a8b5",
+        "rgb": "165, 168, 181",
+        "occurrences": 1,
+        "name": "Color 17",
+        "role": "neutral"
+      },
+      {
+        "hex": "#c7cad5",
+        "rgb": "199, 202, 213",
+        "occurrences": 1,
+        "name": "Color 18",
+        "role": "neutral"
+      },
+      {
+        "hex": "#e9eaef",
+        "rgb": "233, 234, 239",
+        "occurrences": 1,
+        "name": "Color 19",
+        "role": "neutral"
+      }
+    ],
+    "typography": [
+      {
+        "fontFamily": "system-ui",
+        "fallbacks": [
+          "system-ui"
+        ],
+        "weights": [
+          700
+        ],
+        "role": "heading"
+      },
+      {
+        "fontFamily": "system-ui",
+        "fallbacks": [
+          "system-ui"
+        ],
+        "weights": [
+          400
+        ],
+        "role": "body"
+      }
+    ],
+    "typeScale": [],
+    "spacing": [],
+    "shadows": [],
+    "radii": [
+      {
+        "value": "1px",
+        "px": 1,
+        "occurrences": 1
+      },
+      {
+        "value": "12px",
+        "px": 12,
+        "occurrences": 1
+      },
+      {
+        "value": "56px",
+        "px": 56,
+        "occurrences": 1
+      }
+    ],
+    "components": [],
+    "cssVariables": {},
+    "meta": {
+      "url": "https://miro.com",
+      "title": "miro",
+      "extractedAt": "2026-04-09T07:51:49.488Z"
+    }
+  },
+  "resolved": {
+    "colorPrimary": "#1c1c1e",
+    "colorSecondary": "#5b76fe",
+    "colorAccent": "#00b473",
+    "colorBackground": "#1c1c1e",
+    "colorSurface": "#f8fafc",
+    "colorTextPrimary": "#1c1c1e",
+    "colorTextSecondary": "#475569",
+    "colorTextMuted": "#94a3b8",
+    "colorBorder": "#e2e8f0",
+    "colorSuccess": "#00b473",
+    "colorWarning": "#f59e0b",
+    "colorError": "#ef4444",
+    "fontHeading": "system-ui",
+    "fontBody": "system-ui",
+    "fontMono": "ui-monospace",
+    "fontWeightHeading": 700,
+    "fontWeightBody": 400,
+    "textXs": "0.75rem",
+    "textSm": "0.875rem",
+    "textBase": "1rem",
+    "textLg": "1.125rem",
+    "textXl": "1.25rem",
+    "text2xl": "1.5rem",
+    "text3xl": "1.875rem",
+    "text4xl": "2.25rem",
+    "spacingXs": "4px",
+    "spacingSm": "8px",
+    "spacingMd": "16px",
+    "spacingLg": "24px",
+    "spacingXl": "32px",
+    "spacing2xl": "48px",
+    "radiusSm": "1px",
+    "radiusMd": "12px",
+    "radiusLg": "56px",
+    "radiusFull": "9999px",
+    "shadowSm": "0 1px 2px 0 rgba(0,0,0,0.05)",
+    "shadowMd": "0 4px 6px -1px rgba(0,0,0,0.1)",
+    "shadowLg": "0 10px 15px -3px rgba(0,0,0,0.1)",
+    "lineHeightTight": "1.15",
+    "lineHeightNormal": "1.5",
+    "lineHeightRelaxed": "1.75"
+  },
+  "designMd": "# Design System Inspiration of Miro\n\n## 1. Visual Theme & Atmosphere\n\nMiro's website is a clean, collaborative-tool-forward platform that communicates \"visual thinking\" through generous whitespace, pastel accent colors, and a confident geometric font. The design uses a predominantly white canvas with near-black text (`#1c1c1e`) and a distinctive pastel color palette — coral, rose, teal, orange, yellow, moss — each representing different collaboration contexts.\n\nThe typography uses Roobert PRO Medium as the primary display font with OpenType character variants (`\"blwf\", \"cv03\", \"cv04\", \"cv09\", \"cv11\"`) and negative letter-spacing (-1.68px at 56px). Noto Sans handles body text with its own stylistic set (`\"liga\" 0, \"ss01\", \"ss04\", \"ss05\"`). The design is built with Framer, giving it smooth animations and modern component patterns.\n\n**Key Characteristics:**\n- White canvas with near-black (`#1c1c1e`) text\n- Roobert PRO Medium with multiple OpenType character variants\n- Pastel accent palette: coral, rose, teal, orange, yellow, moss (light + dark pairs)\n- Blue 450 (`#5b76fe`) as primary interactive color\n- Success green (`#00b473`) for positive states\n- Generous border-radius: 8px–50px range\n- Framer-built with smooth motion patterns\n- Ring shadow border: `rgb(224,226,232) 0px 0px 0px 1px`\n\n## 2. Color Palette & Roles\n\n### Primary\n- **Near Black** (`#1c1c1e`): Primary text\n- **White** (`#ffffff`): `--tw-color-white`, primary surface\n- **Blue 450** (`#5b76fe`): `--tw-color-blue-450`, primary interactive\n- **Actionable Pressed** (`#2a41b6`): `--tw-color-actionable-pressed`\n\n### Pastel Accents (Light/Dark pairs)\n- **Coral**: Light `#ffc6c6` / Dark `#600000`\n- **Rose**: Light `#ffd8f4` / Dark (implied)\n- **Teal**: Light `#c3faf5` / Dark `#187574`\n- **Orange**: Light `#ffe6cd`\n- **Yellow**: Dark `#746019`\n- **Moss**: Dark `#187574`\n- **Pink** (`#fde0f0`): Soft pink surface\n- **Red** (`#fbd4d4`): Light red surface\n- **Dark Red** (`#e3c5c5`): Muted red\n\n### Semantic\n- **Success** (`#00b473`): `--tw-color-success-accent`\n\n### Neutral\n- **Slate** (`#555a6a`): Secondary text\n- **Input Placeholder** (`#a5a8b5`): `--tw-color-input-placeholder`\n- **Border** (`#c7cad5`): Button borders\n- **Ring** (`rgb(224,226,232)`): Shadow-as-border\n\n## 3. Typography Rules\n\n### Font Families\n- **Display**: `Roobert PRO Medium`, fallback: Placeholder — `\"blwf\", \"cv03\", \"cv04\", \"cv09\", \"cv11\"`\n- **Display Variants**: `Roobert PRO SemiBold`, `Roobert PRO SemiBold Italic`, `Roobert PRO`\n- **Body**: `Noto Sans` — `\"liga\" 0, \"ss01\", \"ss04\", \"ss05\"`\n\n### Hierarchy\n\n| Role | Font | Size | Weight | Line Height | Letter Spacing |\n|------|------|------|--------|-------------|----------------|\n| Display Hero | Roobert PRO Medium | 56px | 400 | 1.15 | -1.68px |\n| Section Heading | Roobert PRO Medium | 48px | 400 | 1.15 | -1.44px |\n| Card Title | Roobert PRO Medium | 24px | 400 | 1.15 | -0.72px |\n| Sub-heading | Noto Sans | 22px | 400 | 1.35 | -0.44px |\n| Feature | Roobert PRO Medium | 18px | 600 | 1.35 | normal |\n| Body | Noto Sans | 18px | 400 | 1.45 | normal |\n| Body Standard | Noto Sans | 16px | 400–600 | 1.50 | -0.16px |\n| Button | Roobert PRO Medium | 17.5px | 700 | 1.29 | 0.175px |\n| Caption | Roobert PRO Medium | 14px | 400 | 1.71 | normal |\n| Small | Roobert PRO Medium | 12px | 400 | 1.15 | -0.36px |\n| Micro Uppercase | Roobert PRO | 10.5px | 400 | 0.90 | uppercase |\n\n## 4. Component Stylings\n\n### Buttons\n- Outlined: transparent bg, `1px solid #c7cad5`, 8px radius, 7px 12px padding\n- White circle: 50% radius, white bg with shadow\n- Blue primary (implied from interactive color)\n\n### Cards: 12px–24px radius, pastel backgrounds\n### Inputs: white bg, `1px solid #e9eaef`, 8px radius, 16px padding\n\n## 5. Layout Principles\n- Spacing: 1–24px base scale\n- Radius: 8px (buttons), 10px–12px (cards), 20px–24px (panels), 40px–50px (large containers)\n- Ring shadow: `rgb(224,226,232) 0px 0px 0px 1px`\n\n## 6. Depth & Elevation\nMinimal — ring shadow + pastel surface contrast\n\n## 7. Do's and Don'ts\n### Do\n- Use pastel light/dark pairs for feature sections\n- Apply Roobert PRO with OpenType character variants\n- Use Blue 450 (#5b76fe) for interactive elements\n### Don't\n- Don't use heavy shadows\n- Don't mix more than 2 pastel accents per section\n\n## 8. Responsive Behavior\nBreakpoints: 425px, 576px, 768px, 896px, 1024px, 1200px, 1280px, 1366px, 1700px, 1920px\n\n## 9. Agent Prompt Guide\n### Quick Color Reference\n- Text: Near Black (`#1c1c1e`)\n- Background: White (`#ffffff`)\n- Interactive: Blue 450 (`#5b76fe`)\n- Success: `#00b473`\n- Border: `#c7cad5`\n### Example Component Prompts\n- \"Create hero: white background. Roobert PRO Medium 56px, line-height 1.15, letter-spacing -1.68px. Blue CTA (#5b76fe). Outlined secondary (1px solid #c7cad5, 8px radius).\"\n",
+  "createdAt": "2026-04-09T07:51:49.488Z",
+  "updatedAt": "2026-04-09T07:51:49.488Z",
+  "source": "imported"
+}

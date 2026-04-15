@@ -1,0 +1,34 @@
+# Ditto — Design System Extractor
+
+> Ditto extracts design systems from any website and lets you blend multiple inspirations into a unique design system.
+
+## What Ditto Does
+
+Ditto reverse-engineers websites using headless browser CSS analysis (zero AI) to extract complete design token sets — colors, typography, spacing, shadows, and component patterns. Users can combine 2-10 website inspirations with adjustable mood-based weights to generate hybrid design systems that are uniquely theirs.
+
+## Key Features
+
+- **Design Extraction**: Paste any URL, get 100+ design tokens in under 30 seconds
+- **Blending Engine**: Combine multiple site inspirations with weighted mood dimensions (warmth, energy, density, etc.)
+- **Live Preview**: See your design system across 6 page templates (Landing, Dashboard, Auth, Pricing, Blog, Components)
+- **Production-Ready Export**: DESIGN.md spec, CSS custom properties, React components
+- **Figma Integration**: Push design tokens directly to Figma as variables
+
+## Who It's For
+
+- Frontend developers who need a design system without starting from scratch
+- UI/UX designers looking for inspiration-based design generation
+- Startups and agencies that want unique design systems fast
+- Teams migrating from ad-hoc CSS to structured design tokens
+
+## Pricing
+
+- **Free**: 3 extractions/month, 1 project, DESIGN.md + CSS export
+- **Pro ($19/mo)**: Unlimited extractions, unlimited projects, React export, Figma push
+- **Team ($49/mo)**: Everything in Pro + 5 seats, shared library, team history
+
+## Links
+
+- Homepage: https://ditto.design
+- Pricing: https://ditto.design/pricing
+- Documentation: https://ditto.design/docs
