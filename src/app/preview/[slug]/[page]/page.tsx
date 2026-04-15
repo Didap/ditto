@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import Script from "next/script";
 import { useParams } from "next/navigation";
 import type { StoredDesign } from "@/lib/types";
 import { PreviewShell } from "@/components/preview/PreviewShell";
@@ -48,7 +49,10 @@ export default function StandalonePreviewPage() {
   return (
     <div style={{ width: 1440, margin: "0 auto", minHeight: "100vh" }}>
       {/* Figma capture script — enables html.to.design and generate_figma_design */}
-      <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async />
+      <Script
+        src="https://mcp.figma.com/mcp/html-to-design/capture.js"
+        strategy="afterInteractive"
+      />
       <PreviewShell
         resolved={design.resolved}
         fontSources={design.tokens.fontSources || []}

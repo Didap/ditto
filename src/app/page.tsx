@@ -336,22 +336,22 @@ export default function LandingPage() {
 
         <div className="max-w-3xl mx-auto text-center relative z-10">
           <h1 className="font-extrabold tracking-tight leading-tight">
-            <span className="block text-2xl md:text-3xl text-[var(--ditto-text-muted)]">{T("heroLine1")}</span>
+            <span className="block text-2xl md:text-3xl text-(--ditto-text-muted)">{T("heroLine1")}</span>
             <span className="block text-6xl md:text-8xl my-2 py-4 leading-[1.3]"><FontGlitch text={T("heroLine2")} /></span>
-            <span className="block text-2xl md:text-3xl text-[var(--ditto-text-muted)]">{T("heroLine3")}</span>
+            <span className="block text-2xl md:text-3xl text-(--ditto-text-muted)">{T("heroLine3")}</span>
           </h1>
-          <p className="mt-6 text-lg text-[var(--ditto-text-secondary)] max-w-2xl mx-auto leading-relaxed">
+          <p className="mt-6 text-lg text-(--ditto-text-secondary) max-w-2xl mx-auto leading-relaxed">
             {T("heroSubtitle")}
           </p>
           <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
             <a
               href={session ? "/inspire" : "/register"}
-              className="inline-block px-8 py-4 bg-[var(--ditto-primary)] text-[#0a0a0a] font-bold rounded-lg hover:opacity-90 transition-opacity text-base"
+              className="inline-block px-8 py-4 bg-(--ditto-primary) text-[#0a0a0a] font-bold rounded-lg hover:opacity-90 transition-opacity text-base"
               style={{ fontFamily: "'leoSans', 'canvaSans', system-ui, sans-serif" }}
             >
               {T("heroCta")}
             </a>
-            <a href="#how" className="text-sm text-[var(--ditto-text-muted)] hover:text-[var(--ditto-text)] transition-colors">
+            <a href="#how" className="text-sm text-(--ditto-text-muted) hover:text-(--ditto-text) transition-colors">
               {T("heroSecondary")} ↓
             </a>
           </div>
@@ -359,9 +359,9 @@ export default function LandingPage() {
       </section>
 
       {/* Features */}
-      <section className="py-20 px-6 border-t border-[var(--ditto-border)]">
+      <section className="py-20 px-6 border-t border-(--ditto-border)">
         <div className="max-w-5xl mx-auto">
-          <h2 className="text-2xl font-bold text-[var(--ditto-text)] text-center mb-12">
+          <h2 className="text-2xl font-bold text-(--ditto-text) text-center mb-12">
             {T("featuresTitle")}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -373,10 +373,10 @@ export default function LandingPage() {
               { Icon: Package, title: T("feature5Title"), desc: T("feature5Desc") },
               { Icon: Target, title: T("feature6Title"), desc: T("feature6Desc") },
             ]).map((f, i) => (
-              <div key={i} className="rounded-xl border border-[var(--ditto-border)] bg-[var(--ditto-surface)] p-6 hover:border-[var(--ditto-primary)]/30 transition-all duration-300 group">
-                <f.Icon className="w-6 h-6 text-[var(--ditto-primary)] mb-3" strokeWidth={1.5} />
-                <h3 className="text-base font-semibold text-[var(--ditto-text)] mb-2 group-hover:text-[var(--ditto-primary)] transition-colors">{f.title}</h3>
-                <p className="text-sm text-[var(--ditto-text-muted)] leading-relaxed">{f.desc}</p>
+              <div key={i} className="rounded-xl border border-(--ditto-border) bg-(--ditto-surface) p-6 hover:border-(--ditto-primary)/30 transition-all duration-300 group">
+                <f.Icon className="w-6 h-6 text-(--ditto-primary) mb-3" strokeWidth={1.5} />
+                <h3 className="text-base font-semibold text-(--ditto-text) mb-2 group-hover:text-(--ditto-primary) transition-colors">{f.title}</h3>
+                <p className="text-sm text-(--ditto-text-muted) leading-relaxed">{f.desc}</p>
               </div>
             ))}
           </div>
@@ -384,9 +384,9 @@ export default function LandingPage() {
       </section>
 
       {/* How it works */}
-      <section id="how" className="py-20 px-6 border-t border-[var(--ditto-border)]">
+      <section id="how" className="py-20 px-6 border-t border-(--ditto-border)">
         <div className="max-w-3xl mx-auto">
-          <h2 className="text-2xl font-bold text-[var(--ditto-text)] text-center mb-12">
+          <h2 className="text-2xl font-bold text-(--ditto-text) text-center mb-12">
             {T("howTitle")}
           </h2>
           <div className="space-y-8">
@@ -397,12 +397,12 @@ export default function LandingPage() {
               { title: T("howStep4Title"), desc: T("howStep4Desc") },
             ]).map((step, i) => (
               <div key={i} className="flex gap-4">
-                <div className="w-10 h-10 shrink-0 rounded-full bg-[var(--ditto-primary)] flex items-center justify-center text-sm font-bold text-[#0a0a0a]">
+                <div className="w-10 h-10 shrink-0 rounded-full bg-(--ditto-primary) flex items-center justify-center text-sm font-bold text-[#0a0a0a]">
                   {i + 1}
                 </div>
                 <div>
-                  <h3 className="text-base font-semibold text-[var(--ditto-text)]">{step.title}</h3>
-                  <p className="text-sm text-[var(--ditto-text-muted)] mt-1">{step.desc}</p>
+                  <h3 className="text-base font-semibold text-(--ditto-text)">{step.title}</h3>
+                  <p className="text-sm text-(--ditto-text-muted) mt-1">{step.desc}</p>
                 </div>
               </div>
             ))}
@@ -431,15 +431,15 @@ export default function LandingPage() {
             )}
             {/* CTA content */}
             <div className="text-center md:text-left">
-              <h2 className="text-3xl md:text-5xl font-extrabold text-[var(--ditto-bg)] mb-4">
+              <h2 className="text-3xl md:text-5xl font-extrabold text-(--ditto-bg) mb-4">
                 {T("ctaTitle")}
               </h2>
-              <p className="text-base text-[var(--ditto-bg)]/60 mb-8 max-w-md">
+              <p className="text-base text-(--ditto-bg)/60 mb-8 max-w-md">
                 {T("ctaSubtitle")}
               </p>
               <a
                 href={session ? "/inspire" : "/register"}
-                className="inline-block px-8 py-4 bg-[var(--ditto-bg)] text-[var(--ditto-primary)] font-bold rounded-lg hover:opacity-90 transition-opacity text-base"
+                className="inline-block px-8 py-4 bg-(--ditto-bg) text-(--ditto-primary) font-bold rounded-lg hover:opacity-90 transition-opacity text-base"
                 style={{ fontFamily: "'leoSans', 'canvaSans', system-ui, sans-serif" }}
               >
                 {session ? T("ctaCtaLoggedIn") : T("ctaCta")}
@@ -453,9 +453,9 @@ export default function LandingPage() {
       <footer className="py-8 px-6 -mx-[calc((100vw-100%)/2)]" style={{ background: "var(--ditto-primary)" }}>
         <div className="max-w-5xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <span className="w-5 h-5 rounded-full bg-[var(--ditto-bg)] inline-block" />
-            <span className="text-sm font-semibold text-[var(--ditto-bg)]">Ditto</span>
-            <span className="text-xs text-[var(--ditto-bg)]/50 ml-2">{T("footerTagline")}</span>
+            <span className="w-5 h-5 rounded-full bg-(--ditto-bg) inline-block" />
+            <span className="text-sm font-semibold text-(--ditto-bg)">Ditto</span>
+            <span className="text-xs text-(--ditto-bg)/50 ml-2">{T("footerTagline")}</span>
           </div>
           <select
             value={locale}
@@ -465,7 +465,7 @@ export default function LandingPage() {
               localStorage.setItem("ditto-locale", code);
               window.location.reload();
             }}
-            className="rounded-md border border-[var(--ditto-bg)]/20 bg-[var(--ditto-bg)]/10 px-2 py-1 text-xs text-[var(--ditto-bg)]/70 outline-none cursor-pointer"
+            className="rounded-md border border-(--ditto-bg)/20 bg-(--ditto-bg)/10 px-2 py-1 text-xs text-(--ditto-bg)/70 outline-none cursor-pointer"
           >
             {LOCALES.map((l) => (
               <option key={l.code} value={l.code}>{l.flag} {l.label}</option>

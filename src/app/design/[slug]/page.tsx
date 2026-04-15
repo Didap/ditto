@@ -20,7 +20,7 @@ function QualityInfoPopover() {
     <div className="relative">
       <button
         onClick={() => setOpen(!open)}
-        className="w-5 h-5 rounded-full border border-[var(--ditto-border)] bg-[var(--ditto-surface)] text-[var(--ditto-text-muted)] hover:text-[var(--ditto-text)] hover:border-[var(--ditto-text-muted)] transition-colors flex items-center justify-center text-[10px] font-semibold"
+        className="w-5 h-5 rounded-full border border-(--ditto-border) bg-(--ditto-surface) text-(--ditto-text-muted) hover:text-(--ditto-text) hover:border-(--ditto-text-muted) transition-colors flex items-center justify-center text-[10px] font-semibold"
         aria-label="Quality score info"
       >
         i
@@ -28,19 +28,19 @@ function QualityInfoPopover() {
       {open && (
         <>
           <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} />
-          <div className="absolute left-1/2 -translate-x-1/2 top-8 z-50 w-72 rounded-lg border border-[var(--ditto-border)] bg-[var(--ditto-surface)] shadow-xl p-4 text-xs text-[var(--ditto-text)]">
+          <div className="absolute left-1/2 -translate-x-1/2 top-8 z-50 w-72 rounded-lg border border-(--ditto-border) bg-(--ditto-surface) shadow-xl p-4 text-xs text-(--ditto-text)">
             <p className="font-semibold text-sm mb-2">Design Quality Score</p>
-            <p className="text-[var(--ditto-text-muted)] mb-3">
+            <p className="text-(--ditto-text-muted) mb-3">
               Measures how complete and well-structured the extracted design system is across 5 dimensions, each scored 0–100:
             </p>
-            <ul className="space-y-1.5 text-[var(--ditto-text-muted)] mb-3">
-              <li><span className="font-medium text-[var(--ditto-text)]">Color</span> — palette variety, semantic roles, saturation</li>
-              <li><span className="font-medium text-[var(--ditto-text)]">Typography</span> — font distinctiveness, scale ratio, hierarchy</li>
-              <li><span className="font-medium text-[var(--ditto-text)]">Spacing</span> — scale consistency, shadows, border radii</li>
-              <li><span className="font-medium text-[var(--ditto-text)]">Contrast</span> — WCAG text/background accessibility</li>
-              <li><span className="font-medium text-[var(--ditto-text)]">Completeness</span> — token coverage across all categories</li>
+            <ul className="space-y-1.5 text-(--ditto-text-muted) mb-3">
+              <li><span className="font-medium text-(--ditto-text)">Color</span> — palette variety, semantic roles, saturation</li>
+              <li><span className="font-medium text-(--ditto-text)">Typography</span> — font distinctiveness, scale ratio, hierarchy</li>
+              <li><span className="font-medium text-(--ditto-text)">Spacing</span> — scale consistency, shadows, border radii</li>
+              <li><span className="font-medium text-(--ditto-text)">Contrast</span> — WCAG text/background accessibility</li>
+              <li><span className="font-medium text-(--ditto-text)">Completeness</span> — token coverage across all categories</li>
             </ul>
-            <p className="text-[var(--ditto-text-muted)]">
+            <p className="text-(--ditto-text-muted)">
               The overall score is the average of all 5. Pure CSS analysis — no AI involved.
             </p>
           </div>
@@ -82,7 +82,7 @@ export default function DesignDetailPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center py-32">
-        <div className="w-8 h-8 border-2 border-[var(--ditto-primary)] border-t-transparent rounded-full animate-spin" />
+        <div className="w-8 h-8 border-2 border-(--ditto-primary) border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
@@ -90,8 +90,8 @@ export default function DesignDetailPage() {
   if (!design) {
     return (
       <div className="text-center py-32">
-        <h1 className="text-xl font-semibold text-[var(--ditto-text)]">Design not found</h1>
-        <a href="/dashboard" className="text-sm text-[var(--ditto-primary)] mt-2 inline-block">
+        <h1 className="text-xl font-semibold text-(--ditto-text)">Design not found</h1>
+        <a href="/dashboard" className="text-sm text-(--ditto-primary) mt-2 inline-block">
           Back to Library
         </a>
       </div>
@@ -109,13 +109,13 @@ export default function DesignDetailPage() {
           <div className="flex items-center gap-3 mb-1">
             <a
               href="/dashboard"
-              className="text-sm text-[var(--ditto-text-muted)] hover:text-[var(--ditto-text)] transition-colors"
+              className="text-sm text-(--ditto-text-muted) hover:text-(--ditto-text) transition-colors"
             >
               ← Library
             </a>
           </div>
           <div className="flex items-center gap-3">
-            <h1 className="text-2xl font-bold tracking-tight text-[var(--ditto-text)]">
+            <h1 className="text-2xl font-bold tracking-tight text-(--ditto-text)">
               {design.name}
             </h1>
             {design.quality && (
@@ -141,7 +141,7 @@ export default function DesignDetailPage() {
             href={design.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-sm text-[var(--ditto-text-muted)] hover:text-[var(--ditto-primary)] mt-0.5 inline-block transition-colors"
+            className="text-sm text-(--ditto-text-muted) hover:text-(--ditto-primary) mt-0.5 inline-block transition-colors"
           >
             {design.url} ↗
           </a>
@@ -174,7 +174,7 @@ export default function DesignDetailPage() {
               a.click();
               URL.revokeObjectURL(url);
             }}
-            className="rounded-lg bg-[var(--ditto-primary)] px-4 py-2 text-sm font-medium text-[var(--ditto-bg)] hover:bg-[var(--ditto-primary-hover)] transition-colors"
+            className="rounded-lg bg-(--ditto-primary) px-4 py-2 text-sm font-medium text-(--ditto-bg) hover:bg-(--ditto-primary-hover) transition-colors"
           >
             Download Kit (.zip)
           </button>
@@ -197,7 +197,7 @@ export default function DesignDetailPage() {
               a.click();
               URL.revokeObjectURL(url);
             }}
-            className="rounded-lg border border-[var(--ditto-border)] px-4 py-2 text-sm font-medium text-[var(--ditto-text-secondary)] hover:text-[var(--ditto-text)] hover:border-[var(--ditto-text-muted)] transition-colors"
+            className="rounded-lg border border-(--ditto-border) px-4 py-2 text-sm font-medium text-(--ditto-text-secondary) hover:text-(--ditto-text) hover:border-(--ditto-text-muted) transition-colors"
           >
             Download Storybook
           </button>
@@ -205,7 +205,7 @@ export default function DesignDetailPage() {
             onClick={() => {
               navigator.clipboard.writeText(design.designMd);
             }}
-            className="rounded-lg border border-[var(--ditto-border)] px-4 py-2 text-sm font-medium text-[var(--ditto-text-secondary)] hover:text-[var(--ditto-text)] hover:border-[var(--ditto-text-muted)] transition-colors"
+            className="rounded-lg border border-(--ditto-border) px-4 py-2 text-sm font-medium text-(--ditto-text-secondary) hover:text-(--ditto-text) hover:border-(--ditto-text-muted) transition-colors"
           >
             Copy DESIGN.md
           </button>
@@ -213,7 +213,7 @@ export default function DesignDetailPage() {
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-0 border-b border-[var(--ditto-border)] mb-6">
+      <div className="flex gap-0 border-b border-(--ditto-border) mb-6">
         {(["preview", "tokens", "designmd"] as const).map((tab) => (
           <button
             key={tab}
@@ -326,9 +326,9 @@ export default function DesignDetailPage() {
       {/* DESIGN.md Tab */}
       {activeTab === "designmd" && (
         <div
-          className="rounded-xl border border-[var(--ditto-border)] bg-[var(--ditto-surface)] p-6 overflow-auto max-h-[80vh]"
+          className="rounded-xl border border-(--ditto-border) bg-(--ditto-surface) p-6 overflow-auto max-h-[80vh]"
         >
-          <pre className="text-sm text-[var(--ditto-text)] whitespace-pre-wrap font-mono leading-relaxed">
+          <pre className="text-sm text-(--ditto-text) whitespace-pre-wrap font-mono leading-relaxed">
             {design.designMd}
           </pre>
         </div>
@@ -373,17 +373,17 @@ function BoostButton({ slug, onBoost }: { slug: string; onBoost: () => void }) {
 
   if (result) {
     return (
-      <div className="mt-4 rounded-lg border border-[var(--ditto-primary)]/30 bg-[var(--ditto-primary)]/5 p-4">
+      <div className="mt-4 rounded-lg border border-(--ditto-primary)/30 bg-(--ditto-primary)/5 p-4">
         <div className="flex items-center gap-3 mb-2">
           <span className="text-lg">&#10024;</span>
-          <span className="font-semibold text-[var(--ditto-text)]">
+          <span className="font-semibold text-(--ditto-text)">
             Boost applicato! {result.before} → {result.after}/100
           </span>
-          <span className="text-xs text-[var(--ditto-text-muted)]">
+          <span className="text-xs text-(--ditto-text-muted)">
             ({result.creditsCharged} crediti usati)
           </span>
         </div>
-        <div className="text-xs text-[var(--ditto-text-muted)] space-y-0.5">
+        <div className="text-xs text-(--ditto-text-muted) space-y-0.5">
           {result.fixesApplied.map((fix, i) => (
             <div key={i}>&#10003; {fix}</div>
           ))}
@@ -397,13 +397,13 @@ function BoostButton({ slug, onBoost }: { slug: string; onBoost: () => void }) {
   const gain = estimate.estimatedScore - estimate.currentScore;
 
   return (
-    <div className="mt-4 flex items-center gap-4 rounded-lg border border-[var(--ditto-border)] bg-[var(--ditto-surface)] p-4">
+    <div className="mt-4 flex items-center gap-4 rounded-lg border border-(--ditto-border) bg-(--ditto-surface) p-4">
       <div className="flex-1">
-        <p className="text-sm font-medium text-[var(--ditto-text)]">
+        <p className="text-sm font-medium text-(--ditto-text)">
           Boost disponibile: <span className="font-bold">{estimate.currentScore} → {estimate.estimatedScore}/100</span>
-          <span className="text-[var(--ditto-text-muted)]"> (+{gain} punti)</span>
+          <span className="text-(--ditto-text-muted)"> (+{gain} punti)</span>
         </p>
-        <p className="text-xs text-[var(--ditto-text-muted)] mt-0.5">
+        <p className="text-xs text-(--ditto-text-muted) mt-0.5">
           Costo: {estimate.estimatedCost} crediti — corregge automaticamente i problemi rilevati
         </p>
       </div>
@@ -439,9 +439,9 @@ function TokensView({ design, onBoost }: { design: StoredDesign; onBoost: () => 
     <div className="space-y-8">
       {/* Quality Score */}
       {design.quality && (
-        <section className="rounded-xl border border-[var(--ditto-border)] bg-[var(--ditto-surface)] p-6">
+        <section className="rounded-xl border border-(--ditto-border) bg-(--ditto-surface) p-6">
           <div className="flex items-center gap-4 mb-4">
-            <h2 className="text-lg font-semibold text-[var(--ditto-text)]">Design Quality</h2>
+            <h2 className="text-lg font-semibold text-(--ditto-text)">Design Quality</h2>
             <span
               className="text-2xl font-extrabold"
               style={{ color: qualityColor(design.quality.overall) }}
@@ -464,10 +464,10 @@ function TokensView({ design, onBoost }: { design: StoredDesign; onBoost: () => 
             {dims.map((d) => (
               <div key={d.label}>
                 <div className="flex justify-between text-xs mb-1">
-                  <span className="text-[var(--ditto-text-muted)]">{d.label}</span>
+                  <span className="text-(--ditto-text-muted)">{d.label}</span>
                   <span className="font-semibold" style={{ color: qualityColor(d.value) }}>{d.value}</span>
                 </div>
-                <div className="h-1.5 rounded-full bg-[var(--ditto-border)]">
+                <div className="h-1.5 rounded-full bg-(--ditto-border)">
                   <div
                     className="h-full rounded-full transition-all"
                     style={{
@@ -492,7 +492,7 @@ function TokensView({ design, onBoost }: { design: StoredDesign; onBoost: () => 
                     issue.severity === "error" ? "bg-red-500" :
                     issue.severity === "warning" ? "bg-yellow-500" : "bg-blue-400"
                   }`} />
-                  <span className="text-[var(--ditto-text-muted)]">
+                  <span className="text-(--ditto-text-muted)">
                     {friendlyIssueMessage(issue)}
                   </span>
                 </div>
@@ -509,24 +509,24 @@ function TokensView({ design, onBoost }: { design: StoredDesign; onBoost: () => 
 
       {/* Colors */}
       <section>
-        <h2 className="text-lg font-semibold text-[var(--ditto-text)] mb-4">
+        <h2 className="text-lg font-semibold text-(--ditto-text) mb-4">
           Colors ({tokens.colors.length})
         </h2>
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">
           {tokens.colors.map((color, i) => (
             <div
               key={i}
-              className="rounded-lg border border-[var(--ditto-border)] overflow-hidden bg-[var(--ditto-surface)]"
+              className="rounded-lg border border-(--ditto-border) overflow-hidden bg-(--ditto-surface)"
             >
               <div
                 className="h-16 w-full"
                 style={{ backgroundColor: color.hex }}
               />
               <div className="p-2">
-                <div className="text-xs font-mono text-[var(--ditto-text)]">
+                <div className="text-xs font-mono text-(--ditto-text)">
                   {color.hex}
                 </div>
-                <div className="text-[10px] text-[var(--ditto-text-muted)] mt-0.5">
+                <div className="text-[10px] text-(--ditto-text-muted) mt-0.5">
                   {color.role} · {color.occurrences}x
                 </div>
               </div>
@@ -537,36 +537,36 @@ function TokensView({ design, onBoost }: { design: StoredDesign; onBoost: () => 
 
       {/* Typography */}
       <section>
-        <h2 className="text-lg font-semibold text-[var(--ditto-text)] mb-4">
+        <h2 className="text-lg font-semibold text-(--ditto-text) mb-4">
           Typography
         </h2>
-        <div className="rounded-xl border border-[var(--ditto-border)] bg-[var(--ditto-surface)] overflow-hidden">
+        <div className="rounded-xl border border-(--ditto-border) bg-(--ditto-surface) overflow-hidden">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-[var(--ditto-border)]">
-                <th className="text-left px-4 py-2 text-[var(--ditto-text-muted)] font-medium">
+              <tr className="border-b border-(--ditto-border)">
+                <th className="text-left px-4 py-2 text-(--ditto-text-muted) font-medium">
                   Role
                 </th>
-                <th className="text-left px-4 py-2 text-[var(--ditto-text-muted)] font-medium">
+                <th className="text-left px-4 py-2 text-(--ditto-text-muted) font-medium">
                   Font
                 </th>
-                <th className="text-left px-4 py-2 text-[var(--ditto-text-muted)] font-medium">
+                <th className="text-left px-4 py-2 text-(--ditto-text-muted) font-medium">
                   Size
                 </th>
-                <th className="text-left px-4 py-2 text-[var(--ditto-text-muted)] font-medium">
+                <th className="text-left px-4 py-2 text-(--ditto-text-muted) font-medium">
                   Weight
                 </th>
               </tr>
             </thead>
             <tbody>
               {tokens.typeScale.map((ts, i) => (
-                <tr key={i} className="border-b border-[var(--ditto-border)] last:border-0">
-                  <td className="px-4 py-2 text-[var(--ditto-text)]">{ts.role}</td>
-                  <td className="px-4 py-2 text-[var(--ditto-text-secondary)] font-mono text-xs">
+                <tr key={i} className="border-b border-(--ditto-border) last:border-0">
+                  <td className="px-4 py-2 text-(--ditto-text)">{ts.role}</td>
+                  <td className="px-4 py-2 text-(--ditto-text-secondary) font-mono text-xs">
                     {ts.fontFamily}
                   </td>
-                  <td className="px-4 py-2 text-[var(--ditto-text-secondary)]">{ts.size}</td>
-                  <td className="px-4 py-2 text-[var(--ditto-text-secondary)]">{ts.weight}</td>
+                  <td className="px-4 py-2 text-(--ditto-text-secondary)">{ts.size}</td>
+                  <td className="px-4 py-2 text-(--ditto-text-secondary)">{ts.weight}</td>
                 </tr>
               ))}
             </tbody>
@@ -576,17 +576,17 @@ function TokensView({ design, onBoost }: { design: StoredDesign; onBoost: () => 
 
       {/* Spacing */}
       <section>
-        <h2 className="text-lg font-semibold text-[var(--ditto-text)] mb-4">
+        <h2 className="text-lg font-semibold text-(--ditto-text) mb-4">
           Spacing
         </h2>
         <div className="flex flex-wrap gap-3">
           {tokens.spacing.map((s, i) => (
             <div
               key={i}
-              className="flex items-end gap-2 rounded-lg border border-[var(--ditto-border)] bg-[var(--ditto-surface)] p-3"
+              className="flex items-end gap-2 rounded-lg border border-(--ditto-border) bg-(--ditto-surface) p-3"
             >
               <div
-                className="bg-[var(--ditto-primary)]"
+                className="bg-(--ditto-primary)"
                 style={{
                   width: Math.max(s.px, 4),
                   height: Math.max(s.px, 4),
@@ -595,7 +595,7 @@ function TokensView({ design, onBoost }: { design: StoredDesign; onBoost: () => 
                   maxHeight: 60,
                 }}
               />
-              <span className="text-xs font-mono text-[var(--ditto-text-muted)]">
+              <span className="text-xs font-mono text-(--ditto-text-muted)">
                 {s.value}
               </span>
             </div>
@@ -605,14 +605,14 @@ function TokensView({ design, onBoost }: { design: StoredDesign; onBoost: () => 
 
       {/* Shadows */}
       <section>
-        <h2 className="text-lg font-semibold text-[var(--ditto-text)] mb-4">
+        <h2 className="text-lg font-semibold text-(--ditto-text) mb-4">
           Shadows
         </h2>
         <div className="flex flex-wrap gap-4">
           {tokens.shadows.map((s, i) => (
             <div
               key={i}
-              className="w-24 h-24 rounded-lg bg-[var(--ditto-surface)]"
+              className="w-24 h-24 rounded-lg bg-(--ditto-surface)"
               style={{ boxShadow: s.value }}
             />
           ))}
@@ -621,17 +621,17 @@ function TokensView({ design, onBoost }: { design: StoredDesign; onBoost: () => 
 
       {/* Radii */}
       <section>
-        <h2 className="text-lg font-semibold text-[var(--ditto-text)] mb-4">
+        <h2 className="text-lg font-semibold text-(--ditto-text) mb-4">
           Border Radius
         </h2>
         <div className="flex flex-wrap gap-4">
           {tokens.radii.map((r, i) => (
             <div key={i} className="flex flex-col items-center gap-2">
               <div
-                className="w-16 h-16 border-2 border-[var(--ditto-primary)]"
+                className="w-16 h-16 border-2 border-(--ditto-primary)"
                 style={{ borderRadius: r.value }}
               />
-              <span className="text-xs font-mono text-[var(--ditto-text-muted)]">
+              <span className="text-xs font-mono text-(--ditto-text-muted)">
                 {r.value}
               </span>
             </div>
@@ -642,11 +642,11 @@ function TokensView({ design, onBoost }: { design: StoredDesign; onBoost: () => 
       {/* CSS Variables */}
       {Object.keys(tokens.cssVariables).length > 0 && (
         <section>
-          <h2 className="text-lg font-semibold text-[var(--ditto-text)] mb-4">
+          <h2 className="text-lg font-semibold text-(--ditto-text) mb-4">
             CSS Variables ({Object.keys(tokens.cssVariables).length})
           </h2>
-          <div className="rounded-xl border border-[var(--ditto-border)] bg-[var(--ditto-surface)] p-4 max-h-96 overflow-auto">
-            <pre className="text-xs font-mono text-[var(--ditto-text-secondary)] leading-relaxed">
+          <div className="rounded-xl border border-(--ditto-border) bg-(--ditto-surface) p-4 max-h-96 overflow-auto">
+            <pre className="text-xs font-mono text-(--ditto-text-secondary) leading-relaxed">
               {Object.entries(tokens.cssVariables)
                 .slice(0, 50)
                 .map(([key, val]) => `${key}: ${val};`)

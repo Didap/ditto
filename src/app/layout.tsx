@@ -4,10 +4,14 @@ import { NavBar } from "@/components/NavBar";
 import { CursorFollower } from "@/components/CursorFollower";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { CreditsProvider } from "@/lib/credits-context";
+import { canvaSans, leoSans } from "@/lib/fonts";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Ditto — Extract Design Systems from Any Website",
+  title: {
+    default: "Ditto — Extract Design Systems from Any Website",
+    template: "%s | Ditto",
+  },
   description:
     "Paste any URL and extract a complete design system in seconds. Blend multiple site inspirations into unique design tokens. Export CSS, React components, or push to Figma.",
   keywords: [
@@ -134,7 +138,7 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en" className="dark">
+    <html lang="en" className={`dark ${canvaSans.variable} ${leoSans.variable}`}>
       <head>
         <script
           type="application/ld+json"

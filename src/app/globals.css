@@ -1,70 +1,7 @@
 @import "tailwindcss";
 
 /* ── Leonardo-inspired Design Tokens ── */
-
-@font-face {
-  font-family: 'canvaSans';
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-  src: url('/fonts/canvaSans-Regular.woff2') format('woff2');
-}
-@font-face {
-  font-family: 'canvaSans';
-  font-weight: 500 600;
-  font-style: normal;
-  font-display: swap;
-  src: url('/fonts/canvaSans-Medium.woff2') format('woff2');
-}
-@font-face {
-  font-family: 'canvaSans';
-  font-weight: 700 900;
-  font-style: normal;
-  font-display: swap;
-  src: url('/fonts/canvaSans-Bold.woff2') format('woff2');
-}
-@font-face {
-  font-family: 'leoSans';
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-  src: url('/fonts/leoSans-Bold.woff2') format('woff2');
-}
-@font-face {
-  font-family: 'leoSans';
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-  src: url('/fonts/leoSans-Bold.woff2') format('woff2');
-}
-@font-face {
-  font-family: 'leoSans';
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-  src: url('/fonts/leoSans-Bold.woff2') format('woff2');
-}
-@font-face {
-  font-family: 'leoSans';
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-  src: url('/fonts/leoSans-Bold.woff2') format('woff2');
-}
-@font-face {
-  font-family: 'leoSans';
-  font-weight: 800;
-  font-style: normal;
-  font-display: swap;
-  src: url('/fonts/leoSans-Bold.woff2') format('woff2');
-}
-@font-face {
-  font-family: 'leoSans';
-  font-weight: 900;
-  font-style: normal;
-  font-display: swap;
-  src: url('/fonts/leoSans-Bold.woff2') format('woff2');
-}
+/* Fonts loaded via next/font/local in src/lib/fonts.ts */
 
 /* ── Dark mode (default) ── */
 :root {
@@ -86,8 +23,8 @@
   --ditto-radius-sm: 6px;
   --ditto-radius-md: 8.4375px;
   --ditto-radius-lg: 12.4375px;
-  --ditto-font-heading: 'leoSans', 'canvaSans', system-ui, -apple-system, sans-serif;
-  --ditto-font-body: 'canvaSans', system-ui, -apple-system, sans-serif;
+  --ditto-font-heading: var(--font-leoSans), var(--font-canvaSans), system-ui, -apple-system, sans-serif;
+  --ditto-font-body: var(--font-canvaSans), system-ui, -apple-system, sans-serif;
   --ditto-font-mono: ui-monospace, monospace;
 }
 

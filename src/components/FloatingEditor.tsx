@@ -325,7 +325,7 @@ export function FloatingEditor({
                     type="range" min={100} max={900} step={100}
                     value={resolved.fontWeightHeading}
                     onChange={(e) => onChange({ ...resolved, fontWeightHeading: parseInt(e.target.value) })}
-                    className="w-full accent-[var(--ditto-primary)]"
+                    className="w-full accent-(--ditto-primary)"
                   />
                 </div>
               </div>
@@ -350,7 +350,7 @@ export function FloatingEditor({
                         radiusLg: `${Math.round(v * 1.5)}px`,
                       });
                     }}
-                    className="w-full accent-[var(--ditto-primary)]"
+                    className="w-full accent-(--ditto-primary)"
                   />
                   {/* Shape preview */}
                   <div className="flex gap-2 mt-2">
@@ -521,7 +521,7 @@ function ColorRow({
       <div className="flex items-center gap-1 overflow-x-auto pb-0.5">
         {/* Current */}
         <button
-          className="w-6 h-6 rounded-md shrink-0 ring-2 ring-[var(--ditto-primary)] ring-offset-1"
+          className="w-6 h-6 rounded-md shrink-0 ring-2 ring-(--ditto-primary) ring-offset-1"
           style={{ backgroundColor: value, ringOffsetColor: "var(--ditto-surface)" } as React.CSSProperties}
           onClick={() => pickerRef.current?.click()}
         />

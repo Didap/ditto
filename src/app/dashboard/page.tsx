@@ -27,16 +27,16 @@ export default function DashboardPage() {
     <div>
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-[var(--ditto-text)]">
+          <h1 className="text-2xl font-bold tracking-tight text-(--ditto-text)">
             Design Library
           </h1>
-          <p className="text-sm text-[var(--ditto-text-secondary)] mt-1">
+          <p className="text-sm text-(--ditto-text-secondary) mt-1">
             {designs.length} design system{designs.length !== 1 ? "s" : ""} collected
           </p>
         </div>
         <a
           href="/add"
-          className="rounded-lg bg-[var(--ditto-primary)] px-4 py-2 text-sm font-medium text-[var(--ditto-bg)] hover:bg-[var(--ditto-primary-hover)] transition-colors"
+          className="rounded-lg bg-(--ditto-primary) px-4 py-2 text-sm font-medium text-(--ditto-bg) hover:bg-(--ditto-primary-hover) transition-colors"
         >
           + Add Design
         </a>
@@ -48,22 +48,22 @@ export default function DashboardPage() {
         <div className="flex items-center justify-center py-32">
           <div className="flex flex-col items-center gap-3">
             <LottieLoader size={200} />
-            <span className="text-sm text-[var(--ditto-text-muted)]">Loading designs...</span>
+            <span className="text-sm text-(--ditto-text-muted)">Loading designs...</span>
           </div>
         </div>
       ) : designs.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-32 text-center">
           <span className="w-16 h-16 ditto-blob opacity-40 inline-block mb-4" />
-          <h2 className="text-lg font-semibold text-[var(--ditto-text)] mb-2">
+          <h2 className="text-lg font-semibold text-(--ditto-text) mb-2">
             No designs yet
           </h2>
-          <p className="text-sm text-[var(--ditto-text-muted)] max-w-md mb-6">
+          <p className="text-sm text-(--ditto-text-muted) max-w-md mb-6">
             Start by adding a design from a URL or importing from the community collection.
           </p>
           <div className="flex gap-3">
             <a
               href="/add"
-              className="rounded-lg bg-[var(--ditto-primary)] px-4 py-2 text-sm font-medium text-[var(--ditto-bg)] hover:bg-[var(--ditto-primary-hover)] transition-colors"
+              className="rounded-lg bg-(--ditto-primary) px-4 py-2 text-sm font-medium text-(--ditto-bg) hover:bg-(--ditto-primary-hover) transition-colors"
             >
               + Add from URL
             </a>
@@ -111,11 +111,11 @@ function ImportButton({ onDone }: { onDone: () => void }) {
       <button
         onClick={handleImport}
         disabled={importing}
-        className="rounded-lg border border-[var(--ditto-border)] px-4 py-2 text-sm font-medium text-[var(--ditto-text-secondary)] hover:text-[var(--ditto-text)] hover:border-[var(--ditto-text-muted)] transition-colors disabled:opacity-50"
+        className="rounded-lg border border-(--ditto-border) px-4 py-2 text-sm font-medium text-(--ditto-text-secondary) hover:text-(--ditto-text) hover:border-(--ditto-text-muted) transition-colors disabled:opacity-50"
       >
         {importing ? (
           <span className="flex items-center gap-2">
-            <span className="w-3 h-3 border-2 border-[var(--ditto-primary)] border-t-transparent rounded-full animate-spin" />
+            <span className="w-3 h-3 border-2 border-(--ditto-primary) border-t-transparent rounded-full animate-spin" />
             Importing...
           </span>
         ) : (
@@ -123,7 +123,7 @@ function ImportButton({ onDone }: { onDone: () => void }) {
         )}
       </button>
       {status && (
-        <span className="text-xs text-[var(--ditto-text-muted)]">{status}</span>
+        <span className="text-xs text-(--ditto-text-muted)">{status}</span>
       )}
     </div>
   );
@@ -135,7 +135,7 @@ function DesignCard({ design }: { design: StoredDesign }) {
   return (
     <a
       href={`/design/${design.slug}`}
-      className="group block rounded-xl border border-[var(--ditto-border)] overflow-hidden hover:border-[var(--ditto-text-muted)] transition-all duration-200"
+      className="group block rounded-xl border border-(--ditto-border) overflow-hidden hover:border-(--ditto-text-muted) transition-all duration-200"
       style={{ backgroundColor: "var(--ditto-surface)" }}
     >
       <div className="h-24 relative overflow-hidden">
@@ -162,12 +162,12 @@ function DesignCard({ design }: { design: StoredDesign }) {
       <div className="p-4">
         <div className="flex items-start justify-between mb-2">
           <div>
-            <h3 className="font-semibold text-[var(--ditto-text)] group-hover:text-[var(--ditto-primary)] transition-colors">
+            <h3 className="font-semibold text-(--ditto-text) group-hover:text-(--ditto-primary) transition-colors">
               {design.name}
             </h3>
             <span
               onClick={(e) => { e.preventDefault(); window.open(design.url, "_blank"); }}
-              className="text-xs text-[var(--ditto-text-muted)] hover:text-[var(--ditto-primary)] mt-0.5 truncate max-w-[200px] block cursor-pointer transition-colors"
+              className="text-xs text-(--ditto-text-muted) hover:text-(--ditto-primary) mt-0.5 truncate max-w-[200px] block cursor-pointer transition-colors"
             >
               {design.url}
             </span>
@@ -185,13 +185,13 @@ function DesignCard({ design }: { design: StoredDesign }) {
                 {design.quality.overall}<span className="opacity-60">/100</span>
               </span>
             )}
-            <span className="text-[10px] uppercase tracking-wider text-[var(--ditto-text-muted)] px-1.5 py-0.5 rounded border border-[var(--ditto-border)]">
+            <span className="text-[10px] uppercase tracking-wider text-(--ditto-text-muted) px-1.5 py-0.5 rounded border border-(--ditto-border)">
               {design.source}
             </span>
           </div>
         </div>
 
-        <div className="mt-3 flex items-center gap-3 text-xs text-[var(--ditto-text-muted)]">
+        <div className="mt-3 flex items-center gap-3 text-xs text-(--ditto-text-muted)">
           <span style={{ fontFamily: resolved.fontHeading }}>
             {resolved.fontHeading}
           </span>
@@ -263,7 +263,7 @@ function QuestsPanel() {
     : null;
 
   return (
-    <div className="mb-8 rounded-xl border border-[var(--ditto-border)] bg-[var(--ditto-surface)] overflow-hidden">
+    <div className="mb-8 rounded-xl border border-(--ditto-border) bg-(--ditto-surface) overflow-hidden">
       {/* Header */}
       <button
         onClick={() => setExpanded(!expanded)}
@@ -271,17 +271,17 @@ function QuestsPanel() {
       >
         <div className="flex items-center gap-3">
           <span className="text-lg">🎯</span>
-          <span className="text-sm font-semibold text-[var(--ditto-text)]">
+          <span className="text-sm font-semibold text-(--ditto-text)">
             Quests
           </span>
           {claimable.length > 0 && (
-            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[var(--ditto-primary)]/15 text-[var(--ditto-primary)]">
+            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-(--ditto-primary)/15 text-(--ditto-primary)">
               {claimable.length} available
             </span>
           )}
         </div>
         <span
-          className="text-xs text-[var(--ditto-text-muted)] transition-transform"
+          className="text-xs text-(--ditto-text-muted) transition-transform"
           style={{ transform: expanded ? "rotate(180deg)" : "none" }}
         >
           ▼
@@ -294,15 +294,15 @@ function QuestsPanel() {
           {claimable.map((q) => (
             <div
               key={q.quest.id}
-              className="flex items-center justify-between p-3 rounded-lg border border-[var(--ditto-primary)]/20 bg-[var(--ditto-primary)]/5"
+              className="flex items-center justify-between p-3 rounded-lg border border-(--ditto-primary)/20 bg-(--ditto-primary)/5"
             >
               <div className="flex items-center gap-3">
                 <span className="text-lg">{q.quest.icon}</span>
                 <div>
-                  <div className="text-sm font-medium text-[var(--ditto-text)]">
+                  <div className="text-sm font-medium text-(--ditto-text)">
                     {q.quest.title}
                   </div>
-                  <div className="text-xs text-[var(--ditto-text-muted)]">
+                  <div className="text-xs text-(--ditto-text-muted)">
                     {q.quest.description}
                   </div>
                 </div>
@@ -310,7 +310,7 @@ function QuestsPanel() {
               <button
                 onClick={() => claim(q.quest.id)}
                 disabled={claiming === q.quest.id}
-                className="shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold bg-[var(--ditto-primary)] text-[var(--ditto-bg)] disabled:opacity-50"
+                className="shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold bg-(--ditto-primary) text-(--ditto-bg) disabled:opacity-50"
               >
                 {claiming === q.quest.id ? "..." : `+${q.quest.credits} cr`}
               </button>
@@ -326,16 +326,16 @@ function QuestsPanel() {
               <div className="flex items-center gap-3">
                 <span className="text-lg">{q.quest.icon}</span>
                 <div>
-                  <div className="text-sm font-medium text-[var(--ditto-text)] line-through">
+                  <div className="text-sm font-medium text-(--ditto-text) line-through">
                     {q.quest.title}
                   </div>
-                  <div className="text-xs text-[var(--ditto-text-muted)]">
+                  <div className="text-xs text-(--ditto-text-muted)">
                     {q.quest.repeatable === "daily" ? "Done today" : "Completed"}
                     {q.totalCompletions > 1 && ` (${q.totalCompletions}x)`}
                   </div>
                 </div>
               </div>
-              <span className="text-xs text-[var(--ditto-text-muted)]">✓</span>
+              <span className="text-xs text-(--ditto-text-muted)">✓</span>
             </div>
           ))}
 
@@ -348,15 +348,15 @@ function QuestsPanel() {
               <div className="flex items-center gap-3">
                 <span className="text-lg">{q.quest.icon}</span>
                 <div>
-                  <div className="text-sm font-medium text-[var(--ditto-text)]">
+                  <div className="text-sm font-medium text-(--ditto-text)">
                     {q.quest.title}
                   </div>
-                  <div className="text-xs text-[var(--ditto-text-muted)]">
+                  <div className="text-xs text-(--ditto-text-muted)">
                     {q.quest.description}
                   </div>
                 </div>
               </div>
-              <span className="text-xs text-[var(--ditto-text-muted)]">
+              <span className="text-xs text-(--ditto-text-muted)">
                 +{q.quest.credits} cr
               </span>
             </div>
@@ -364,15 +364,15 @@ function QuestsPanel() {
 
           {/* Referral link */}
           {referralLink && (
-            <div className="mt-3 pt-3 border-t border-[var(--ditto-border)]">
-              <div className="text-xs font-medium text-[var(--ditto-text-muted)] mb-2">
+            <div className="mt-3 pt-3 border-t border-(--ditto-border)">
+              <div className="text-xs font-medium text-(--ditto-text-muted) mb-2">
                 🤝 Your referral link — share to earn 200 credits per signup
               </div>
               <div className="flex gap-2">
                 <input
                   readOnly
                   value={referralLink}
-                  className="flex-1 text-xs px-3 py-1.5 rounded-lg bg-[var(--ditto-bg)] text-[var(--ditto-text-muted)] border border-[var(--ditto-border)] outline-none"
+                  className="flex-1 text-xs px-3 py-1.5 rounded-lg bg-(--ditto-bg) text-(--ditto-text-muted) border border-(--ditto-border) outline-none"
                 />
                 <button
                   onClick={() => {
@@ -380,7 +380,7 @@ function QuestsPanel() {
                     setCopied(true);
                     setTimeout(() => setCopied(false), 2000);
                   }}
-                  className="px-3 py-1.5 rounded-lg text-xs font-medium border border-[var(--ditto-border)] text-[var(--ditto-text-secondary)] hover:text-[var(--ditto-text)] transition-colors"
+                  className="px-3 py-1.5 rounded-lg text-xs font-medium border border-(--ditto-border) text-(--ditto-text-secondary) hover:text-(--ditto-text) transition-colors"
                 >
                   {copied ? "Copied!" : "Copy"}
                 </button>

@@ -25,9 +25,9 @@ export function ThemeToggle() {
   return (
     <button onClick={toggle} className="theme-toggle" title={dark ? "Light mode" : "Dark mode"}>
       {dark ? (
-        <Sun className="w-4 h-4 text-[var(--ditto-text-muted)]" strokeWidth={1.5} />
+        <Sun className="w-4 h-4 text-(--ditto-text-muted)" strokeWidth={1.5} />
       ) : (
-        <Moon className="w-4 h-4 text-[var(--ditto-text-muted)]" strokeWidth={1.5} />
+        <Moon className="w-4 h-4 text-(--ditto-text-muted)" strokeWidth={1.5} />
       )}
     </button>
   );

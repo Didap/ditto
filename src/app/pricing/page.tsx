@@ -123,14 +123,14 @@ export default function PricingPage() {
       <section className="pt-28 pb-20 px-6">
         <div className="max-w-4xl mx-auto text-center">
           {/* Launch banner */}
-          <div className="inline-flex items-center gap-2 bg-[var(--ditto-primary)]/10 text-[var(--ditto-primary)] text-sm font-medium px-4 py-1.5 rounded-full mb-6">
+          <div className="inline-flex items-center gap-2 bg-(--ditto-primary)/10 text-(--ditto-primary) text-sm font-medium px-4 py-1.5 rounded-full mb-6">
             🚀 Launch Sale — 30% off everything
           </div>
 
-          <h1 className="text-4xl md:text-5xl font-extrabold text-[var(--ditto-text)] mb-4">
+          <h1 className="text-4xl md:text-5xl font-extrabold text-(--ditto-text) mb-4">
             Simple, transparent pricing
           </h1>
-          <p className="text-lg text-[var(--ditto-text-muted)] mb-12">
+          <p className="text-lg text-(--ditto-text-muted) mb-12">
             100 credits = $1 · Pay for what you use, upgrade anytime
           </p>
 
@@ -143,40 +143,40 @@ export default function PricingPage() {
                   key={plan.id}
                   className={`relative rounded-xl border p-8 text-left transition-all ${
                     plan.recommended
-                      ? "border-[var(--ditto-primary)] bg-[var(--ditto-surface)] scale-[1.02] shadow-lg shadow-[var(--ditto-primary)]/10"
-                      : "border-[var(--ditto-border)] bg-[var(--ditto-surface)]"
+                      ? "border-(--ditto-primary) bg-(--ditto-surface) scale-[1.02] shadow-lg shadow-(--ditto-primary)/10"
+                      : "border-(--ditto-border) bg-(--ditto-surface)"
                   }`}
                 >
                   {plan.recommended && (
-                    <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[var(--ditto-primary)] text-[#0a0a0a] text-xs font-bold px-3 py-1 rounded-full">
+                    <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-(--ditto-primary) text-[#0a0a0a] text-xs font-bold px-3 py-1 rounded-full">
                       Most Popular
                     </span>
                   )}
 
-                  <h2 className="text-lg font-semibold text-[var(--ditto-text)] mb-1">
+                  <h2 className="text-lg font-semibold text-(--ditto-text) mb-1">
                     {plan.name}
                   </h2>
-                  <p className="text-sm text-[var(--ditto-text-muted)] mb-4">
+                  <p className="text-sm text-(--ditto-text-muted) mb-4">
                     {plan.desc}
                   </p>
 
                   <div className="mb-6">
                     {plan.launchPrice ? (
                       <>
-                        <span className="text-lg line-through text-[var(--ditto-text-muted)] mr-2">
+                        <span className="text-lg line-through text-(--ditto-text-muted) mr-2">
                           {plan.price}
                         </span>
-                        <span className="text-4xl font-extrabold text-[var(--ditto-text)]">
+                        <span className="text-4xl font-extrabold text-(--ditto-text)">
                           {plan.launchPrice}
                         </span>
                       </>
                     ) : (
-                      <span className="text-4xl font-extrabold text-[var(--ditto-text)]">
+                      <span className="text-4xl font-extrabold text-(--ditto-text)">
                         {plan.price}
                       </span>
                     )}
                     {plan.period && (
-                      <span className="text-sm text-[var(--ditto-text-muted)]">
+                      <span className="text-sm text-(--ditto-text-muted)">
                         {plan.period}
                       </span>
                     )}
@@ -186,7 +186,7 @@ export default function PricingPage() {
                     <button
                       onClick={manageSubscription}
                       disabled={plan.id === "free" || loading === "portal"}
-                      className="block w-full text-center py-3 px-4 rounded-lg font-semibold text-sm bg-[var(--ditto-surface-hover)] text-[var(--ditto-text)] border border-[var(--ditto-border)] disabled:opacity-50"
+                      className="block w-full text-center py-3 px-4 rounded-lg font-semibold text-sm bg-(--ditto-surface-hover) text-(--ditto-text) border border-(--ditto-border) disabled:opacity-50"
                     >
                       {plan.id === "free" ? "Current Plan" : loading === "portal" ? "Loading..." : "Manage Subscription"}
                     </button>
@@ -200,8 +200,8 @@ export default function PricingPage() {
                       disabled={!!loading}
                       className={`block w-full text-center py-3 px-4 rounded-lg font-semibold text-sm transition-opacity hover:opacity-90 ${
                         plan.recommended
-                          ? "bg-[var(--ditto-primary)] text-[#0a0a0a]"
-                          : "bg-[var(--ditto-surface-hover)] text-[var(--ditto-text)] border border-[var(--ditto-border)]"
+                          ? "bg-(--ditto-primary) text-[#0a0a0a]"
+                          : "bg-(--ditto-surface-hover) text-(--ditto-text) border border-(--ditto-border)"
                       } disabled:opacity-50`}
                     >
                       {loading === plan.priceId ? "Loading..." : plan.id === "free" ? "Get Started" : "Subscribe"}
@@ -212,10 +212,10 @@ export default function PricingPage() {
                     {plan.features.map((feature) => (
                       <li
                         key={feature}
-                        className="flex items-start gap-2 text-sm text-[var(--ditto-text-secondary)]"
+                        className="flex items-start gap-2 text-sm text-(--ditto-text-secondary)"
                       >
                         <Check
-                          className="w-4 h-4 text-[var(--ditto-primary)] mt-0.5 shrink-0"
+                          className="w-4 h-4 text-(--ditto-primary) mt-0.5 shrink-0"
                           strokeWidth={2}
                         />
                         {feature}
@@ -229,34 +229,34 @@ export default function PricingPage() {
 
           {/* Credit Packs */}
           <div className="mt-20 max-w-3xl mx-auto">
-            <h2 className="text-2xl font-bold text-[var(--ditto-text)] mb-2">
+            <h2 className="text-2xl font-bold text-(--ditto-text) mb-2">
               Need more credits?
             </h2>
-            <p className="text-sm text-[var(--ditto-text-muted)] mb-8">
+            <p className="text-sm text-(--ditto-text-muted) mb-8">
               Top up anytime — credits never expire
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {packs.map((pack) => (
                 <div
                   key={pack.credits}
-                  className="rounded-xl border border-[var(--ditto-border)] bg-[var(--ditto-surface)] p-6 text-center"
+                  className="rounded-xl border border-(--ditto-border) bg-(--ditto-surface) p-6 text-center"
                 >
-                  <div className="text-2xl font-bold text-[var(--ditto-text)] mb-1">
+                  <div className="text-2xl font-bold text-(--ditto-text) mb-1">
                     {pack.credits.toLocaleString()}
                   </div>
-                  <div className="text-xs text-[var(--ditto-text-muted)] mb-3">credits</div>
+                  <div className="text-xs text-(--ditto-text-muted) mb-3">credits</div>
                   <div className="mb-4">
-                    <span className="text-sm line-through text-[var(--ditto-text-muted)] mr-1">
+                    <span className="text-sm line-through text-(--ditto-text-muted) mr-1">
                       {pack.price}
                     </span>
-                    <span className="text-xl font-bold text-[var(--ditto-text)]">
+                    <span className="text-xl font-bold text-(--ditto-text)">
                       {pack.launchPrice}
                     </span>
                   </div>
                   <button
                     onClick={() => pack.priceId && checkout(pack.priceId, "payment")}
                     disabled={!session || !!loading}
-                    className="w-full py-2 px-4 rounded-lg text-sm font-medium bg-[var(--ditto-surface-hover)] text-[var(--ditto-text)] border border-[var(--ditto-border)] hover:border-[var(--ditto-text-muted)] transition-colors disabled:opacity-50"
+                    className="w-full py-2 px-4 rounded-lg text-sm font-medium bg-(--ditto-surface-hover) text-(--ditto-text) border border-(--ditto-border) hover:border-(--ditto-text-muted) transition-colors disabled:opacity-50"
                   >
                     {loading === pack.priceId ? "Loading..." : session ? "Buy Credits" : "Sign up first"}
                   </button>
@@ -266,7 +266,7 @@ export default function PricingPage() {
           </div>
 
           {/* Cost reference */}
-          <div className="mt-12 text-xs text-[var(--ditto-text-muted)]">
+          <div className="mt-12 text-xs text-(--ditto-text-muted)">
             Extract a design: 100 credits · Generate hybrid mix: 300 credits · Boost quality: 200+ credits
           </div>
         </div>

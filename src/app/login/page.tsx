@@ -37,17 +37,17 @@ export default function LoginPage() {
       <div className="w-full max-w-sm">
         <div className="flex flex-col items-center mb-8">
           <span className="w-12 h-12 ditto-blob inline-block mb-3" />
-          <h1 className="text-2xl font-bold tracking-tight text-[var(--ditto-text)]">
+          <h1 className="text-2xl font-bold tracking-tight text-(--ditto-text)">
             Accedi a Ditto
           </h1>
-          <p className="text-sm text-[var(--ditto-text-muted)] mt-1">
+          <p className="text-sm text-(--ditto-text-muted) mt-1">
             Entra per gestire i tuoi design system
           </p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-[var(--ditto-text)] mb-1.5">
+            <label className="block text-sm font-medium text-(--ditto-text) mb-1.5">
               Email
             </label>
             <input
@@ -55,13 +55,13 @@ export default function LoginPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="w-full rounded-lg border border-[var(--ditto-border)] bg-[var(--ditto-bg)] px-4 py-2.5 text-sm text-[var(--ditto-text)] placeholder-[var(--ditto-text-muted)] outline-none focus:border-[var(--ditto-primary)]"
+              className="w-full rounded-lg border border-(--ditto-border) bg-(--ditto-bg) px-4 py-2.5 text-sm text-(--ditto-text) placeholder-(--ditto-text-muted) outline-none focus:border-(--ditto-primary)"
               placeholder="tu@email.com"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-[var(--ditto-text)] mb-1.5">
+            <label className="block text-sm font-medium text-(--ditto-text) mb-1.5">
               Password
             </label>
             <input
@@ -69,7 +69,7 @@ export default function LoginPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="w-full rounded-lg border border-[var(--ditto-border)] bg-[var(--ditto-bg)] px-4 py-2.5 text-sm text-[var(--ditto-text)] placeholder-[var(--ditto-text-muted)] outline-none focus:border-[var(--ditto-primary)]"
+              className="w-full rounded-lg border border-(--ditto-border) bg-(--ditto-bg) px-4 py-2.5 text-sm text-(--ditto-text) placeholder-(--ditto-text-muted) outline-none focus:border-(--ditto-primary)"
               placeholder="La tua password"
             />
           </div>
@@ -83,17 +83,17 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full rounded-lg bg-[var(--ditto-primary)] px-4 py-2.5 text-sm font-medium text-[var(--ditto-bg)] hover:bg-[var(--ditto-primary-hover)] transition-colors disabled:opacity-50"
+            className="w-full rounded-lg bg-(--ditto-primary) px-4 py-2.5 text-sm font-medium text-(--ditto-bg) hover:bg-(--ditto-primary-hover) transition-colors disabled:opacity-50"
           >
             {loading ? "Accesso in corso..." : "Accedi"}
           </button>
         </form>
 
-        <p className="mt-6 text-center text-sm text-[var(--ditto-text-muted)]">
+        <p className="mt-6 text-center text-sm text-(--ditto-text-muted)">
           Non hai un account?{" "}
           <a
             href="/register"
-            className="text-[var(--ditto-primary)] hover:text-[var(--ditto-primary-hover)]"
+            className="text-(--ditto-primary) hover:text-(--ditto-primary-hover)"
           >
             Registrati
           </a>
