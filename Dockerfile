@@ -49,7 +49,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libxrandr2 \
     xdg-utils \
     && rm -rf /var/lib/apt/lists/* \
-    && find / -name chrome_crashpad_handler -delete 2>/dev/null; true
+    && find / -name chrome_crashpad_handler -exec sh -c 'echo "#!/bin/sh\nexit 0" > "$1" && chmod +x "$1"' _ {} \;
 
 # Tell Puppeteer to use system Chromium
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
