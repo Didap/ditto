@@ -48,6 +48,17 @@ const translations = {
     howStep4Title: "Export & build",
     howStep4Desc: "Download your kit, push to Figma, or start building with your new design tokens.",
 
+    // How it works page (detailed)
+    howPageTitle: "How Ditto works",
+    howPageSubtitle: "Extract, mix, and ship design systems — powered by pure CSS reverse-engineering, zero AI tokens.",
+    howPageExtractTitle: "Extract",
+    howPageExtractDesc: "Paste any URL. Ditto launches a headless browser, analyzes every CSS rule, and extracts colors, fonts, spacing, shadows, and components into a structured design system.",
+    howPageMixTitle: "Mix",
+    howPageMixDesc: "Select multiple designs from your library or the curated catalog. Ditto blends their tokens into a brand-new hybrid design system that combines the best of each inspiration.",
+    howPageShipTitle: "Ship",
+    howPageShipDesc: "Download a complete kit with CSS tokens, React components, HTML pages, or a full Storybook project. Push variables directly to Figma. Your design system is ready to use.",
+    howPageCta: "Get started for free",
+
     // CTA
     ctaTitle: "Your design system is one URL away",
     ctaSubtitle: "Free to try. No credit card required.",
@@ -130,6 +141,16 @@ const translations = {
     howStep4Title: "Esporta e costruisci",
     howStep4Desc: "Scarica il kit, invia a Figma o inizia a costruire con i tuoi nuovi design token.",
 
+    howPageTitle: "Come funziona Ditto",
+    howPageSubtitle: "Estrai, mixa e spedisci design system — alimentato da pura analisi CSS, zero token AI.",
+    howPageExtractTitle: "Estrai",
+    howPageExtractDesc: "Incolla un URL. Ditto lancia un browser headless, analizza ogni regola CSS ed estrae colori, font, spaziature, ombre e componenti in un design system strutturato.",
+    howPageMixTitle: "Mixa",
+    howPageMixDesc: "Seleziona piu design dalla tua libreria o dal catalogo curato. Ditto fonde i loro token in un nuovo design system ibrido che combina il meglio di ogni ispirazione.",
+    howPageShipTitle: "Spedisci",
+    howPageShipDesc: "Scarica un kit completo con token CSS, componenti React, pagine HTML o un progetto Storybook. Invia le variabili direttamente su Figma. Il tuo design system e pronto.",
+    howPageCta: "Inizia gratis",
+
     ctaTitle: "Il tuo design system è a un URL di distanza",
     ctaSubtitle: "Provalo gratis. Nessuna carta di credito.",
     ctaCta: "Estrai il tuo primo design",
@@ -209,6 +230,16 @@ const translations = {
     howStep4Title: "Exportez et construisez",
     howStep4Desc: "Telechargez le kit, envoyez vers Figma ou commencez a construire avec vos nouveaux tokens.",
 
+    howPageTitle: "Comment fonctionne Ditto",
+    howPageSubtitle: "Extrayez, mixez et livrez des design systems — alimente par l'analyse CSS pure, zero tokens IA.",
+    howPageExtractTitle: "Extraire",
+    howPageExtractDesc: "Collez une URL. Ditto lance un navigateur headless, analyse chaque regle CSS et extrait couleurs, polices, espacements, ombres et composants dans un design system structure.",
+    howPageMixTitle: "Mixer",
+    howPageMixDesc: "Selectionnez plusieurs designs de votre bibliotheque ou du catalogue. Ditto fusionne leurs tokens en un nouveau design system hybride combinant le meilleur de chaque inspiration.",
+    howPageShipTitle: "Livrer",
+    howPageShipDesc: "Telechargez un kit complet avec tokens CSS, composants React, pages HTML ou un projet Storybook. Envoyez les variables directement vers Figma. Votre design system est pret.",
+    howPageCta: "Commencer gratuitement",
+
     ctaTitle: "Votre design system est a une URL",
     ctaSubtitle: "Essai gratuit. Aucune carte de credit requise.",
     ctaCta: "Extrayez votre premier design",
@@ -287,6 +318,16 @@ const translations = {
     howStep3Desc: "Ajusta los pesos, revisa el perfil de mood y genera tu design system hibrido.",
     howStep4Title: "Exporta y construye",
     howStep4Desc: "Descarga el kit, envia a Figma o empieza a construir con tus nuevos tokens.",
+
+    howPageTitle: "Como funciona Ditto",
+    howPageSubtitle: "Extrae, mezcla y envia design systems — impulsado por analisis CSS puro, cero tokens de IA.",
+    howPageExtractTitle: "Extraer",
+    howPageExtractDesc: "Pega una URL. Ditto lanza un navegador headless, analiza cada regla CSS y extrae colores, fuentes, espaciado, sombras y componentes en un design system estructurado.",
+    howPageMixTitle: "Mezclar",
+    howPageMixDesc: "Selecciona varios disenos de tu biblioteca o del catalogo curado. Ditto fusiona sus tokens en un nuevo design system hibrido que combina lo mejor de cada inspiracion.",
+    howPageShipTitle: "Enviar",
+    howPageShipDesc: "Descarga un kit completo con tokens CSS, componentes React, paginas HTML o un proyecto Storybook. Envia variables directamente a Figma. Tu design system esta listo.",
+    howPageCta: "Empezar gratis",
 
     ctaTitle: "Tu design system esta a una URL de distancia",
     ctaSubtitle: "Prueba gratis. Sin tarjeta de credito.",
