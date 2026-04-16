@@ -5,6 +5,7 @@ import { users, designUnlocks } from "@/lib/db/schema";
 import { eq, and, gte, sql } from "drizzle-orm";
 import { nanoid } from "nanoid";
 import { ApiError, insufficientCredits } from "@/lib/errors";
+import { sendPurchaseEmail } from "@/lib/email";
 
 type Feature = "devkit" | "complete";
 const FEATURE_COST: Record<Feature, number> = { devkit: 50, complete: 100 };
@@ -113,6 +114,21 @@ export async function POST(
       creditsSpent: cost,
       expiresAt,
     });
+
+    // Send purchase confirmation email
+    const [dbUser] = await db
+      .select({ credits: users.credits })
+      .from(users)
+      .where(eq(users.id, user.id))
+      .limit(1);
+
+    const featureLabel = feature === "devkit" ? "Dev Kit" : "Complete Kit";
+    sendPurchaseEmail(user.email, user.name, {
+      type: feature as "devkit" | "complete",
+      designName: `${slug} — ${featureLabel}`,
+      creditsSpent: cost,
+      creditsRemaining: dbUser?.credits ?? 0,
+    }).catch(() => {}); // fire-and-forget
 
     return NextResponse.json({
       unlocked: true,

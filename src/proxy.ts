@@ -1,7 +1,7 @@
 import NextAuth from "next-auth";
 import { authConfig } from "@/lib/auth.config";
 
-const PUBLIC_ROUTES = ["/", "/login", "/register", "/pricing"];
+const PUBLIC_ROUTES = ["/", "/login", "/register", "/pricing", "/how-it-works", "/terms"];
 
 const { auth } = NextAuth(authConfig);
 

@@ -30,6 +30,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         const valid = await bcrypt.compare(password, user.passwordHash);
         if (!valid) return null;
 
+        // Block unverified users
+        if (!user.emailVerified) return null;
+
         return { id: user.id, name: user.name, email: user.email };
       },
     }),

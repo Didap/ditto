@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { useCredits } from "@/lib/credits-context";
 import {
@@ -93,6 +93,14 @@ const PREVIEW_PAGES = [
 // ── Main Component ──
 
 export default function InspirePage() {
+  return (
+    <Suspense>
+      <InspireContent />
+    </Suspense>
+  );
+}
+
+function InspireContent() {
   // State
   const [urls, setUrls] = useState<string[]>(["", "", ""]);
   const [inspirations, setInspirations] = useState<Inspiration[]>([]);

@@ -1,11 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import { nanoid } from "nanoid";
+import crypto from "crypto";
 import { db } from "@/lib/db";
 import { users } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
 import { generateReferralCode, processReferral } from "@/lib/quests";
 import { ApiError } from "@/lib/errors";
+import { sendVerificationEmail } from "@/lib/email";
 
 export async function POST(req: NextRequest) {
   try {
@@ -42,12 +44,19 @@ export async function POST(req: NextRequest) {
     const passwordHash = await bcrypt.hash(password, 12);
     const userId = nanoid();
 
+    // Generate verification token (24h expiry)
+    const verifyToken = crypto.randomBytes(32).toString("hex");
+    const verifyTokenExpires = new Date();
+    verifyTokenExpires.setHours(verifyTokenExpires.getHours() + 24);
+
     await db.insert(users).values({
       id: userId,
       email,
       name,
       passwordHash,
       referralCode: generateReferralCode(),
+      verifyToken,
+      verifyTokenExpires,
     });
 
     // Process referral if provided
@@ -57,7 +66,14 @@ export async function POST(req: NextRequest) {
       if (result.success) referrerName = result.referrerName;
     }
 
-    return NextResponse.json({ success: true, referrerName });
+    // Send verification email
+    await sendVerificationEmail(email, name, verifyToken);
+
+    return NextResponse.json({
+      success: true,
+      referrerName,
+      requiresVerification: true,
+    });
   } catch {
     return NextResponse.json(
       { error: ApiError.REGISTRATION_FAILED },

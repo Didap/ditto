@@ -3,9 +3,21 @@
 import { useSession, signOut } from "next-auth/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState, useEffect, useRef } from "react";
-import { Menu, X, LogOut, Coins, User } from "lucide-react";
+import { useState, useEffect, useRef, useSyncExternalStore } from "react";
+import { Menu, X, LogOut, Coins, User, Sun, Moon } from "lucide-react";
 import { useCredits } from "@/lib/credits-context";
+
+// Theme as external store to avoid setState-in-effect lint errors
+function subscribeTheme(cb: () => void) {
+  window.addEventListener("storage", cb);
+  return () => window.removeEventListener("storage", cb);
+}
+function getThemeSnapshot() {
+  return localStorage.getItem("ditto-theme") !== "light";
+}
+function getThemeServerSnapshot() {
+  return true; // SSR default: dark
+}
 
 export function NavBar() {
   const { data: session, status } = useSession();
@@ -14,6 +26,19 @@ export function NavBar() {
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const userMenuRef = useRef<HTMLDivElement>(null);
   const { credits, refresh } = useCredits();
+  const dark = useSyncExternalStore(subscribeTheme, getThemeSnapshot, getThemeServerSnapshot);
+
+  useEffect(() => {
+    document.documentElement.classList.remove("dark", "light");
+    document.documentElement.classList.add(dark ? "dark" : "light");
+  }, [dark]);
+
+  const toggleTheme = () => {
+    const next = !dark;
+    localStorage.setItem("ditto-theme", next ? "dark" : "light");
+    // Force re-render by dispatching storage event (useSyncExternalStore picks it up)
+    window.dispatchEvent(new StorageEvent("storage", { key: "ditto-theme" }));
+  };
 
   const isAuthPage = pathname === "/login" || pathname === "/register";
   const isLanding = pathname === "/";
@@ -101,6 +126,30 @@ export function NavBar() {
             <a href="/add" className="block px-4 py-2 text-sm text-(--ditto-text-secondary) hover:text-(--ditto-text) hover:bg-(--ditto-bg) transition-colors">+ Add Design</a>
             <a href="/inspire" className="block px-4 py-2 text-sm text-(--ditto-text-secondary) hover:text-(--ditto-text) hover:bg-(--ditto-bg) transition-colors">Mix Design</a>
           </div>
+          {/* Theme toggle */}
+                    <div className="px-4 py-2.5 border-b border-(--ditto-border)">
+              <button
+                onClick={toggleTheme}
+                className="w-full flex items-center justify-between"
+              >
+                <span className="text-xs text-(--ditto-text-muted)">{dark ? "Dark mode" : "Light mode"}</span>
+                <div
+                  className="relative w-10 h-5 rounded-full transition-colors"
+                  style={{ backgroundColor: dark ? "var(--ditto-primary)" : "var(--ditto-border)" }}
+                >
+                  <div
+                    className="absolute top-0.5 w-4 h-4 rounded-full bg-(--ditto-bg) shadow-sm flex items-center justify-center transition-all duration-200"
+                    style={{ left: dark ? "calc(100% - 18px)" : "2px" }}
+                  >
+                    {dark ? (
+                      <Moon className="w-2.5 h-2.5 text-(--ditto-text-muted)" strokeWidth={2} />
+                    ) : (
+                      <Sun className="w-2.5 h-2.5 text-(--ditto-warning)" strokeWidth={2} />
+                    )}
+                  </div>
+                </div>
+              </button>
+            </div>
           <button
             onClick={handleSignOut}
             className="w-full flex items-center gap-2 px-4 py-2.5 text-sm text-(--ditto-text-muted) hover:text-(--ditto-error) hover:bg-(--ditto-bg) transition-colors"
@@ -205,12 +254,20 @@ export function NavBar() {
                 <span className="text-(--ditto-text-muted)">credits</span>
               </div>
             )}
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between mb-3">
               <span className="text-sm text-(--ditto-text-muted)">{session.user.name || session.user.email}</span>
               <button onClick={handleSignOut} className="flex items-center gap-1.5 text-sm text-(--ditto-text-muted) hover:text-(--ditto-error)">
                 <LogOut className="w-3.5 h-3.5" strokeWidth={1.5} /> Sign out
               </button>
             </div>
+            <button onClick={toggleTheme} className="w-full flex items-center justify-between">
+              <span className="text-xs text-(--ditto-text-muted)">{dark ? "Dark mode" : "Light mode"}</span>
+              <div className="relative w-10 h-5 rounded-full transition-colors" style={{ backgroundColor: dark ? "var(--ditto-primary)" : "var(--ditto-border)" }}>
+                <div className="absolute top-0.5 w-4 h-4 rounded-full bg-(--ditto-bg) shadow-sm flex items-center justify-center transition-all duration-200" style={{ left: dark ? "calc(100% - 18px)" : "2px" }}>
+                  {dark ? <Moon className="w-2.5 h-2.5 text-(--ditto-text-muted)" strokeWidth={2} /> : <Sun className="w-2.5 h-2.5 text-(--ditto-warning)" strokeWidth={2} />}
+                </div>
+              </div>
+            </button>
           </div>
         )}
       </MobileMenu>

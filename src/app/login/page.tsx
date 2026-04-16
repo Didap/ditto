@@ -1,11 +1,23 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState, Suspense } from "react";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function LoginPage() {
+  return (
+    <Suspense>
+      <LoginForm />
+    </Suspense>
+  );
+}
+
+function LoginForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const verified = searchParams.get("verified") === "true";
+  const tokenError = searchParams.get("error");
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -25,7 +37,7 @@ export default function LoginPage() {
     setLoading(false);
 
     if (result?.error) {
-      setError("Email o password non validi");
+      setError("Invalid email or password. Make sure your email is verified.");
     } else {
       router.push("/dashboard");
       router.refresh();
@@ -38,12 +50,33 @@ export default function LoginPage() {
         <div className="flex flex-col items-center mb-8">
           <span className="w-12 h-12 ditto-blob inline-block mb-3" />
           <h1 className="text-2xl font-bold tracking-tight text-(--ditto-text)">
-            Accedi a Ditto
+            Sign in to Ditto
           </h1>
           <p className="text-sm text-(--ditto-text-muted) mt-1">
-            Entra per gestire i tuoi design system
+            Manage your design systems
           </p>
         </div>
+
+        {/* Verification success */}
+        {verified && (
+          <div className="rounded-lg border border-(--ditto-primary)/30 bg-(--ditto-primary)/10 px-4 py-3 mb-4">
+            <p className="text-sm text-(--ditto-primary) font-medium">
+              Email verified! You can now sign in.
+            </p>
+          </div>
+        )}
+
+        {/* Token errors */}
+        {tokenError === "invalid-token" && (
+          <div className="rounded-lg border border-red-500/30 bg-red-500/10 px-4 py-3 mb-4">
+            <p className="text-sm text-red-400">Invalid verification link.</p>
+          </div>
+        )}
+        {tokenError === "expired-token" && (
+          <div className="rounded-lg border border-red-500/30 bg-red-500/10 px-4 py-3 mb-4">
+            <p className="text-sm text-red-400">Verification link expired. Please register again.</p>
+          </div>
+        )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
@@ -56,7 +89,7 @@ export default function LoginPage() {
               onChange={(e) => setEmail(e.target.value)}
               required
               className="w-full rounded-lg border border-(--ditto-border) bg-(--ditto-bg) px-4 py-2.5 text-sm text-(--ditto-text) placeholder-(--ditto-text-muted) outline-none focus:border-(--ditto-primary)"
-              placeholder="tu@email.com"
+              placeholder="you@email.com"
             />
           </div>
 
@@ -70,7 +103,7 @@ export default function LoginPage() {
               onChange={(e) => setPassword(e.target.value)}
               required
               className="w-full rounded-lg border border-(--ditto-border) bg-(--ditto-bg) px-4 py-2.5 text-sm text-(--ditto-text) placeholder-(--ditto-text-muted) outline-none focus:border-(--ditto-primary)"
-              placeholder="La tua password"
+              placeholder="Your password"
             />
           </div>
 
@@ -85,17 +118,17 @@ export default function LoginPage() {
             disabled={loading}
             className="w-full rounded-lg bg-(--ditto-primary) px-4 py-2.5 text-sm font-medium text-(--ditto-bg) hover:bg-(--ditto-primary-hover) transition-colors disabled:opacity-50"
           >
-            {loading ? "Accesso in corso..." : "Accedi"}
+            {loading ? "Signing in..." : "Sign in"}
           </button>
         </form>
 
         <p className="mt-6 text-center text-sm text-(--ditto-text-muted)">
-          Non hai un account?{" "}
+          Don&apos;t have an account?{" "}
           <a
             href="/register"
             className="text-(--ditto-primary) hover:text-(--ditto-primary-hover)"
           >
-            Registrati
+            Register
           </a>
         </p>
       </div>

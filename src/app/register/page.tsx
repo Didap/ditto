@@ -1,8 +1,7 @@
 "use client";
 
-import React, { useState, Suspense } from "react";
-import { signIn } from "next-auth/react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useState, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 
 export default function RegisterPage() {
   return (
@@ -13,7 +12,6 @@ export default function RegisterPage() {
 }
 
 function RegisterForm() {
-  const router = useRouter();
   const searchParams = useSearchParams();
   const referralCode = searchParams.get("ref") || "";
   const [name, setName] = useState("");
@@ -22,6 +20,7 @@ function RegisterForm() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [emailSent, setEmailSent] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -54,26 +53,38 @@ function RegisterForm() {
         return;
       }
 
-      // Auto-login after registration
-      const signInResult = await signIn("credentials", {
-        email,
-        password,
-        redirect: false,
-      });
-
       setLoading(false);
-
-      if (signInResult?.error) {
-        setError("Registrazione riuscita, ma login fallito. Prova ad accedere.");
-      } else {
-        router.push("/dashboard");
-        router.refresh();
-      }
+      setEmailSent(true);
     } catch {
       setLoading(false);
       setError("Errore di rete, riprova");
     }
   };
+
+  if (emailSent) {
+    return (
+      <div className="flex min-h-[80vh] items-center justify-center">
+        <div className="w-full max-w-sm text-center">
+          <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-(--ditto-primary)/10 flex items-center justify-center">
+            <svg viewBox="0 0 24 24" className="w-8 h-8 text-(--ditto-primary)" fill="none" stroke="currentColor" strokeWidth="1.5">
+              <path d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+            </svg>
+          </div>
+          <h1 className="text-xl font-bold text-(--ditto-text) mb-2">Check your email</h1>
+          <p className="text-sm text-(--ditto-text-muted) mb-1">
+            We sent a verification link to
+          </p>
+          <p className="text-sm font-semibold text-(--ditto-text) mb-6">{email}</p>
+          <p className="text-xs text-(--ditto-text-muted)">
+            Click the link in the email to activate your account. The link expires in 24 hours.
+          </p>
+          <a href="/login" className="inline-block mt-6 text-sm text-(--ditto-primary) hover:underline">
+            Go to login
+          </a>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex min-h-[80vh] items-center justify-center">

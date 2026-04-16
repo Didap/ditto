@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useSyncExternalStore } from "react";
 import { useSession } from "next-auth/react";
 import { t, LOCALES } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n";
@@ -197,20 +197,29 @@ function FontGlitch({ text, glitchWords = ["design"] }: { text: string; glitchWo
   );
 }
 
+// Locale as external store
+function subscribeLocale(cb: () => void) {
+  window.addEventListener("storage", cb);
+  return () => window.removeEventListener("storage", cb);
+}
+function getLocaleSnapshot(): Locale {
+  const stored = localStorage.getItem("ditto-locale") as Locale | null;
+  if (stored && LOCALES.some((l) => l.code === stored)) return stored;
+  const browserLang = navigator.language.slice(0, 2);
+  const match = LOCALES.find((l) => l.code === browserLang);
+  return match ? match.code : "en";
+}
+function getLocaleServerSnapshot(): Locale {
+  return "en";
+}
+
 export default function LandingPage() {
   const { data: session } = useSession();
-  const [locale, setLocale] = useState<Locale>("en");
-
-  useEffect(() => {
-    const stored = localStorage.getItem("ditto-locale") as Locale | null;
-    if (stored && LOCALES.some((l) => l.code === stored)) {
-      setLocale(stored);
-      return;
-    }
-    const browserLang = navigator.language.slice(0, 2);
-    const match = LOCALES.find((l) => l.code === browserLang);
-    if (match) setLocale(match.code);
-  }, []);
+  const locale = useSyncExternalStore(
+    subscribeLocale,
+    getLocaleSnapshot,
+    getLocaleServerSnapshot
+  );
   const [blobProgress, setBlobProgress] = useState(0);
   const blobAnchorRef = useRef<HTMLDivElement>(null);
   const [rocketData, setRocketData] = useState<object | null>(null);
@@ -460,9 +469,7 @@ export default function LandingPage() {
           <select
             value={locale}
             onChange={(e) => {
-              const code = e.target.value as Locale;
-              setLocale(code);
-              localStorage.setItem("ditto-locale", code);
+              localStorage.setItem("ditto-locale", e.target.value);
               window.location.reload();
             }}
             className="rounded-md border border-(--ditto-bg)/20 bg-(--ditto-bg)/10 px-2 py-1 text-xs text-(--ditto-bg)/70 outline-none cursor-pointer"
