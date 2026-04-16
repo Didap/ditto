@@ -1,26 +1,25 @@
 import { db } from "@/lib/db";
 import { designs } from "@/lib/db/schema";
 import type { DesignSelect } from "@/lib/db/schema";
-import { eq, and, desc } from "drizzle-orm";
+import { eq, and, desc, isNull, isNotNull, lte } from "drizzle-orm";
 import type { StoredDesign } from "./types";
 import { scoreDesignQuality } from "./quality-scorer";
 
 /**
- * List all designs for a user.
- * Returns lightweight objects (no tokens/designMd) for the library grid.
+ * List all active (non-deleted) designs for a user.
  */
 export async function listDesigns(userId: string): Promise<StoredDesign[]> {
   const rows = await db
     .select()
     .from(designs)
-    .where(eq(designs.userId, userId))
+    .where(and(eq(designs.userId, userId), isNull(designs.deletedAt)))
     .orderBy(desc(designs.createdAt));
 
   return rows.map(rowToDesign);
 }
 
 /**
- * Get a single design by slug (scoped to user).
+ * Get a single active design by slug (scoped to user).
  */
 export async function getDesign(
   userId: string,
@@ -29,7 +28,9 @@ export async function getDesign(
   const [row] = await db
     .select()
     .from(designs)
-    .where(and(eq(designs.userId, userId), eq(designs.slug, slug)))
+    .where(
+      and(eq(designs.userId, userId), eq(designs.slug, slug), isNull(designs.deletedAt))
+    )
     .limit(1);
 
   return row ? rowToDesign(row) : null;
@@ -44,7 +45,7 @@ export async function saveDesign(
 ): Promise<void> {
   const now = new Date();
 
-  // Check if exists (same user + slug)
+  // Check if exists (same user + slug) — including soft-deleted, to restore
   const [existing] = await db
     .select({ id: designs.id })
     .from(designs)
@@ -62,6 +63,7 @@ export async function saveDesign(
         resolved: design.resolved,
         designMd: design.designMd,
         source: design.source,
+        deletedAt: null, // restore if was soft-deleted
         updatedAt: now,
       })
       .where(eq(designs.id, existing.id));
@@ -84,17 +86,85 @@ export async function saveDesign(
 }
 
 /**
- * Delete a design (scoped to user).
+ * Soft-delete a design (scoped to user). Permanent after 7 days.
  */
 export async function deleteDesign(
   userId: string,
   slug: string
 ): Promise<boolean> {
   const result = await db
-    .delete(designs)
-    .where(and(eq(designs.userId, userId), eq(designs.slug, slug)));
+    .update(designs)
+    .set({ deletedAt: new Date() })
+    .where(
+      and(eq(designs.userId, userId), eq(designs.slug, slug), isNull(designs.deletedAt))
+    );
 
   return (result.rowCount ?? 0) > 0;
+}
+
+/**
+ * List soft-deleted designs for a user (trash).
+ */
+export async function listTrash(userId: string): Promise<StoredDesign[]> {
+  const rows = await db
+    .select()
+    .from(designs)
+    .where(and(eq(designs.userId, userId), isNotNull(designs.deletedAt)))
+    .orderBy(desc(designs.deletedAt));
+
+  return rows.map((row) => ({
+    ...rowToDesign(row),
+    deletedAt: row.deletedAt?.toISOString(),
+  }));
+}
+
+/**
+ * Restore a soft-deleted design.
+ */
+export async function restoreDesign(
+  userId: string,
+  slug: string
+): Promise<boolean> {
+  const result = await db
+    .update(designs)
+    .set({ deletedAt: null })
+    .where(
+      and(eq(designs.userId, userId), eq(designs.slug, slug), isNotNull(designs.deletedAt))
+    );
+
+  return (result.rowCount ?? 0) > 0;
+}
+
+/**
+ * Permanently delete a soft-deleted design.
+ */
+export async function permanentlyDeleteDesign(
+  userId: string,
+  slug: string
+): Promise<boolean> {
+  const result = await db
+    .delete(designs)
+    .where(
+      and(eq(designs.userId, userId), eq(designs.slug, slug), isNotNull(designs.deletedAt))
+    );
+
+  return (result.rowCount ?? 0) > 0;
+}
+
+/**
+ * Purge all designs soft-deleted more than 7 days ago (all users).
+ */
+export async function purgeExpiredTrash(): Promise<number> {
+  const cutoff = new Date();
+  cutoff.setDate(cutoff.getDate() - 7);
+
+  const result = await db
+    .delete(designs)
+    .where(
+      and(isNotNull(designs.deletedAt), lte(designs.deletedAt, cutoff))
+    );
+
+  return result.rowCount ?? 0;
 }
 
 /**

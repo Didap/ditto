@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import { useCredits } from "@/lib/credits-context";
 
 type ExtractionState = "idle" | "extracting" | "done" | "error";
@@ -208,56 +208,21 @@ export default function AddDesignPage() {
         )}
       </div>
 
-      {/* Quick Import Section */}
+      {/* Catalog Section */}
       <div className="mt-8">
         <h2 className="text-lg font-semibold text-(--ditto-text) mb-4">
-          Or import from collection
+          Or browse the catalog
         </h2>
         <p className="text-sm text-(--ditto-text-muted) mb-4">
-          Import pre-made DESIGN.md files from the community collection (58+ brands).
+          Unlock curated design systems from our collection of 70+ styles for 50 credits each.
         </p>
-        <ImportCollectionButton />
+        <a
+          href="/catalog"
+          className="inline-flex items-center gap-2 rounded-lg border border-(--ditto-border) px-4 py-2 text-sm font-medium text-(--ditto-text-secondary) hover:text-(--ditto-text) hover:border-(--ditto-text-muted) transition-colors"
+        >
+          Browse Catalog
+        </a>
       </div>
-    </div>
-  );
-}
-
-function ImportCollectionButton() {
-  const [importing, setImporting] = useState(false);
-  const [result, setResult] = useState("");
-
-  return (
-    <div className="flex items-center gap-3">
-      <button
-        onClick={async () => {
-          setImporting(true);
-          setResult("");
-          try {
-            const res = await fetch("/api/import", { method: "POST" });
-            if (!res.ok) throw new Error();
-            const data = await res.json();
-            setResult(`Imported ${data.count} designs! Go to Library to browse.`);
-          } catch {
-            setResult("Import failed, try again");
-          } finally {
-            setImporting(false);
-          }
-        }}
-        disabled={importing}
-        className="rounded-lg border border-(--ditto-border) px-4 py-2 text-sm font-medium text-(--ditto-text-secondary) hover:text-(--ditto-text) hover:border-(--ditto-text-muted) transition-colors disabled:opacity-50"
-      >
-        {importing ? (
-          <span className="flex items-center gap-2">
-            <span className="w-3 h-3 border-2 border-(--ditto-primary) border-t-transparent rounded-full animate-spin" />
-            Importing... (takes ~1 min)
-          </span>
-        ) : (
-          "Import Full Collection"
-        )}
-      </button>
-      {result && (
-        <span className="text-xs text-(--ditto-text-muted)">{result}</span>
-      )}
     </div>
   );
 }

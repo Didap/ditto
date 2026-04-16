@@ -199,14 +199,18 @@ function FontGlitch({ text, glitchWords = ["design"] }: { text: string; glitchWo
 
 export default function LandingPage() {
   const { data: session } = useSession();
-  const [locale, setLocale] = useState<Locale>(() => {
-    if (typeof window === "undefined") return "en";
+  const [locale, setLocale] = useState<Locale>("en");
+
+  useEffect(() => {
     const stored = localStorage.getItem("ditto-locale") as Locale | null;
-    if (stored && LOCALES.some((l) => l.code === stored)) return stored;
+    if (stored && LOCALES.some((l) => l.code === stored)) {
+      setLocale(stored);
+      return;
+    }
     const browserLang = navigator.language.slice(0, 2);
     const match = LOCALES.find((l) => l.code === browserLang);
-    return match ? match.code : "en";
-  });
+    if (match) setLocale(match.code);
+  }, []);
   const [blobProgress, setBlobProgress] = useState(0);
   const blobAnchorRef = useRef<HTMLDivElement>(null);
   const [rocketData, setRocketData] = useState<object | null>(null);

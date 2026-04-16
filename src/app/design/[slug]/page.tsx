@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useParams } from "next/navigation";
 import type { StoredDesign } from "@/lib/types";
 import { qualityLabel, qualityColor, friendlyIssueMessage } from "@/lib/quality-scorer";
@@ -13,6 +13,16 @@ import { PricingPreview } from "@/components/preview/pages/PricingPreview";
 import { BlogPreview } from "@/components/preview/pages/BlogPreview";
 import { ComponentsPreview } from "@/components/preview/pages/ComponentsPreview";
 import { FloatingEditor } from "@/components/FloatingEditor";
+import { Lock, Coins, Info } from "lucide-react";
+
+interface FeatureStatus {
+  unlocked: boolean;
+  cost?: number;
+}
+interface UnlockStatus {
+  devkit: FeatureStatus;
+  complete: FeatureStatus;
+}
 
 function QualityInfoPopover() {
   const [open, setOpen] = useState(false);
@@ -67,6 +77,20 @@ export default function DesignDetailPage() {
   const [activePreview, setActivePreview] = useState("landing");
   const [activeTab, setActiveTab] = useState<"preview" | "tokens" | "designmd">("preview");
   const [editResolved, setEditResolved] = useState<StoredDesign["resolved"] | null>(null);
+  const [unlocks, setUnlocks] = useState<UnlockStatus>({
+    devkit: { unlocked: false, cost: 50 },
+    complete: { unlocked: false, cost: 100 },
+  });
+  const [purchasing, setPurchasing] = useState<string | null>(null);
+  const [confirmModal, setConfirmModal] = useState<{ feature: "devkit" | "complete"; cost: number } | null>(null);
+  const { deduct, refresh: refreshCredits, credits } = useCredits();
+
+  const fetchUnlocks = useCallback((s: string) => {
+    fetch(`/api/designs/${s}/unlock`)
+      .then((r) => r.json())
+      .then((data) => setUnlocks(data))
+      .catch(() => {});
+  }, []);
 
   useEffect(() => {
     fetch(`/api/designs/${slug}`)
@@ -77,7 +101,30 @@ export default function DesignDetailPage() {
       })
       .catch(() => {})
       .finally(() => setLoading(false));
-  }, [slug]);
+    fetchUnlocks(slug);
+  }, [slug, fetchUnlocks]);
+
+  const purchaseFeature = async (feature: "devkit" | "complete") => {
+    setConfirmModal(null);
+    setPurchasing(feature);
+    try {
+      const res = await fetch(`/api/designs/${slug}/unlock`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ feature }),
+      });
+      if (res.ok) {
+        const data = await res.json();
+        deduct(data.creditsSpent);
+        refreshCredits();
+        setUnlocks((prev) => ({
+          ...prev,
+          [feature]: { unlocked: true, expiresAt: data.expiresAt },
+        }));
+      }
+    } catch {}
+    setPurchasing(null);
+  };
 
   if (loading) {
     return (
@@ -137,70 +184,173 @@ export default function DesignDetailPage() {
               </div>
             )}
           </div>
-          <a
-            href={design.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-sm text-(--ditto-text-muted) hover:text-(--ditto-primary) mt-0.5 inline-block transition-colors"
-          >
-            {design.url} ↗
-          </a>
+          <div className="flex items-center gap-3 mt-1">
+            {design.url && (
+              <a
+                href={design.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm text-(--ditto-text-muted) hover:text-(--ditto-primary) transition-colors"
+              >
+                {design.url} ↗
+              </a>
+            )}
+            {(design.creditsSpent ?? 0) > 0 && (
+              <span className="flex items-center gap-1 text-xs text-(--ditto-text-muted)">
+                <Coins className="w-3 h-3 text-(--ditto-primary)" strokeWidth={1.5} />
+                {design.creditsSpent} credits spent
+              </span>
+            )}
+          </div>
         </div>
-        <div className="flex gap-2">
-          <button
-            onClick={async () => {
-              const [JSZip, { generateComponentsCode, generateCssVariables }, { generateKitPages }] = await Promise.all([
-                import("jszip").then((m) => m.default),
-                import("@/lib/generator/components-code"),
-                import("@/lib/generator/kit-html"),
-              ]);
-              const zip = new JSZip();
-              // Core files
-              zip.file("DESIGN.md", design.designMd);
-              zip.file("tokens.css", generateCssVariables(design.resolved));
-              zip.file("components.tsx", generateComponentsCode(design.resolved));
-              // HTML pages
-              const pages = generateKitPages(design.name, design.resolved, design.tokens.fontSources || []);
-              const pagesFolder = zip.folder("pages")!;
-              for (const page of pages) {
-                pagesFolder.file(page.filename, page.html);
-              }
-              // Generate and download
-              const blob = await zip.generateAsync({ type: "blob" });
-              const url = URL.createObjectURL(blob);
-              const a = document.createElement("a");
-              a.href = url;
-              a.download = `${design.slug}-kit.zip`;
-              a.click();
-              URL.revokeObjectURL(url);
-            }}
-            className="rounded-lg bg-(--ditto-primary) px-4 py-2 text-sm font-medium text-(--ditto-bg) hover:bg-(--ditto-primary-hover) transition-colors"
-          >
-            Download Kit (.zip)
-          </button>
-          <button
-            onClick={async () => {
-              const [JSZip, { generateStorybookProject }] = await Promise.all([
-                import("jszip").then((m) => m.default),
-                import("@/lib/generator/kit-storybook"),
-              ]);
-              const zip = new JSZip();
-              const files = generateStorybookProject(design.name, design.resolved, design.tokens.fontSources || []);
-              for (const f of files) {
-                zip.file(f.path, f.content);
-              }
-              const blob = await zip.generateAsync({ type: "blob" });
-              const url = URL.createObjectURL(blob);
-              const a = document.createElement("a");
-              a.href = url;
-              a.download = `${design.slug}-storybook.zip`;
-              a.click();
-              URL.revokeObjectURL(url);
-            }}
-            className="rounded-lg border border-(--ditto-border) px-4 py-2 text-sm font-medium text-(--ditto-text-secondary) hover:text-(--ditto-text) hover:border-(--ditto-text-muted) transition-colors"
-          >
-            Download Storybook
-          </button>
+        <div className="flex gap-2 flex-wrap">
+          {/* Dev Kit (50cr) — Storybook + tokens + Tailwind + types + Figma */}
+          {unlocks.devkit.unlocked ? (
+            <div className="flex items-center gap-2">
+              <button
+                onClick={async () => {
+                  const [
+                    JSZip,
+                    { generateStorybookProject },
+                    { generateCssVariables },
+                    { generateFigmaTokensStudio },
+                    { generateTailwindConfig },
+                    { generateTypeDefinitions },
+                  ] = await Promise.all([
+                    import("jszip").then((m) => m.default),
+                    import("@/lib/generator/kit-storybook"),
+                    import("@/lib/generator/components-code"),
+                    import("@/lib/generator/figma-tokens"),
+                    import("@/lib/generator/kit-tailwind"),
+                    import("@/lib/generator/kit-types"),
+                  ]);
+                  const r = design.resolved;
+                  const zip = new JSZip();
+                  const sbFiles = generateStorybookProject(design.name, r, design.tokens.fontSources || []);
+                  for (const f of sbFiles) zip.file(f.path, f.content);
+                  zip.file("tokens.css", generateCssVariables(r));
+                  zip.file("figma-tokens.json", generateFigmaTokensStudio(r));
+                  zip.file("tailwind.config.ts", generateTailwindConfig(r));
+                  zip.file("types.ts", generateTypeDefinitions(r));
+                  zip.file("DESIGN.md", design.designMd);
+                  zip.file("README.md", `# ${design.name} — Dev Kit\n\nGenerated by Ditto.\n\n## Quick start\n\n\`\`\`bash\nnpm install\nnpm run storybook\n\`\`\`\n\n## Contents\n\n- **Storybook project** — Interactive component explorer (\`src/\`)\n- **tokens.css** — CSS custom properties\n- **tailwind.config.ts** — Tailwind theme with design tokens\n- **types.ts** — TypeScript interfaces and typed token object\n- **figma-tokens.json** — Tokens Studio format for Figma\n- **DESIGN.md** — Full design system documentation\n`);
+                  const blob = await zip.generateAsync({ type: "blob" });
+                  const url = URL.createObjectURL(blob);
+                  const a = document.createElement("a");
+                  a.href = url;
+                  a.download = `${design.slug}-devkit.zip`;
+                  a.click();
+                  URL.revokeObjectURL(url);
+                }}
+                className="rounded-lg bg-(--ditto-primary) px-4 py-2 text-sm font-medium text-(--ditto-bg) hover:bg-(--ditto-primary-hover) transition-colors"
+              >
+                Download Dev Kit
+              </button>
+              <FeatureInfo items={["Storybook project (components + stories)", "CSS tokens (tokens.css)", "Tailwind config (tailwind.config.ts)", "TypeScript types (types.ts)", "Figma tokens (figma-tokens.json)", "DESIGN.md documentation"]} />
+            </div>
+          ) : (
+            <div className="flex items-center gap-1">
+              <button
+                onClick={() => setConfirmModal({ feature: "devkit", cost: unlocks.devkit.cost ?? 50 })}
+                disabled={purchasing === "devkit" || (credits !== null && credits < (unlocks.devkit.cost ?? 50))}
+                className="rounded-lg bg-(--ditto-primary) px-4 py-2 text-sm font-medium text-(--ditto-bg) hover:bg-(--ditto-primary-hover) transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1.5"
+              >
+                {purchasing === "devkit" ? (
+                  <>
+                    <span className="w-3 h-3 border-2 border-(--ditto-bg) border-t-transparent rounded-full animate-spin" />
+                    Unlocking...
+                  </>
+                ) : (
+                  <>
+                    <Lock className="w-3.5 h-3.5" strokeWidth={1.5} />
+                    Dev Kit &middot; {unlocks.devkit.cost ?? 50}
+                    <Coins className="w-3 h-3" strokeWidth={1.5} />
+                  </>
+                )}
+              </button>
+              <FeatureInfo items={["Storybook project (components + stories)", "CSS tokens (tokens.css)", "Tailwind config (tailwind.config.ts)", "TypeScript types (types.ts)", "Figma tokens (figma-tokens.json)", "DESIGN.md documentation"]} />
+            </div>
+          )}
+
+          {/* Complete Kit (100cr) — Everything in Dev Kit + HTML pages + components + beginner guide */}
+          {unlocks.complete.unlocked ? (
+            <div className="flex items-center gap-2">
+              <button
+                onClick={async () => {
+                  const [
+                    JSZip,
+                    { generateStorybookProject },
+                    { generateComponentsCode, generateCssVariables },
+                    { generateKitPages },
+                    { generateFigmaTokensStudio },
+                    { generateTailwindConfig },
+                    { generateTypeDefinitions },
+                  ] = await Promise.all([
+                    import("jszip").then((m) => m.default),
+                    import("@/lib/generator/kit-storybook"),
+                    import("@/lib/generator/components-code"),
+                    import("@/lib/generator/kit-html"),
+                    import("@/lib/generator/figma-tokens"),
+                    import("@/lib/generator/kit-tailwind"),
+                    import("@/lib/generator/kit-types"),
+                  ]);
+                  const r = design.resolved;
+                  const zip = new JSZip();
+                  // Storybook project
+                  const sbFiles = generateStorybookProject(design.name, r, design.tokens.fontSources || []);
+                  for (const f of sbFiles) zip.file(f.path, f.content);
+                  // Dev artifacts
+                  zip.file("tokens.css", generateCssVariables(r));
+                  zip.file("figma-tokens.json", generateFigmaTokensStudio(r));
+                  zip.file("tailwind.config.ts", generateTailwindConfig(r));
+                  zip.file("types.ts", generateTypeDefinitions(r));
+                  zip.file("components.tsx", generateComponentsCode(r));
+                  // HTML preview pages
+                  const pages = generateKitPages(design.name, r, design.tokens.fontSources || []);
+                  const pagesFolder = zip.folder("pages")!;
+                  for (const page of pages) pagesFolder.file(page.filename, page.html);
+                  // Docs
+                  zip.file("DESIGN.md", design.designMd);
+                  zip.file("README.md", `# ${design.name} — Complete Kit\n\nGenerated by Ditto. Everything you need to implement this design system.\n\n## For developers\n\n\`\`\`bash\nnpm install\nnpm run storybook\n\`\`\`\n\n## For designers & non-devs\n\nOpen the \`pages/\` folder — it contains ready-to-use HTML pages (landing, dashboard, auth, pricing, blog) that you can open in any browser.\n\n## Contents\n\n- **Storybook project** — Interactive component explorer (\`src/\`)\n- **pages/** — 5 ready-to-use HTML pages\n- **components.tsx** — 14 React components with inline styles\n- **tokens.css** — CSS custom properties\n- **tailwind.config.ts** — Tailwind theme with design tokens\n- **types.ts** — TypeScript interfaces and typed token object\n- **figma-tokens.json** — Tokens Studio format for Figma\n- **DESIGN.md** — Full design system documentation\n`);
+                  const blob = await zip.generateAsync({ type: "blob" });
+                  const url = URL.createObjectURL(blob);
+                  const a = document.createElement("a");
+                  a.href = url;
+                  a.download = `${design.slug}-complete-kit.zip`;
+                  a.click();
+                  URL.revokeObjectURL(url);
+                }}
+                className="rounded-lg border border-(--ditto-border) px-4 py-2 text-sm font-medium text-(--ditto-text-secondary) hover:text-(--ditto-text) hover:border-(--ditto-text-muted) transition-colors"
+              >
+                Download Complete Kit
+              </button>
+              <FeatureInfo items={["Everything in Dev Kit, plus:", "5 ready-to-use HTML pages", "React components (14) with inline styles", "Beginner-friendly README", "Open pages in any browser — no setup needed"]} />
+            </div>
+          ) : (
+            <div className="flex items-center gap-1">
+              <button
+                onClick={() => setConfirmModal({ feature: "complete", cost: unlocks.complete.cost ?? 100 })}
+                disabled={purchasing === "complete" || (credits !== null && credits < (unlocks.complete.cost ?? 100))}
+                className="rounded-lg border border-(--ditto-border) px-4 py-2 text-sm font-medium text-(--ditto-text-secondary) hover:text-(--ditto-text) hover:border-(--ditto-text-muted) transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1.5"
+              >
+                {purchasing === "complete" ? (
+                  <>
+                    <span className="w-3 h-3 border-2 border-(--ditto-primary) border-t-transparent rounded-full animate-spin" />
+                    Unlocking...
+                  </>
+                ) : (
+                  <>
+                    <Lock className="w-3.5 h-3.5" strokeWidth={1.5} />
+                    Complete Kit &middot; {unlocks.complete.cost ?? 100}
+                    <Coins className="w-3 h-3" strokeWidth={1.5} />
+                  </>
+                )}
+              </button>
+              <FeatureInfo items={["Everything in Dev Kit, plus:", "5 ready-to-use HTML pages", "React components (14) with inline styles", "Beginner-friendly README", "Open pages in any browser — no setup needed"]} />
+            </div>
+          )}
+
+          {/* Copy DESIGN.md — always free */}
           <button
             onClick={() => {
               navigator.clipboard.writeText(design.designMd);
@@ -289,28 +439,37 @@ export default function DesignDetailPage() {
               inspirationColors={
                 design.tokens.colors?.map((c) => ({ hex: c.hex, source: design.name })) || []
               }
-              onDownloadKit={async () => {
-                const [JSZip, { generateComponentsCode, generateCssVariables }, { generateKitPages }] = await Promise.all([
+              onDownloadKit={unlocks.devkit.unlocked ? async () => {
+                const [
+                  JSZip,
+                  { generateStorybookProject },
+                  { generateCssVariables },
+                  { generateFigmaTokensStudio },
+                  { generateTailwindConfig },
+                  { generateTypeDefinitions },
+                ] = await Promise.all([
                   import("jszip").then((m) => m.default),
+                  import("@/lib/generator/kit-storybook"),
                   import("@/lib/generator/components-code"),
-                  import("@/lib/generator/kit-html"),
+                  import("@/lib/generator/figma-tokens"),
+                  import("@/lib/generator/kit-tailwind"),
+                  import("@/lib/generator/kit-types"),
                 ]);
                 const r = editResolved;
                 const zip = new JSZip();
-                zip.file("DESIGN.md", design.designMd);
+                const sbFiles = generateStorybookProject(design.name, r, design.tokens.fontSources || []);
+                for (const f of sbFiles) zip.file(f.path, f.content);
                 zip.file("tokens.css", generateCssVariables(r));
-                zip.file("components.tsx", generateComponentsCode(r));
-                const pages = generateKitPages(design.name, r, design.tokens.fontSources || []);
-                const pagesFolder = zip.folder("pages")!;
-                for (const page of pages) {
-                  pagesFolder.file(page.filename, page.html);
-                }
+                zip.file("figma-tokens.json", generateFigmaTokensStudio(r));
+                zip.file("tailwind.config.ts", generateTailwindConfig(r));
+                zip.file("types.ts", generateTypeDefinitions(r));
+                zip.file("DESIGN.md", design.designMd);
                 const blob = await zip.generateAsync({ type: "blob" });
                 const url = URL.createObjectURL(blob);
                 const a = document.createElement("a");
-                a.href = url; a.download = `${design.slug}-kit.zip`; a.click();
+                a.href = url; a.download = `${design.slug}-devkit.zip`; a.click();
                 URL.revokeObjectURL(url);
-              }}
+              } : undefined}
             />
           )}
         </div>
@@ -333,6 +492,141 @@ export default function DesignDetailPage() {
           </pre>
         </div>
       )}
+
+      {/* Purchase confirm modal */}
+      {confirmModal && (
+        <PurchaseConfirmModal
+          label={confirmModal.feature === "devkit" ? "Unlock Dev Kit" : "Unlock Complete Kit"}
+          description="Once unlocked, you can download it for 15 days."
+          cost={confirmModal.cost}
+          currentCredits={credits ?? 0}
+          processing={purchasing === confirmModal.feature}
+          onConfirm={() => purchaseFeature(confirmModal.feature)}
+          onCancel={() => setConfirmModal(null)}
+        />
+      )}
+    </div>
+  );
+}
+
+function PurchaseConfirmModal({
+  label,
+  description,
+  cost,
+  currentCredits,
+  processing,
+  onConfirm,
+  onCancel,
+}: {
+  label: string;
+  description?: string;
+  cost: number;
+  currentCredits: number;
+  processing: boolean;
+  onConfirm: () => void;
+  onCancel: () => void;
+}) {
+  const [accepted, setAccepted] = useState(false);
+  const after = currentCredits - cost;
+
+  return (
+    <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/60 backdrop-blur-sm" onClick={onCancel}>
+      <div
+        className="w-full max-w-md rounded-xl p-6 shadow-2xl"
+        style={{ backgroundColor: "var(--ditto-surface)", border: "1px solid var(--ditto-border)" }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <h3 className="text-lg font-bold text-(--ditto-text) mb-1">
+          {label}
+        </h3>
+        {description && (
+          <p className="text-sm text-(--ditto-text-muted) mb-5">
+            {description}
+          </p>
+        )}
+        {!description && <div className="mb-5" />}
+
+        {/* Credit summary */}
+        <div
+          className="rounded-lg p-4 mb-5 space-y-2"
+          style={{ backgroundColor: "var(--ditto-bg)", border: "1px solid var(--ditto-border)" }}
+        >
+          <div className="flex justify-between text-sm">
+            <span className="text-(--ditto-text-muted)">Current balance</span>
+            <span className="font-semibold text-(--ditto-text) flex items-center gap-1">
+              <Coins className="w-3.5 h-3.5 text-(--ditto-primary)" strokeWidth={1.5} />
+              {currentCredits}
+            </span>
+          </div>
+          <div className="flex justify-between text-sm">
+            <span className="text-(--ditto-text-muted)">{label} cost</span>
+            <span className="font-semibold text-(--ditto-error)">-{cost}</span>
+          </div>
+          <div className="h-px" style={{ backgroundColor: "var(--ditto-border)" }} />
+          <div className="flex justify-between text-sm">
+            <span className="text-(--ditto-text-muted)">Balance after</span>
+            <span className="font-semibold text-(--ditto-text) flex items-center gap-1">
+              <Coins className="w-3.5 h-3.5 text-(--ditto-primary)" strokeWidth={1.5} />
+              {after}
+            </span>
+          </div>
+        </div>
+
+        {/* Warning */}
+        <div className="rounded-lg border border-(--ditto-warning)/25 bg-(--ditto-warning)/10 px-4 py-3 mb-5">
+          <p className="text-xs text-(--ditto-warning)">
+            Credits spent on downloads are non-refundable. Make sure this is the design you want.
+          </p>
+        </div>
+
+        {/* T&C checkbox */}
+        <label className="flex items-start gap-2.5 mb-5 cursor-pointer group">
+          <input
+            type="checkbox"
+            checked={accepted}
+            onChange={(e) => setAccepted(e.target.checked)}
+            className="mt-0.5 w-4 h-4 rounded border border-(--ditto-border) accent-(--ditto-primary)"
+          />
+          <span className="text-xs text-(--ditto-text-muted) leading-relaxed">
+            I accept the{" "}
+            <a
+              href="/terms"
+              target="_blank"
+              className="text-(--ditto-primary) underline underline-offset-2 hover:text-(--ditto-primary-hover)"
+            >
+              Terms and Conditions
+            </a>{" "}
+            and understand this purchase is final.
+          </span>
+        </label>
+
+        {/* Actions */}
+        <div className="flex gap-3">
+          <button
+            onClick={onCancel}
+            className="flex-1 rounded-lg border border-(--ditto-border) px-4 py-2.5 text-sm font-medium text-(--ditto-text-secondary) hover:text-(--ditto-text) hover:border-(--ditto-text-muted) transition-colors"
+          >
+            Cancel
+          </button>
+          <button
+            onClick={onConfirm}
+            disabled={!accepted || processing}
+            className="flex-1 rounded-lg bg-(--ditto-primary) px-4 py-2.5 text-sm font-medium text-(--ditto-bg) hover:bg-(--ditto-primary-hover) transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-1.5"
+          >
+            {processing ? (
+              <>
+                <span className="w-3 h-3 border-2 border-(--ditto-bg) border-t-transparent rounded-full animate-spin" />
+                Processing...
+              </>
+            ) : (
+              <>
+                Confirm &middot; {cost}
+                <Coins className="w-3 h-3" strokeWidth={1.5} />
+              </>
+            )}
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
@@ -340,8 +634,9 @@ export default function DesignDetailPage() {
 function BoostButton({ slug, onBoost }: { slug: string; onBoost: () => void }) {
   const [estimate, setEstimate] = useState<{ currentScore: number; estimatedScore: number; estimatedCost: number } | null>(null);
   const [boosting, setBoosting] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
   const [result, setResult] = useState<{ before: number; after: number; creditsCharged: number; fixesApplied: string[] } | null>(null);
-  const { deduct, refresh } = useCredits();
+  const { deduct, refresh, credits } = useCredits();
 
   useEffect(() => {
     fetch(`/api/designs/${slug}/boost`)
@@ -351,6 +646,7 @@ function BoostButton({ slug, onBoost }: { slug: string; onBoost: () => void }) {
   }, [slug]);
 
   const handleBoost = async () => {
+    setShowConfirm(false);
     setBoosting(true);
     try {
       const res = await fetch(`/api/designs/${slug}/boost`, { method: "POST" });
@@ -408,7 +704,7 @@ function BoostButton({ slug, onBoost }: { slug: string; onBoost: () => void }) {
         </p>
       </div>
       <button
-        onClick={handleBoost}
+        onClick={() => setShowConfirm(true)}
         disabled={boosting}
         className="shrink-0 px-4 py-2 rounded-lg text-sm font-semibold transition-all disabled:opacity-50"
         style={{
@@ -418,6 +714,18 @@ function BoostButton({ slug, onBoost }: { slug: string; onBoost: () => void }) {
       >
         {boosting ? "Boosting..." : `Boost ⚡ ${estimate.estimatedCost} cr`}
       </button>
+
+      {showConfirm && (
+        <PurchaseConfirmModal
+          label="Quality Boost"
+          description={`Boost quality from ${estimate.currentScore} to ${estimate.estimatedScore}/100 (+${gain} points). Automatically fixes detected issues.`}
+          cost={estimate.estimatedCost}
+          currentCredits={credits ?? 0}
+          processing={boosting}
+          onConfirm={handleBoost}
+          onCancel={() => setShowConfirm(false)}
+        />
+      )}
     </div>
   );
 }
@@ -658,3 +966,35 @@ function TokensView({ design, onBoost }: { design: StoredDesign; onBoost: () => 
     </div>
   );
 }
+
+function FeatureInfo({ items }: { items: string[] }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="relative">
+      <button
+        onClick={() => setOpen(!open)}
+        className="w-5 h-5 rounded-full border border-(--ditto-border) bg-(--ditto-surface) text-(--ditto-text-muted) hover:text-(--ditto-text) hover:border-(--ditto-text-muted) transition-colors flex items-center justify-center"
+        aria-label="What's included"
+      >
+        <Info className="w-3 h-3" strokeWidth={1.5} />
+      </button>
+      {open && (
+        <>
+          <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} />
+          <div className="absolute left-1/2 -translate-x-1/2 top-7 z-50 w-64 rounded-lg border border-(--ditto-border) bg-(--ditto-surface) shadow-xl p-3">
+            <p className="text-xs font-semibold text-(--ditto-text) mb-2">Includes:</p>
+            <ul className="space-y-1">
+              {items.map((item) => (
+                <li key={item} className="flex items-start gap-1.5 text-[11px] text-(--ditto-text-muted)">
+                  <span className="text-(--ditto-primary) mt-0.5 shrink-0">&#10003;</span>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </>
+      )}
+    </div>
+  );
+}
+

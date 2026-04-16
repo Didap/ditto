@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import { useCredits } from "@/lib/credits-context";
 import {
   MOOD_QUESTIONS,
@@ -110,6 +111,29 @@ export default function InspirePage() {
   const [catalogLoaded, setCatalogLoaded] = useState(false);
   const [selectedCatalog, setSelectedCatalog] = useState<StoredDesign[]>([]);
   const [showCatalog, setShowCatalog] = useState(false);
+  const searchParams = useSearchParams();
+
+  // Pre-select designs from ?from= param (sent by dashboard bulk action)
+  useEffect(() => {
+    const fromParam = searchParams.get("from");
+    if (!fromParam) return;
+    const slugs = fromParam.split(",").filter(Boolean);
+    if (slugs.length === 0) return;
+
+    fetch("/api/designs")
+      .then((r) => r.json())
+      .then((data: StoredDesign[]) => {
+        if (!Array.isArray(data)) return;
+        setCatalogDesigns(data);
+        setCatalogLoaded(true);
+        const matched = data.filter((d) => slugs.includes(d.slug));
+        if (matched.length > 0) {
+          setSelectedCatalog(matched);
+          setShowCatalog(true);
+        }
+      })
+      .catch(() => {});
+  }, [searchParams]);
 
   // Auto-detect state: per-inspiration answers
   const [autoAnswers, setAutoAnswers] = useState<

@@ -242,7 +242,7 @@ export default function PricingPage() {
                   className="rounded-xl border border-(--ditto-border) bg-(--ditto-surface) p-6 text-center"
                 >
                   <div className="text-2xl font-bold text-(--ditto-text) mb-1">
-                    {pack.credits.toLocaleString()}
+                    {pack.credits.toLocaleString("en-US")}
                   </div>
                   <div className="text-xs text-(--ditto-text-muted) mb-3">credits</div>
                   <div className="mb-4">

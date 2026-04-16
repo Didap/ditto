@@ -44,11 +44,15 @@ Ditto is a multi-user design system tool that extracts design systems from websi
 - GET/POST `/api/auth/[...nextauth]` — NextAuth handlers
 - GET `/api/designs` — List user's designs
 - GET `/api/designs/[slug]` — Get single design
-- DELETE `/api/designs/[slug]` — Delete design
+- DELETE `/api/designs/[slug]` — Soft-delete design (moves to trash, permanent after 7 days)
+- GET/POST `/api/designs/trash` — List trash / restore or permanently delete
 - POST `/api/extract` — Extract design from URL and save
 - POST `/api/designs/save` — Explicitly save a generated design
 - POST `/api/inspire` — Extract single URL (`action: extract-one`) or generate hybrid (`action: generate`, does NOT auto-save)
-- POST `/api/import` — Import from getdesign.md collection
+- GET `/api/catalog` — List catalog with unlock status per user
+- POST `/api/catalog/unlock` — Unlock a catalog design (50 credits)
+- POST `/api/import` — **Deprecated** (returns 410, replaced by catalog)
+- GET/POST `/api/designs/[slug]/unlock` — Check/purchase devkit (50cr) or complete (100cr) unlock (permanent)
 - POST `/api/figma-push` — Push tokens to Figma
 - GET/POST `/api/credits` — Get/manage user credits
 - GET/POST `/api/quests` — Get/claim quests

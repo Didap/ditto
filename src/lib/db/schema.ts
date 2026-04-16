@@ -48,6 +48,7 @@ export const designs = pgTable(
     resolved: jsonb("resolved").$type<ResolvedDesign>().notNull(),
     designMd: text("design_md").notNull(),
     source: text("source").notNull(), // "extracted" | "imported"
+    deletedAt: timestamp("deleted_at", { withTimezone: true }), // null = active, set = soft-deleted
     createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
     updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
   },
@@ -79,3 +80,26 @@ export const questCompletions = pgTable(
 
 export type QuestCompletionSelect = typeof questCompletions.$inferSelect;
 export type QuestCompletionInsert = typeof questCompletions.$inferInsert;
+
+// ── Design Unlocks (kit / storybook purchases) ──
+
+export const designUnlocks = pgTable(
+  "design_unlocks",
+  {
+    id: text("id").primaryKey(),
+    userId: text("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    designSlug: text("design_slug").notNull(),
+    feature: text("feature").notNull(), // "kit" | "storybook"
+    creditsSpent: integer("credits_spent").notNull(),
+    unlockedAt: timestamp("unlocked_at", { withTimezone: true }).notNull().defaultNow(),
+    expiresAt: timestamp("expires_at", { withTimezone: true }).notNull(),
+  },
+  (table) => [
+    index("unlock_user_design_idx").on(table.userId, table.designSlug, table.feature),
+  ]
+);
+
+export type DesignUnlockSelect = typeof designUnlocks.$inferSelect;
+export type DesignUnlockInsert = typeof designUnlocks.$inferInsert;

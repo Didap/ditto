@@ -28,6 +28,14 @@ export enum ApiError {
   INVALID_SIGNATURE = "Invalid signature",
   NO_BILLING_ACCOUNT = "No billing account found. Subscribe to a plan first.",
 
+  // Catalog
+  CATALOG_ITEM_NOT_FOUND = "Catalog item not found",
+  CATALOG_ALREADY_UNLOCKED = "Design already unlocked",
+
+  // Unlocks
+  INVALID_FEATURE = "Invalid feature. Must be 'kit' or 'storybook'",
+  FEATURE_ALREADY_UNLOCKED = "Feature already unlocked",
+
   // Figma
   FIGMA_MISSING_PARAMS = "Missing token, fileKey, or resolved design",
 }

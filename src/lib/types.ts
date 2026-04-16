@@ -189,4 +189,13 @@ export interface StoredDesign {
   createdAt: string;
   updatedAt: string;
   source: "extracted" | "imported";
+  /** ISO date when soft-deleted, undefined if active */
+  deletedAt?: string;
+  /** Credits spent on this design (extraction + unlocks). Populated by API. */
+  creditsSpent?: number;
+  /** Which features are currently unlocked. Populated by API. */
+  unlockedFeatures?: {
+    devkit: boolean;
+    complete: boolean;
+  };
 }
