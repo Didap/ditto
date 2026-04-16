@@ -144,6 +144,11 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning className={`dark ${canvaSans.variable} ${leoSans.variable}`}>
       <head>
         <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem("ditto-theme");if(t==="light"){document.documentElement.classList.remove("dark");document.documentElement.classList.add("light")}}catch(e){}})()`,
+          }}
+        />
+        <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
