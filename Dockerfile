@@ -91,6 +91,9 @@ COPY --from=deps /app/node_modules/postgres-date ./node_modules/postgres-date
 COPY --from=deps /app/node_modules/postgres-interval ./node_modules/postgres-interval
 COPY --from=deps /app/node_modules/split2 ./node_modules/split2
 
+# Pre-bundled design JSON files (read at runtime by /api/catalog/unlock)
+COPY --chown=nextjs:nodejs designs/*.json ./designs/
+
 USER nextjs
 
 EXPOSE 3000

@@ -1,0 +1,265 @@
+{
+  "id": "nike",
+  "slug": "nike",
+  "name": "Nike",
+  "url": "",
+  "description": "",
+  "tokens": {
+    "colors": [
+      {
+        "hex": "#111111",
+        "rgb": "17, 17, 17",
+        "occurrences": 1,
+        "name": "Color 1",
+        "role": "primary"
+      },
+      {
+        "hex": "#000000",
+        "rgb": "0, 0, 0",
+        "occurrences": 1,
+        "name": "Color 2",
+        "role": "secondary"
+      },
+      {
+        "hex": "#FFFFFF",
+        "rgb": "255, 255, 255",
+        "occurrences": 1,
+        "name": "Color 3",
+        "role": "neutral"
+      },
+      {
+        "hex": "#FAFAFA",
+        "rgb": "250, 250, 250",
+        "occurrences": 1,
+        "name": "Color 4",
+        "role": "neutral"
+      },
+      {
+        "hex": "#F5F5F5",
+        "rgb": "245, 245, 245",
+        "occurrences": 1,
+        "name": "Color 5",
+        "role": "neutral"
+      },
+      {
+        "hex": "#E5E5E5",
+        "rgb": "229, 229, 229",
+        "occurrences": 1,
+        "name": "Color 6",
+        "role": "neutral"
+      },
+      {
+        "hex": "#28282A",
+        "rgb": "40, 40, 42",
+        "occurrences": 1,
+        "name": "Color 7",
+        "role": "neutral"
+      },
+      {
+        "hex": "#1F1F21",
+        "rgb": "31, 31, 33",
+        "occurrences": 1,
+        "name": "Color 8",
+        "role": "neutral"
+      },
+      {
+        "hex": "#39393B",
+        "rgb": "57, 57, 59",
+        "occurrences": 1,
+        "name": "Color 9",
+        "role": "neutral"
+      },
+      {
+        "hex": "#707072",
+        "rgb": "112, 112, 114",
+        "occurrences": 1,
+        "name": "Color 10",
+        "role": "neutral"
+      },
+      {
+        "hex": "#9E9EA0",
+        "rgb": "158, 158, 160",
+        "occurrences": 1,
+        "name": "Color 11",
+        "role": "neutral"
+      },
+      {
+        "hex": "#4B4B4D",
+        "rgb": "75, 75, 77",
+        "occurrences": 1,
+        "name": "Color 12",
+        "role": "neutral"
+      },
+      {
+        "hex": "#CACACB",
+        "rgb": "202, 202, 203",
+        "occurrences": 1,
+        "name": "Color 13",
+        "role": "neutral"
+      },
+      {
+        "hex": "#D30005",
+        "rgb": "211, 0, 5",
+        "occurrences": 1,
+        "name": "Color 14",
+        "role": "neutral"
+      },
+      {
+        "hex": "#EE0005",
+        "rgb": "238, 0, 5",
+        "occurrences": 1,
+        "name": "Color 15",
+        "role": "neutral"
+      },
+      {
+        "hex": "#D33918",
+        "rgb": "211, 57, 24",
+        "occurrences": 1,
+        "name": "Color 16",
+        "role": "neutral"
+      },
+      {
+        "hex": "#FF5000",
+        "rgb": "255, 80, 0",
+        "occurrences": 1,
+        "name": "Color 17",
+        "role": "neutral"
+      },
+      {
+        "hex": "#007D48",
+        "rgb": "0, 125, 72",
+        "occurrences": 1,
+        "name": "Color 18",
+        "role": "neutral"
+      },
+      {
+        "hex": "#1EAA52",
+        "rgb": "30, 170, 82",
+        "occurrences": 1,
+        "name": "Color 19",
+        "role": "neutral"
+      },
+      {
+        "hex": "#1151FF",
+        "rgb": "17, 81, 255",
+        "occurrences": 1,
+        "name": "Color 20",
+        "role": "neutral"
+      }
+    ],
+    "typography": [
+      {
+        "fontFamily": "- Background: Nike Black (",
+        "fallbacks": [
+          "system-ui"
+        ],
+        "weights": [
+          700
+        ],
+        "role": "heading"
+      },
+      {
+        "fontFamily": "- Background: Nike Black (",
+        "fallbacks": [
+          "system-ui"
+        ],
+        "weights": [
+          400
+        ],
+        "role": "body"
+      }
+    ],
+    "typeScale": [],
+    "spacing": [],
+    "shadows": [],
+    "radii": [
+      {
+        "value": "5px",
+        "px": 5,
+        "occurrences": 1
+      },
+      {
+        "value": "12px",
+        "px": 12,
+        "occurrences": 1
+      },
+      {
+        "value": "16px",
+        "px": 16,
+        "occurrences": 1
+      },
+      {
+        "value": "24px",
+        "px": 24,
+        "occurrences": 1
+      },
+      {
+        "value": "30px",
+        "px": 30,
+        "occurrences": 1
+      },
+      {
+        "value": "96px",
+        "px": 96,
+        "occurrences": 1
+      }
+    ],
+    "components": [],
+    "fontSources": [],
+    "fontFaces": [],
+    "downloadedFonts": [],
+    "cssVariables": {},
+    "meta": {
+      "url": "",
+      "title": "nike",
+      "extractedAt": "2026-04-16T14:07:07.615Z"
+    }
+  },
+  "resolved": {
+    "colorPrimary": "#111111",
+    "colorSecondary": "#000000",
+    "colorAccent": "#FFFFFF",
+    "colorBackground": "#111111",
+    "colorSurface": "#f8fafc",
+    "colorTextPrimary": "#111111",
+    "colorTextSecondary": "#475569",
+    "colorTextMuted": "#94a3b8",
+    "colorBorder": "#e2e8f0",
+    "colorSuccess": "#1EAA52",
+    "colorWarning": "#f59e0b",
+    "colorError": "#ef4444",
+    "fontHeading": "- Background: Nike Black (",
+    "fontBody": "- Background: Nike Black (",
+    "fontMono": "ui-monospace",
+    "fontWeightHeading": 700,
+    "fontWeightBody": 400,
+    "textXs": "0.75rem",
+    "textSm": "0.875rem",
+    "textBase": "1rem",
+    "textLg": "1.125rem",
+    "textXl": "1.25rem",
+    "text2xl": "1.5rem",
+    "text3xl": "1.875rem",
+    "text4xl": "2.25rem",
+    "spacingXs": "4px",
+    "spacingSm": "8px",
+    "spacingMd": "16px",
+    "spacingLg": "24px",
+    "spacingXl": "32px",
+    "spacing2xl": "48px",
+    "radiusSm": "5px",
+    "radiusMd": "12px",
+    "radiusLg": "16px",
+    "radiusFull": "9999px",
+    "shadowSm": "0 1px 2px 0 rgba(0,0,0,0.05)",
+    "shadowMd": "0 4px 6px -1px rgba(0,0,0,0.1)",
+    "shadowLg": "0 10px 15px -3px rgba(0,0,0,0.1)",
+    "lineHeightTight": "1.15",
+    "lineHeightNormal": "1.5",
+    "lineHeightRelaxed": "1.75"
+  },
+  "designMd": "# Design System Inspired by Nike\n\n## 1. Visual Theme & Atmosphere\n\nNike.com is a kinetic retail cathedral — a site that channels the explosive energy of sport into a digital shopping experience. The design operates on a principle of radical simplicity: strip everything back to black, white, and grey so that athletic photography and product color can dominate without competition. The result feels less like a website and more like a sports editorial laid out with the precision of a luxury magazine. Every pixel of real estate is either selling product or driving toward product.\n\nThe \"Podium CDS\" (Nike's internal Core Design System) establishes an aggressively monochromatic foundation. The UI disappears into black (`#111111`) text and white surfaces, allowing hero photography — sweating athletes, mid-air shoes, stadium energy — to carry the emotional weight. When color does appear in the UI, it's almost exclusively functional: red for errors, blue for links, green for success. The product itself is the color story. This restraint creates a visual paradox: the most colorful pages on the internet feel the most minimal, because all vibrancy comes from merchandise rather than interface.\n\nThe typography system is the other half of Nike's visual identity. Massive uppercase headlines in Nike Futura ND — a custom condensed Futura variant with impossibly tight line-height (0.90) — punch through hero imagery like a typographic shockwave. Below the headlines, the workhorse Helvetica Now family handles everything from navigation to product descriptions with Swiss-precision clarity. This split between expressive display type and functional body type mirrors Nike's brand duality: inspiration meets execution.\n\n**Key Characteristics:**\n- Monochromatic UI (black/white/grey) that lets product photography be the only color source\n- Massive uppercase display typography (96px, line-height 0.90) that punches through hero images\n- Full-bleed photography with no border radius — imagery fills every available edge\n- Pill-shaped buttons (30px radius) as the primary interactive element\n- 8px spacing grid with athletic discipline — every measurement snaps to the system\n- Category-driven shopping architecture with large navigational image cards\n- Shadow-free, border-minimal elevation model — surface differentiation through grey shifts only\n\n## 2. Color Palette & Roles\n\n### Primary\n\n- **Nike Black** (`#111111`): The foundation — primary text, button backgrounds, nav text, hero overlays. Deliberately not pure black (#000000), creating a fractionally softer reading experience\n- **Nike White** (`#FFFFFF`): Primary page canvas, button text on dark, card surfaces, nav bar background\n\n### Surface & Background\n\n- **Snow** (`#FAFAFA`): Lightest surface, near-white subtle differentiation (--podium-cds-color-grey-50)\n- **Light Gray** (`#F5F5F5`): Secondary background, search input fill, image placeholder, loading skeleton (--podium-cds-color-grey-100)\n- **Hover Gray** (`#E5E5E5`): Hover state background, disabled button fill (--podium-cds-color-grey-200)\n- **Dark Surface** (`#28282A`): Primary background on dark/inverted sections (--podium-cds-color-grey-800)\n- **Deep Charcoal** (`#1F1F21`): Inverse primary background, darkest non-black surface (--podium-cds-color-grey-900)\n- **Dark Hover** (`#39393B`): Hover state on dark backgrounds (--podium-cds-color-grey-700)\n\n### Neutrals & Text\n\n- **Primary Text** (`#111111`): Main body text, headings, nav links (--podium-cds-color-text-primary)\n- **Secondary Text** (`#707072`): Descriptive copy, metadata, timestamps, price labels (--podium-cds-color-text-secondary)\n- **Disabled Text** (`#9E9EA0`): Inactive elements, unavailable options (--podium-cds-color-text-disabled)\n- **Disabled Inverse** (`#4B4B4D`): Disabled text on dark backgrounds (--podium-cds-color-text-disabled-inverse)\n- **Border Primary** (`#707072`): Standard border color, matching secondary text\n- **Border Secondary** (`#CACACB`): Subtle borders, input borders, divider lines (--podium-cds-color-grey-300)\n- **Border Disabled** (`#CACACB`): Inactive border state\n- **Border Active** (`#111111`): Active/focused border, matching primary text\n\n### Semantic & Accent\n\n- **Nike Red** (`#D30005`): Critical errors, sale badges, urgent notifications (--podium-cds-color-red-600)\n- **Bright Red** (`#EE0005`): Red-500, slightly lighter red for emphasis\n- **Nike Orange Badge** (`#D33918`): Badge text, promotional callouts (--podium-cds-color-text-badge)\n- **Orange Flash** (`#FF5000`): Expressive orange accent (--podium-cds-color-orange-400)\n- **Success Green** (`#007D48`): Confirmation, availability, positive states (--podium-cds-color-green-600)\n- **Success Inverse** (`#1EAA52`): Success on dark backgrounds (--podium-cds-color-green-500)\n- **Link Blue** (`#1151FF`): Text links, informational highlights (--podium-cds-color-blue-500)\n- **Info Inverse** (`#1190FF`): Links on dark backgrounds (--podium-cds-color-blue-400)\n- **Warning Yellow** (`#FEDF35`): Warning backgrounds, attention banners (--podium-cds-color-yellow-200)\n- **Focus Ring** (`rgba(39, 93, 197, 1)`): Keyboard focus indicator ring\n\n### Extended Color Spectrum (Podium CDS)\n\nEach color ramp runs 50–900 for expressive use in campaigns and product pages:\n\n- **Red**: `#FFE5E5` → `#EE0005` → `#530300`\n- **Orange**: `#FFE2D6` → `#FF5000` → `#3E1009`\n- **Yellow**: `#FEF087` → `#FCA600` → `#99470A`\n- **Green**: `#DFFFB9` → `#1EAA52` → `#003C2A`\n- **Teal**: `#D4FFFB` → `#008E98` → `#043441`\n- **Blue**: `#D6EEFF` → `#1151FF` → `#020664`\n- **Purple**: `#E4E1FC` → `#6E0FF6` → `#1C0060`\n- **Pink**: `#FFE1F3` → `#ED1AA0` → `#4C012D`\n\n### Gradient System\n\nNike avoids UI gradients. When gradients appear, they are photographic — applied to product hero backgrounds (e.g., a red shoe on a red-to-deeper-red gradient). The design system itself is flat-color only.\n\n## 3. Typography Rules\n\n### Font Family\n\n**Display:** Nike Futura ND (custom condensed Futura variant exclusive to Nike)\n- Fallbacks: Helvetica Now Text Medium, Helvetica, Arial\n- Used exclusively for large uppercase display headlines\n- Characteristically tight line-height (0.90) and uppercase transform\n\n**Heading:** Helvetica Now Display Medium\n- Fallbacks: Helvetica, Arial\n- Used for section headings and product titles at 24–32px\n\n**Body Medium:** Helvetica Now Text Medium (weight 500)\n- Fallbacks: Helvetica, Arial\n- Used for links, buttons, captions, emphasized body text\n\n**Body:** Helvetica Now Text (weight 400)\n- Fallbacks: Helvetica, Arial\n- Used for standard body copy, descriptions, metadata\n\n**Arabic:** Neue Frutiger Arabic — locale-specific alternative\n\n### Hierarchy\n\n| Role | Size | Weight | Line Height | Letter Spacing | Notes |\n|------|------|--------|-------------|----------------|-------|\n| Display | 96px | 500 | 0.90 | — | Nike Futura ND, uppercase, hero headlines |\n| Heading 1 | 32px | 500 | 1.20 | — | Helvetica Now Display Medium, section titles |\n| Heading 2 | 24px | 500 | 1.20 | — | Helvetica Now Display Medium, subsections |\n| Heading 3 | 16px | 500 | 1.50 | — | Helvetica Now Text Medium, card titles |\n| Body | 16px | 400 | 1.75 | — | Helvetica Now Text, product descriptions |\n| Body Medium | 16px | 500 | 1.75 | — | Helvetica Now Text Medium, emphasized text |\n| Link | 16px | 500 | 1.75 | — | Helvetica Now Text Medium, navigation links |\n| Link Small | 14px | 500 | 1.86 | — | Helvetica Now Text Medium, footer/utility links |\n| Button | 16px | 500 | 1.50 | — | Helvetica Now Text Medium, CTA text |\n| Button Small | 14px | 500 | 1.50 | — | Helvetica Now Text Medium, secondary buttons |\n| Caption | 14px | 500 | 1.50 | — | Helvetica Now Text Medium, price labels |\n| Small | 12px | 500 | 1.50 | — | Helvetica Now Text Medium, timestamps |\n| Tiny | 12px | 400 | 1.50 | — | Helvetica Now Text, legal text |\n\n### Principles\n\nNike's typography is a study in tension. The display layer — Nike Futura ND at 96px with a devastating 0.90 line-height — is engineered to feel like a stadium scoreboard: massive, condensed, uppercase, impossible to ignore. It transforms headlines into battle cries. Below the display layer, Helvetica Now provides a clinical counterpoint: Swiss-precision legibility with generous 1.75 line-height for comfortable product browsing. Weight 500 (Medium) dominates throughout the body text, giving Nike's prose a slight assertiveness without the heaviness of bold — every sentence reads like a confident recommendation, not a shout.\n\n## 4. Component Stylings\n\n### Buttons\n\n**Primary**\n- Background: Nike Black (`#111111`)\n- Text: White (`#FFFFFF`), 16px/500, Helvetica Now Text Medium\n- Border: none\n- Border radius: fully rounded pill (30px)\n- Padding: ~12px 24px\n- Hover: background shifts to Grey-500 (`#707072`), text hover color\n- Active: scale(0) ripple effect with opacity 0.5\n- Focus: 2px box-shadow ring in `rgba(39, 93, 197, 1)`\n- Transition: background 200ms ease\n\n**Primary on Dark**\n- Background: White (`#FFFFFF`)\n- Text: Black (`#111111`)\n- Hover: background shifts to Grey-300 (`#CACACB`)\n\n**Secondary (Outlined)**\n- Background: transparent\n- Text: Nike Black (`#111111`)\n- Border: 1.5px solid `#CACACB` (grey-300)\n- Border radius: 30px\n- Hover: border darkens to `#707072`, background to grey-200\n\n**Disabled**\n- Background: Grey-200 (`#E5E5E5`)\n- Text: Grey-400 (`#9E9EA0`)\n- Cursor: not-allowed\n\n**Icon Button**\n- Background: Grey-100 (`#F5F5F5`)\n- Shape: 30px radius (or 50% for circular)\n- Padding: 6px\n- Hover: Grey-500 background\n\n### Cards & Containers\n\n- Background: White (`#FFFFFF`) — no visible card boundary in most cases\n- Border radius: 0px for product image cards (edge-to-edge imagery), 20px for interactive containers\n- Shadow: none — Nike uses no card shadows whatsoever\n- Hover: no lift effect on product cards; underline on text links within cards\n- Product cards: image on top (no radius), text metadata below with 12px gap\n- Category cards: full-bleed photography with text overlay on dark gradient\n- Transition: opacity 200ms ease for image swap on hover\n\n### Inputs & Forms\n\n- Background: Grey-100 (`#F5F5F5`)\n- Border: 1px solid `#CACACB` when visible, or borderless on search\n- Border radius: 24px (search inputs), 8px (form inputs)\n- Font: Helvetica Now Text, 16px\n- Focus: border shifts to `#111111` (border-active), 2px focus ring in `rgba(39, 93, 197, 1)`\n- Error: border `#D30005` (critical)\n- Placeholder: Grey-500 (`#707072`)\n- Transition: border-color 200ms ease\n\n### Navigation\n\n- Background: White (`#FFFFFF`), sticky\n- Height: ~60px desktop\n- Left: Nike Swoosh logo (24x24px SVG)\n- Center: Category links (New & Featured, Men, Women, Kids, Sale) in 16px/500 Helvetica Now Text Medium\n- Right: Search (24px radius input), Favorites, Cart icons\n- Hover: text color shifts to Grey-500 (`#707072`)\n- Mobile: hamburger menu, full-screen overlay\n- Top banner: promotional message bar with dark background (#111111) and white text\n\n### Image Treatment\n\n- Hero images: full-bleed, no border radius, edge-to-edge\n- Product grid: square (1:1) or 4:3 aspect ratio, no border radius\n- Category cards: 16:9 or 4:3, full-bleed with text overlay\n- Image placeholder: Grey-100 (`#F5F5F5`) solid background\n- Lazy loading: native loading=\"lazy\", skeleton uses #F5F5F5 bg\n- Product hover: secondary image swap (front → side view)\n\n### Promotional Banners\n\n- Full-width dark (`#111111`) background with white text\n- Tight padding (8-12px vertical)\n- Centered text, 12px/500 Helvetica Now Text Medium\n- Used for shipping promotions, member benefits, sale announcements\n\n## 5. Layout Principles\n\n### Spacing System\n\nBase unit: 4px (primary grid is 8px multiples)\n\n| Token | Value | Use |\n|-------|-------|-----|\n| space-1 | 4px | Tight icon gaps, inline spacing |\n| space-2 | 8px | Base unit, button icon gaps |\n| space-3 | 12px | Card internal padding, tight margins |\n| space-4 | 16px | Standard padding, nav spacing |\n| space-5 | 20px | Product card gaps |\n| space-6 | 24px | Section internal padding, grid gaps |\n| space-7 | 32px | Section breaks |\n| space-8 | 48px | Major section padding |\n| space-9 | 64px | Hero section padding |\n| space-10 | 80px | Large section spacing |\n\n### Grid & Container\n\n- Max container width: 1920px\n- Standard content width: ~1440px with horizontal padding\n- Product grid: 3-column on desktop, 2-column on tablet, 1-column on mobile\n- Category grid: 3-column with full-bleed images\n- Grid gap: 4-12px between product cards (intentionally tight)\n- Horizontal padding: 48px desktop, 24px tablet, 16px mobile\n\n### Whitespace Philosophy\n\nNike's whitespace strategy is deliberately aggressive — not in the luxurious, breathing way of a fashion brand, but in a compressed, high-density way that fills every pixel with either content or intentional absence. Product grids use minimal gaps (4-12px) to create a sense of abundance and choice. Section breaks are generous (48-80px) to separate shopping contexts. The overall effect is a store that feels packed with product while remaining navigable — like a well-organized athletic superstore.\n\n### Border Radius Scale\n\n| Value | Context |\n|-------|---------|\n| 0px | Product images, hero photography (sharp edges) |\n| 8px | Form inputs (non-search) |\n| 18px | Small interactive elements |\n| 20px | Containers, cards with UI content |\n| 24px | Search inputs, medium pills |\n| 30px | Buttons, tags, filters (full pill) |\n| 50% | Circular icon buttons, avatar placeholders |\n\n## 6. Depth & Elevation\n\n| Level | Treatment | Use |\n|-------|-----------|-----|\n| Flat | No shadow, no border | Default state for everything |\n| Divider | `0px -1px 0px 0px #E5E5E5 inset` | Subtle inset line between sections |\n| Focus | `0 0 0 2px rgba(39, 93, 197, 1)` | Keyboard focus ring |\n| Overlay | Dark scrim over photography | Text-on-image legibility |\n\nNike's elevation philosophy is radically flat. There are no card shadows, no hover lifts, no floating elements. Depth is communicated exclusively through color — dark sections recede, light sections advance, grey shifts indicate state changes. This flatness reinforces the athletic, no-nonsense brand personality: no visual frills, just direct communication. The only \"shadow\" in the entire system is a 1px inset divider line and the accessibility-required focus ring.\n\n### Decorative Depth\n\n- **Hero photography overlays**: Dark gradient scrims over full-bleed photography for text readability\n- **Product background gradients**: Colored backgrounds behind hero product shots (e.g., red shoe on red gradient)\n- **Banner bars**: Solid dark (#111111) promotional strips at page top\n\n## 7. Do's and Don'ts\n\n### Do\n\n- Use Nike Black (#111111) for all primary text — never pure #000000\n- Keep buttons pill-shaped (30px radius) and limited to primary/secondary variants\n- Use full-bleed, edge-to-edge photography for hero sections — no border radius on images\n- Let product photography provide all color vibrancy; keep UI monochromatic\n- Use uppercase Nike Futura ND ONLY for display headlines (96px+)\n- Maintain tight product grid gaps (4-12px) for a dense, abundant feel\n- Use Grey-100 (#F5F5F5) for all input and placeholder backgrounds\n- Reserve color exclusively for semantic meaning (red=error, green=success, blue=link)\n- Use weight 500 (Medium) for all interactive text elements\n\n### Don't\n\n- Don't add shadows to cards — Nike's elevation model is entirely flat\n- Don't use border radius on product imagery — only UI elements get rounded corners\n- Don't introduce brand colors beyond the grey scale for UI elements\n- Don't use Nike Futura ND below 24px — it's exclusively a display face\n- Don't add hover lift effects — Nike cards don't animate on hover\n- Don't use regular weight (400) for buttons or links — always use 500\n- Don't place colored backgrounds behind UI elements — color is reserved for product contexts\n- Don't use more than two levels of text hierarchy per card (title + body)\n- Don't add decorative dividers — the 1px inset is the only divider pattern\n- Don't soften the contrast — Nike's design deliberately pushes black-on-white to maximum\n\n## 8. Responsive Behavior\n\n### Breakpoints\n\n| Name | Width | Key Changes |\n|------|-------|-------------|\n| Mobile | <640px | Single column, hamburger nav, display text scales down, tight 16px padding |\n| Small Tablet | 640-768px | 2-column product grid begins, nav still collapsed |\n| Tablet | 768-960px | 2-column grids, category cards scale, horizontal padding 24px |\n| Small Desktop | 960-1024px | Nav expands to full horizontal, 3-column product grid |\n| Desktop | 1024-1440px | Full layout, expanded nav, 3-column grids, 48px padding |\n| Large Desktop | >1440px | Max-width container centered, increased margins, hero images full-bleed |\n\n### Touch Targets\n\n- Minimum touch target: 44x44px (WCAG AAA)\n- Mobile nav icons: 48x48px touch area\n- Product cards: full surface is tappable\n- Filter pills: minimum 36px height with 12px padding\n\n### Collapsing Strategy\n\n- **Navigation**: Full category links → hamburger menu below 960px; search, favorites, cart icons remain visible\n- **Product grids**: 3-col → 2-col at 960px → 1-col at 640px\n- **Hero sections**: Display text scales from 96px → 64px → 48px; hero images remain full-bleed at all sizes\n- **Category cards**: 3-col → 2-col → 1-col with maintained full-bleed imagery\n- **Section padding**: 80px → 48px → 32px → 24px as viewport narrows\n- **Promotional banner**: text wraps or truncates, maintains dark background\n\n### Image Behavior\n\n- Responsive images via Nike CDN (`c.static-nike.com`) with width parameters\n- Product images: srcset with multiple resolutions (w_320, w_640, w_960, w_1920)\n- Hero images: full-bleed at all breakpoints, aspect ratio shifts (16:9 desktop → 4:3 mobile)\n- Lazy loading: native loading=\"lazy\", grey-100 placeholder during load\n- Art direction: hero crops change between desktop and mobile compositions\n\n## 9. Agent Prompt Guide\n\n### Quick Color Reference\n\n- Primary CTA: Nike Black (`#111111`)\n- Background: White (`#FFFFFF`)\n- Secondary surface: Light Gray (`#F5F5F5`)\n- Heading text: Nike Black (`#111111`)\n- Body text / hover: Secondary Text (`#707072`)\n- Border: Border Secondary (`#CACACB`)\n- Error: Nike Red (`#D30005`)\n- Link: Link Blue (`#1151FF`)\n\n### Example Component Prompts\n\n- \"Create a product hero section with full-bleed edge-to-edge photography, no border radius, a dark gradient overlay for text, and a massive uppercase 96px/500 headline in Nike Futura style with 0.90 line-height and a Nike Black (#111111) pill button (30px radius)\"\n- \"Design a 3-column product card grid with square images (no border radius), 4px gap between cards, product name in 16px/500 Nike Black (#111111), price in 14px/500, and secondary text in Grey-500 (#707072)\"\n- \"Build a sticky white navigation bar with a left-aligned logo, centered category links in 16px/500 (#111111) with hover color #707072, and right-aligned search (24px radius, #F5F5F5 background), favorites, and cart icons\"\n- \"Create a promotional banner strip with #111111 background, white 12px/500 centered text, and 8px vertical padding — full width, no border radius\"\n- \"Design a secondary outlined button with transparent background, 1.5px #CACACB border, 30px pill radius, 16px/500 #111111 text, hover border darkening to #707072\"\n\n### Iteration Guide\n\nWhen refining existing screens generated with this design system:\n1. Focus on ONE component at a time\n2. Reference specific color names and hex codes from this document\n3. Remember: product photography is the color — UI stays monochromatic\n4. Use the grey scale for state changes: #F5F5F5 → #E5E5E5 → #CACACB → #707072\n5. If something feels too colorful in the UI, it probably is — Nike keeps UI greyscale\n6. Display type (Nike Futura) should ALWAYS be uppercase and never below 24px\n7. Body type (Helvetica Now) should almost always be weight 500 for interactive elements\n",
+  "createdAt": "2026-04-16T14:07:07.615Z",
+  "updatedAt": "2026-04-16T14:07:07.615Z",
+  "source": "imported"
+}

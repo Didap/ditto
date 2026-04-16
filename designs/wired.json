@@ -1,0 +1,180 @@
+{
+  "id": "wired",
+  "slug": "wired",
+  "name": "Wired",
+  "url": "",
+  "description": "",
+  "tokens": {
+    "colors": [
+      {
+        "hex": "#057dbc",
+        "rgb": "5, 125, 188",
+        "occurrences": 1,
+        "name": "Color 1",
+        "role": "primary"
+      },
+      {
+        "hex": "#000000",
+        "rgb": "0, 0, 0",
+        "occurrences": 1,
+        "name": "Color 2",
+        "role": "secondary"
+      },
+      {
+        "hex": "#1a1a1a",
+        "rgb": "26, 26, 26",
+        "occurrences": 1,
+        "name": "Color 3",
+        "role": "neutral"
+      },
+      {
+        "hex": "#ffffff",
+        "rgb": "255, 255, 255",
+        "occurrences": 1,
+        "name": "Color 4",
+        "role": "neutral"
+      },
+      {
+        "hex": "#e2e8f0",
+        "rgb": "226, 232, 240",
+        "occurrences": 1,
+        "name": "Color 5",
+        "role": "neutral"
+      },
+      {
+        "hex": "#757575",
+        "rgb": "117, 117, 117",
+        "occurrences": 1,
+        "name": "Color 6",
+        "role": "neutral"
+      },
+      {
+        "hex": "#999999",
+        "rgb": "153, 153, 153",
+        "occurrences": 1,
+        "name": "Color 7",
+        "role": "neutral"
+      },
+      {
+        "hex": "#4a5568",
+        "rgb": "74, 85, 104",
+        "occurrences": 1,
+        "name": "Color 8",
+        "role": "neutral"
+      },
+      {
+        "hex": "#e53e3e",
+        "rgb": "229, 62, 62",
+        "occurrences": 1,
+        "name": "Color 9",
+        "role": "neutral"
+      },
+      {
+        "hex": "#a0aec0",
+        "rgb": "160, 174, 192",
+        "occurrences": 1,
+        "name": "Color 10",
+        "role": "neutral"
+      }
+    ],
+    "typography": [
+      {
+        "fontFamily": "system-ui",
+        "fallbacks": [
+          "system-ui"
+        ],
+        "weights": [
+          700
+        ],
+        "role": "heading"
+      },
+      {
+        "fontFamily": "system-ui",
+        "fallbacks": [
+          "system-ui"
+        ],
+        "weights": [
+          400
+        ],
+        "role": "body"
+      }
+    ],
+    "typeScale": [],
+    "spacing": [],
+    "shadows": [],
+    "radii": [
+      {
+        "value": "2px",
+        "px": 2,
+        "occurrences": 1
+      },
+      {
+        "value": "26px",
+        "px": 26,
+        "occurrences": 1
+      },
+      {
+        "value": "40px",
+        "px": 40,
+        "occurrences": 1
+      }
+    ],
+    "components": [],
+    "fontSources": [],
+    "fontFaces": [],
+    "downloadedFonts": [],
+    "cssVariables": {},
+    "meta": {
+      "url": "",
+      "title": "wired",
+      "extractedAt": "2026-04-16T14:07:07.617Z"
+    }
+  },
+  "resolved": {
+    "colorPrimary": "#057dbc",
+    "colorSecondary": "#000000",
+    "colorAccent": "#1a1a1a",
+    "colorBackground": "#000000",
+    "colorSurface": "#f8fafc",
+    "colorTextPrimary": "#057dbc",
+    "colorTextSecondary": "#475569",
+    "colorTextMuted": "#94a3b8",
+    "colorBorder": "#e2e8f0",
+    "colorSuccess": "#22c55e",
+    "colorWarning": "#f59e0b",
+    "colorError": "#ef4444",
+    "fontHeading": "system-ui",
+    "fontBody": "system-ui",
+    "fontMono": "ui-monospace",
+    "fontWeightHeading": 700,
+    "fontWeightBody": 400,
+    "textXs": "0.75rem",
+    "textSm": "0.875rem",
+    "textBase": "1rem",
+    "textLg": "1.125rem",
+    "textXl": "1.25rem",
+    "text2xl": "1.5rem",
+    "text3xl": "1.875rem",
+    "text4xl": "2.25rem",
+    "spacingXs": "4px",
+    "spacingSm": "8px",
+    "spacingMd": "16px",
+    "spacingLg": "24px",
+    "spacingXl": "32px",
+    "spacing2xl": "48px",
+    "radiusSm": "2px",
+    "radiusMd": "26px",
+    "radiusLg": "40px",
+    "radiusFull": "9999px",
+    "shadowSm": "0 1px 2px 0 rgba(0,0,0,0.05)",
+    "shadowMd": "0 4px 6px -1px rgba(0,0,0,0.1)",
+    "shadowLg": "0 10px 15px -3px rgba(0,0,0,0.1)",
+    "lineHeightTight": "1.15",
+    "lineHeightNormal": "1.5",
+    "lineHeightRelaxed": "1.75"
+  },
+  "designMd": "# Design System Inspired by WIRED\n\n## 1. Visual Theme & Atmosphere\n\nWIRED's homepage feels like a printed broadsheet that someone has plugged into a wall socket. The grid is dense, the rules are thin, the type is loud, and almost every surface is paper-white or pure black with no rounded corners and no decoration that doesn't earn its place. Image rectangles butt directly against headlines, hairline dividers separate stories the way pica rules separate columns in a real magazine, and the only colors that aren't grayscale come from the photography itself. There is no \"card with shadow\" anywhere — the entire layout is held together by typographic weight and the discipline of rules and whitespace, the same way a Condé Nast print page would be assembled in a paste-up room.\n\nThe signature move is the **typographic stack**: a brutally large custom serif (WiredDisplay) for the main headline, a humanist serif (BreveText) for body and decks, a geometric sans (Apercu) for UI affordances, and a hard mono uppercase (WiredMono) for the kickers, eyebrows, and timestamps that mark every story. That mono kicker — usually black caps with letter-spacing wide enough to read as a Geiger-counter tick — is what makes a WIRED page instantly recognizable from across the room.\n\nThere is exactly one accent color that matters: a saturated link blue (`#057dbc`) that lights up underlined hover states like a CRT scanline. Everything else is black, paper white, and two grays — the design's confidence comes from refusing to invent more.\n\n**Key Characteristics:**\n- Newsstand-density editorial grid: rules and whitespace, never cards or shadows\n- Custom serif display + technical mono kickers — the Condé-Nast-meets-engineering-lab voice\n- Strictly square corners on every image, container, and ribbon (only icon buttons are circular)\n- 2px hard black borders on buttons and links — printerly, not webby\n- Mono ALL-CAPS eyebrows on every story with wide tracking (0.9–1.2px)\n- Single ink-blue accent for links; everything else lives in pure grayscale\n- Dark theme = the *footer*, not the page; the page itself is committed paper-white\n\n## 2. Color Palette & Roles\n\n### Primary (Editorial Ink)\n- **WIRED Black** (`#000000`): Pure ink for ribbons, section dividers, button borders, headline rules — the strongest hand on the page.\n- **Page Ink** (`#1a1a1a`): Near-black used for headlines and body type. Slightly softened so long-form reading doesn't feel like staring at a power button.\n- **Paper White** (`#ffffff`): Default canvas for the entire site. Treat it like newsprint stock — uninterrupted, never tinted.\n\n### Secondary (Editorial Voice)\n- **Link Blue** (`#057dbc`): The single brand accent. Used for inline link hovers, breadcrumbs, and the rare button — never for backgrounds, never decorated. Think of it as the only color allowed in a black-and-white film.\n\n### Surface & Background\n- **Newsprint** (`#ffffff`): Editorial pages, story grids, hero zones.\n- **Footer Ink** (`#1a1a1a`): The only inverted region on the homepage. Paper white type sits on top.\n- **Hairline Tint** (`#e2e8f0`): Reserved for `<hr>` elements between sections — barely visible, like a margin rule.\n\n### Neutrals & Text\n- **Headline Black** (`#1a1a1a`): All H1/H2 display type.\n- **Body Gray** (`#1a1a1a`): Long-form body text — same ink as headlines for unity.\n- **Caption Gray** (`#757575`): Secondary metadata: bylines, timestamps, photo credits.\n- **Disabled Gray** (`#999999`): Inactive links, low-priority labels.\n- **Hairline Border** (`#e2e8f0`): Subtle separators only.\n\n### Semantic & Accent\n- **Brand Hover Blue** (`#057dbc`): Link rollover state — also serves as the only \"interactive\" cue.\n- *(WIRED's homepage intentionally omits semantic success/error/warning palettes — this is editorial, not a SaaS dashboard.)*\n\n### Gradient System\nNone. WIRED uses zero gradients. The closest thing to a gradient on the page is the tonal range inside a photograph — gradients live *in the imagery*, not in the chrome.\n\n## 3. Typography Rules\n\n### Font Family\n- **WiredDisplay** (custom serif, fallback `helvetica`) — Display headlines and feature titles.\n- **BreveText** (humanist serif, fallback `helvetica`) — Article body, decks, longer captions.\n- **Apercu** (geometric sans, fallback `helvetica`) — UI labels, buttons, navigation, mid-weight headings.\n- **WiredMono** (custom monospace, fallback `helvetica`) — Eyebrows, kickers, timestamps, section labels, ALL CAPS.\n- **Inter** (sans, system fallback) — Utility UI in newer modules.\n- **ProximaNova** (sans, fallback `helvetica`) — Legacy UI surfaces.\n- **WIRED Mono** (custom mono, fallback `Monaco, Courier New, Courier`) — Article-page eyebrows.\n\n### Hierarchy\n\n| Role | Font | Size | Weight | Line Height | Letter Spacing | Notes |\n|---|---|---|---|---|---|---|\n| Display Headline (Hero) | WiredDisplay | 64px / 4.00rem | regular | 0.93 | -0.5px | Tight, almost touching descenders — newsstand presence |\n| Display Headline (Mobile / Mid) | WiredDisplay | 26px / 1.63rem | regular | 1.08 | — | Same face, scaled down for grid blocks |\n| Section Heading | Apercu | 20px / 1.25rem | 700 | 1.20 | -0.28px | Bold sans for module titles (\"Most Popular\", \"Featured\") |\n| Subheading | Apercu | 17px / 1.06rem | 700 | 1.29 | -0.144px | Story decks within feature blocks |\n| Article Deck (Serif) | BreveText | 19px / 1.19rem | regular | 1.47 | 0.108px | Long-form lead paragraphs |\n| Article Body (Serif) | BreveText | 16px / 1.00rem | regular | 1.50 | 0.09px | Standard paragraph text |\n| UI Heading | Apercu | 16px / 1.00rem | 700 | 1.25 | 0.3px | Inline UI labels, button captions |\n| Button Label | Apercu | 16px / 1.00rem | 700 | 1.25 | 0.3px | All caps optional, depending on placement |\n| Link (Inline UI) | Apercu | 14px / 0.88rem | regular | 1.29 | 0.4px | Footer links, secondary nav |\n| Eyebrow / Kicker | WiredMono | 13px / 0.81rem | regular | 1.23 | 0.92px | UPPERCASE — story category above headline |\n| Eyebrow Bold | WiredMono | 13px / 0.81rem | 700 | 1.23 | — | UPPERCASE — featured story marker |\n| Section Ribbon | WiredMono | 12px / 0.75rem | 700 | 1.00 | 1.2px | UPPERCASE — black-bar section labels |\n| Photo Caption | BreveText | 12.73px / 0.80rem | 700 | 2.20 (relaxed) | 0.108px | Generous leading — print-photo treatment |\n| Timestamp / Meta | WiredMono | 12px / 0.75rem | regular | 1.33 | 1.1px | UPPERCASE, used for \"X HOURS AGO\" markers |\n| Tertiary Footer Link | ProximaNova | 11px / 0.69rem | regular | 1.45 | — | Newsletter footer, legal links |\n| Inter UI Heading | Inter | 16px / 1.00rem | 600 | 1.23 | 0.108px | Newer module headers |\n| Inter UI Caption | Inter | 14px / 0.88rem | 600 | 1.40 | — | Compact UI metadata |\n\n### Principles\n- **Four faces, four jobs.** WiredDisplay is for shouting, BreveText is for reading, Apercu is for clicking, WiredMono is for labeling. They never trade roles. This separation is what keeps the page from feeling like a typography sample.\n- **Tight headlines, generous body.** Display type runs as low as 0.93 line-height (nearly touching), while body BreveText opens out to 1.47–1.50. The contrast is the editorial fingerprint.\n- **Mono is always uppercase.** Every WiredMono usage carries `text-transform: uppercase` and 0.9–1.2px letter-spacing. Treat lowercase mono as broken — it should not appear on a WIRED page.\n- **Bold is rare.** Apercu uses weight 700 only for UI emphasis; the editorial layer (Display + BreveText) leans entirely on size and ink color, never on bolding.\n- **Letter-spacing has two registers**: positive (0.9–1.2px) for ALL-CAPS mono, negative (-0.144 to -0.5px) for large display serif. Never neutral on the largest type.\n\n### Note on Font Substitutes\nThe line-height values in the hierarchy table (especially the 0.93 on the 64px hero) assume the **proprietary WiredDisplay and BreveText faces**, which have tight metrics with short ascenders/descenders. If you substitute these with wide-metric open-source fonts like **Playfair Display** or **Libre Caslon**, loosen display line-heights by approximately **+0.10 to +0.12** to prevent ascender/descender collisions on wrapping lines (e.g., 0.93 → 1.05, 1.08 → 1.18). Apercu substitutes (Inter, Work Sans, Manrope) work at the token values without adjustment. BreveText body substitutes (Lora, Source Serif 4) also work without adjustment because body leading is already generous.\n\n## 4. Component Stylings\n\n### Buttons\n\n**Primary CTA — Black Outline (\"Subscribe\")**\n- Background: `#ffffff` (Paper White)\n- Text: `#000000` (WIRED Black), Apercu 16px / 700 / 0.3px tracking\n- Border: `2px solid #000000` — the printerly hard rule, not a 1px UI border\n- Border radius: `0` (square corners)\n- Padding: vertical ≈ 12–14px, horizontal ≈ 24px\n- Hover: background flips to `#000000`, text flips to `#ffffff` — pure inversion, no easing on the rule\n- Transition: ~150ms color/background only\n\n**Secondary — Inverted (\"Sign In\", in dark zones)**\n- Background: `#000000`\n- Text: `#ffffff`\n- Border: `2px solid #ffffff`\n- Same square corners, same inversion-on-hover behavior\n\n**Tertiary — Underlined Inline Link**\n- Treated as a button when wrapped in nav: text `#1a1a1a`, underline always present, hover swaps color to `#057dbc` while keeping the underline\n- No padding, no border, no background — this is editorial linking, not UI\n\n**Pill / Round Icon Button**\n- Border radius: `50%` (the only circular shape on the site)\n- Used exclusively for icon controls (search, account, social) in the header\n- Border: 1px solid `#757575` or no border depending on placement\n- Size: ~32–40px square footprint\n\n**Tag / Span Pill**\n- Border radius: `1920px` (effectively a full pill — only used inside text spans like \"BREAKING\")\n- Background: solid black or red accent depending on context\n- Text: white, mono 11–12px caps\n\n### Cards & Containers\n- **Cards do not exist.** WIRED's homepage has no rounded boxes, no shadows, no surface elevation.\n- A \"story tile\" is just an image rectangle stacked above a kicker + headline + deck, separated from neighbors by **1px hairline rules** (`#000000` or `#4a5568`) or by raw whitespace.\n- The closest thing to a \"container\" is the black ribbon section header (e.g., \"MOST POPULAR\") — a full-bleed black bar with white WiredMono caps, no padding refinement, no rounded ends.\n- Hover behavior on a story tile: the headline link text shifts from `#1a1a1a` to `#057dbc` and the underline appears. The image itself does not zoom, lift, or shadow.\n\n### Inputs & Forms\n- **Newsletter input**: rectangular, `2px solid #000000` border, `0` radius, white background, Apercu 16px placeholder.\n- **Focus**: border stays 2px black, no glow ring, no color change — focus is signaled by the blinking caret only. (Add a 2px outset for accessibility if you ship this — WIRED's own implementation under-serves keyboard users here.)\n- **Error**: text label below in `#e53e3e` (Fides cookie overlay borrows this red — use sparingly).\n- **Disabled**: text drops to `#a0aec0`, border softens to `#757575`.\n\n### Navigation\n- **Top utility bar**: black (`#000000`) full-bleed strip, ~32–40px tall, mono caps links separated by hairline dividers, `#ffffff` text, hover → `#057dbc`.\n- **Main nav**: paper-white (`#ffffff`) row beneath the bug logo, Apercu 14–16px / regular, hover → `#057dbc` underline.\n- **Logo**: WIRED bug, ~209×42px, centered or left-aligned, never recolored, always pure black on white.\n- **Mobile**: nav collapses to a hamburger left of the bug logo. Section nav becomes a slide-down drawer of mono caps links.\n- **Transition**: hover color swaps are instant or ~120ms; no bouncy easing — editorial restraint.\n\n### Image Treatment\n- **Aspect ratios**: predominantly 16:9 for hero images, 4:3 for grid story tiles, 1:1 for smaller \"Most Popular\" thumbnails.\n- **Corners**: ALWAYS 0 radius. Square. The only rounded image is a circular author avatar (50%).\n- **Full-bleed**: hero photographs run edge-to-edge of the column they occupy; no inset, no border.\n- **Captions**: BreveText 12.73px / 700 with relaxed 2.20 line-height — placed directly under the image, italicized in some templates.\n- **Hover**: no zoom, no opacity dip — only the headline below the image responds.\n- **Lazy loading**: standard `loading=\"lazy\"` on all below-the-fold imagery.\n\n### Editorial Ribbons & Section Markers\n- Black bar (`#000000`) full-bleed with white WiredMono uppercase label inside (e.g., \"MOST POPULAR\", \"BACKCHANNEL\", \"GEAR\").\n- Height ~32–40px, no padding refinement, no rounded ends.\n- Sometimes a thin 2px black rule sits directly above or below to double-frame the bar.\n\n### Numbered Lists (\"Most Popular\")\n- A vertical list of stories prefixed with WiredDisplay numerals (01, 02, 03…) at ~40–48px, sitting tight against the headline they label.\n- Hairline rule between each item, no other decoration.\n\n## 5. Layout Principles\n\n### Spacing System\n- **Base unit**: 8px.\n- **Scale**: 1px (hairline), 4px, 8px, 12px, 14.11px, 15px, 16px, 24px, 25.46px, 29.66px, 32px, 40px, 48px, 64px.\n- **Section padding**: typically 32–48px vertical between major editorial blocks.\n- **Card padding**: there are no cards; the gutter between story tiles is 24–32px horizontally and 16–24px vertically.\n- **Inline spacing**: kickers sit ~4–8px above headlines; decks sit ~8–12px below headlines; bylines/timestamps another 8–12px below the deck.\n\n### Grid & Container\n- **Max width**: ~1280–1600px on desktop (the dembrandt sweep detected breakpoints up to 1600px), centered with generous outer margins.\n- **Column patterns**: 12-column grid that resolves into 2/3/4 column story arrangements depending on module — feature blocks often run a \"1 large + 2 small\" pattern with hairline rules between each.\n- **Column gutters**: ~24–32px, separated by hairline `#000000` or `#4a5568` 1px rules where the editorial logic demands a \"page-fold\" feel.\n\n### Whitespace Philosophy\nWIRED treats whitespace the way a magazine art director treats margin: it's the silence around the type, not a styling choice. The page never breathes excessively (this is not Stripe or Apple); it breathes *editorially* — enough room to keep adjacent stories from arguing, never enough to suggest there's nothing on the page. If an empty area looks like it could fit another headline, that empty area is doing its job.\n\n### Border Radius Scale\n- `0` — every container, every image, every button, every input. The default.\n- `1920px` — only inside text spans that need to look like a full pill (\"BREAKING\", \"LIVE\").\n- `50%` — only on round icon buttons and circular author avatars.\n\nThere are exactly three radii on the entire site, and two of them are reserved for non-rectangular shapes. This is the **strictest** corner discipline of any major editorial property.\n\n## 6. Depth & Elevation\n\n| Level | Treatment | Use |\n|---|---|---|\n| 0 | No shadow, no border | Default editorial surface — text on paper |\n| 1 | 1px solid `#e2e8f0` hairline `<hr>` | Quiet section divider, almost invisible |\n| 2 | 1px solid `#000000` hairline rule | Editorial column divider — printerly, structural |\n| 3 | 2px solid `#000000` border | Buttons, inputs, ribbons — interactive emphasis |\n| 4 | Black ribbon bar (`#000000` fill) | Section labels — the most \"elevated\" surface on the page |\n| 5 | Inverted footer block | Dark `#1a1a1a` zone with white type — the only inversion |\n\nWIRED's depth philosophy is **flat by religion**. There is exactly one shadow token in the entire site (a default `0 0 0 transparent` placeholder) and no `box-shadow` is applied to story tiles, headers, modals, or cards. Depth is communicated by **rule weight** (1px hairline → 2px hard rule → solid black ribbon), not by simulated lighting.\n\n### Decorative Depth\nNone. No gradients, no glow, no halos, no scrim overlays beyond the standard photo caption gradient. WIRED earns its visual interest from photography and typographic contrast, not from chrome.\n\n## 7. Do's and Don'ts\n\n### Do\n- **Do** use 2px hard black borders on every primary button — no 1px softness, no rounded edges.\n- **Do** put a WiredMono ALL-CAPS kicker above every story headline (4–8px above, 0.9–1.2px tracking).\n- **Do** use BreveText for any paragraph longer than two lines — Apercu is for UI, not reading.\n- **Do** keep images square-cornered, edge-to-edge, with the caption hugging the bottom edge.\n- **Do** separate story tiles with hairline rules or whitespace, never with cards or shadows.\n- **Do** invert (black background, white type) only for footers, ribbons, and the utility nav strip.\n- **Do** use `#057dbc` link blue exclusively for hover states — never as a background or button fill.\n- **Do** scale headlines aggressively: 64px on hero, 26px on grid blocks, never 32px \"safe middle ground\".\n\n### Don't\n- **Don't** add `box-shadow` to anything. Ever. WIRED doesn't ship shadows.\n- **Don't** round corners on rectangular containers — `border-radius: 0` is law.\n- **Don't** mix typefaces inside one role: WiredDisplay never sets body, BreveText never sets buttons.\n- **Don't** use color outside grayscale + `#057dbc`. No orange CTAs, no green success pills.\n- **Don't** use Apercu in lowercase for kickers — that's WiredMono's job, and it must be UPPERCASE.\n- **Don't** use gradients, blurs, glassmorphism, or atmospheric effects — they break the printerly contract.\n- **Don't** rely on hover lift effects. WIRED's hover is a color swap on text, nothing more.\n- **Don't** invent new pill shapes. Round = icons only. Pill = inline text spans only. Everything else is square.\n\n## 8. Responsive Behavior\n\n### Breakpoints\n\n| Name | Width | Key Changes |\n|---|---|---|\n| Small Mobile | <375px | Single column, hamburger nav, all hero modules collapse to stacked image-headline-deck |\n| Mobile | 375–767px | Single column, story grid becomes vertical scroll, \"Most Popular\" numbers shrink to 32px |\n| Tablet | 768–1023px | 2-column story grid, sidebar collapses below main feed, nav becomes condensed |\n| Desktop | 1024–1599px | Full editorial 3–4 column grid, sidebar restored, max headline scale active |\n| Large Desktop | ≥1600px | Page caps at ~1600px container, whitespace expands at the margins, no further scaling |\n\nThe dembrandt sweep detected an unusual range of intermediate breakpoints (1280, 1025, 1024, 1023, 768, 767, 667, 599, 570, 569, 480, 425, 375, 320, 319) — Wired's grid micro-tunes at almost every common viewport, especially around the iPad portrait/landscape boundary.\n\n### Touch Targets\n- Primary button: ~44x44px minimum (16px text + 12–14px vertical padding satisfies WCAG AAA).\n- Mono caps links in the utility bar are smaller (~32px tall) — WIRED's own implementation undershoots WCAG here. **For derivative work, pad mono nav links to 44px.**\n- Round icon buttons in the header are ~40px circles, comfortably touch-friendly.\n\n### Collapsing Strategy\n- **Nav**: utility bar drops below 768px; main nav collapses into hamburger drawer. Bug logo recenters on mobile.\n- **Grid**: 4-col → 3-col → 2-col → 1-col as viewport tightens. Hairline rules persist between every column count, so the printerly feel survives the collapse.\n- **Spacing**: vertical rhythm tightens from 48px → 32px → 24px between modules on mobile. Horizontal page padding shrinks from 64px → 24px → 16px.\n- **Type**: WiredDisplay hero scales from 64px to ~36–42px on mobile, headlines from 26px to ~22px, kickers stay locked at 12–13px (mono caps don't scale down further or they become unreadable).\n\n### Image Behavior\n- All images are responsive raster (`srcset`-driven), aspect ratios preserved: 16:9 hero, 4:3 mid, 1:1 thumbnails.\n- No art-direction swaps — the same crop scales across breakpoints.\n- `loading=\"lazy\"` on all below-the-fold imagery, `eager` on the hero only.\n\n## 9. Agent Prompt Guide\n\n### Quick Color Reference\n- **Primary Ink (text + ribbons)**: \"WIRED Black (`#000000`)\"\n- **Page Canvas**: \"Paper White (`#ffffff`)\"\n- **Headline / Body Text**: \"Page Ink (`#1a1a1a`)\"\n- **Caption / Metadata**: \"Caption Gray (`#757575`)\"\n- **Hairline / Quiet Border**: \"Hairline Tint (`#e2e8f0`)\"\n- **Link Hover Accent (the only color)**: \"Link Blue (`#057dbc`)\"\n\n### Example Component Prompts\n1. *\"Create an editorial story tile with a 16:9 image (square corners), an UPPERCASE WiredMono kicker in `#1a1a1a` above a 26px WiredDisplay headline. Separate the tile from its neighbor with a 1px black hairline rule. No card, no shadow, no border-radius.\"*\n2. *\"Design a primary subscribe button with a 2px solid `#000000` border, square corners, `#ffffff` background, Apercu 16px / 700 / 0.3px tracking text in `#000000`. Hover state inverts to black background with white text in 150ms.\"*\n3. *\"Build a 'Most Popular' module: full-bleed black ribbon header with WiredMono uppercase label in white, followed by a numbered list (01–05) using 40px WiredDisplay numerals and 17px Apercu 700 headlines, separated by hairline rules.\"*\n4. *\"Create a newsletter signup form with a 2px solid black input border, no radius, Apercu 16px placeholder in `#757575`, and an inverted black submit button beside it.\"*\n5. *\"Design a footer in `#1a1a1a` with paper-white tertiary navigation in ProximaNova 11px, hover color `#057dbc`, and a centered WIRED bug logo at the top of the block.\"*\n\n### Iteration Guide\nWhen refining existing screens generated with this design system:\n1. **Audit corners first.** If you see any `border-radius` other than `0`, `50%` (icons/avatars), or `1920px` (text pills), flatten it. Round corners are the single most common mistake.\n2. **Audit shadows.** Strip every `box-shadow`. If a tile needs to feel \"lifted\", use a 2px black border or a hairline rule instead.\n3. **Audit typeface roles.** Make sure WiredDisplay only sets headlines, BreveText only sets reading body, Apercu only sets UI, WiredMono only sets ALL-CAPS labels. Swapping roles breaks the voice instantly.\n4. **Audit color sprawl.** If a color outside `#000`, `#1a1a1a`, `#757575`, `#e2e8f0`, `#ffffff`, `#057dbc` appears in chrome (not photography), remove it. WIRED's restraint is non-negotiable.\n5. **Audit kickers.** Every story should have an UPPERCASE mono kicker. Without it, the page reads as a generic blog, not WIRED.\n6. **Audit rules.** Add hairline `1px solid #000` dividers wherever two stories or modules meet without a clear visual break. Rules are the connective tissue.\n",
+  "createdAt": "2026-04-16T14:07:07.617Z",
+  "updatedAt": "2026-04-16T14:07:07.617Z",
+  "source": "imported"
+}

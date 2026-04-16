@@ -1,13 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import { exec } from "child_process";
-import { promisify } from "util";
 import fs from "fs/promises";
 import path from "path";
-import os from "os";
 import { getRequiredUser, unauthorized } from "@/lib/auth-helpers";
 import { getCatalogEntry, UNLOCK_COST } from "@/lib/catalog";
 import { getDesign, saveDesign } from "@/lib/store";
-import { parseDesignMd } from "@/lib/design-md-parser";
 import { db } from "@/lib/db";
 import { users } from "@/lib/db/schema";
 import { eq, sql, gte, and } from "drizzle-orm";
@@ -15,8 +11,6 @@ import { nanoid } from "nanoid";
 import { ApiError, insufficientCredits } from "@/lib/errors";
 import { sendPurchaseEmail } from "@/lib/email";
 import type { StoredDesign } from "@/lib/types";
-
-const execAsync = promisify(exec);
 
 /** POST — unlock a catalog design for UNLOCK_COST credits */
 export async function POST(req: NextRequest) {
@@ -53,7 +47,6 @@ export async function POST(req: NextRequest) {
     );
 
   if ((deductResult.rowCount ?? 0) === 0) {
-    // Either user not found or insufficient credits
     const [dbUser] = await db
       .select({ credits: users.credits })
       .from(users)
@@ -65,33 +58,21 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  // Credits deducted — now download and save. If anything fails, refund.
-  const tmpDir = path.join(os.tmpdir(), `ditto-unlock-${nanoid(8)}`);
-  await fs.mkdir(tmpDir, { recursive: true });
-
+  // Read pre-bundled design JSON from designs/ folder. If anything fails, refund.
   try {
-    const outPath = path.join(tmpDir, `${entry._source}.md`);
-    await execAsync(
-      `npx getdesign@latest add ${entry._source} --out "${outPath}" 2>/dev/null`,
-      { timeout: 20000 }
-    );
-
-    const content = await fs.readFile(outPath, "utf-8");
-    if (!content || content.length < 50) {
-      throw new Error("Empty design file");
-    }
-
-    const { tokens, resolved } = parseDesignMd(content, entry.name);
+    const jsonPath = path.join(process.cwd(), "designs", `${entry._source}.json`);
+    const raw = await fs.readFile(jsonPath, "utf-8");
+    const source = JSON.parse(raw) as StoredDesign;
 
     const design: StoredDesign = {
       id: nanoid(),
       slug: entry.id,
       name: entry.name,
-      url: "",
+      url: source.url || "",
       description: entry.description,
-      tokens,
-      resolved,
-      designMd: content,
+      tokens: source.tokens,
+      resolved: source.resolved,
+      designMd: source.designMd,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
       source: "imported",
@@ -129,7 +110,5 @@ export async function POST(req: NextRequest) {
       { error: ApiError.IMPORT_FAILED },
       { status: 500 }
     );
-  } finally {
-    await fs.rm(tmpDir, { recursive: true, force: true }).catch(() => {});
   }
 }
