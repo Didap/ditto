@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
+import { useOnborda } from "onborda";
+import { hasSeenTour } from "@/lib/onboarding";
 import type { StoredDesign } from "@/lib/types";
 import { qualityLabel, qualityColor, friendlyIssueMessage } from "@/lib/quality-scorer";
 import { useCredits } from "@/lib/credits-context";
@@ -87,6 +89,15 @@ export function DesignDetailClient({ initialDesign, slug }: DesignDetailProps) {
   const [purchasing, setPurchasing] = useState<string | null>(null);
   const [confirmModal, setConfirmModal] = useState<{ feature: "devkit" | "complete"; cost: number } | null>(null);
   const { deduct, refresh: refreshCredits, credits } = useCredits();
+  const { startOnborda } = useOnborda();
+
+  // Auto-start design detail tour on first visit
+  useEffect(() => {
+    if (!hasSeenTour("design-detail")) {
+      const timer = setTimeout(() => startOnborda("design-detail"), 600);
+      return () => clearTimeout(timer);
+    }
+  }, [startOnborda]);
 
   const fetchUnlocks = useCallback((s: string) => {
     fetch(`/api/designs/${s}/unlock`)
@@ -127,7 +138,7 @@ export function DesignDetailClient({ initialDesign, slug }: DesignDetailProps) {
   return (
     <div>
       {/* Header */}
-      <div className="flex items-center justify-between mb-6">
+      <div id="tour-design-header" className="flex items-center justify-between mb-6">
         <div>
           <div className="flex items-center gap-3 mb-1">
             <a
@@ -179,7 +190,7 @@ export function DesignDetailClient({ initialDesign, slug }: DesignDetailProps) {
             )}
           </div>
         </div>
-        <div className="flex gap-2 flex-wrap">
+        <div id="tour-kits" className="flex gap-2 flex-wrap">
           {/* Dev Kit (50cr) — Storybook + tokens + Tailwind + types + Figma */}
           {unlocks.devkit.unlocked ? (
             <div className="flex items-center gap-2">
@@ -328,6 +339,7 @@ export function DesignDetailClient({ initialDesign, slug }: DesignDetailProps) {
 
           {/* Copy DESIGN.md — always free */}
           <button
+            id="tour-designmd-btn"
             onClick={() => {
               navigator.clipboard.writeText(design.designMd);
             }}
@@ -339,7 +351,7 @@ export function DesignDetailClient({ initialDesign, slug }: DesignDetailProps) {
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-0 border-b border-(--ditto-border) mb-6">
+      <div id="tour-preview-tabs" className="flex gap-0 border-b border-(--ditto-border) mb-6">
         {(["preview", "tokens", "designmd"] as const).map((tab) => (
           <button
             key={tab}

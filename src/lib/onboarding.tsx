@@ -149,8 +149,56 @@ const inspireTour: Tour = {
   ],
 };
 
+// ── Design Detail tour — shown after first extraction ──
+
+const designDetailTour: Tour = {
+  tour: "design-detail",
+  steps: [
+    {
+      icon: "🎉",
+      title: "Your design system is ready!",
+      content: "Ditto extracted a complete design system from this website — colors, typography, spacing, shadows, and components. Use it to define the art direction of your project. Let's see what you can do with it.",
+      selector: "#tour-design-header",
+      side: "bottom",
+      showControls: true,
+      pointerPadding: 12,
+      pointerRadius: 12,
+    },
+    {
+      icon: "📄",
+      title: "DESIGN.md — your AI secret weapon",
+      content: "This file describes the entire design system in plain text. Copy it and paste it into any LLM (ChatGPT, Claude, Cursor, Copilot) and ask it to generate UI — it will match this design perfectly.",
+      selector: "#tour-designmd-btn",
+      side: "bottom",
+      showControls: true,
+      pointerPadding: 8,
+      pointerRadius: 8,
+    },
+    {
+      icon: "🛠️",
+      title: "Download kits",
+      content: "Dev Kit (50 cr): Storybook, CSS tokens, Tailwind config, TypeScript types, Figma tokens. Complete Kit (100 cr): everything above plus 5 HTML pages and React components — perfect for everyone, no setup needed.",
+      selector: "#tour-kits",
+      side: "bottom",
+      showControls: true,
+      pointerPadding: 10,
+      pointerRadius: 12,
+    },
+    {
+      icon: "👁️",
+      title: "Live preview",
+      content: "See your design system applied to 6 real page layouts — Landing, Dashboard, Auth, Pricing, Blog, and Components. Use the editor to tweak colors and fonts in real time.",
+      selector: "#tour-preview-tabs",
+      side: "top",
+      showControls: true,
+      pointerPadding: 8,
+      pointerRadius: 12,
+    },
+  ],
+};
+
 /** All tours combined for the Onborda provider */
-export const ALL_TOURS: Tour[] = [dashboardTour, addDesignTour, inspireTour];
+export const ALL_TOURS: Tour[] = [dashboardTour, addDesignTour, inspireTour, designDetailTour];
 
 /** Check if a tour has been seen (localStorage) */
 export function hasSeenTour(tourName: string): boolean {
