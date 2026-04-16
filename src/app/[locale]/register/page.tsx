@@ -2,6 +2,7 @@
 
 import { useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
+import { useLocalePath } from "@/lib/locale-context";
 
 export default function RegisterPage() {
   return (
@@ -13,6 +14,7 @@ export default function RegisterPage() {
 
 function RegisterForm() {
   const searchParams = useSearchParams();
+  const lp = useLocalePath();
   const referralCode = searchParams.get("ref") || "";
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -78,7 +80,7 @@ function RegisterForm() {
           <p className="text-xs text-(--ditto-text-muted)">
             Click the link in the email to activate your account. The link expires in 24 hours.
           </p>
-          <a href="/login" className="inline-block mt-6 text-sm text-(--ditto-primary) hover:underline">
+          <a href={lp("/login")} className="inline-block mt-6 text-sm text-(--ditto-primary) hover:underline">
             Go to login
           </a>
         </div>
@@ -174,7 +176,7 @@ function RegisterForm() {
         <p className="mt-6 text-center text-sm text-(--ditto-text-muted)">
           Hai gia un account?{" "}
           <a
-            href="/login"
+            href={lp("/login")}
             className="text-(--ditto-primary) hover:text-(--ditto-primary-hover)"
           >
             Accedi

@@ -3,6 +3,7 @@
 import { useState, Suspense } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useLocalePath } from "@/lib/locale-context";
 
 export default function LoginPage() {
   return (
@@ -15,6 +16,7 @@ export default function LoginPage() {
 function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const lp = useLocalePath();
   const verified = searchParams.get("verified") === "true";
   const tokenError = searchParams.get("error");
 
@@ -125,7 +127,7 @@ function LoginForm() {
         <p className="mt-6 text-center text-sm text-(--ditto-text-muted)">
           Don&apos;t have an account?{" "}
           <a
-            href="/register"
+            href={lp("/register")}
             className="text-(--ditto-primary) hover:text-(--ditto-primary-hover)"
           >
             Register

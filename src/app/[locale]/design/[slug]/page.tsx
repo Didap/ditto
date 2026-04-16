@@ -5,6 +5,7 @@ import { useParams } from "next/navigation";
 import type { StoredDesign } from "@/lib/types";
 import { qualityLabel, qualityColor, friendlyIssueMessage } from "@/lib/quality-scorer";
 import { useCredits } from "@/lib/credits-context";
+import { useLocalePath } from "@/lib/locale-context";
 import { PreviewShell } from "@/components/preview/PreviewShell";
 import { LandingPreview } from "@/components/preview/pages/LandingPreview";
 import { DashboardPreview } from "@/components/preview/pages/DashboardPreview";
@@ -70,6 +71,7 @@ const PREVIEW_PAGES = [
 ];
 
 export default function DesignDetailPage() {
+  const lp = useLocalePath();
   const params = useParams();
   const slug = params.slug as string;
   const [design, setDesign] = useState<StoredDesign | null>(null);
@@ -138,7 +140,7 @@ export default function DesignDetailPage() {
     return (
       <div className="text-center py-32">
         <h1 className="text-xl font-semibold text-(--ditto-text)">Design not found</h1>
-        <a href="/dashboard" className="text-sm text-(--ditto-primary) mt-2 inline-block">
+        <a href={lp("/dashboard")} className="text-sm text-(--ditto-primary) mt-2 inline-block">
           Back to Library
         </a>
       </div>
@@ -155,7 +157,7 @@ export default function DesignDetailPage() {
         <div>
           <div className="flex items-center gap-3 mb-1">
             <a
-              href="/dashboard"
+              href={lp("/dashboard")}
               className="text-sm text-(--ditto-text-muted) hover:text-(--ditto-text) transition-colors"
             >
               ← Library

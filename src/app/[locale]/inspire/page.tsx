@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { useCredits } from "@/lib/credits-context";
+import { useLocalePath } from "@/lib/locale-context";
 import { useOnborda } from "onborda";
 import { hasSeenTour } from "@/lib/onboarding";
 import {
@@ -103,6 +104,7 @@ export default function InspirePage() {
 }
 
 function InspireContent() {
+  const lp = useLocalePath();
   // State
   const [urls, setUrls] = useState<string[]>(["", "", ""]);
   const [inspirations, setInspirations] = useState<Inspiration[]>([]);
@@ -504,7 +506,7 @@ function InspireContent() {
       {/* Header */}
       <div className="flex items-center gap-3 mb-1">
         <a
-          href="/dashboard"
+          href={lp("/dashboard")}
           className="text-sm text-(--ditto-text-muted) hover:text-(--ditto-text)">
           ← Library
         </a>

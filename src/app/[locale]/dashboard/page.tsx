@@ -5,6 +5,7 @@ import type { StoredDesign } from "@/lib/types";
 import { qualityColor } from "@/lib/quality-scorer";
 import { LottieLoader } from "@/components/LottieLoader";
 import { useCredits } from "@/lib/credits-context";
+import { useLocalePath } from "@/lib/locale-context";
 import { useOnborda } from "onborda";
 import { hasSeenTour } from "@/lib/onboarding";
 import {
@@ -20,6 +21,7 @@ import {
 } from "lucide-react";
 
 export default function DashboardPage() {
+  const lp = useLocalePath();
   const [designs, setDesigns] = useState<StoredDesign[]>([]);
   const [loading, setLoading] = useState(true);
   const [selected, setSelected] = useState<Set<string>>(new Set());
@@ -133,7 +135,7 @@ export default function DashboardPage() {
         </div>
         <a
           id="tour-add-design-btn"
-          href="/add"
+          href={lp("/add")}
           className="rounded-lg bg-(--ditto-primary) px-4 py-2 text-sm font-medium text-(--ditto-bg) hover:bg-(--ditto-primary-hover) transition-colors"
         >
           + Add Design
@@ -194,13 +196,13 @@ export default function DashboardPage() {
           </p>
           <div className="flex gap-3">
             <a
-              href="/add"
+              href={lp("/add")}
               className="rounded-lg bg-(--ditto-primary) px-4 py-2 text-sm font-medium text-(--ditto-bg) hover:bg-(--ditto-primary-hover) transition-colors"
             >
               + Add from URL
             </a>
             <a
-              href="/catalog"
+              href={lp("/catalog")}
               className="rounded-lg border border-(--ditto-border) px-4 py-2 text-sm font-medium text-(--ditto-text-secondary) hover:text-(--ditto-text) hover:border-(--ditto-text-muted) transition-colors"
             >
               Browse Catalog

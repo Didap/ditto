@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useCredits } from "@/lib/credits-context";
+import { useLocalePath } from "@/lib/locale-context";
 import { useOnborda } from "onborda";
 import { hasSeenTour } from "@/lib/onboarding";
 
@@ -13,6 +14,7 @@ interface ExtractionProgress {
 }
 
 export default function AddDesignPage() {
+  const lp = useLocalePath();
   const [url, setUrl] = useState("");
   const [name, setName] = useState("");
   const [state, setState] = useState<ExtractionState>("idle");
@@ -229,7 +231,7 @@ export default function AddDesignPage() {
         </p>
         <a
           id="tour-catalog-link"
-          href="/catalog"
+          href={lp("/catalog")}
           className="inline-flex items-center gap-2 rounded-lg border border-(--ditto-border) px-4 py-2 text-sm font-medium text-(--ditto-text-secondary) hover:text-(--ditto-text) hover:border-(--ditto-text-muted) transition-colors"
         >
           Browse Catalog

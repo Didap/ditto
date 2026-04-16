@@ -4,8 +4,10 @@ import { useSession, signOut } from "next-auth/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect, useRef, useSyncExternalStore } from "react";
-import { Menu, X, LogOut, Coins, User, Sun, Moon } from "lucide-react";
+import { Menu, X, LogOut, Coins, User, Sun, Moon, Globe } from "lucide-react";
 import { useCredits } from "@/lib/credits-context";
+import { useLocalePath, useBarePath, usePathnameLocale } from "@/lib/locale-context";
+import { LOCALES } from "@/lib/i18n";
 
 // Theme as external store to avoid setState-in-effect lint errors
 function subscribeTheme(cb: () => void) {
@@ -22,9 +24,14 @@ function getThemeServerSnapshot() {
 export function NavBar() {
   const { data: session, status } = useSession();
   const pathname = usePathname();
+  const lp = useLocalePath();
+  const barePath = useBarePath();
+  const currentLocale = usePathnameLocale();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
+  const [langMenuOpen, setLangMenuOpen] = useState(false);
   const userMenuRef = useRef<HTMLDivElement>(null);
+  const langMenuRef = useRef<HTMLDivElement>(null);
   const { credits, refresh } = useCredits();
   const dark = useSyncExternalStore(subscribeTheme, getThemeSnapshot, getThemeServerSnapshot);
 
@@ -36,12 +43,11 @@ export function NavBar() {
   const toggleTheme = () => {
     const next = !dark;
     localStorage.setItem("ditto-theme", next ? "dark" : "light");
-    // Force re-render by dispatching storage event (useSyncExternalStore picks it up)
     window.dispatchEvent(new StorageEvent("storage", { key: "ditto-theme" }));
   };
 
-  const isAuthPage = pathname === "/login" || pathname === "/register";
-  const isLanding = pathname === "/";
+  const isAuthPage = barePath === "/login" || barePath === "/register";
+  const isLanding = barePath === "/";
 
   const handleSignOut = async () => {
     try {
@@ -49,7 +55,7 @@ export function NavBar() {
     } catch {
       // fallback
     }
-    window.location.href = "/";
+    window.location.href = lp("/");
   };
 
   // Fetch credits when authenticated
@@ -57,23 +63,56 @@ export function NavBar() {
     if (session?.user) refresh();
   }, [session, pathname, refresh]);
 
-  // Close mobile menu on route change
+  // Close menus on route change
   // eslint-disable-next-line react-hooks/set-state-in-effect -- closing the menu on navigation is a standard pattern
-  useEffect(() => { setMobileOpen(false); setUserMenuOpen(false); }, [pathname]);
+  useEffect(() => { setMobileOpen(false); setUserMenuOpen(false); setLangMenuOpen(false); }, [pathname]);
 
-  // Close user menu on click outside
+  // Close menus on click outside
   useEffect(() => {
     const handler = (e: MouseEvent) => {
       if (userMenuRef.current && !userMenuRef.current.contains(e.target as Node)) {
         setUserMenuOpen(false);
       }
+      if (langMenuRef.current && !langMenuRef.current.contains(e.target as Node)) {
+        setLangMenuOpen(false);
+      }
     };
-    if (userMenuOpen) document.addEventListener("mousedown", handler);
+    if (userMenuOpen || langMenuOpen) document.addEventListener("mousedown", handler);
     return () => document.removeEventListener("mousedown", handler);
-  }, [userMenuOpen]);
+  }, [userMenuOpen, langMenuOpen]);
+
+  // Language switcher
+  const langSwitcher = (
+    <div className="relative" ref={langMenuRef}>
+      <button
+        onClick={() => setLangMenuOpen(!langMenuOpen)}
+        className="flex items-center justify-center w-8 h-8 rounded-full border border-(--ditto-border) bg-(--ditto-surface) text-(--ditto-text-muted) hover:text-(--ditto-text) hover:border-(--ditto-text-muted) transition-colors"
+        title="Language"
+      >
+        <Globe className="w-4 h-4" strokeWidth={1.5} />
+      </button>
+      {langMenuOpen && (
+        <div className="absolute right-0 top-10 w-40 rounded-xl border border-(--ditto-border) bg-(--ditto-surface) shadow-xl py-1 z-50">
+          {LOCALES.map((l) => (
+            <a
+              key={l.code}
+              href={`/${l.code}${barePath === "/" ? "" : barePath}`}
+              className={`block px-4 py-2 text-sm transition-colors ${
+                currentLocale === l.code
+                  ? "text-(--ditto-primary) font-medium"
+                  : "text-(--ditto-text-secondary) hover:text-(--ditto-text) hover:bg-(--ditto-bg)"
+              }`}
+            >
+              {l.flag} {l.label}
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
+  );
 
   const logo = (
-    <Link href="/" className="flex items-center gap-2 font-semibold text-lg tracking-tight">
+    <Link href={lp("/")} className="flex items-center gap-2 font-semibold text-lg tracking-tight">
       <span className="w-6 h-6 ditto-blob inline-block shrink-0" />
       <span>Ditto</span>
     </Link>
@@ -122,9 +161,9 @@ export function NavBar() {
             </div>
           )}
           <div className="py-1 border-b border-(--ditto-border)">
-            <a href="/catalog" className="block px-4 py-2 text-sm text-(--ditto-text-secondary) hover:text-(--ditto-text) hover:bg-(--ditto-bg) transition-colors">Catalog</a>
-            <a href="/add" className="block px-4 py-2 text-sm text-(--ditto-text-secondary) hover:text-(--ditto-text) hover:bg-(--ditto-bg) transition-colors">+ Add Design</a>
-            <a href="/inspire" className="block px-4 py-2 text-sm text-(--ditto-text-secondary) hover:text-(--ditto-text) hover:bg-(--ditto-bg) transition-colors">Mix Design</a>
+            <a href={lp("/catalog")} className="block px-4 py-2 text-sm text-(--ditto-text-secondary) hover:text-(--ditto-text) hover:bg-(--ditto-bg) transition-colors">Catalog</a>
+            <a href={lp("/add")} className="block px-4 py-2 text-sm text-(--ditto-text-secondary) hover:text-(--ditto-text) hover:bg-(--ditto-bg) transition-colors">+ Add Design</a>
+            <a href={lp("/inspire")} className="block px-4 py-2 text-sm text-(--ditto-text-secondary) hover:text-(--ditto-text) hover:bg-(--ditto-bg) transition-colors">Mix Design</a>
           </div>
           {/* Theme toggle */}
                     <div className="px-4 py-2.5 border-b border-(--ditto-border)">
@@ -162,7 +201,7 @@ export function NavBar() {
     </div>
   ) : (
     <a
-      href="/login"
+      href={lp("/login")}
       className="flex items-center justify-center w-8 h-8 rounded-full border border-(--ditto-border) bg-(--ditto-surface) text-(--ditto-text-muted) hover:text-(--ditto-text) hover:border-(--ditto-text-muted) transition-colors"
       title="Sign in"
     >
@@ -176,6 +215,7 @@ export function NavBar() {
       <nav className="sticky top-0 z-50 border-b border-(--ditto-border) bg-(--ditto-bg)/80 backdrop-blur-xl">
         <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-6">
           {logo}
+          {langSwitcher}
         </div>
       </nav>
     );
@@ -190,13 +230,14 @@ export function NavBar() {
             {logo}
             {/* Desktop */}
             <div className="hidden md:flex items-center gap-4">
-              <a href="/how-it-works" className="text-sm text-(--ditto-text-secondary) hover:text-(--ditto-text) transition-colors">How it works</a>
-              <a href="/pricing" className="text-sm text-(--ditto-text-secondary) hover:text-(--ditto-text) transition-colors">Pricing</a>
+              <a href={lp("/how-it-works")} className="text-sm text-(--ditto-text-secondary) hover:text-(--ditto-text) transition-colors">How it works</a>
+              <a href={lp("/pricing")} className="text-sm text-(--ditto-text-secondary) hover:text-(--ditto-text) transition-colors">Pricing</a>
               {session ? (
-                <a href="/dashboard" className="btn-blob">Dashboard</a>
+                <a href={lp("/dashboard")} className="btn-blob">Dashboard</a>
               ) : (
-                <a href="/register" className="btn-blob">Get started</a>
+                <a href={lp("/register")} className="btn-blob">Get started</a>
               )}
+              {langSwitcher}
               {userButton}
             </div>
             {hamburger}
@@ -204,16 +245,28 @@ export function NavBar() {
         </nav>
 
         <MobileMenu open={mobileOpen} onClose={() => setMobileOpen(false)}>
-          <a href="/how-it-works" className="mobile-menu-link" onClick={() => setMobileOpen(false)}>How it works</a>
-          <a href="/pricing" className="mobile-menu-link" onClick={() => setMobileOpen(false)}>Pricing</a>
+          <a href={lp("/how-it-works")} className="mobile-menu-link" onClick={() => setMobileOpen(false)}>How it works</a>
+          <a href={lp("/pricing")} className="mobile-menu-link" onClick={() => setMobileOpen(false)}>Pricing</a>
           {session ? (
-            <a href="/dashboard" className="btn-blob w-full text-center" onClick={() => setMobileOpen(false)}>Dashboard</a>
+            <a href={lp("/dashboard")} className="btn-blob w-full text-center" onClick={() => setMobileOpen(false)}>Dashboard</a>
           ) : (
             <>
-              <a href="/login" className="mobile-menu-link" onClick={() => setMobileOpen(false)}>Sign in</a>
-              <a href="/register" className="btn-blob w-full text-center" onClick={() => setMobileOpen(false)}>Get started</a>
+              <a href={lp("/login")} className="mobile-menu-link" onClick={() => setMobileOpen(false)}>Sign in</a>
+              <a href={lp("/register")} className="btn-blob w-full text-center" onClick={() => setMobileOpen(false)}>Get started</a>
             </>
           )}
+          <div className="h-px bg-(--ditto-border)" />
+          <div className="flex gap-2 flex-wrap">
+            {LOCALES.map((l) => (
+              <a
+                key={l.code}
+                href={`/${l.code}${barePath === "/" ? "" : barePath}`}
+                className={`text-sm px-2 py-1 rounded ${currentLocale === l.code ? "text-(--ditto-primary) font-medium" : "text-(--ditto-text-muted)"}`}
+              >
+                {l.flag} {l.code.toUpperCase()}
+              </a>
+            ))}
+          </div>
         </MobileMenu>
       </>
     );
@@ -227,10 +280,11 @@ export function NavBar() {
           {logo}
           {/* Desktop */}
           <div className="hidden md:flex items-center gap-4">
-            <a href="/how-it-works" className="text-sm text-(--ditto-text-secondary) hover:text-(--ditto-text) transition-colors">How it works</a>
-            <a href="/pricing" className="text-sm text-(--ditto-text-secondary) hover:text-(--ditto-text) transition-colors">Pricing</a>
+            <a href={lp("/how-it-works")} className="text-sm text-(--ditto-text-secondary) hover:text-(--ditto-text) transition-colors">How it works</a>
+            <a href={lp("/pricing")} className="text-sm text-(--ditto-text-secondary) hover:text-(--ditto-text) transition-colors">Pricing</a>
             <div className="w-px h-5 bg-(--ditto-border)" />
-            <a href="/dashboard" className="text-sm text-(--ditto-text-secondary) hover:text-(--ditto-text) transition-colors">Dashboard</a>
+            <a href={lp("/dashboard")} className="text-sm text-(--ditto-text-secondary) hover:text-(--ditto-text) transition-colors">Dashboard</a>
+            {langSwitcher}
             {userButton}
           </div>
           {hamburger}
@@ -238,13 +292,13 @@ export function NavBar() {
       </nav>
 
       <MobileMenu open={mobileOpen} onClose={() => setMobileOpen(false)}>
-        <a href="/how-it-works" className="mobile-menu-link" onClick={() => setMobileOpen(false)}>How it works</a>
-        <a href="/pricing" className="mobile-menu-link" onClick={() => setMobileOpen(false)}>Pricing</a>
+        <a href={lp("/how-it-works")} className="mobile-menu-link" onClick={() => setMobileOpen(false)}>How it works</a>
+        <a href={lp("/pricing")} className="mobile-menu-link" onClick={() => setMobileOpen(false)}>Pricing</a>
         <div className="h-px bg-(--ditto-border)" />
-        <a href="/dashboard" className="mobile-menu-link" onClick={() => setMobileOpen(false)}>Dashboard</a>
-        <a href="/catalog" className="mobile-menu-link" onClick={() => setMobileOpen(false)}>Catalog</a>
-        <a href="/add" className="mobile-menu-link" onClick={() => setMobileOpen(false)}>+ Add Design</a>
-        <a href="/inspire" className="btn-blob w-full text-center" onClick={() => setMobileOpen(false)}>Mix Design</a>
+        <a href={lp("/dashboard")} className="mobile-menu-link" onClick={() => setMobileOpen(false)}>Dashboard</a>
+        <a href={lp("/catalog")} className="mobile-menu-link" onClick={() => setMobileOpen(false)}>Catalog</a>
+        <a href={lp("/add")} className="mobile-menu-link" onClick={() => setMobileOpen(false)}>+ Add Design</a>
+        <a href={lp("/inspire")} className="btn-blob w-full text-center" onClick={() => setMobileOpen(false)}>Mix Design</a>
         {session?.user && (
           <div className="mt-auto pt-4 border-t border-(--ditto-border)">
             {credits !== null && (
@@ -259,6 +313,17 @@ export function NavBar() {
               <button onClick={handleSignOut} className="flex items-center gap-1.5 text-sm text-(--ditto-text-muted) hover:text-(--ditto-error)">
                 <LogOut className="w-3.5 h-3.5" strokeWidth={1.5} /> Sign out
               </button>
+            </div>
+            <div className="flex gap-2 flex-wrap mb-3">
+              {LOCALES.map((l) => (
+                <a
+                  key={l.code}
+                  href={`/${l.code}${barePath === "/" ? "" : barePath}`}
+                  className={`text-sm px-2 py-1 rounded ${currentLocale === l.code ? "text-(--ditto-primary) font-medium" : "text-(--ditto-text-muted)"}`}
+                >
+                  {l.flag} {l.code.toUpperCase()}
+                </a>
+              ))}
             </div>
             <button onClick={toggleTheme} className="w-full flex items-center justify-between">
               <span className="text-xs text-(--ditto-text-muted)">{dark ? "Dark mode" : "Light mode"}</span>
