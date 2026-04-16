@@ -5,6 +5,8 @@ import type { StoredDesign } from "@/lib/types";
 import { qualityColor } from "@/lib/quality-scorer";
 import { LottieLoader } from "@/components/LottieLoader";
 import { useCredits } from "@/lib/credits-context";
+import { useOnborda } from "onborda";
+import { hasSeenTour } from "@/lib/onboarding";
 import {
   Coins,
   Package,
@@ -48,10 +50,20 @@ export default function DashboardPage() {
       .catch(() => {});
   };
 
+  const { startOnborda } = useOnborda();
+
   useEffect(() => {
     fetchDesigns();
     fetchTrash();
   }, []);
+
+  // Auto-start dashboard tour on first visit
+  useEffect(() => {
+    if (!loading && !hasSeenTour("dashboard")) {
+      const timer = setTimeout(() => startOnborda("dashboard"), 600);
+      return () => clearTimeout(timer);
+    }
+  }, [loading, startOnborda]);
 
   const toggleSelect = (slug: string) => {
     setSelected((prev) => {
@@ -110,7 +122,7 @@ export default function DashboardPage() {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-8">
+      <div id="tour-dashboard-header" className="flex items-center justify-between mb-8">
         <div>
           <h1 className="text-2xl font-bold tracking-tight text-(--ditto-text)">
             Design Library
@@ -120,6 +132,7 @@ export default function DashboardPage() {
           </p>
         </div>
         <a
+          id="tour-add-design-btn"
           href="/add"
           className="rounded-lg bg-(--ditto-primary) px-4 py-2 text-sm font-medium text-(--ditto-bg) hover:bg-(--ditto-primary-hover) transition-colors"
         >
@@ -127,7 +140,7 @@ export default function DashboardPage() {
         </a>
       </div>
 
-      <QuestsPanel />
+      <div id="tour-quests-panel"><QuestsPanel /></div>
 
       {/* Bulk action toolbar */}
       {selected.size > 0 && (
@@ -195,7 +208,7 @@ export default function DashboardPage() {
           </div>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div id="tour-design-grid" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {designs.map((design) => (
             <DesignCard
               key={design.id}

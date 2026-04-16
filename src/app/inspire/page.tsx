@@ -3,6 +3,8 @@
 import { useState, useRef, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { useCredits } from "@/lib/credits-context";
+import { useOnborda } from "onborda";
+import { hasSeenTour } from "@/lib/onboarding";
 import {
   MOOD_QUESTIONS,
   MOOD_DIMENSIONS,
@@ -113,6 +115,14 @@ function InspireContent() {
   } = useCredits();
 
   const canGenerate = credits !== null && credits >= 300;
+  const { startOnborda } = useOnborda();
+
+  useEffect(() => {
+    if (!hasSeenTour("inspire")) {
+      const timer = setTimeout(() => startOnborda("inspire"), 400);
+      return () => clearTimeout(timer);
+    }
+  }, [startOnborda]);
 
   // Catalog state
   const [catalogDesigns, setCatalogDesigns] = useState<StoredDesign[]>([]);
@@ -519,7 +529,7 @@ function InspireContent() {
             Inserisci 2-10 URL di siti che ti piacciono. Ditto assorbirà il
             design di ognuno.
           </p>
-          <div className="flex flex-col gap-3">
+          <div id="tour-inspire-urls" className="flex flex-col gap-3">
             {urls.map((url, i) => (
               <div key={i} className="flex gap-2 items-center">
                 <span className="text-sm text-(--ditto-text-muted) w-6">
@@ -555,7 +565,7 @@ function InspireContent() {
           )}
 
           {/* Catalog picker */}
-          <div className="mt-6 rounded-xl border border-(--ditto-border) bg-(--ditto-surface) p-4">
+          <div id="tour-inspire-catalog" className="mt-6 rounded-xl border border-(--ditto-border) bg-(--ditto-surface) p-4">
             <button
               onClick={() => {
                 setShowCatalog(!showCatalog);
@@ -659,7 +669,7 @@ function InspireContent() {
           )}
 
           {/* Mode selection */}
-          <div className="mt-6 mb-2">
+          <div id="tour-inspire-mode" className="mt-6 mb-2">
             <h3 className="text-sm font-semibold text-(--ditto-text) mb-3">
               Scegli la modalità
             </h3>
@@ -1133,6 +1143,7 @@ function InspireContent() {
                 </div>
               )}
               <button
+                id="tour-inspire-generate"
                 onClick={handleGenerate}
                 disabled={generating || !canGenerate}
                 className="w-full rounded-lg bg-(--ditto-primary) px-4 py-3 text-sm font-medium text-(--ditto-bg) hover:bg-(--ditto-primary-hover) disabled:opacity-50">

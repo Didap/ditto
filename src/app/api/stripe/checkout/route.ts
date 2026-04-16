@@ -5,6 +5,7 @@ import { db } from "@/lib/db";
 import { users } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
 import { ApiError } from "@/lib/errors";
+import { isLaunchActive, LAUNCH_COUPON_ID } from "@/lib/regions";
 
 export async function POST(req: NextRequest) {
   const user = await getRequiredUser();
@@ -16,7 +17,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: ApiError.PRICE_ID_REQUIRED }, { status: 400 });
   }
 
-  // Validate against DB
+  // Validate against DB (includes regional prices)
   const validPrices = await getValidPriceIds();
   if (!validPrices.includes(priceId)) {
     return NextResponse.json({ error: ApiError.INVALID_PRICE }, { status: 400 });
@@ -46,6 +47,7 @@ export async function POST(req: NextRequest) {
 
   const isSubscription = mode === "subscription";
   const origin = req.headers.get("origin") || "http://localhost:3000";
+  const launch = isLaunchActive();
 
   const session = await stripe.checkout.sessions.create({
     customer: customerId,
@@ -54,6 +56,8 @@ export async function POST(req: NextRequest) {
     success_url: `${origin}/dashboard?checkout=success`,
     cancel_url: `${origin}/pricing?checkout=cancelled`,
     metadata: { userId: user.id },
+    // Apply launch coupon if promo is still active
+    ...(launch ? { discounts: [{ coupon: LAUNCH_COUPON_ID }] } : {}),
     ...(isSubscription ? { subscription_data: { metadata: { userId: user.id } } } : {}),
     ...(isSubscription ? {} : { payment_intent_data: { metadata: { userId: user.id } } }),
   });

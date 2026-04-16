@@ -109,14 +109,22 @@ export type DesignUnlockInsert = typeof designUnlocks.$inferInsert;
 
 // ── Pricing (plans + credit packs) ──
 
+/** Regional Stripe price entry */
+export type RegionalPrice = {
+  priceId: string;
+  amount: number;
+  currency: string; // "eur" | "usd"
+};
+
 export const pricing = pgTable("pricing", {
   id: text("id").primaryKey(), // "pro", "team", "pack-500", etc.
   type: text("type").notNull(), // "plan" | "pack"
   name: text("name").notNull(),
   credits: integer("credits").notNull(),
-  priceUsd: integer("price_usd").notNull(), // in cents
-  launchPriceUsd: integer("launch_price_usd").notNull(),
-  stripePriceId: text("stripe_price_id"), // Stripe price ID
+  priceUsd: integer("price_usd").notNull(), // in cents (US/default fallback)
+  launchPriceUsd: integer("launch_price_usd").notNull(), // legacy, kept for compat
+  stripePriceId: text("stripe_price_id"), // US/default Stripe price ID
+  stripePrices: jsonb("stripe_prices").$type<Record<string, RegionalPrice>>(), // regional prices
   sortOrder: integer("sort_order").notNull().default(0),
   active: integer("active").notNull().default(1), // 1 = visible
 });

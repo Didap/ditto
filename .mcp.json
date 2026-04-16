@@ -18,6 +18,13 @@
         "COOLIFY_ACCESS_TOKEN": "${COOLIFY_KEY_DIDAP}",
         "COOLIFY_BASE_URL": "http://178.104.36.242:8000/"
       }
+    },
+    "stripe": {
+      "command": "npx",
+      "args": ["-y", "@stripe/mcp@latest"],
+      "env": {
+        "STRIPE_SECRET_KEY": "${STRIPE_SECRET_KEY}"
+      }
     }
   }
 }

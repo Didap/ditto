@@ -3,6 +3,7 @@ import { SessionProvider } from "next-auth/react";
 import { NavBar } from "@/components/NavBar";
 import { CursorFollower } from "@/components/CursorFollower";
 import { CreditsProvider } from "@/lib/credits-context";
+import { OnboardingProvider } from "@/components/OnboardingProvider";
 import { canvaSans, leoSans } from "@/lib/fonts";
 import "./globals.css";
 
@@ -147,9 +148,11 @@ export default function RootLayout({
       <body className="min-h-screen antialiased">
         <SessionProvider>
           <CreditsProvider>
-            <CursorFollower />
-            <NavBar />
-            <main className="mx-auto max-w-7xl px-6 py-8">{children}</main>
+            <OnboardingProvider>
+              <CursorFollower />
+              <NavBar />
+              <main className="mx-auto max-w-7xl px-6 py-8">{children}</main>
+            </OnboardingProvider>
           </CreditsProvider>
         </SessionProvider>
       </body>

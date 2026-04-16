@@ -9,10 +9,12 @@ interface PricingRow {
   type: string;
   name: string;
   credits: number;
-  priceUsd: number;
-  launchPriceUsd: number;
+  price: number;
+  launchPrice: number;
+  currency: string;
   stripePriceId: string | null;
   sortOrder: number;
+  isLaunch: boolean;
 }
 
 const PLAN_FEATURES: Record<string, string[]> = {
@@ -27,8 +29,12 @@ const PLAN_DESC: Record<string, string> = {
   team: "For teams and agencies",
 };
 
-function formatPrice(cents: number): string {
-  return `$${(cents / 100).toFixed(cents % 100 === 0 ? 0 : 2)}`;
+function formatPrice(cents: number, currency: string): string {
+  const value = cents / 100;
+  if (currency === "eur") {
+    return `€${value % 1 === 0 ? value.toFixed(0) : value.toFixed(2)}`;
+  }
+  return `$${value % 1 === 0 ? value.toFixed(0) : value.toFixed(2)}`;
 }
 
 export default function PricingPage() {
@@ -37,6 +43,7 @@ export default function PricingPage() {
   const [userPlan, setUserPlan] = useState<string>("free");
   const [plans, setPlans] = useState<PricingRow[]>([]);
   const [packs, setPacks] = useState<PricingRow[]>([]);
+  const [isLaunch, setIsLaunch] = useState(false);
 
   useEffect(() => {
     fetch("/api/pricing")
@@ -44,6 +51,7 @@ export default function PricingPage() {
       .then((data) => {
         setPlans(data.plans || []);
         setPacks(data.packs || []);
+        setIsLaunch(data.isLaunch ?? false);
       })
       .catch(() => {});
   }, []);
@@ -98,9 +106,11 @@ export default function PricingPage() {
       <section className="pt-28 pb-20 px-6">
         <div className="max-w-4xl mx-auto text-center">
           {/* Launch banner */}
-          <div className="inline-flex items-center gap-2 bg-(--ditto-primary)/10 text-(--ditto-primary) text-sm font-medium px-4 py-1.5 rounded-full mb-6">
-            🚀 Launch Sale — 30% off everything
-          </div>
+          {isLaunch && (
+            <div className="inline-flex items-center gap-2 bg-(--ditto-primary)/10 text-(--ditto-primary) text-sm font-medium px-4 py-1.5 rounded-full mb-6">
+              Launch Sale — 30% off your first month
+            </div>
+          )}
 
           <h1 className="text-4xl md:text-5xl font-extrabold text-(--ditto-text) mb-4">
             Simple, transparent pricing
@@ -116,7 +126,7 @@ export default function PricingPage() {
               const recommended = plan.id === "pro";
               const features = PLAN_FEATURES[plan.id] || [];
               const desc = PLAN_DESC[plan.id] || "";
-              const hasLaunchPrice = plan.launchPriceUsd > 0 && plan.launchPriceUsd < plan.priceUsd;
+              const hasLaunchPrice = plan.isLaunch && plan.launchPrice > 0 && plan.launchPrice < plan.price;
               const isPaid = plan.stripePriceId !== null;
 
               return (
@@ -141,18 +151,21 @@ export default function PricingPage() {
                     {hasLaunchPrice ? (
                       <>
                         <span className="text-lg line-through text-(--ditto-text-muted) mr-2">
-                          {formatPrice(plan.priceUsd)}
+                          {formatPrice(plan.price, plan.currency)}
                         </span>
                         <span className="text-4xl font-extrabold text-(--ditto-text)">
-                          {formatPrice(plan.launchPriceUsd)}
+                          {formatPrice(plan.launchPrice, plan.currency)}
+                        </span>
+                        <span className="block text-xs text-(--ditto-text-muted) mt-1">
+                          first month, then {formatPrice(plan.price, plan.currency)}/mo
                         </span>
                       </>
                     ) : (
                       <span className="text-4xl font-extrabold text-(--ditto-text)">
-                        {formatPrice(plan.priceUsd)}
+                        {formatPrice(plan.price, plan.currency)}
                       </span>
                     )}
-                    {isPaid && <span className="text-sm text-(--ditto-text-muted)">/mo</span>}
+                    {isPaid && !hasLaunchPrice && <span className="text-sm text-(--ditto-text-muted)">/mo</span>}
                   </div>
 
                   {isCurrent ? (
@@ -200,7 +213,7 @@ export default function PricingPage() {
             <p className="text-sm text-(--ditto-text-muted) mb-8">Top up anytime — credits never expire</p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {packs.map((pack) => {
-                const hasLaunch = pack.launchPriceUsd > 0 && pack.launchPriceUsd < pack.priceUsd;
+                const hasLaunch = pack.isLaunch && pack.launchPrice > 0 && pack.launchPrice < pack.price;
                 return (
                   <div
                     key={pack.id}
@@ -214,15 +227,15 @@ export default function PricingPage() {
                       {hasLaunch ? (
                         <>
                           <span className="text-sm line-through text-(--ditto-text-muted) mr-1">
-                            {formatPrice(pack.priceUsd)}
+                            {formatPrice(pack.price, pack.currency)}
                           </span>
                           <span className="text-xl font-bold text-(--ditto-text)">
-                            {formatPrice(pack.launchPriceUsd)}
+                            {formatPrice(pack.launchPrice, pack.currency)}
                           </span>
                         </>
                       ) : (
                         <span className="text-xl font-bold text-(--ditto-text)">
-                          {formatPrice(pack.priceUsd)}
+                          {formatPrice(pack.price, pack.currency)}
                         </span>
                       )}
                     </div>

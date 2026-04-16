@@ -1,16 +1,30 @@
 import { describe, it, expect } from "vitest";
 
-// Import only the pricing constants, not the stripe client
 const LAUNCH_DISCOUNT = 0.30;
+
 const PLANS = {
-  free: { name: "Free", credits: 300, priceUsd: 0, launchPriceUsd: 0 },
-  pro: { name: "Pro", credits: 1500, priceUsd: 900, launchPriceUsd: 630 },
-  team: { name: "Team", credits: 5000, priceUsd: 2900, launchPriceUsd: 2030 },
+  free: { name: "Free", credits: 300, priceUsd: 0 },
+  pro: { name: "Pro", credits: 1500, priceUsd: 1500 }, // $15
+  team: { name: "Team", credits: 5000, priceUsd: 2500 }, // $25
 };
+
+const REGIONAL_PRICES = {
+  pro: {
+    it: { amount: 999, currency: "eur" },
+    eu: { amount: 1299, currency: "eur" },
+    us: { amount: 1500, currency: "usd" },
+  },
+  team: {
+    it: { amount: 1999, currency: "eur" },
+    eu: { amount: 2399, currency: "eur" },
+    us: { amount: 2500, currency: "usd" },
+  },
+};
+
 const CREDIT_PACKS = [
-  { id: "pack-500", credits: 500, priceUsd: 500, launchPriceUsd: 350 },
-  { id: "pack-2000", credits: 2000, priceUsd: 1900, launchPriceUsd: 1330 },
-  { id: "pack-5000", credits: 5000, priceUsd: 4500, launchPriceUsd: 3150 },
+  { id: "pack-500", credits: 500, priceUsd: 500 },
+  { id: "pack-2000", credits: 2000, priceUsd: 1900 },
+  { id: "pack-5000", credits: 5000, priceUsd: 4500 },
 ];
 
 describe("Stripe pricing config", () => {
@@ -23,22 +37,31 @@ describe("Stripe pricing config", () => {
     expect(PLANS.free.credits).toBe(300);
   });
 
-  it("pro plan gives 1500 credits", () => {
+  it("pro plan gives 1500 credits at $15/mo (US)", () => {
     expect(PLANS.pro.credits).toBe(1500);
-    expect(PLANS.pro.priceUsd).toBe(900);
+    expect(PLANS.pro.priceUsd).toBe(1500);
   });
 
-  it("team plan gives 5000 credits", () => {
+  it("team plan gives 5000 credits at $25/mo (US)", () => {
     expect(PLANS.team.credits).toBe(5000);
-    expect(PLANS.team.priceUsd).toBe(2900);
+    expect(PLANS.team.priceUsd).toBe(2500);
   });
 
-  it("launch prices are 30% off base", () => {
+  it("launch coupon is 30% off", () => {
     expect(LAUNCH_DISCOUNT).toBe(0.30);
-    // Pro: $9 * 0.7 = $6.30
-    expect(PLANS.pro.launchPriceUsd).toBe(630);
-    // Team: $29 * 0.7 = $20.30
-    expect(PLANS.team.launchPriceUsd).toBe(2030);
+  });
+
+  it("regional prices — Italy is cheapest, US is most expensive", () => {
+    expect(REGIONAL_PRICES.pro.it.amount).toBeLessThan(REGIONAL_PRICES.pro.eu.amount);
+    expect(REGIONAL_PRICES.pro.eu.amount).toBeLessThan(REGIONAL_PRICES.pro.us.amount);
+    expect(REGIONAL_PRICES.team.it.amount).toBeLessThan(REGIONAL_PRICES.team.eu.amount);
+    expect(REGIONAL_PRICES.team.eu.amount).toBeLessThan(REGIONAL_PRICES.team.us.amount);
+  });
+
+  it("regional prices — EUR for IT/EU, USD for US", () => {
+    expect(REGIONAL_PRICES.pro.it.currency).toBe("eur");
+    expect(REGIONAL_PRICES.pro.eu.currency).toBe("eur");
+    expect(REGIONAL_PRICES.pro.us.currency).toBe("usd");
   });
 
   it("has 3 credit packs", () => {
@@ -50,20 +73,12 @@ describe("Stripe pricing config", () => {
     expect(credits).toEqual([500, 2000, 5000]);
   });
 
-  it("credit packs have correct launch prices", () => {
-    expect(CREDIT_PACKS[0].launchPriceUsd).toBe(350);  // $3.50
-    expect(CREDIT_PACKS[1].launchPriceUsd).toBe(1330); // $13.30
-    expect(CREDIT_PACKS[2].launchPriceUsd).toBe(3150); // $31.50
-  });
-
-  it("100 credits = $1 base rate holds for packs", () => {
-    // Pack 500: $5 = 100cr/$1 exactly
+  it("100 credits = $1 base rate holds for smallest pack", () => {
     expect(CREDIT_PACKS[0].priceUsd / CREDIT_PACKS[0].credits).toBe(1);
   });
 
   it("larger packs have volume discount", () => {
     const perCredit = CREDIT_PACKS.map((p) => p.priceUsd / p.credits);
-    // Each successive pack should be cheaper per credit
     expect(perCredit[1]).toBeLessThan(perCredit[0]);
     expect(perCredit[2]).toBeLessThan(perCredit[1]);
   });
