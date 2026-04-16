@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useSession } from "next-auth/react";
 import { Check } from "lucide-react";
 import { useLocalePath, useLocale, useT } from "@/lib/locale-context";
 import type { TranslationKey } from "@/lib/i18n";
@@ -27,8 +26,7 @@ function formatPrice(cents: number, currency: string): string {
   return `$${value % 1 === 0 ? value.toFixed(0) : value.toFixed(2)}`;
 }
 
-export function PricingClient({ data }: { data: PricingData }) {
-  const { data: session } = useSession();
+export function PricingClient({ data, isAuthenticated }: { data: PricingData; isAuthenticated: boolean }) {
   const locale = useLocale();
   const t = useT();
   const lp = useLocalePath();
@@ -40,16 +38,16 @@ export function PricingClient({ data }: { data: PricingData }) {
   const currencySymbol = currency === "eur" ? "€" : "$";
 
   useEffect(() => {
-    if (session) {
+    if (isAuthenticated) {
       fetch("/api/credits")
         .then((r) => r.json())
         .then((d) => setUserPlan(d.plan || "free"))
         .catch(() => {});
     }
-  }, [session]);
+  }, [isAuthenticated]);
 
   const checkout = async (priceId: string, mode: "subscription" | "payment") => {
-    if (!session) {
+    if (!isAuthenticated) {
       window.location.href = lp("/register");
       return;
     }
@@ -110,7 +108,7 @@ export function PricingClient({ data }: { data: PricingData }) {
                 plan={plan}
                 isCurrent={userPlan === plan.id}
                 loading={loading}
-                session={!!session}
+                session={isAuthenticated}
                 t={t}
                 lp={lp}
                 checkout={checkout}
@@ -128,7 +126,7 @@ export function PricingClient({ data }: { data: PricingData }) {
                   key={pack.id}
                   pack={pack}
                   loading={loading}
-                  session={!!session}
+                  session={isAuthenticated}
                   locale={locale}
                   t={t}
                   checkout={checkout}

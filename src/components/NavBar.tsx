@@ -1,6 +1,5 @@
 "use client";
 
-import { useSession, signOut } from "next-auth/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect, useRef, useSyncExternalStore } from "react";
@@ -21,8 +20,11 @@ function getThemeServerSnapshot() {
   return true; // SSR default: dark
 }
 
-export function NavBar() {
-  const { data: session, status } = useSession();
+interface NavBarProps {
+  user: { name: string; email: string } | null;
+}
+
+export function NavBar({ user }: NavBarProps) {
   const pathname = usePathname();
   const lp = useLocalePath();
   const barePath = useBarePath();
@@ -51,7 +53,13 @@ export function NavBar() {
 
   const handleSignOut = async () => {
     try {
-      await signOut({ redirect: false });
+      const csrfRes = await fetch("/api/auth/csrf");
+      const { csrfToken } = await csrfRes.json();
+      await fetch("/api/auth/signout", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: `csrfToken=${csrfToken}`,
+      });
     } catch {
       // fallback
     }
@@ -60,8 +68,8 @@ export function NavBar() {
 
   // Fetch credits when authenticated
   useEffect(() => {
-    if (session?.user) refresh();
-  }, [session, pathname, refresh]);
+    if (user) refresh();
+  }, [user, pathname, refresh]);
 
   // Close menus on route change
   // eslint-disable-next-line react-hooks/set-state-in-effect -- closing the menu on navigation is a standard pattern
@@ -128,12 +136,12 @@ export function NavBar() {
   );
 
   // User avatar button (opens dropdown)
-  const userButton = session?.user ? (
+  const userButton = user ? (
     <div className="relative" ref={userMenuRef}>
       <button
         onClick={() => setUserMenuOpen(!userMenuOpen)}
         className="flex items-center justify-center w-8 h-8 rounded-full border border-(--ditto-border) bg-(--ditto-surface) text-(--ditto-text-muted) hover:text-(--ditto-text) hover:border-(--ditto-text-muted) transition-colors"
-        title={session.user.name || session.user.email || "Account"}
+        title={user?.name || user?.email || "Account"}
       >
         <User className="w-4 h-4" strokeWidth={1.5} />
       </button>
@@ -145,10 +153,10 @@ export function NavBar() {
         >
           <div className="px-4 py-2 border-b border-(--ditto-border)">
             <p className="text-sm font-medium text-(--ditto-text) truncate">
-              {session.user.name || "User"}
+              {user?.name || "User"}
             </p>
             <p className="text-xs text-(--ditto-text-muted) truncate">
-              {session.user.email}
+              {user?.email}
             </p>
           </div>
           {credits !== null && (
@@ -209,8 +217,8 @@ export function NavBar() {
     </Link>
   );
 
-  // Auth pages or loading
-  if (isAuthPage || status === "loading") {
+  // Auth pages — minimal nav
+  if (isAuthPage) {
     return (
       <nav className="sticky top-0 z-50 border-b border-(--ditto-border) bg-(--ditto-bg)/80 backdrop-blur-xl">
         <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-6">
@@ -232,7 +240,7 @@ export function NavBar() {
             <div className="hidden md:flex items-center gap-4">
               <Link href={lp("/how-it-works")} className="text-sm text-(--ditto-text-secondary) hover:text-(--ditto-text) transition-colors">How it works</Link>
               <Link href={lp("/pricing")} className="text-sm text-(--ditto-text-secondary) hover:text-(--ditto-text) transition-colors">Pricing</Link>
-              {session ? (
+              {user ? (
                 <Link href={lp("/dashboard")} className="btn-blob">Dashboard</Link>
               ) : (
                 <Link href={lp("/register")} className="btn-blob">Get started</Link>
@@ -247,7 +255,7 @@ export function NavBar() {
         <MobileMenu open={mobileOpen} onClose={() => setMobileOpen(false)}>
           <Link href={lp("/how-it-works")} className="mobile-menu-link" onClick={() => setMobileOpen(false)}>How it works</Link>
           <Link href={lp("/pricing")} className="mobile-menu-link" onClick={() => setMobileOpen(false)}>Pricing</Link>
-          {session ? (
+          {user ? (
             <Link href={lp("/dashboard")} className="btn-blob w-full text-center" onClick={() => setMobileOpen(false)}>Dashboard</Link>
           ) : (
             <>
@@ -299,7 +307,7 @@ export function NavBar() {
         <Link href={lp("/catalog")} className="mobile-menu-link" onClick={() => setMobileOpen(false)}>Catalog</Link>
         <Link href={lp("/add")} className="mobile-menu-link" onClick={() => setMobileOpen(false)}>+ Add Design</Link>
         <Link href={lp("/inspire")} className="btn-blob w-full text-center" onClick={() => setMobileOpen(false)}>Mix Design</Link>
-        {session?.user && (
+        {user && (
           <div className="mt-auto pt-4 border-t border-(--ditto-border)">
             {credits !== null && (
               <div className="flex items-center gap-1.5 mb-3 text-sm text-(--ditto-primary)">
@@ -309,7 +317,7 @@ export function NavBar() {
               </div>
             )}
             <div className="flex items-center justify-between mb-3">
-              <span className="text-sm text-(--ditto-text-muted)">{session.user.name || session.user.email}</span>
+              <span className="text-sm text-(--ditto-text-muted)">{user?.name || user?.email}</span>
               <button onClick={handleSignOut} className="flex items-center gap-1.5 text-sm text-(--ditto-text-muted) hover:text-(--ditto-error)">
                 <LogOut className="w-3.5 h-3.5" strokeWidth={1.5} /> Sign out
               </button>

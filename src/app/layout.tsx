@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { SessionProvider } from "next-auth/react";
 import { NavBar } from "@/components/NavBar";
 import { CursorFollower } from "@/components/CursorFollower";
 import { CreditsProvider } from "@/lib/credits-context";
 import { OnboardingProvider } from "@/components/OnboardingProvider";
+import { auth } from "@/lib/auth";
 import { canvaSans, leoSans } from "@/lib/fonts";
 import "./globals.css";
 
@@ -63,11 +63,15 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const session = await auth();
+  const user = session?.user
+    ? { name: session.user.name ?? "", email: session.user.email ?? "" }
+    : null;
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
@@ -154,15 +158,13 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen antialiased">
-        <SessionProvider>
-          <CreditsProvider>
-            <OnboardingProvider>
-              <CursorFollower />
-              <NavBar />
-              <main className="mx-auto max-w-7xl px-6 py-8">{children}</main>
-            </OnboardingProvider>
-          </CreditsProvider>
-        </SessionProvider>
+        <CreditsProvider>
+          <OnboardingProvider>
+            <CursorFollower />
+            <NavBar user={user} />
+            <main className="mx-auto max-w-7xl px-6 py-8">{children}</main>
+          </OnboardingProvider>
+        </CreditsProvider>
       </body>
     </html>
   );
