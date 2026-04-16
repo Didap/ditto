@@ -340,7 +340,7 @@ export function LandingClient({ locale, isAuthenticated }: LandingProps) {
           </p>
           <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
-              href={isAuthenticated ? lp("/inspire") : lp("/register")}
+              href={isAuthenticated ? lp("/add") : lp("/register")}
               className="inline-block px-8 py-4 bg-(--ditto-primary) text-[#0a0a0a] font-bold rounded-lg hover:opacity-90 transition-opacity text-base"
               style={{ fontFamily: "'leoSans', 'canvaSans', system-ui, sans-serif" }}
             >
@@ -433,7 +433,7 @@ export function LandingClient({ locale, isAuthenticated }: LandingProps) {
                 <ScrambleText text={T("ctaSubtitle")} delay={680} />
               </p>
               <Link
-                href={isAuthenticated ? lp("/inspire") : lp("/register")}
+                href={isAuthenticated ? lp("/add") : lp("/register")}
                 className="inline-block px-8 py-4 bg-(--ditto-bg) text-(--ditto-primary) font-bold rounded-lg hover:opacity-90 transition-opacity text-base"
                 style={{ fontFamily: "'leoSans', 'canvaSans', system-ui, sans-serif" }}
               >
@@ -483,7 +483,7 @@ export function LandingClient({ locale, isAuthenticated }: LandingProps) {
             }}
           />
           <Link
-            href={isAuthenticated ? lp("/inspire") : lp("/register")}
+            href={isAuthenticated ? lp("/add") : lp("/register")}
             className="fixed z-50 flex items-center justify-center text-[#0a0a0a] font-bold"
             style={{
               fontFamily: "'leoSans', 'canvaSans', system-ui, sans-serif",
