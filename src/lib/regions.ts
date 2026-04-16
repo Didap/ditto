@@ -12,8 +12,13 @@ const EU_COUNTRY_CODES = new Set([
   "PT", "RO", "SK", "SI", "ES", "SE",
 ]);
 
-/** Detect pricing region from request headers (Vercel / Cloudflare geo) */
+/** Detect pricing region from geo-IP headers (Vercel / Cloudflare).
+ *  In local dev without geo headers, set PRICING_REGION=it|eu|us in .env */
 export function detectRegion(headers: Headers): PricingRegion {
+  // Env override for local development
+  const envRegion = process.env.PRICING_REGION as PricingRegion | undefined;
+  if (envRegion && ["it", "eu", "us"].includes(envRegion)) return envRegion;
+
   const country = (
     headers.get("x-vercel-ip-country") ??
     headers.get("cf-ipcountry") ??

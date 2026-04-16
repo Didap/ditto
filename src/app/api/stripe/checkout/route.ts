@@ -11,7 +11,8 @@ export async function POST(req: NextRequest) {
   const user = await getRequiredUser();
   if (!user) return unauthorized();
 
-  const { priceId, mode } = await req.json();
+  const { priceId, mode, locale } = await req.json();
+  const loc = locale || "en";
 
   if (!priceId) {
     return NextResponse.json({ error: ApiError.PRICE_ID_REQUIRED }, { status: 400 });
@@ -51,10 +52,11 @@ export async function POST(req: NextRequest) {
 
   const session = await stripe.checkout.sessions.create({
     customer: customerId,
+    locale: loc as "en" | "it" | "fr" | "es" | "auto",
     mode: isSubscription ? "subscription" : "payment",
     line_items: [{ price: priceId, quantity: 1 }],
-    success_url: `${origin}/dashboard?checkout=success`,
-    cancel_url: `${origin}/pricing?checkout=cancelled`,
+    success_url: `${origin}/${loc}/dashboard?checkout=success`,
+    cancel_url: `${origin}/${loc}/pricing?checkout=cancelled`,
     metadata: { userId: user.id },
     // Apply launch coupon if promo is still active
     ...(launch ? { discounts: [{ coupon: LAUNCH_COUPON_ID }] } : {}),

@@ -23,11 +23,14 @@ export async function POST(req: NextRequest) {
     );
   }
 
+  const body = await req.json().catch(() => ({}));
+  const loc = body.locale || "en";
   const origin = req.headers.get("origin") || "http://localhost:3000";
 
   const session = await stripe.billingPortal.sessions.create({
     customer: dbUser.stripeCustomerId,
-    return_url: `${origin}/pricing`,
+    locale: loc as "en" | "it" | "fr" | "es" | "auto",
+    return_url: `${origin}/${loc}/pricing`,
   });
 
   return NextResponse.json({ url: session.url });
