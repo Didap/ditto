@@ -1,4 +1,10 @@
+"use client";
+
+import { useLocalePath } from "@/lib/locale-context";
+
 export default function NotFound() {
+  const lp = useLocalePath();
+
   return (
     <div className="flex min-h-[60vh] items-center justify-center">
       <div className="text-center max-w-sm">
@@ -10,7 +16,7 @@ export default function NotFound() {
           The page you&apos;re looking for doesn&apos;t exist or has been moved.
         </p>
         <a
-          href="/dashboard"
+          href={lp("/dashboard")}
           className="inline-block rounded-lg bg-(--ditto-primary) px-6 py-2.5 text-sm font-medium text-(--ditto-bg) hover:bg-(--ditto-primary-hover) transition-colors"
         >
           Go to Dashboard

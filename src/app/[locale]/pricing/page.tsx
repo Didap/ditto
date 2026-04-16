@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { Check } from "lucide-react";
+import { useLocalePath } from "@/lib/locale-context";
 
 interface PricingRow {
   id: string;
@@ -39,6 +40,7 @@ function formatPrice(cents: number, currency: string): string {
 
 export default function PricingPage() {
   const { data: session } = useSession();
+  const lp = useLocalePath();
   const [loading, setLoading] = useState<string | null>(null);
   const [userPlan, setUserPlan] = useState<string>("free");
   const [plans, setPlans] = useState<PricingRow[]>([]);
@@ -67,7 +69,7 @@ export default function PricingPage() {
 
   const checkout = async (priceId: string, mode: "subscription" | "payment") => {
     if (!session) {
-      window.location.href = "/register";
+      window.location.href = lp("/register");
       return;
     }
     setLoading(priceId);
@@ -181,7 +183,7 @@ export default function PricingPage() {
                       onClick={() =>
                         plan.stripePriceId
                           ? checkout(plan.stripePriceId, "subscription")
-                          : (window.location.href = session ? "/dashboard" : "/register")
+                          : (window.location.href = session ? lp("/dashboard") : lp("/register"))
                       }
                       disabled={!!loading}
                       className={`block w-full text-center py-3 px-4 rounded-lg font-semibold text-sm transition-opacity hover:opacity-90 ${
