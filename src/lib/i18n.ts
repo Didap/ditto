@@ -13,6 +13,8 @@ const translations = {
     navLogin: "Sign in",
     navRegister: "Get Started",
     navDashboard: "Dashboard",
+    navHowItWorks: "How it works",
+    navPricing: "Pricing",
 
     // Hero
     heroLine1: "Your next",
@@ -109,6 +111,8 @@ const translations = {
     navLogin: "Accedi",
     navRegister: "Inizia ora",
     navDashboard: "Dashboard",
+    navHowItWorks: "Come funziona",
+    navPricing: "Prezzi",
 
     heroLine1: "Il tuo prossimo",
     heroLine2: "design",
@@ -198,6 +202,8 @@ const translations = {
     navLogin: "Se connecter",
     navRegister: "Commencer",
     navDashboard: "Tableau de bord",
+    navHowItWorks: "Comment ca marche",
+    navPricing: "Tarifs",
 
     heroLine1: "Votre prochain",
     heroLine2: "design",
@@ -287,6 +293,8 @@ const translations = {
     navLogin: "Iniciar sesion",
     navRegister: "Empezar",
     navDashboard: "Panel",
+    navHowItWorks: "Como funciona",
+    navPricing: "Precios",
 
     heroLine1: "Tu proximo",
     heroLine2: "design",

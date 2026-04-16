@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { useState, useEffect, useRef, useSyncExternalStore } from "react";
 import { Menu, X, LogOut, Coins, User, Sun, Moon, Globe } from "lucide-react";
 import { useCredits } from "@/lib/credits-context";
-import { useLocalePath, useBarePath, usePathnameLocale } from "@/lib/locale-context";
+import { useLocalePath, useBarePath, usePathnameLocale, useT } from "@/lib/locale-context";
 import { LOCALES } from "@/lib/i18n";
 
 // Theme as external store to avoid setState-in-effect lint errors
@@ -29,6 +29,7 @@ export function NavBar({ user }: NavBarProps) {
   const lp = useLocalePath();
   const barePath = useBarePath();
   const currentLocale = usePathnameLocale();
+  const t = useT();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const [langMenuOpen, setLangMenuOpen] = useState(false);
@@ -238,8 +239,8 @@ export function NavBar({ user }: NavBarProps) {
             {logo}
             {/* Desktop */}
             <div className="hidden md:flex items-center gap-4">
-              <Link href={lp("/how-it-works")} className="text-sm text-(--ditto-text-secondary) hover:text-(--ditto-text) transition-colors">How it works</Link>
-              <Link href={lp("/pricing")} className="text-sm text-(--ditto-text-secondary) hover:text-(--ditto-text) transition-colors">Pricing</Link>
+              <Link href={lp("/how-it-works")} className="text-sm text-(--ditto-text-secondary) hover:text-(--ditto-text) transition-colors">{t("navHowItWorks")}</Link>
+              <Link href={lp("/pricing")} className="text-sm text-(--ditto-text-secondary) hover:text-(--ditto-text) transition-colors">{t("navPricing")}</Link>
               {user ? (
                 <Link href={lp("/dashboard")} className="btn-blob">Dashboard</Link>
               ) : (
@@ -253,8 +254,8 @@ export function NavBar({ user }: NavBarProps) {
         </nav>
 
         <MobileMenu open={mobileOpen} onClose={() => setMobileOpen(false)}>
-          <Link href={lp("/how-it-works")} className="mobile-menu-link" onClick={() => setMobileOpen(false)}>How it works</Link>
-          <Link href={lp("/pricing")} className="mobile-menu-link" onClick={() => setMobileOpen(false)}>Pricing</Link>
+          <Link href={lp("/how-it-works")} className="mobile-menu-link" onClick={() => setMobileOpen(false)}>{t("navHowItWorks")}</Link>
+          <Link href={lp("/pricing")} className="mobile-menu-link" onClick={() => setMobileOpen(false)}>{t("navPricing")}</Link>
           {user ? (
             <Link href={lp("/dashboard")} className="btn-blob w-full text-center" onClick={() => setMobileOpen(false)}>Dashboard</Link>
           ) : (
@@ -288,8 +289,8 @@ export function NavBar({ user }: NavBarProps) {
           {logo}
           {/* Desktop */}
           <div className="hidden md:flex items-center gap-4">
-            <Link href={lp("/how-it-works")} className="text-sm text-(--ditto-text-secondary) hover:text-(--ditto-text) transition-colors">How it works</Link>
-            <Link href={lp("/pricing")} className="text-sm text-(--ditto-text-secondary) hover:text-(--ditto-text) transition-colors">Pricing</Link>
+            <Link href={lp("/how-it-works")} className="text-sm text-(--ditto-text-secondary) hover:text-(--ditto-text) transition-colors">{t("navHowItWorks")}</Link>
+            <Link href={lp("/pricing")} className="text-sm text-(--ditto-text-secondary) hover:text-(--ditto-text) transition-colors">{t("navPricing")}</Link>
             <div className="w-px h-5 bg-(--ditto-border)" />
             <Link href={lp("/dashboard")} className="text-sm text-(--ditto-text-secondary) hover:text-(--ditto-text) transition-colors">Dashboard</Link>
             {langSwitcher}
@@ -300,8 +301,8 @@ export function NavBar({ user }: NavBarProps) {
       </nav>
 
       <MobileMenu open={mobileOpen} onClose={() => setMobileOpen(false)}>
-        <Link href={lp("/how-it-works")} className="mobile-menu-link" onClick={() => setMobileOpen(false)}>How it works</Link>
-        <Link href={lp("/pricing")} className="mobile-menu-link" onClick={() => setMobileOpen(false)}>Pricing</Link>
+        <Link href={lp("/how-it-works")} className="mobile-menu-link" onClick={() => setMobileOpen(false)}>{t("navHowItWorks")}</Link>
+        <Link href={lp("/pricing")} className="mobile-menu-link" onClick={() => setMobileOpen(false)}>{t("navPricing")}</Link>
         <div className="h-px bg-(--ditto-border)" />
         <Link href={lp("/dashboard")} className="mobile-menu-link" onClick={() => setMobileOpen(false)}>Dashboard</Link>
         <Link href={lp("/catalog")} className="mobile-menu-link" onClick={() => setMobileOpen(false)}>Catalog</Link>
