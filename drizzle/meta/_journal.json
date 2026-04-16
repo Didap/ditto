@@ -15,6 +15,13 @@
       "when": 1776251820374,
       "tag": "0001_schema_timestamps_jsonb_cascade",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1776347610063,
+      "tag": "0002_steady_cannonball",
+      "breakpoints": true
     }
   ]
 }
