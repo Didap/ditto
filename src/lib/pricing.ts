@@ -1,11 +1,8 @@
-import { NextRequest, NextResponse } from "next/server";
+import "server-only";
 import { stripe } from "@/lib/stripe";
-import { detectRegion, isLaunchActive, LAUNCH_DISCOUNT } from "@/lib/regions";
+import { isLaunchActive, LAUNCH_DISCOUNT, type PricingRegion } from "@/lib/regions";
 
-/* ── In-memory cache (5 min TTL) ────────────────────────────── */
-let _cache: { plans: StripeItem[]; packs: StripeItem[] } | null = null;
-let _cacheAt = 0;
-const CACHE_TTL = 5 * 60 * 1000;
+/* ── Types ─────────────────────────────────────────────────── */
 
 interface RegionPrice {
   priceId: string;
@@ -23,6 +20,32 @@ interface StripeItem {
   prices: RegionPrice[];
 }
 
+export interface PricingRow {
+  id: string;
+  type: string;
+  name: string;
+  credits: number;
+  price: number;
+  launchPrice: number;
+  currency: string;
+  stripePriceId: string | null;
+  sortOrder: number;
+  isLaunch: boolean;
+}
+
+export interface PricingData {
+  plans: PricingRow[];
+  packs: PricingRow[];
+  region: PricingRegion;
+  isLaunch: boolean;
+}
+
+/* ── In-memory cache (5 min TTL) ───────────────────────────── */
+
+let _cache: { plans: StripeItem[]; packs: StripeItem[] } | null = null;
+let _cacheAt = 0;
+const CACHE_TTL = 5 * 60 * 1000;
+
 async function fetchStripeData() {
   if (_cache && Date.now() - _cacheAt < CACHE_TTL) return _cache;
 
@@ -31,10 +54,8 @@ async function fetchStripeData() {
     stripe.prices.list({ active: true, limit: 100 }),
   ]);
 
-  // Only products tagged with ditto metadata
   const dittoProducts = products.data.filter((p) => p.metadata.ditto_id);
 
-  // Group prices by product, only those with region metadata
   const pricesByProduct = new Map<string, RegionPrice[]>();
   for (const p of prices.data) {
     if (!p.metadata.region) continue;
@@ -72,21 +93,17 @@ async function fetchStripeData() {
   return _cache;
 }
 
-/** GET /api/pricing — public, returns plans + packs with live Stripe prices */
-export async function GET(req: NextRequest) {
-  const region = detectRegion(req.headers);
+/** Fetch pricing for a given region — call from Server Components only */
+export async function getPricing(region: PricingRegion): Promise<PricingData> {
   const launch = isLaunchActive();
   const { plans: stripePlans, packs: stripePacks } = await fetchStripeData();
 
-  const pickPrice = (item: StripeItem) => {
-    return (
-      item.prices.find((p) => p.region === region) ??
-      item.prices.find((p) => p.region === "us") ??
-      item.prices[0]
-    );
-  };
+  const pickPrice = (item: StripeItem) =>
+    item.prices.find((p) => p.region === region) ??
+    item.prices.find((p) => p.region === "us") ??
+    item.prices[0];
 
-  const mapItem = (item: StripeItem) => {
+  const mapItem = (item: StripeItem): PricingRow | null => {
     const price = pickPrice(item);
     if (!price) return null;
     const launchAmount =
@@ -108,8 +125,7 @@ export async function GET(req: NextRequest) {
     };
   };
 
-  // Free plan (no Stripe product)
-  const freePlan = {
+  const freePlan: PricingRow = {
     id: "free",
     type: "plan",
     name: "Free",
@@ -122,8 +138,8 @@ export async function GET(req: NextRequest) {
     isLaunch: launch,
   };
 
-  const plans = [freePlan, ...stripePlans.map(mapItem).filter(Boolean)];
-  const packs = stripePacks.map(mapItem).filter(Boolean);
+  const plans = [freePlan, ...(stripePlans.map(mapItem).filter(Boolean) as PricingRow[])];
+  const packs = stripePacks.map(mapItem).filter(Boolean) as PricingRow[];
 
-  return NextResponse.json({ plans, packs, region, isLaunch: launch });
+  return { plans, packs, region, isLaunch: launch };
 }
