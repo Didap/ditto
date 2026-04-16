@@ -1,0 +1,1 @@
+ALTER TABLE "pricing" ADD COLUMN "stripe_prices" jsonb;
