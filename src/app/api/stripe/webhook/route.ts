@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
-import { stripe, PLANS, CREDIT_PACKS } from "@/lib/stripe";
+import { stripe } from "@/lib/stripe";
 import { ApiError } from "@/lib/errors";
 import { db } from "@/lib/db";
-import { users } from "@/lib/db/schema";
+import { users, pricing } from "@/lib/db/schema";
 import { eq, sql } from "drizzle-orm";
 
 export async function POST(req: NextRequest) {
@@ -21,6 +21,16 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: ApiError.INVALID_SIGNATURE }, { status: 400 });
   }
 
+  // Helper: look up a pricing row by Stripe price ID
+  async function findPricing(priceId: string) {
+    const [row] = await db
+      .select()
+      .from(pricing)
+      .where(eq(pricing.stripePriceId, priceId))
+      .limit(1);
+    return row ?? null;
+  }
+
   switch (event.type) {
     // ── Checkout completed (one-time pack purchase) ──
     case "checkout.session.completed": {
@@ -29,12 +39,12 @@ export async function POST(req: NextRequest) {
         const userId = session.metadata?.userId;
         if (!userId) break;
 
-        // Find which pack was bought by looking up the line items
         const lineItems = await stripe.checkout.sessions.listLineItems(session.id);
         const priceId = lineItems.data[0]?.price?.id;
-        const pack = CREDIT_PACKS.find((p) => p.stripePriceId === priceId);
+        if (!priceId) break;
 
-        if (pack) {
+        const pack = await findPricing(priceId);
+        if (pack && pack.type === "pack") {
           await db
             .update(users)
             .set({ credits: sql`${users.credits} + ${pack.credits}` })
@@ -55,29 +65,20 @@ export async function POST(req: NextRequest) {
       const userId = subscription.metadata?.userId;
       if (!userId) break;
 
-      // Determine plan from price
       const priceId = subscription.items.data[0]?.price?.id;
-      let plan: "pro" | "team" | null = null;
-      let credits = 0;
+      if (!priceId) break;
 
-      if (priceId === PLANS.pro.stripePriceId) {
-        plan = "pro";
-        credits = PLANS.pro.credits;
-      } else if (priceId === PLANS.team.stripePriceId) {
-        plan = "team";
-        credits = PLANS.team.credits;
-      }
-
-      if (plan) {
+      const plan = await findPricing(priceId);
+      if (plan && plan.type === "plan") {
         await db
           .update(users)
           .set({
-            plan,
+            plan: plan.id,
             stripeSubscriptionId: subscriptionId,
-            credits: sql`${users.credits} + ${credits}`,
+            credits: sql`${users.credits} + ${plan.credits}`,
           })
           .where(eq(users.id, userId));
-        console.log(`[stripe] User ${userId} → ${plan} plan, +${credits} credits`);
+        console.log(`[stripe] User ${userId} → ${plan.id} plan, +${plan.credits} credits`);
       }
       break;
     }

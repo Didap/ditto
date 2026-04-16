@@ -11,7 +11,8 @@ export default auth((req) => {
   // Allow public routes and auth API
   if (
     PUBLIC_ROUTES.includes(pathname) ||
-    pathname.startsWith("/api/auth")
+    pathname.startsWith("/api/auth") ||
+    pathname === "/api/pricing"
   ) {
     return;
   }

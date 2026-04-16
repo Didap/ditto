@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getRequiredUser, unauthorized } from "@/lib/auth-helpers";
-import { stripe, PLANS, CREDIT_PACKS } from "@/lib/stripe";
+import { stripe, getValidPriceIds } from "@/lib/stripe";
 import { db } from "@/lib/db";
 import { users } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
@@ -16,13 +16,8 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: ApiError.PRICE_ID_REQUIRED }, { status: 400 });
   }
 
-  // Validate that priceId is one of ours
-  const validPrices = [
-    PLANS.pro.stripePriceId,
-    PLANS.team.stripePriceId,
-    ...CREDIT_PACKS.map((p) => p.stripePriceId),
-  ].filter(Boolean);
-
+  // Validate against DB
+  const validPrices = await getValidPriceIds();
   if (!validPrices.includes(priceId)) {
     return NextResponse.json({ error: ApiError.INVALID_PRICE }, { status: 400 });
   }

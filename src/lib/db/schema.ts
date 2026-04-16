@@ -106,3 +106,19 @@ export const designUnlocks = pgTable(
 
 export type DesignUnlockSelect = typeof designUnlocks.$inferSelect;
 export type DesignUnlockInsert = typeof designUnlocks.$inferInsert;
+
+// ── Pricing (plans + credit packs) ──
+
+export const pricing = pgTable("pricing", {
+  id: text("id").primaryKey(), // "pro", "team", "pack-500", etc.
+  type: text("type").notNull(), // "plan" | "pack"
+  name: text("name").notNull(),
+  credits: integer("credits").notNull(),
+  priceUsd: integer("price_usd").notNull(), // in cents
+  launchPriceUsd: integer("launch_price_usd").notNull(),
+  stripePriceId: text("stripe_price_id"), // Stripe price ID
+  sortOrder: integer("sort_order").notNull().default(0),
+  active: integer("active").notNull().default(1), // 1 = visible
+});
+
+export type PricingSelect = typeof pricing.$inferSelect;
