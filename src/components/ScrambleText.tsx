@@ -4,10 +4,36 @@ import { useState, useEffect, useRef } from "react";
 
 const CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%&*!?";
 
+// Module-level state: survives across SPA navigations but resets on full reload.
+// This lets us detect locale switches (Link navigation) vs first page load.
+let _prevLocale: string | null = null;
+let _updateScheduled = false;
+
+function isLocaleSwitch(): boolean {
+  if (typeof window === "undefined") return false;
+  const current = window.location.pathname.split("/")[1] || "en";
+  const switched = _prevLocale !== null && _prevLocale !== current;
+
+  // Defer updating _prevLocale so all ScrambleText components in this render
+  // cycle see the OLD locale and all animate together.
+  if (switched && !_updateScheduled) {
+    _updateScheduled = true;
+    setTimeout(() => {
+      _prevLocale = current;
+      _updateScheduled = false;
+    }, 50);
+  }
+
+  // First visit — just record
+  if (_prevLocale === null) _prevLocale = current;
+
+  return switched;
+}
+
 /**
- * Text that scrambles when its content changes (e.g. on locale switch).
- * - Skips animation on first mount (SSR hydration)
- * - Cascade: set `delay` (ms) to stagger across multiple instances
+ * Text that scrambles when the locale changes (client-side navigation).
+ * Set `delay` (ms) to stagger across multiple instances for a cascade effect.
+ * No animation on first page load or full reload — only on SPA locale switches.
  */
 export function ScrambleText({
   text,
@@ -16,25 +42,23 @@ export function ScrambleText({
   text: string;
   delay?: number;
 }) {
-  const prevRef = useRef(text);
   const [display, setDisplay] = useState(text);
   const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
-  const mountedRef = useRef(false);
+  const delayRef = useRef<ReturnType<typeof setTimeout>>(undefined);
 
   useEffect(() => {
-    // Skip on first mount — show text immediately (SSR hydrated)
-    if (!mountedRef.current) {
-      mountedRef.current = true;
-      prevRef.current = text;
+    const shouldAnimate = isLocaleSwitch();
+
+    if (!shouldAnimate) {
       setDisplay(text);
       return;
     }
 
-    if (text === prevRef.current) return;
-    prevRef.current = text;
+    // Start with scrambled text immediately
+    setDisplay(text.replace(/[^\s]/g, () => CHARS[Math.floor(Math.random() * CHARS.length)]));
 
-    // Wait for cascade delay, then scramble
-    const delayTimer = setTimeout(() => {
+    // After cascade delay, resolve letter by letter
+    delayRef.current = setTimeout(() => {
       let tick = 0;
       const totalTicks = 12;
 
@@ -59,7 +83,7 @@ export function ScrambleText({
     }, delay);
 
     return () => {
-      clearTimeout(delayTimer);
+      if (delayRef.current) clearTimeout(delayRef.current);
       if (timerRef.current) clearTimeout(timerRef.current);
     };
   }, [text, delay]);
