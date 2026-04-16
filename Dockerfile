@@ -54,6 +54,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium
 
+# Crashpad needs a writable dir — create it before switching user
+RUN mkdir -p /tmp/crashpad && chmod 1777 /tmp/crashpad
+ENV CRASHDUMP_DIR=/tmp/crashpad
+
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 

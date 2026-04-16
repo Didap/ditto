@@ -19,6 +19,9 @@ export async function getBrowser(): Promise<Browser> {
       "--disable-dev-shm-usage",
       "--disable-gpu",
       "--disable-crash-reporter",
+      "--disable-breakpad",
+      "--disable-features=Crashpad",
+      "--no-zygote",
     ],
   });
   return browserInstance;
