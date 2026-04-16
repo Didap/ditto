@@ -138,7 +138,7 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en" className={`dark ${canvaSans.variable} ${leoSans.variable}`}>
+    <html lang="en" suppressHydrationWarning className={`dark ${canvaSans.variable} ${leoSans.variable}`}>
       <head>
         <script
           type="application/ld+json"
