@@ -15,6 +15,10 @@ const translations = {
     navDashboard: "Dashboard",
     navHowItWorks: "How it works",
     navPricing: "Pricing",
+    navCatalog: "Catalog",
+    navAddDesign: "+ Add Design",
+    navMixDesign: "Mix Design",
+    navSignOut: "Sign out",
 
     // Hero
     heroLine1: "Your next",
@@ -113,6 +117,10 @@ const translations = {
     navDashboard: "Dashboard",
     navHowItWorks: "Come funziona",
     navPricing: "Prezzi",
+    navCatalog: "Catalogo",
+    navAddDesign: "+ Aggiungi Design",
+    navMixDesign: "Mixa Design",
+    navSignOut: "Esci",
 
     heroLine1: "Il tuo prossimo",
     heroLine2: "design",
@@ -204,6 +212,10 @@ const translations = {
     navDashboard: "Tableau de bord",
     navHowItWorks: "Comment ca marche",
     navPricing: "Tarifs",
+    navCatalog: "Catalogue",
+    navAddDesign: "+ Ajouter un design",
+    navMixDesign: "Mixer des designs",
+    navSignOut: "Deconnexion",
 
     heroLine1: "Votre prochain",
     heroLine2: "design",
@@ -295,6 +307,10 @@ const translations = {
     navDashboard: "Panel",
     navHowItWorks: "Como funciona",
     navPricing: "Precios",
+    navCatalog: "Catalogo",
+    navAddDesign: "+ Agregar diseno",
+    navMixDesign: "Mezclar disenos",
+    navSignOut: "Cerrar sesion",
 
     heroLine1: "Tu proximo",
     heroLine2: "design",

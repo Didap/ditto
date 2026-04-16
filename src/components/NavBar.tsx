@@ -170,9 +170,9 @@ export function NavBar({ user }: NavBarProps) {
             </div>
           )}
           <div className="py-1 border-b border-(--ditto-border)">
-            <Link href={lp("/catalog")} className="block px-4 py-2 text-sm text-(--ditto-text-secondary) hover:text-(--ditto-text) hover:bg-(--ditto-bg) transition-colors">Catalog</Link>
-            <Link href={lp("/add")} className="block px-4 py-2 text-sm text-(--ditto-text-secondary) hover:text-(--ditto-text) hover:bg-(--ditto-bg) transition-colors">+ Add Design</Link>
-            <Link href={lp("/inspire")} className="block px-4 py-2 text-sm text-(--ditto-text-secondary) hover:text-(--ditto-text) hover:bg-(--ditto-bg) transition-colors">Mix Design</Link>
+            <Link href={lp("/catalog")} className="block px-4 py-2 text-sm text-(--ditto-text-secondary) hover:text-(--ditto-text) hover:bg-(--ditto-bg) transition-colors">{t("navCatalog")}</Link>
+            <Link href={lp("/add")} className="block px-4 py-2 text-sm text-(--ditto-text-secondary) hover:text-(--ditto-text) hover:bg-(--ditto-bg) transition-colors">{t("navAddDesign")}</Link>
+            <Link href={lp("/inspire")} className="block px-4 py-2 text-sm text-(--ditto-text-secondary) hover:text-(--ditto-text) hover:bg-(--ditto-bg) transition-colors">{t("navMixDesign")}</Link>
           </div>
           {/* Theme toggle */}
                     <div className="px-4 py-2.5 border-b border-(--ditto-border)">
@@ -203,7 +203,7 @@ export function NavBar({ user }: NavBarProps) {
             className="w-full flex items-center gap-2 px-4 py-2.5 text-sm text-(--ditto-text-muted) hover:text-(--ditto-error) hover:bg-(--ditto-bg) transition-colors"
           >
             <LogOut className="w-3.5 h-3.5" strokeWidth={1.5} />
-            Sign out
+            {t("navSignOut")}
           </button>
         </div>
       )}
@@ -242,9 +242,9 @@ export function NavBar({ user }: NavBarProps) {
               <Link href={lp("/how-it-works")} className="text-sm text-(--ditto-text-secondary) hover:text-(--ditto-text) transition-colors">{t("navHowItWorks")}</Link>
               <Link href={lp("/pricing")} className="text-sm text-(--ditto-text-secondary) hover:text-(--ditto-text) transition-colors">{t("navPricing")}</Link>
               {user ? (
-                <Link href={lp("/dashboard")} className="btn-blob">Dashboard</Link>
+                <Link href={lp("/dashboard")} className="btn-blob">{t("navDashboard")}</Link>
               ) : (
-                <Link href={lp("/register")} className="btn-blob">Get started</Link>
+                <Link href={lp("/register")} className="btn-blob">{t("navRegister")}</Link>
               )}
               {langSwitcher}
               {userButton}
@@ -257,11 +257,11 @@ export function NavBar({ user }: NavBarProps) {
           <Link href={lp("/how-it-works")} className="mobile-menu-link" onClick={() => setMobileOpen(false)}>{t("navHowItWorks")}</Link>
           <Link href={lp("/pricing")} className="mobile-menu-link" onClick={() => setMobileOpen(false)}>{t("navPricing")}</Link>
           {user ? (
-            <Link href={lp("/dashboard")} className="btn-blob w-full text-center" onClick={() => setMobileOpen(false)}>Dashboard</Link>
+            <Link href={lp("/dashboard")} className="btn-blob w-full text-center" onClick={() => setMobileOpen(false)}>{t("navDashboard")}</Link>
           ) : (
             <>
-              <Link href={lp("/login")} className="mobile-menu-link" onClick={() => setMobileOpen(false)}>Sign in</Link>
-              <Link href={lp("/register")} className="btn-blob w-full text-center" onClick={() => setMobileOpen(false)}>Get started</Link>
+              <Link href={lp("/login")} className="mobile-menu-link" onClick={() => setMobileOpen(false)}>{t("navLogin")}</Link>
+              <Link href={lp("/register")} className="btn-blob w-full text-center" onClick={() => setMobileOpen(false)}>{t("navRegister")}</Link>
             </>
           )}
           <div className="h-px bg-(--ditto-border)" />
@@ -292,7 +292,7 @@ export function NavBar({ user }: NavBarProps) {
             <Link href={lp("/how-it-works")} className="text-sm text-(--ditto-text-secondary) hover:text-(--ditto-text) transition-colors">{t("navHowItWorks")}</Link>
             <Link href={lp("/pricing")} className="text-sm text-(--ditto-text-secondary) hover:text-(--ditto-text) transition-colors">{t("navPricing")}</Link>
             <div className="w-px h-5 bg-(--ditto-border)" />
-            <Link href={lp("/dashboard")} className="text-sm text-(--ditto-text-secondary) hover:text-(--ditto-text) transition-colors">Dashboard</Link>
+            <Link href={lp("/dashboard")} className="text-sm text-(--ditto-text-secondary) hover:text-(--ditto-text) transition-colors">{t("navDashboard")}</Link>
             {langSwitcher}
             {userButton}
           </div>
@@ -304,10 +304,10 @@ export function NavBar({ user }: NavBarProps) {
         <Link href={lp("/how-it-works")} className="mobile-menu-link" onClick={() => setMobileOpen(false)}>{t("navHowItWorks")}</Link>
         <Link href={lp("/pricing")} className="mobile-menu-link" onClick={() => setMobileOpen(false)}>{t("navPricing")}</Link>
         <div className="h-px bg-(--ditto-border)" />
-        <Link href={lp("/dashboard")} className="mobile-menu-link" onClick={() => setMobileOpen(false)}>Dashboard</Link>
-        <Link href={lp("/catalog")} className="mobile-menu-link" onClick={() => setMobileOpen(false)}>Catalog</Link>
-        <Link href={lp("/add")} className="mobile-menu-link" onClick={() => setMobileOpen(false)}>+ Add Design</Link>
-        <Link href={lp("/inspire")} className="btn-blob w-full text-center" onClick={() => setMobileOpen(false)}>Mix Design</Link>
+        <Link href={lp("/dashboard")} className="mobile-menu-link" onClick={() => setMobileOpen(false)}>{t("navDashboard")}</Link>
+        <Link href={lp("/catalog")} className="mobile-menu-link" onClick={() => setMobileOpen(false)}>{t("navCatalog")}</Link>
+        <Link href={lp("/add")} className="mobile-menu-link" onClick={() => setMobileOpen(false)}>{t("navAddDesign")}</Link>
+        <Link href={lp("/inspire")} className="btn-blob w-full text-center" onClick={() => setMobileOpen(false)}>{t("navMixDesign")}</Link>
         {user && (
           <div className="mt-auto pt-4 border-t border-(--ditto-border)">
             {credits !== null && (
@@ -320,7 +320,7 @@ export function NavBar({ user }: NavBarProps) {
             <div className="flex items-center justify-between mb-3">
               <span className="text-sm text-(--ditto-text-muted)">{user?.name || user?.email}</span>
               <button onClick={handleSignOut} className="flex items-center gap-1.5 text-sm text-(--ditto-text-muted) hover:text-(--ditto-error)">
-                <LogOut className="w-3.5 h-3.5" strokeWidth={1.5} /> Sign out
+                <LogOut className="w-3.5 h-3.5" strokeWidth={1.5} /> {t("navSignOut")}
               </button>
             </div>
             <div className="flex gap-2 flex-wrap mb-3">
