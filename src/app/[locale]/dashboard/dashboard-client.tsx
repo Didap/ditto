@@ -553,11 +553,13 @@ function DesignCard({
         )}
       </button>
 
-      {/* New badge */}
+      {/* New badge — centered top with rotating gradient border */}
       {isNew && (
-        <span className="absolute top-3 left-10 z-10 text-[10px] font-bold px-2 py-0.5 rounded-full bg-(--ditto-primary) text-(--ditto-bg) animate-pulse">
-          NEW
-        </span>
+        <div className="absolute top-3 left-1/2 -translate-x-1/2 z-10 pointer-events-none">
+          <span className="new-badge-glow text-[10px] font-extrabold tracking-widest px-3 py-1 rounded-full text-white uppercase">
+            NEW
+          </span>
+        </div>
       )}
 
       {/* Visual preview */}

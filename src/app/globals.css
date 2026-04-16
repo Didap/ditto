@@ -138,6 +138,36 @@ html.light .ditto-glow:hover {
   50%      { transform: scale(1.15); opacity: 0.7; }
 }
 
+/* ── NEW Badge with rotating gradient border ── */
+.new-badge-glow {
+  position: relative;
+  background: #0a0a0a;
+  z-index: 1;
+}
+.new-badge-glow::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 9999px;
+  background: conic-gradient(
+    from var(--badge-angle, 0deg),
+    #03e65b,
+    #00c9a7,
+    #33d0ff,
+    #03e65b
+  );
+  z-index: -1;
+  animation: badge-spin 2s linear infinite;
+}
+@property --badge-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+@keyframes badge-spin {
+  to { --badge-angle: 360deg; }
+}
+
 /* ── Blob Button ── */
 .btn-blob {
   position: relative;
