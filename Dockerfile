@@ -48,15 +48,20 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libxdamage1 \
     libxrandr2 \
     xdg-utils \
-    && rm -rf /var/lib/apt/lists/* \
-    && find / -name chrome_crashpad_handler -exec sh -c 'echo "#!/bin/sh\nexit 0" > "$1" && chmod +x "$1"' _ {} \;
+    && rm -rf /var/lib/apt/lists/*
+
+# Wrap chrome_crashpad_handler to inject the missing --database flag
+RUN HANDLER=$(find /usr -name chrome_crashpad_handler -type f 2>/dev/null | head -1) \
+    && if [ -n "$HANDLER" ]; then \
+         mv "$HANDLER" "${HANDLER}.real" \
+         && printf '#!/bin/sh\nexec "%s.real" --database=/tmp/crashpad "$@"\n' "$HANDLER" > "$HANDLER" \
+         && chmod +x "$HANDLER"; \
+       fi \
+    && mkdir -p /tmp/crashpad && chmod 1777 /tmp/crashpad
 
 # Tell Puppeteer to use system Chromium
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium
-
-# Crashpad needs a writable dir — create it before switching user
-RUN mkdir -p /tmp/crashpad && chmod 1777 /tmp/crashpad
 ENV CRASHDUMP_DIR=/tmp/crashpad
 
 RUN addgroup --system --gid 1001 nodejs
