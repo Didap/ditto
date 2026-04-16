@@ -32,6 +32,12 @@ export enum ApiError {
   CATALOG_ITEM_NOT_FOUND = "Catalog item not found",
   CATALOG_ALREADY_UNLOCKED = "Design already unlocked",
 
+  // Recycle
+  DESIGN_NOT_IN_TRASH = "Design is not in trash",
+  DESIGN_NOT_RECYCLABLE = "This design was obtained via recycling and cannot be recycled again",
+  NO_CATALOG_AVAILABLE = "No catalog designs available for recycling",
+  INVALID_RECYCLE_ACTION = "Invalid action. Must be 'catalog' or 'credits'",
+
   // Unlocks
   INVALID_FEATURE = "Invalid feature. Must be 'kit' or 'storybook'",
   FEATURE_ALREADY_UNLOCKED = "Feature already unlocked",

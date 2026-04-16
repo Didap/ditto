@@ -4,7 +4,6 @@ import {
   listTrash,
   restoreDesign,
   permanentlyDeleteDesign,
-  purgeExpiredTrash,
 } from "@/lib/store";
 import { db } from "@/lib/db";
 import { designUnlocks } from "@/lib/db/schema";
@@ -14,9 +13,6 @@ import { eq, sql } from "drizzle-orm";
 export async function GET() {
   const user = await getRequiredUser();
   if (!user) return unauthorized();
-
-  // Auto-purge expired trash on every fetch
-  await purgeExpiredTrash();
 
   const trashed = await listTrash(user.id);
 

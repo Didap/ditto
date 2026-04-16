@@ -18,7 +18,7 @@ import {
   Sparkles,
   X,
   RotateCcw,
-  Clock,
+  Recycle,
 } from "lucide-react";
 
 interface DashboardProps {
@@ -30,6 +30,7 @@ interface DashboardProps {
 
 export function DashboardClient({ initialDesigns, initialTrash, initialQuests, referralCode }: DashboardProps) {
   const lp = useLocalePath();
+  const { refresh: refreshCredits } = useCredits();
   const [designs, setDesigns] = useState<StoredDesign[]>(initialDesigns);
   const [loading] = useState(false); // no loading state — data is SSR'd
   const [selected, setSelected] = useState<Set<string>>(new Set());
@@ -110,13 +111,25 @@ export function DashboardClient({ initialDesigns, initialTrash, initialQuests, r
     fetchTrash();
   };
 
-  const permanentDelete = async (slug: string) => {
-    await fetch("/api/designs/trash", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ slug, action: "permanent-delete" }),
-    });
-    fetchTrash();
+  const recycleDesign = async (slug: string, action: "catalog" | "credits") => {
+    if (!confirm(
+      action === "credits"
+        ? "Recycle this design for 40 credits? This is irreversible."
+        : "Recycle this design for a random catalog design? This is irreversible."
+    )) return;
+
+    try {
+      const res = await fetch("/api/designs/recycle", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ slug, action }),
+      });
+      if (res.ok) {
+        fetchDesigns();
+        fetchTrash();
+        refreshCredits();
+      }
+    } catch {}
   };
 
   const generateFromSelected = () => {
@@ -231,8 +244,8 @@ export function DashboardClient({ initialDesigns, initialTrash, initialQuests, r
             onClick={() => setShowTrash(!showTrash)}
             className="flex items-center gap-2 text-sm text-(--ditto-text-muted) hover:text-(--ditto-text) transition-colors mb-4"
           >
-            <Trash2 className="w-4 h-4" strokeWidth={1.5} />
-            Trash ({trash.length})
+            <Recycle className="w-4 h-4" strokeWidth={1.5} />
+            Recycle bin ({trash.length})
             <span
               className="text-xs transition-transform"
               style={{ transform: showTrash ? "rotate(180deg)" : "none" }}
@@ -248,7 +261,7 @@ export function DashboardClient({ initialDesigns, initialTrash, initialQuests, r
                     key={d.id}
                     design={d}
                     onRestore={() => restoreFromTrash(d.slug)}
-                    onPermanentDelete={() => permanentDelete(d.slug)}
+                    onRecycle={(action) => recycleDesign(d.slug, action)}
                   />
               ))}
             </div>
@@ -333,18 +346,13 @@ export function DashboardClient({ initialDesigns, initialTrash, initialQuests, r
 function TrashRow({
   design: d,
   onRestore,
-  onPermanentDelete,
+  onRecycle,
 }: {
   design: StoredDesign;
   onRestore: () => void;
-  onPermanentDelete: () => void;
+  onRecycle: (action: "catalog" | "credits") => void;
 }) {
-  const [daysLeft] = useState(() => {
-    const deletedDate = d.deletedAt ? new Date(d.deletedAt) : new Date();
-    const expiresDate = new Date(deletedDate);
-    expiresDate.setDate(expiresDate.getDate() + 7);
-    return Math.max(0, Math.ceil((expiresDate.getTime() - Date.now()) / 86400000));
-  });
+  const isRecyclable = d.source !== "recycled";
 
   return (
     <div className="flex items-center justify-between rounded-lg border border-(--ditto-border) bg-(--ditto-surface) px-4 py-3 opacity-60 hover:opacity-100 transition-opacity">
@@ -359,15 +367,14 @@ function TrashRow({
         <div className="min-w-0">
           <p className="text-sm font-medium text-(--ditto-text) truncate">{d.name}</p>
           <div className="flex items-center gap-2 text-[11px] text-(--ditto-text-muted)">
-            <span className="flex items-center gap-0.5">
-              <Clock className="w-3 h-3" strokeWidth={1.5} />
-              {daysLeft}d left
-            </span>
             {(d.creditsSpent ?? 0) > 0 && (
               <span className="flex items-center gap-0.5">
                 <Coins className="w-3 h-3 text-(--ditto-primary)" strokeWidth={1.5} />
                 {d.creditsSpent} spent
               </span>
+            )}
+            {!isRecyclable && (
+              <span className="text-[10px] text-(--ditto-text-muted) italic">from recycling</span>
             )}
           </div>
         </div>
@@ -380,13 +387,26 @@ function TrashRow({
           <RotateCcw className="w-3 h-3" strokeWidth={1.5} />
           Restore
         </button>
-        <button
-          onClick={onPermanentDelete}
-          className="flex items-center gap-1 rounded-lg border border-(--ditto-error)/30 px-2.5 py-1.5 text-xs font-medium text-(--ditto-error) hover:bg-(--ditto-error)/10 transition-colors"
-        >
-          <Trash2 className="w-3 h-3" strokeWidth={1.5} />
-          Delete forever
-        </button>
+        {isRecyclable && (
+          <>
+            <button
+              onClick={() => onRecycle("catalog")}
+              className="flex items-center gap-1 rounded-lg border border-(--ditto-primary)/30 px-2.5 py-1.5 text-xs font-medium text-(--ditto-primary) hover:bg-(--ditto-primary)/10 transition-colors"
+              title="Swap for a random catalog design"
+            >
+              <Recycle className="w-3 h-3" strokeWidth={1.5} />
+              Random design
+            </button>
+            <button
+              onClick={() => onRecycle("credits")}
+              className="flex items-center gap-1 rounded-lg border border-(--ditto-primary)/30 px-2.5 py-1.5 text-xs font-medium text-(--ditto-primary) hover:bg-(--ditto-primary)/10 transition-colors"
+              title="Convert to 40 credits"
+            >
+              <Coins className="w-3 h-3" strokeWidth={1.5} />
+              +40 credits
+            </button>
+          </>
+        )}
       </div>
     </div>
   );

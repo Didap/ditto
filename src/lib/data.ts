@@ -3,7 +3,7 @@ import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { designs, designUnlocks, users } from "@/lib/db/schema";
 import { eq, and, sql, inArray, isNull } from "drizzle-orm";
-import { listDesigns, listTrash, purgeExpiredTrash } from "@/lib/store";
+import { listDesigns, listTrash } from "@/lib/store";
 import { getQuestStatuses } from "@/lib/quests";
 import { CATALOG, UNLOCK_COST } from "@/lib/catalog";
 import type { StoredDesign } from "@/lib/types";
@@ -67,7 +67,6 @@ export async function getDashboardDesigns(userId: string): Promise<StoredDesign[
 
 /** Fetch trashed designs */
 export async function getTrashDesigns(userId: string): Promise<StoredDesign[]> {
-  await purgeExpiredTrash();
   const trashed = await listTrash(userId);
 
   const unlocks = await db

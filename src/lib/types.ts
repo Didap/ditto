@@ -188,7 +188,7 @@ export interface StoredDesign {
   designMd: string;
   createdAt: string;
   updatedAt: string;
-  source: "extracted" | "imported";
+  source: "extracted" | "imported" | "recycled";
   /** ISO date when soft-deleted, undefined if active */
   deletedAt?: string;
   /** Credits spent on this design (extraction + unlocks). Populated by API. */
