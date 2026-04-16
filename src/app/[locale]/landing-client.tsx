@@ -5,6 +5,7 @@ import Link from "next/link";
 import { t, LOCALES } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n";
 import { useLocalePath } from "@/lib/locale-context";
+import { ScrambleText } from "@/components/ScrambleText";
 import { Search, Blend, Zap, Eye, Package, Target } from "lucide-react";
 import dynamic from "next/dynamic";
 
@@ -330,12 +331,12 @@ export function LandingClient({ locale, isAuthenticated }: LandingProps) {
 
         <div className="max-w-3xl mx-auto text-center relative z-10">
           <h1 className="font-extrabold tracking-tight leading-tight">
-            <span className="block text-2xl md:text-3xl text-(--ditto-text-muted)">{T("heroLine1")}</span>
+            <span className="block text-2xl md:text-3xl text-(--ditto-text-muted)"><ScrambleText text={T("heroLine1")} delay={0} /></span>
             <span className="block text-6xl md:text-8xl my-2 py-4 leading-[1.3]"><FontGlitch text={T("heroLine2")} /></span>
-            <span className="block text-2xl md:text-3xl text-(--ditto-text-muted)">{T("heroLine3")}</span>
+            <span className="block text-2xl md:text-3xl text-(--ditto-text-muted)"><ScrambleText text={T("heroLine3")} delay={60} /></span>
           </h1>
           <p className="mt-6 text-lg text-(--ditto-text-secondary) max-w-2xl mx-auto leading-relaxed">
-            {T("heroSubtitle")}
+            <ScrambleText text={T("heroSubtitle")} delay={90} />
           </p>
           <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
@@ -343,10 +344,10 @@ export function LandingClient({ locale, isAuthenticated }: LandingProps) {
               className="inline-block px-8 py-4 bg-(--ditto-primary) text-[#0a0a0a] font-bold rounded-lg hover:opacity-90 transition-opacity text-base"
               style={{ fontFamily: "'leoSans', 'canvaSans', system-ui, sans-serif" }}
             >
-              {T("heroCta")}
+              <ScrambleText text={T("heroCta")} delay={120} />
             </Link>
             <a href="#how" className="text-sm text-(--ditto-text-muted) hover:text-(--ditto-text) transition-colors">
-              {T("heroSecondary")} ↓
+              <ScrambleText text={T("heroSecondary")} delay={150} /> ↓
             </a>
           </div>
         </div>
@@ -356,21 +357,21 @@ export function LandingClient({ locale, isAuthenticated }: LandingProps) {
       <section className="py-20 px-6 border-t border-(--ditto-border)">
         <div className="max-w-5xl mx-auto">
           <h2 className="text-2xl font-bold text-(--ditto-text) text-center mb-12">
-            {T("featuresTitle")}
+            <ScrambleText text={T("featuresTitle")} delay={180} />
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {([
-              { Icon: Search, title: T("feature1Title"), desc: T("feature1Desc") },
-              { Icon: Blend, title: T("feature2Title"), desc: T("feature2Desc") },
-              { Icon: Zap, title: T("feature3Title"), desc: T("feature3Desc") },
-              { Icon: Eye, title: T("feature4Title"), desc: T("feature4Desc") },
-              { Icon: Package, title: T("feature5Title"), desc: T("feature5Desc") },
-              { Icon: Target, title: T("feature6Title"), desc: T("feature6Desc") },
+              { Icon: Search, tKey: "feature1Title" as const, dKey: "feature1Desc" as const },
+              { Icon: Blend, tKey: "feature2Title" as const, dKey: "feature2Desc" as const },
+              { Icon: Zap, tKey: "feature3Title" as const, dKey: "feature3Desc" as const },
+              { Icon: Eye, tKey: "feature4Title" as const, dKey: "feature4Desc" as const },
+              { Icon: Package, tKey: "feature5Title" as const, dKey: "feature5Desc" as const },
+              { Icon: Target, tKey: "feature6Title" as const, dKey: "feature6Desc" as const },
             ]).map((f, i) => (
               <div key={i} className="rounded-xl border border-(--ditto-border) bg-(--ditto-surface) p-6 hover:border-(--ditto-primary)/30 transition-all duration-300 group">
                 <f.Icon className="w-6 h-6 text-(--ditto-primary) mb-3" strokeWidth={1.5} />
-                <h3 className="text-base font-semibold text-(--ditto-text) mb-2 group-hover:text-(--ditto-primary) transition-colors">{f.title}</h3>
-                <p className="text-sm text-(--ditto-text-muted) leading-relaxed">{f.desc}</p>
+                <h3 className="text-base font-semibold text-(--ditto-text) mb-2 group-hover:text-(--ditto-primary) transition-colors"><ScrambleText text={T(f.tKey)} delay={210 + i * 40} /></h3>
+                <p className="text-sm text-(--ditto-text-muted) leading-relaxed"><ScrambleText text={T(f.dKey)} delay={230 + i * 40} /></p>
               </div>
             ))}
           </div>
@@ -381,22 +382,22 @@ export function LandingClient({ locale, isAuthenticated }: LandingProps) {
       <section id="how" className="py-20 px-6 border-t border-(--ditto-border)">
         <div className="max-w-3xl mx-auto">
           <h2 className="text-2xl font-bold text-(--ditto-text) text-center mb-12">
-            {T("howTitle")}
+            <ScrambleText text={T("howTitle")} delay={450} />
           </h2>
           <div className="space-y-8">
             {([
-              { title: T("howStep1Title"), desc: T("howStep1Desc") },
-              { title: T("howStep2Title"), desc: T("howStep2Desc") },
-              { title: T("howStep3Title"), desc: T("howStep3Desc") },
-              { title: T("howStep4Title"), desc: T("howStep4Desc") },
+              { tKey: "howStep1Title" as const, dKey: "howStep1Desc" as const },
+              { tKey: "howStep2Title" as const, dKey: "howStep2Desc" as const },
+              { tKey: "howStep3Title" as const, dKey: "howStep3Desc" as const },
+              { tKey: "howStep4Title" as const, dKey: "howStep4Desc" as const },
             ]).map((step, i) => (
               <div key={i} className="flex gap-4">
                 <div className="w-10 h-10 shrink-0 rounded-full bg-(--ditto-primary) flex items-center justify-center text-sm font-bold text-[#0a0a0a]">
                   {i + 1}
                 </div>
                 <div>
-                  <h3 className="text-base font-semibold text-(--ditto-text)">{step.title}</h3>
-                  <p className="text-sm text-(--ditto-text-muted) mt-1">{step.desc}</p>
+                  <h3 className="text-base font-semibold text-(--ditto-text)"><ScrambleText text={T(step.tKey)} delay={480 + i * 40} /></h3>
+                  <p className="text-sm text-(--ditto-text-muted) mt-1"><ScrambleText text={T(step.dKey)} delay={500 + i * 40} /></p>
                 </div>
               </div>
             ))}
@@ -426,17 +427,17 @@ export function LandingClient({ locale, isAuthenticated }: LandingProps) {
             {/* CTA content */}
             <div className="text-center md:text-left">
               <h2 className="text-3xl md:text-5xl font-extrabold text-(--ditto-bg) mb-4">
-                {T("ctaTitle")}
+                <ScrambleText text={T("ctaTitle")} delay={650} />
               </h2>
               <p className="text-base text-(--ditto-bg)/60 mb-8 max-w-md">
-                {T("ctaSubtitle")}
+                <ScrambleText text={T("ctaSubtitle")} delay={680} />
               </p>
               <Link
                 href={isAuthenticated ? lp("/inspire") : lp("/register")}
                 className="inline-block px-8 py-4 bg-(--ditto-bg) text-(--ditto-primary) font-bold rounded-lg hover:opacity-90 transition-opacity text-base"
                 style={{ fontFamily: "'leoSans', 'canvaSans', system-ui, sans-serif" }}
               >
-                {isAuthenticated ? T("ctaCtaLoggedIn") : T("ctaCta")}
+                <ScrambleText text={isAuthenticated ? T("ctaCtaLoggedIn") : T("ctaCta")} delay={710} />
               </Link>
             </div>
           </div>
@@ -449,7 +450,7 @@ export function LandingClient({ locale, isAuthenticated }: LandingProps) {
           <div className="flex items-center gap-2">
             <span className="w-5 h-5 rounded-full bg-(--ditto-bg) inline-block" />
             <span className="text-sm font-semibold text-(--ditto-bg)">Ditto</span>
-            <span className="text-xs text-(--ditto-bg)/50 ml-2">{T("footerTagline")}</span>
+            <span className="text-xs text-(--ditto-bg)/50 ml-2"><ScrambleText text={T("footerTagline")} delay={740} /></span>
           </div>
           <div className="flex gap-1.5">
             {LOCALES.map((l) => (
@@ -493,7 +494,7 @@ export function LandingClient({ locale, isAuthenticated }: LandingProps) {
               pointerEvents: "auto",
             }}
           >
-            {T("ctaCta")}
+            <ScrambleText text={T("ctaCta")} delay={120} />
           </Link>
         </>
       )}

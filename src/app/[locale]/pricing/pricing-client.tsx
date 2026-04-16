@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { Check } from "lucide-react";
 import { useLocalePath, useLocale, useT } from "@/lib/locale-context";
+import { ScrambleText } from "@/components/ScrambleText";
 import type { TranslationKey } from "@/lib/i18n";
 import type { PricingData, PricingRow } from "@/lib/pricing";
 
@@ -90,15 +91,15 @@ export function PricingClient({ data, isAuthenticated }: { data: PricingData; is
         <div className="max-w-4xl mx-auto text-center">
           {isLaunch && (
             <div className="inline-flex items-center gap-2 bg-(--ditto-primary)/10 text-(--ditto-primary) text-sm font-medium px-4 py-1.5 rounded-full mb-6">
-              {t("pricingLaunchBanner")}
+              <ScrambleText text={t("pricingLaunchBanner")} delay={0} />
             </div>
           )}
 
           <h1 className="text-4xl md:text-5xl font-extrabold text-(--ditto-text) mb-4">
-            {t("pricingTitle")}
+            <ScrambleText text={t("pricingTitle")} delay={30} />
           </h1>
           <p className="text-lg text-(--ditto-text-muted) mb-12">
-            100 {t("pricingCreditsLabel")} = {currencySymbol}1 · {t("pricingSubtitle")}
+            100 <ScrambleText text={t("pricingCreditsLabel")} delay={60} /> = {currencySymbol}1 · <ScrambleText text={t("pricingSubtitle")} delay={90} />
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
@@ -118,8 +119,8 @@ export function PricingClient({ data, isAuthenticated }: { data: PricingData; is
           </div>
 
           <div className="mt-20 max-w-3xl mx-auto">
-            <h2 className="text-2xl font-bold text-(--ditto-text) mb-2">{t("pricingPacksTitle")}</h2>
-            <p className="text-sm text-(--ditto-text-muted) mb-8">{t("pricingPacksSubtitle")}</p>
+            <h2 className="text-2xl font-bold text-(--ditto-text) mb-2"><ScrambleText text={t("pricingPacksTitle")} delay={300} /></h2>
+            <p className="text-sm text-(--ditto-text-muted) mb-8"><ScrambleText text={t("pricingPacksSubtitle")} delay={330} /></p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {packs.map((pack) => (
                 <PackCard
@@ -136,7 +137,7 @@ export function PricingClient({ data, isAuthenticated }: { data: PricingData; is
           </div>
 
           <div className="mt-12 text-xs text-(--ditto-text-muted)">
-            {t("pricingCostRef")}
+            <ScrambleText text={t("pricingCostRef")} delay={400} />
           </div>
         </div>
       </section>
@@ -174,12 +175,12 @@ function PlanCard({
     >
       {recommended && (
         <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-(--ditto-primary) text-[#0a0a0a] text-xs font-bold px-3 py-1 rounded-full">
-          {t("pricingRecommended")}
+          <ScrambleText text={t("pricingRecommended")} delay={120} />
         </span>
       )}
 
       <h2 className="text-lg font-semibold text-(--ditto-text) mb-1">{plan.name}</h2>
-      <p className="text-sm text-(--ditto-text-muted) mb-4">{descKey ? t(descKey) : ""}</p>
+      <p className="text-sm text-(--ditto-text-muted) mb-4">{descKey ? <ScrambleText text={t(descKey)} delay={150} /> : ""}</p>
 
       <div className="mb-6">
         {hasLaunchPrice ? (
@@ -191,7 +192,7 @@ function PlanCard({
               {formatPrice(plan.launchPrice, plan.currency)}
             </span>
             <span className="block text-xs text-(--ditto-text-muted) mt-1">
-              {t("pricingFirstMonth")} {formatPrice(plan.price, plan.currency)}{t("pricingPerMonth")}
+              <ScrambleText text={t("pricingFirstMonth")} delay={180} /> {formatPrice(plan.price, plan.currency)}<ScrambleText text={t("pricingPerMonth")} delay={180} />
             </span>
           </>
         ) : (
@@ -199,7 +200,7 @@ function PlanCard({
             {formatPrice(plan.price, plan.currency)}
           </span>
         )}
-        {isPaid && !hasLaunchPrice && <span className="text-sm text-(--ditto-text-muted)">{t("pricingPerMonth")}</span>}
+        {isPaid && !hasLaunchPrice && <span className="text-sm text-(--ditto-text-muted)"><ScrambleText text={t("pricingPerMonth")} delay={180} /></span>}
       </div>
 
       {isCurrent ? (
@@ -208,7 +209,7 @@ function PlanCard({
           disabled={plan.id === "free" || loading === "portal"}
           className="block w-full text-center py-3 px-4 rounded-lg font-semibold text-sm bg-(--ditto-surface-hover) text-(--ditto-text) border border-(--ditto-border) disabled:opacity-50"
         >
-          {plan.id === "free" ? t("pricingCurrentPlan") : loading === "portal" ? "..." : t("pricingManage")}
+          {plan.id === "free" ? <ScrambleText text={t("pricingCurrentPlan")} delay={210} /> : loading === "portal" ? "..." : <ScrambleText text={t("pricingManage")} delay={210} />}
         </button>
       ) : (
         <button
@@ -224,15 +225,15 @@ function PlanCard({
               : "bg-(--ditto-surface-hover) text-(--ditto-text) border border-(--ditto-border)"
           } disabled:opacity-50`}
         >
-          {loading === plan.stripePriceId ? "..." : plan.id === "free" ? t("pricingGetStarted") : t("pricingSubscribe")}
+          {loading === plan.stripePriceId ? "..." : plan.id === "free" ? <ScrambleText text={t("pricingGetStarted")} delay={210} /> : <ScrambleText text={t("pricingSubscribe")} delay={210} />}
         </button>
       )}
 
       <ul className="space-y-3 mt-6">
-        {featureKeys.map((key) => (
+        {featureKeys.map((key, i) => (
           <li key={key} className="flex items-start gap-2 text-sm text-(--ditto-text-secondary)">
             <Check className="w-4 h-4 text-(--ditto-primary) mt-0.5 shrink-0" strokeWidth={2} />
-            {t(key)}
+            <ScrambleText text={t(key)} delay={240 + i * 30} />
           </li>
         ))}
       </ul>
@@ -259,7 +260,7 @@ function PackCard({
       <div className="text-2xl font-bold text-(--ditto-text) mb-1">
         {pack.credits.toLocaleString(locale)}
       </div>
-      <div className="text-xs text-(--ditto-text-muted) mb-3">{t("pricingCreditsLabel")}</div>
+      <div className="text-xs text-(--ditto-text-muted) mb-3"><ScrambleText text={t("pricingCreditsLabel")} delay={360} /></div>
       <div className="mb-4">
         {hasLaunch ? (
           <>
@@ -281,7 +282,7 @@ function PackCard({
         disabled={!session || !!loading}
         className="w-full py-2 px-4 rounded-lg text-sm font-medium bg-(--ditto-surface-hover) text-(--ditto-text) border border-(--ditto-border) hover:border-(--ditto-text-muted) transition-colors disabled:opacity-50"
       >
-        {loading === pack.stripePriceId ? "..." : session ? t("pricingBuyCredits") : t("pricingSignUpFirst")}
+        {loading === pack.stripePriceId ? "..." : session ? <ScrambleText text={t("pricingBuyCredits")} delay={390} /> : <ScrambleText text={t("pricingSignUpFirst")} delay={390} />}
       </button>
     </div>
   );
