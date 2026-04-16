@@ -17,6 +17,7 @@ export async function getBrowser(): Promise<Browser> {
       "--disable-setuid-sandbox",
       "--disable-dev-shm-usage",
       "--disable-gpu",
+      "--disable-crash-reporter",
     ],
   });
   return browserInstance;
