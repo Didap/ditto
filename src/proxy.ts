@@ -27,11 +27,22 @@ function detectLocale(req: Request): Locale {
   if (country === "IT") return "it";
   if (["FR"].includes(country)) return "fr";
   if (["ES", "MX", "AR", "CO", "CL"].includes(country)) return "es";
+  if (country) return DEFAULT_LOCALE; // known country, not mapped → default
 
-  // Accept-Language fallback
+  // Accept-Language: parse q-values and pick highest-priority match
+  // e.g. "it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7" → it wins
   const accept = req.headers.get("accept-language") ?? "";
-  for (const code of LOCALE_CODES) {
-    if (accept.toLowerCase().includes(code)) return code;
+  const langs = accept
+    .split(",")
+    .map((part) => {
+      const [lang, qPart] = part.trim().split(";");
+      const q = qPart ? parseFloat(qPart.split("=")[1] || "1") : 1;
+      return { code: lang.trim().slice(0, 2).toLowerCase(), q };
+    })
+    .sort((a, b) => b.q - a.q);
+
+  for (const { code } of langs) {
+    if (LOCALE_SET.has(code)) return code as Locale;
   }
 
   return DEFAULT_LOCALE;
