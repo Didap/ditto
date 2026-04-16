@@ -30,14 +30,21 @@ interface DashboardProps {
 
 export function DashboardClient({ initialDesigns, initialTrash, initialQuests, referralCode }: DashboardProps) {
   const lp = useLocalePath();
-  const { refresh: refreshCredits } = useCredits();
+  const { credits, refresh: refreshCredits } = useCredits();
   const [designs, setDesigns] = useState<StoredDesign[]>(initialDesigns);
-  const [loading] = useState(false); // no loading state — data is SSR'd
+  const [loading] = useState(false);
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [deleting, setDeleting] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
   const [trash, setTrash] = useState<StoredDesign[]>(initialTrash);
   const [showTrash, setShowTrash] = useState(false);
+  const [recycleModal, setRecycleModal] = useState<{ slug: string; action: "catalog" | "credits" } | null>(null);
+  const [recycling, setRecycling] = useState(false);
+  const [seenDesigns] = useState<Set<string>>(() => {
+    if (typeof window === "undefined") return new Set<string>();
+    const stored = localStorage.getItem("ditto-seen-designs");
+    return stored ? new Set(JSON.parse(stored)) : new Set<string>();
+  });
 
   const fetchDesigns = () => {
     fetch("/api/designs")
@@ -111,18 +118,14 @@ export function DashboardClient({ initialDesigns, initialTrash, initialQuests, r
     fetchTrash();
   };
 
-  const recycleDesign = async (slug: string, action: "catalog" | "credits") => {
-    if (!confirm(
-      action === "credits"
-        ? "Recycle this design for 40 credits? This is irreversible."
-        : "Recycle this design for a random catalog design? This is irreversible."
-    )) return;
-
+  const confirmRecycle = async () => {
+    if (!recycleModal) return;
+    setRecycling(true);
     try {
       const res = await fetch("/api/designs/recycle", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ slug, action }),
+        body: JSON.stringify({ slug: recycleModal.slug, action: recycleModal.action }),
       });
       if (res.ok) {
         fetchDesigns();
@@ -130,6 +133,15 @@ export function DashboardClient({ initialDesigns, initialTrash, initialQuests, r
         refreshCredits();
       }
     } catch {}
+    setRecycling(false);
+    setRecycleModal(null);
+  };
+
+  // Mark design as seen when clicked
+  const markSeen = (slug: string) => {
+    if (seenDesigns.has(slug)) return;
+    seenDesigns.add(slug);
+    localStorage.setItem("ditto-seen-designs", JSON.stringify([...seenDesigns]));
   };
 
   const generateFromSelected = () => {
@@ -231,7 +243,9 @@ export function DashboardClient({ initialDesigns, initialTrash, initialQuests, r
               key={design.id}
               design={design}
               selected={selected.has(design.slug)}
+              isNew={!seenDesigns.has(design.slug)}
               onToggleSelect={() => toggleSelect(design.slug)}
+              onSeen={() => markSeen(design.slug)}
             />
           ))}
         </div>
@@ -261,7 +275,7 @@ export function DashboardClient({ initialDesigns, initialTrash, initialQuests, r
                     key={d.id}
                     design={d}
                     onRestore={() => restoreFromTrash(d.slug)}
-                    onRecycle={(action) => recycleDesign(d.slug, action)}
+                    onRecycle={(action) => setRecycleModal({ slug: d.slug, action })}
                   />
               ))}
             </div>
@@ -314,7 +328,7 @@ export function DashboardClient({ initialDesigns, initialTrash, initialQuests, r
             {/* Warning */}
             <div className="rounded-lg border border-(--ditto-error)/25 bg-(--ditto-error)/10 px-4 py-3 mb-5">
               <p className="text-xs text-(--ditto-error)">
-                If you don&apos;t restore within 7 days, these designs and all credits spent on them will be lost forever.
+                Designs will be moved to the recycle bin. You can restore them, recycle for a random catalog design, or convert to 40 credits.
               </p>
             </div>
 
@@ -337,6 +351,82 @@ export function DashboardClient({ initialDesigns, initialTrash, initialQuests, r
           </div>
         </div>
       )}
+
+      {/* Recycle confirmation modal */}
+      {recycleModal && (
+        <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/60 backdrop-blur-sm" onClick={() => setRecycleModal(null)}>
+          <div
+            className="w-full max-w-md rounded-xl p-6 shadow-2xl"
+            style={{ backgroundColor: "var(--ditto-surface)", border: "1px solid var(--ditto-border)" }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h3 className="text-lg font-bold text-(--ditto-text) mb-1">
+              {recycleModal.action === "credits" ? "Recycle for credits" : "Recycle for a random design"}
+            </h3>
+            <p className="text-sm text-(--ditto-text-muted) mb-5">
+              {recycleModal.action === "credits"
+                ? "This design will be permanently deleted and converted to 40 credits."
+                : "This design will be permanently deleted and replaced with a random design from the catalog. The new design cannot be recycled."}
+            </p>
+
+            {recycleModal.action === "credits" && credits !== null && (
+              <div
+                className="rounded-lg p-4 mb-5 space-y-2"
+                style={{ backgroundColor: "var(--ditto-bg)", border: "1px solid var(--ditto-border)" }}
+              >
+                <div className="flex justify-between text-sm">
+                  <span className="text-(--ditto-text-muted)">Current balance</span>
+                  <span className="font-semibold text-(--ditto-text) flex items-center gap-1">
+                    <Coins className="w-3.5 h-3.5 text-(--ditto-primary)" strokeWidth={1.5} />
+                    {credits}
+                  </span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span className="text-(--ditto-text-muted)">Recycle bonus</span>
+                  <span className="font-semibold text-(--ditto-primary)">+40</span>
+                </div>
+                <div className="h-px" style={{ backgroundColor: "var(--ditto-border)" }} />
+                <div className="flex justify-between text-sm">
+                  <span className="text-(--ditto-text-muted)">Balance after</span>
+                  <span className="font-semibold text-(--ditto-text) flex items-center gap-1">
+                    <Coins className="w-3.5 h-3.5 text-(--ditto-primary)" strokeWidth={1.5} />
+                    {credits + 40}
+                  </span>
+                </div>
+              </div>
+            )}
+
+            <div className="rounded-lg border border-(--ditto-error)/25 bg-(--ditto-error)/10 px-4 py-3 mb-5">
+              <p className="text-xs text-(--ditto-error)">
+                This action is irreversible. The design will be permanently deleted.
+              </p>
+            </div>
+
+            <div className="flex gap-3">
+              <button
+                onClick={() => setRecycleModal(null)}
+                className="flex-1 rounded-lg border border-(--ditto-border) px-4 py-2.5 text-sm font-medium text-(--ditto-text-secondary) hover:text-(--ditto-text) hover:border-(--ditto-text-muted) transition-colors"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={confirmRecycle}
+                disabled={recycling}
+                className="flex-1 rounded-lg bg-(--ditto-primary) px-4 py-2.5 text-sm font-medium text-(--ditto-bg) hover:opacity-90 transition-colors disabled:opacity-50 flex items-center justify-center gap-1.5"
+              >
+                {recycling ? (
+                  <span className="w-3.5 h-3.5 border-2 border-(--ditto-bg) border-t-transparent rounded-full animate-spin" />
+                ) : (
+                  <>
+                    <Recycle className="w-3.5 h-3.5" strokeWidth={1.5} />
+                    {recycleModal.action === "credits" ? "Recycle for +40 credits" : "Recycle for random design"}
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -352,7 +442,7 @@ function TrashRow({
   onRestore: () => void;
   onRecycle: (action: "catalog" | "credits") => void;
 }) {
-  const isRecyclable = d.source !== "recycled";
+  const isRecyclable = d.source === "extracted"; // only extracted designs can be recycled
 
   return (
     <div className="flex items-center justify-between rounded-lg border border-(--ditto-border) bg-(--ditto-surface) px-4 py-3 opacity-60 hover:opacity-100 transition-opacity">
@@ -373,8 +463,11 @@ function TrashRow({
                 {d.creditsSpent} spent
               </span>
             )}
-            {!isRecyclable && (
+            {d.source === "recycled" && (
               <span className="text-[10px] text-(--ditto-text-muted) italic">from recycling</span>
+            )}
+            {d.source === "imported" && (
+              <span className="text-[10px] text-(--ditto-text-muted) italic">from catalog</span>
             )}
           </div>
         </div>
@@ -417,11 +510,15 @@ function TrashRow({
 function DesignCard({
   design,
   selected,
+  isNew,
   onToggleSelect,
+  onSeen,
 }: {
   design: StoredDesign;
   selected: boolean;
+  isNew: boolean;
   onToggleSelect: () => void;
+  onSeen: () => void;
 }) {
   const { resolved } = design;
   const devkit = design.unlockedFeatures?.devkit ?? false;
@@ -456,8 +553,15 @@ function DesignCard({
         )}
       </button>
 
+      {/* New badge */}
+      {isNew && (
+        <span className="absolute top-3 left-10 z-10 text-[10px] font-bold px-2 py-0.5 rounded-full bg-(--ditto-primary) text-(--ditto-bg) animate-pulse">
+          NEW
+        </span>
+      )}
+
       {/* Visual preview */}
-      <Link href={`/design/${design.slug}`} className="block">
+      <Link href={`/design/${design.slug}`} className="block" onClick={onSeen}>
         <div
           className="h-36 relative overflow-hidden"
           style={{ backgroundColor: resolved.colorBackground }}

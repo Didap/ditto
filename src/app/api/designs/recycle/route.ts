@@ -36,8 +36,8 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: ApiError.DESIGN_NOT_IN_TRASH }, { status: 404 });
   }
 
-  // Designs obtained via recycling cannot be recycled again
-  if (trashed.source === "recycled") {
+  // Designs from catalog or recycling cannot be recycled
+  if (trashed.source === "recycled" || trashed.source === "imported") {
     return NextResponse.json({ error: ApiError.DESIGN_NOT_RECYCLABLE }, { status: 400 });
   }
 
