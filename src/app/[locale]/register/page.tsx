@@ -2,6 +2,7 @@
 
 import { useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
+import Link from "next/link";
 import { useLocalePath } from "@/lib/locale-context";
 
 export default function RegisterPage() {
@@ -80,9 +81,9 @@ function RegisterForm() {
           <p className="text-xs text-(--ditto-text-muted)">
             Click the link in the email to activate your account. The link expires in 24 hours.
           </p>
-          <a href={lp("/login")} className="inline-block mt-6 text-sm text-(--ditto-primary) hover:underline">
+          <Link href={lp("/login")} className="inline-block mt-6 text-sm text-(--ditto-primary) hover:underline">
             Go to login
-          </a>
+          </Link>
         </div>
       </div>
     );

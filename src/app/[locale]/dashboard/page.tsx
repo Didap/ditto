@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import type { StoredDesign } from "@/lib/types";
 import { qualityColor } from "@/lib/quality-scorer";
 import { LottieLoader } from "@/components/LottieLoader";
@@ -133,13 +134,13 @@ export default function DashboardPage() {
             {designs.length} design system{designs.length !== 1 ? "s" : ""} collected
           </p>
         </div>
-        <a
+        <Link
           id="tour-add-design-btn"
           href={lp("/add")}
           className="rounded-lg bg-(--ditto-primary) px-4 py-2 text-sm font-medium text-(--ditto-bg) hover:bg-(--ditto-primary-hover) transition-colors"
         >
           + Add Design
-        </a>
+        </Link>
       </div>
 
       <div id="tour-quests-panel"><QuestsPanel /></div>
@@ -195,18 +196,18 @@ export default function DashboardPage() {
             Start by adding a design from a URL or browse the curated catalog.
           </p>
           <div className="flex gap-3">
-            <a
+            <Link
               href={lp("/add")}
               className="rounded-lg bg-(--ditto-primary) px-4 py-2 text-sm font-medium text-(--ditto-bg) hover:bg-(--ditto-primary-hover) transition-colors"
             >
               + Add from URL
-            </a>
-            <a
+            </Link>
+            <Link
               href={lp("/catalog")}
               className="rounded-lg border border-(--ditto-border) px-4 py-2 text-sm font-medium text-(--ditto-text-secondary) hover:text-(--ditto-text) hover:border-(--ditto-text-muted) transition-colors"
             >
               Browse Catalog
-            </a>
+            </Link>
           </div>
         </div>
       ) : (
@@ -435,7 +436,7 @@ function DesignCard({
       </button>
 
       {/* Visual preview */}
-      <a href={`/design/${design.slug}`} className="block">
+      <Link href={`/design/${design.slug}`} className="block">
         <div
           className="h-36 relative overflow-hidden"
           style={{ backgroundColor: resolved.colorBackground }}
@@ -577,7 +578,7 @@ function DesignCard({
             </div>
           </div>
         </div>
-      </a>
+      </Link>
     </div>
   );
 }

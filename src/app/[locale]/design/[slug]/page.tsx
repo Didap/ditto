@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useCallback } from "react";
 import { useParams } from "next/navigation";
+import Link from "next/link";
 import type { StoredDesign } from "@/lib/types";
 import { qualityLabel, qualityColor, friendlyIssueMessage } from "@/lib/quality-scorer";
 import { useCredits } from "@/lib/credits-context";
@@ -140,9 +141,9 @@ export default function DesignDetailPage() {
     return (
       <div className="text-center py-32">
         <h1 className="text-xl font-semibold text-(--ditto-text)">Design not found</h1>
-        <a href={lp("/dashboard")} className="text-sm text-(--ditto-primary) mt-2 inline-block">
+        <Link href={lp("/dashboard")} className="text-sm text-(--ditto-primary) mt-2 inline-block">
           Back to Library
-        </a>
+        </Link>
       </div>
     );
   }
