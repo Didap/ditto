@@ -6,6 +6,7 @@ import { eq, and, sql, inArray, isNull } from "drizzle-orm";
 import { listDesigns, listTrash } from "@/lib/store";
 import { getQuestStatuses } from "@/lib/quests";
 import { CATALOG, UNLOCK_COST } from "@/lib/catalog";
+import { scoreDesignQuality } from "@/lib/quality-scorer";
 import type { StoredDesign } from "@/lib/types";
 
 /** Get authenticated user or null */
@@ -153,10 +154,11 @@ export async function getDesignBySlug(userId: string, slug: string) {
 
   return {
     ...d,
-    source: d.source as "extracted" | "imported",
+    source: d.source as StoredDesign["source"],
     createdAt: d.createdAt.toISOString(),
     updatedAt: d.updatedAt.toISOString(),
     deletedAt: d.deletedAt?.toISOString() ?? undefined,
+    quality: scoreDesignQuality(d.tokens, d.resolved),
     unlockedFeatures: {
       devkit: features.has("devkit"),
       complete: features.has("complete"),
