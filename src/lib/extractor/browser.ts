@@ -1,11 +1,17 @@
-import puppeteerExtra from "puppeteer-extra";
-import StealthPlugin from "puppeteer-extra-plugin-stealth";
 import type { Browser } from "puppeteer";
 import fs from "fs/promises";
 import path from "path";
 
-// Apply stealth plugin to avoid bot detection (AWS WAF, Cloudflare, etc.)
-puppeteerExtra.use(StealthPlugin());
+// Lazy-load puppeteer-extra + stealth only when extraction is actually called.
+// Top-level import would crash all routes if stealth's CJS deps are missing.
+async function loadPuppeteerExtra() {
+  const [{ default: puppeteerExtra }, { default: StealthPlugin }] = await Promise.all([
+    import("puppeteer-extra"),
+    import("puppeteer-extra-plugin-stealth"),
+  ]);
+  puppeteerExtra.use(StealthPlugin());
+  return puppeteerExtra;
+}
 
 /** Thrown when the target site is protected by a WAF/CAPTCHA challenge */
 export class WafBlockedError extends Error {
@@ -59,6 +65,7 @@ export async function getBrowser(): Promise<Browser> {
   if (browserInstance && browserInstance.connected) {
     return browserInstance;
   }
+  const puppeteerExtra = await loadPuppeteerExtra();
   browserInstance = (await puppeteerExtra.launch({
     headless: true,
     executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || undefined,
