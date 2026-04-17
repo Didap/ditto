@@ -2,7 +2,13 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   output: "standalone",
-  serverExternalPackages: ["puppeteer", "pg"],
+  serverExternalPackages: [
+    "puppeteer",
+    "puppeteer-extra",
+    "puppeteer-extra-plugin-stealth",
+    "puppeteer-extra-plugin",
+    "pg",
+  ],
   outputFileTracingRoot: __dirname,
   reactCompiler: true,
 };
