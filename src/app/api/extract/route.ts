@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { extractDesign } from "@/lib/extractor";
+import { WafBlockedError } from "@/lib/extractor/browser";
 import { generateDesignMd } from "@/lib/generator/design-md";
 import { saveDesign, generateSlug } from "@/lib/store";
 import { getRequiredUser, unauthorized } from "@/lib/auth-helpers";
-import { deductCredits, COSTS } from "@/lib/credits";
+import { deductCredits, refundCredits, COSTS } from "@/lib/credits";
 import { nanoid } from "nanoid";
 import type { StoredDesign } from "@/lib/types";
 import { ApiError, insufficientCredits } from "@/lib/errors";
@@ -13,6 +14,8 @@ export const maxDuration = 120;
 export async function POST(req: NextRequest) {
   const user = await getRequiredUser();
   if (!user) return unauthorized();
+
+  let deducted = false;
 
   try {
     const { url, name } = await req.json();
@@ -29,6 +32,7 @@ export async function POST(req: NextRequest) {
         { status: 402 }
       );
     }
+    deducted = true;
 
     const { tokens, resolved, quality } = await extractDesign(url);
 
@@ -56,8 +60,24 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ slug, name: designName });
   } catch (error) {
     console.error("Extraction error:", error);
+
+    // Refund credits only if they were actually deducted (not on JSON parse errors etc.)
+    if (deducted) {
+      await refundCredits(user.id, COSTS.ADD_DESIGN).catch(() => {});
+    }
+
+    if (error instanceof WafBlockedError) {
+      return NextResponse.json(
+        { error: error.message, refunded: deducted ? COSTS.ADD_DESIGN : 0 },
+        { status: 422 }
+      );
+    }
+
     return NextResponse.json(
-      { error: error instanceof Error ? error.message : ApiError.EXTRACTION_FAILED },
+      {
+        error: error instanceof Error ? error.message : ApiError.EXTRACTION_FAILED,
+        refunded: deducted ? COSTS.ADD_DESIGN : 0,
+      },
       { status: 500 }
     );
   }

@@ -32,3 +32,11 @@ export async function deductCredits(userId: string, cost: number): Promise<{ suc
 
   return { success: true, remaining: credits - cost };
 }
+
+/** Refund credits (add back) — use when an operation fails after deducting */
+export async function refundCredits(userId: string, amount: number): Promise<void> {
+  await db
+    .update(users)
+    .set({ credits: sql`${users.credits} + ${amount}` })
+    .where(eq(users.id, userId));
+}

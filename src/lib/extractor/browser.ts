@@ -1,6 +1,55 @@
-import puppeteer, { type Browser } from "puppeteer";
+import puppeteerExtra from "puppeteer-extra";
+import StealthPlugin from "puppeteer-extra-plugin-stealth";
+import type { Browser } from "puppeteer";
 import fs from "fs/promises";
 import path from "path";
+
+// Apply stealth plugin to avoid bot detection (AWS WAF, Cloudflare, etc.)
+puppeteerExtra.use(StealthPlugin());
+
+/** Thrown when the target site is protected by a WAF/CAPTCHA challenge */
+export class WafBlockedError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "WafBlockedError";
+  }
+}
+
+/** Check if the page HTML shows a WAF/CAPTCHA challenge instead of real content */
+function detectWafChallenge(html: string, title: string): string | null {
+  const lc = html.toLowerCase();
+
+  // AWS WAF
+  if (lc.includes("captcha.awswaf.com") || lc.includes("awswaf.com/captcha")) {
+    return "AWS WAF CAPTCHA";
+  }
+  // Cloudflare
+  if (
+    lc.includes("cf-browser-verification") ||
+    lc.includes("cf-challenge-running") ||
+    lc.includes("challenge-platform") ||
+    title.toLowerCase().includes("just a moment")
+  ) {
+    return "Cloudflare Challenge";
+  }
+  // Akamai Bot Manager
+  if (lc.includes("_abck") && lc.includes("bm-verify")) {
+    return "Akamai Bot Manager";
+  }
+  // DataDome
+  if (lc.includes("datadome-captcha") || lc.includes("dd_cookie_test")) {
+    return "DataDome CAPTCHA";
+  }
+  // PerimeterX
+  if (lc.includes("px-captcha") || lc.includes("_px_")) {
+    return "PerimeterX CAPTCHA";
+  }
+  // hCaptcha / reCAPTCHA blocking the whole page (small body, challenge iframe)
+  if (html.length < 3000 && (lc.includes("hcaptcha.com") || lc.includes("recaptcha"))) {
+    return "CAPTCHA challenge";
+  }
+  return null;
+}
 
 const FONTS_DIR = path.join(process.cwd(), "public", "fonts");
 
@@ -10,7 +59,7 @@ export async function getBrowser(): Promise<Browser> {
   if (browserInstance && browserInstance.connected) {
     return browserInstance;
   }
-  browserInstance = await puppeteer.launch({
+  browserInstance = (await puppeteerExtra.launch({
     headless: true,
     executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || undefined,
     args: [
@@ -19,7 +68,7 @@ export async function getBrowser(): Promise<Browser> {
       "--disable-dev-shm-usage",
       "--disable-gpu",
     ],
-  });
+  })) as unknown as Browser;
   return browserInstance;
 }
 
@@ -78,6 +127,16 @@ export async function extractFromPage(url: string): Promise<RawExtraction> {
 
   try {
     await page.goto(url, { waitUntil: "networkidle2", timeout: 60000 });
+
+    // Detect WAF/CAPTCHA pages — fail fast instead of extracting challenge page
+    const earlyHtml = await page.content();
+    const earlyTitle = await page.title();
+    const blocker = detectWafChallenge(earlyHtml, earlyTitle);
+    if (blocker) {
+      throw new WafBlockedError(
+        `Site protected by ${blocker} — extraction blocked. Try a different URL or contact support.`
+      );
+    }
 
     // Scroll the ENTIRE page to trigger lazy-loaded fonts, images, and content
     await page.evaluate(async () => {

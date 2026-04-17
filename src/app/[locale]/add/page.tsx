@@ -97,6 +97,8 @@ export default function AddDesignPage() {
       clearInterval(progressInterval);
       setState("error");
       setError(err instanceof Error ? err.message : "Unknown error");
+      // Refresh credits — the server refunds on extraction failure (WAF, errors)
+      refresh();
     }
   };
 
