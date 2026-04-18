@@ -58,7 +58,6 @@ export default function ApiKeysPage() {
   const [newKeyName, setNewKeyName] = useState("");
   const [justCreated, setJustCreated] = useState<CreatedKey | null>(null);
   const [copiedNewKey, setCopiedNewKey] = useState(false);
-  const [showMcp, setShowMcp] = useState(false);
 
   const load = async () => {
     setLoading(true);
@@ -361,21 +360,12 @@ export default function ApiKeysPage() {
         </ol>
       </section>
 
-      {/* ─── MCP (collapsed by default) ─────────────────────────────────── */}
+      {/* ─── MCP — per sviluppatori AI ─────────────────────────────────── */}
       <section>
-        <button
-          onClick={() => setShowMcp(!showMcp)}
-          className="w-full flex items-center justify-between text-left"
-        >
-          <h2 className="text-sm font-semibold text-(--ditto-text) uppercase tracking-wider">
-            Per sviluppatori AI &mdash; Claude Code, Cursor, Zed
-          </h2>
-          <span className="text-xs text-(--ditto-text-muted)">
-            {showMcp ? "Nascondi ↑" : "Mostra ↓"}
-          </span>
-        </button>
-        {showMcp && (
-          <div className="mt-4 space-y-4">
+        <h2 className="text-sm font-semibold text-(--ditto-text) uppercase tracking-wider mb-4">
+          Per sviluppatori AI &mdash; Claude Code, Cursor, Zed
+        </h2>
+        <div className="space-y-4">
             <p className="text-sm text-(--ditto-text-secondary) leading-relaxed">
               Ditto espone un server MCP che i tuoi agenti AI possono chiamare direttamente
               durante una sessione (niente bisogno di {"`"}ditto{" "}
@@ -448,8 +438,7 @@ export default function ApiKeysPage() {
               <code className="font-mono">whoami</code>. L&apos;agente può chiamarli durante
               la sessione; ogni estrazione scala 100 crediti dal tuo account.
             </p>
-          </div>
-        )}
+        </div>
       </section>
     </div>
   );
