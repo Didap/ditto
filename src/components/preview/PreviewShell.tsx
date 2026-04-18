@@ -115,6 +115,22 @@ export function PreviewShell({
       ))}
       {/* Inject @font-face CSS */}
       {fontFaceCss && <style dangerouslySetInnerHTML={{ __html: fontFaceCss }} />}
+      {/* Form-element font inheritance — browsers apply a system font to
+          button/input/select/textarea by default, which overrides the
+          brand fonts on things like FAQ triggers (Radix Accordion → <button>). */}
+      <style dangerouslySetInnerHTML={{ __html: `
+.preview-shell button,
+.preview-shell input,
+.preview-shell textarea,
+.preview-shell select,
+.preview-shell optgroup {
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  color: inherit;
+  letter-spacing: inherit;
+}
+` }} />
       {children}
     </div>
   );
