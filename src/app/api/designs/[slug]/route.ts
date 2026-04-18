@@ -1,16 +1,20 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getDesign, deleteDesign } from "@/lib/store";
-import { getRequiredUser, unauthorized } from "@/lib/auth-helpers";
+import {
+  getRequiredUser,
+  getUserFromBearerOrSession,
+  unauthorized,
+} from "@/lib/auth-helpers";
 import { ApiError } from "@/lib/errors";
 import { db } from "@/lib/db";
 import { designUnlocks } from "@/lib/db/schema";
 import { sql } from "drizzle-orm";
 
 export async function GET(
-  _req: NextRequest,
+  req: NextRequest,
   { params }: { params: Promise<{ slug: string }> }
 ) {
-  const user = await getRequiredUser();
+  const user = await getUserFromBearerOrSession(req);
   if (!user) return unauthorized();
 
   const { slug } = await params;

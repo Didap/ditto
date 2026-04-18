@@ -1,12 +1,12 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { listDesigns } from "@/lib/store";
-import { getRequiredUser, unauthorized } from "@/lib/auth-helpers";
+import { getUserFromBearerOrSession, unauthorized } from "@/lib/auth-helpers";
 import { db } from "@/lib/db";
 import { designUnlocks } from "@/lib/db/schema";
 import { eq, sql } from "drizzle-orm";
 
-export async function GET() {
-  const user = await getRequiredUser();
+export async function GET(req: NextRequest) {
+  const user = await getUserFromBearerOrSession(req);
   if (!user) return unauthorized();
 
   try {
