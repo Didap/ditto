@@ -171,15 +171,18 @@ const mcpHandler = createMcpHandler(
 );
 
 /**
- * Bearer-token auth wrapper. We intentionally don't advertise an OAuth
- * resource-metadata URL: this server uses static API keys, not OAuth. If we
- * set `resourceMetadataPath`, MCP clients (e.g. Claude Code) try to fetch
- * that URL on 401, parse it as JSON, and blow up with
- * "SDK auth failed: Failed to parse JSON" if the client forgot the
- * `--header Authorization: Bearer ...` flag. With `resourceMetadataPath`
- * omitted, the client just reports "not authenticated" cleanly.
+ * Bearer-token auth wrapper. We use static API keys, NOT OAuth — but
+ * `mcp-handler`'s `withMcpAuth` hardcodes a default `resource_metadata` URL
+ * into the `WWW-Authenticate` 401 header. MCP clients (Claude Code) take
+ * that as an invitation to run OAuth discovery, and then blow up with
+ * "SDK auth failed: Failed to parse JSON" when the discovery chain can't
+ * land on a valid authorization server.
+ *
+ * We wrap the handler and rewrite the WWW-Authenticate header on 401 to a
+ * plain `Bearer realm=...` challenge. Clients without a token now see a
+ * clean "not authenticated" state instead of the OAuth rabbit hole.
  */
-const authHandler = withMcpAuth(
+const innerAuthHandler = withMcpAuth(
   mcpHandler,
   async (_req, token) => {
     if (!token) return undefined;
@@ -191,4 +194,20 @@ const authHandler = withMcpAuth(
   }
 );
 
-export { authHandler as GET, authHandler as POST, authHandler as DELETE };
+async function dittoMcpHandler(req: Request): Promise<Response> {
+  const res = await innerAuthHandler(req);
+  if (res.status !== 401) return res;
+
+  const headers = new Headers(res.headers);
+  headers.set(
+    "WWW-Authenticate",
+    'Bearer realm="Ditto MCP", error="invalid_token", error_description="Missing or invalid Bearer token. Generate one at https://dittodesign.dev/settings/api-keys and pass it via --header."'
+  );
+  return new Response(res.body, { status: 401, headers, statusText: res.statusText });
+}
+
+export {
+  dittoMcpHandler as GET,
+  dittoMcpHandler as POST,
+  dittoMcpHandler as DELETE,
+};
