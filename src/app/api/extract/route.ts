@@ -8,6 +8,12 @@ import { deductCredits, refundCredits, COSTS } from "@/lib/credits";
 import { nanoid } from "nanoid";
 import type { StoredDesign } from "@/lib/types";
 import { ApiError, insufficientCredits } from "@/lib/errors";
+import {
+  reserveSpecialExtraction,
+  releaseSpecialExtraction,
+  markSpecialExtractionUsed,
+  SPECIAL_EXTRACTION_EXTRA_COST,
+} from "@/lib/special-extraction-quota";
 
 export const maxDuration = 120;
 
@@ -49,17 +55,31 @@ export async function POST(req: NextRequest) {
 
     // Fallback chain: local Puppeteer → ScraperAPI residential proxy → bookmarklet UI
     let extraction;
+    let specialExtractionCharged = 0;
     try {
       extraction = await extractDesign(url);
     } catch (firstError) {
       const proxy = scraperApiProxy();
       if (firstError instanceof WafBlockedError && proxy) {
         console.warn("[extract] WAF detected, retrying via ScraperAPI proxy");
+
+        // Check monthly special-extraction quota; charge extra if free slot already used.
+        const reserved = await reserveSpecialExtraction(user.id);
+        if (reserved.insufficientCredits) {
+          throw new WafBlockedError(
+            `Site protected. Your free special extraction for this month is used; ${SPECIAL_EXTRACTION_EXTRA_COST} extra credits are required but you have ${reserved.remainingCredits}. Top up credits or use the browser bookmarklet.`
+          );
+        }
+        specialExtractionCharged = reserved.extraCharged;
+
         try {
           extraction = await extractDesign(url, { proxy });
+          await markSpecialExtractionUsed(user.id);
         } catch (secondError) {
-          // ScraperAPI couldn't pass either — surface as WAF so UI offers the
-          // bookmarklet fallback rather than a generic 500.
+          // ScraperAPI couldn't pass either — refund the surcharge (if any) and
+          // surface as WAF so the UI offers the bookmarklet fallback.
+          await releaseSpecialExtraction(user.id, reserved);
+          specialExtractionCharged = 0;
           console.error("[extract] ScraperAPI fallback failed:", secondError);
           throw new WafBlockedError(
             secondError instanceof WafBlockedError
@@ -94,7 +114,11 @@ export async function POST(req: NextRequest) {
 
     await saveDesign(user.id, design);
 
-    return NextResponse.json({ slug, name: designName });
+    return NextResponse.json({
+      slug,
+      name: designName,
+      specialExtractionCharged,
+    });
   } catch (error) {
     console.error("Extraction error:", error);
 

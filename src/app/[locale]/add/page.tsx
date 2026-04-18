@@ -14,6 +14,14 @@ interface ExtractionProgress {
   progress: number;
 }
 
+interface SpecialQuota {
+  usedThisMonth: number;
+  freeRemaining: number;
+  isFree: boolean;
+  freePerMonth: number;
+  extraCost: number;
+}
+
 export default function AddDesignPage() {
   const lp = useLocalePath();
   const locale = usePathnameLocale();
@@ -29,6 +37,8 @@ export default function AddDesignPage() {
   const [wafBlocked, setWafBlocked] = useState(false);
   const [bookmarkletState, setBookmarkletState] = useState<BookmarkletState>("idle");
   const [bookmarkletHref, setBookmarkletHref] = useState("");
+  const [specialQuota, setSpecialQuota] = useState<SpecialQuota | null>(null);
+  const [specialCharged, setSpecialCharged] = useState(0);
   const { credits, deduct, refresh } = useCredits();
 
   const canAdd = credits !== null && credits >= 100;
@@ -41,6 +51,28 @@ export default function AddDesignPage() {
     }
   }, [startOnborda]);
 
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/api/extract/quota")
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data) => {
+        if (!cancelled && data) setSpecialQuota(data);
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const refreshQuota = () => {
+    fetch("/api/extract/quota")
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data) => {
+        if (data) setSpecialQuota(data);
+      })
+      .catch(() => {});
+  };
+
   const handleExtract = async () => {
     if (!url) return;
 
@@ -49,6 +81,7 @@ export default function AddDesignPage() {
     setWafBlocked(false);
     setBookmarkletState("idle");
     setBookmarkletHref("");
+    setSpecialCharged(0);
 
     // Simulate progress steps
     const steps = [
@@ -98,10 +131,12 @@ export default function AddDesignPage() {
 
       const data = await res.json();
       setResultSlug(data.slug);
+      setSpecialCharged(data.specialExtractionCharged || 0);
       setState("done");
       setProgress({ step: "Complete!", progress: 100 });
-      deduct(100);
+      deduct(100 + (data.specialExtractionCharged || 0));
       refresh();
+      refreshQuota();
     } catch (err) {
       clearInterval(progressInterval);
       setState("error");
@@ -186,6 +221,18 @@ export default function AddDesignPage() {
           >
             {state === "extracting" ? "Extracting..." : `Extract Design System (100 crediti)`}
           </button>
+
+          {/* Special-extraction quota hint */}
+          {specialQuota && (
+            <p className="text-[11px] text-(--ditto-text-muted) leading-relaxed">
+              Siti con protezioni avanzate (AWS WAF, Cloudflare, etc.) richiedono un&apos;estrazione &quot;speciale&quot; via proxy.
+              {specialQuota.isFree ? (
+                <> Ne hai <strong className="text-(--ditto-text-secondary)">{specialQuota.freeRemaining}</strong> gratis questo mese incluse nei 100 crediti base.</>
+              ) : (
+                <> Hai già usato la tua estrazione speciale gratis del mese: le prossime costano <strong className="text-(--ditto-text-secondary)">+{specialQuota.extraCost}</strong> crediti ciascuna (oltre ai 100 base).</>
+              )}
+            </p>
+          )}
         </div>
 
         {/* Progress */}
@@ -380,9 +427,20 @@ export default function AddDesignPage() {
         {/* Success */}
         {state === "done" && (
           <div className="mt-6 rounded-lg border border-green-500/30 bg-green-500/10 px-4 py-3">
-            <p className="text-sm text-green-400 mb-3">
+            <p className="text-sm text-green-400 mb-2">
               Design system extracted successfully!
             </p>
+            {specialCharged > 0 && (
+              <p className="text-xs text-(--ditto-text-secondary) mb-3">
+                Estrazione &quot;speciale&quot; via proxy: addebitati <strong>+{specialCharged}</strong> crediti oltre ai 100 base
+                (la tua estrazione gratuita del mese era già stata usata).
+              </p>
+            )}
+            {specialCharged === 0 && state === "done" && (
+              // Was it a free special extraction? We can't tell reliably without another call;
+              // showing nothing when extraCost === 0 keeps the UI clean for normal successes too.
+              null
+            )}
             <div className="flex gap-3">
               <a
                 href={`/design/${resultSlug}`}

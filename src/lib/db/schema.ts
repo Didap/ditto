@@ -27,6 +27,11 @@ export const users = pgTable("users", {
   verifyToken: text("verify_token"),
   verifyTokenExpires: timestamp("verify_token_expires", { withTimezone: true }),
   lastLoginAt: timestamp("last_login_at", { withTimezone: true }),
+  // Monthly usage counter for "special" (proxy-fallback) extractions.
+  // 1st of each month is free (covered by base 100-credit cost); subsequent
+  // ones cost an additional SPECIAL_EXTRACTION_EXTRA_COST credits each.
+  specialExtractionMonth: text("special_extraction_month"), // "YYYY-MM"
+  specialExtractionCount: integer("special_extraction_count").notNull().default(0),
   createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
   updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
 });
