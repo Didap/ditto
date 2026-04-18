@@ -5,12 +5,14 @@ import { runLogout } from "./commands/logout.js";
 import { runWhoami } from "./commands/whoami.js";
 import { runList } from "./commands/list.js";
 import { runView } from "./commands/view.js";
+import { runMerge } from "./commands/merge.js";
 
 const HELP = `
   ditto — extract a design system from any URL
 
   Usage:
     ditto <url> [--name <name>] [--out <path>] [--save]     Extract a design
+    ditto merge <url1> <url2> ... [--weights 2,1,1] ...     Blend N designs into one
     ditto list                                              List saved designs
     ditto view <slug> [--out <path>]                        Dump DESIGN.md
     ditto whoami                                            Show account + credits
@@ -37,6 +39,8 @@ const HELP = `
   Examples:
     ditto https://stripe.com
     ditto https://linear.app --name Linear --out docs/linear.md
+    ditto merge https://stripe.com https://linear.app https://vercel.com
+    ditto merge stripe.com linear.app --weights 2,1 --save
     ditto list
     ditto view stripe > DESIGN.md
     ditto whoami
@@ -90,6 +94,28 @@ async function main(): Promise<void> {
     return runView({
       slug,
       out: parseFlag(argv, "--out"),
+    });
+  }
+
+  if (command === "merge") {
+    // Collect all positional args after "merge" that don't start with "--"
+    // as URLs. Flags can appear anywhere after them.
+    const urls: string[] = [];
+    for (let i = 1; i < argv.length; i++) {
+      const a = argv[i];
+      if (a.startsWith("--")) break;
+      urls.push(a);
+    }
+    const weightsRaw = parseFlag(argv, "--weights");
+    const weights = weightsRaw
+      ? weightsRaw.split(",").map((w) => parseFloat(w.trim())).filter((n) => !isNaN(n) && n > 0)
+      : undefined;
+    return runMerge({
+      urls,
+      weights,
+      name: parseFlag(argv, "--name"),
+      out: parseFlag(argv, "--out"),
+      save: hasFlag(argv, "--save"),
     });
   }
 
