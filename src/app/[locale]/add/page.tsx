@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useCredits } from "@/lib/credits-context";
 import { useLocalePath, usePathnameLocale } from "@/lib/locale-context";
 import { useOnborda } from "onborda";
@@ -39,7 +39,16 @@ export default function AddDesignPage() {
   const [bookmarkletHref, setBookmarkletHref] = useState("");
   const [specialQuota, setSpecialQuota] = useState<SpecialQuota | null>(null);
   const [specialCharged, setSpecialCharged] = useState(0);
+  const bookmarkletAnchorRef = useRef<HTMLAnchorElement>(null);
   const { credits, deduct, refresh } = useCredits();
+
+  // React strips `javascript:` hrefs set via JSX (XSS protection). Set it via
+  // the DOM after render so the drag-to-bookmarks behavior still works.
+  useEffect(() => {
+    if (bookmarkletAnchorRef.current && bookmarkletHref) {
+      bookmarkletAnchorRef.current.setAttribute("href", bookmarkletHref);
+    }
+  }, [bookmarkletHref, bookmarkletState]);
 
   const canAdd = credits !== null && credits >= 100;
   const { startOnborda } = useOnborda();
@@ -365,7 +374,8 @@ export default function AddDesignPage() {
                       segnalibri, rilascia. Non cliccarlo: trascinalo.
                     </p>
                     <a
-                      href={bookmarkletHref}
+                      ref={bookmarkletAnchorRef}
+                      href="#"
                       onClick={(e) => {
                         e.preventDefault();
                         alert(
