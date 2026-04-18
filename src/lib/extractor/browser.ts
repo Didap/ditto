@@ -214,6 +214,88 @@ export async function extractFromPage(
 
     const extraction = await page.evaluate(extractDesignData);
 
+    // Hover/focus capture — hover on a representative button and re-read its
+    // computed style. Wrap in try/finally so a single selector miss doesn't
+    // tank the whole extraction.
+    const componentStates: Array<{
+      type: string;
+      hover?: Record<string, string>;
+      focus?: Record<string, string>;
+    }> = [];
+    for (const { type, selector } of [
+      { type: "button", selector: "button, a[role='button'], a[class*='btn' i]" },
+      { type: "link", selector: "main a:not([role='button']):not([class*='btn' i])" },
+    ]) {
+      try {
+        const el = await page.$(selector);
+        if (!el) continue;
+        await el.hover().catch(() => {});
+        await new Promise((r) => setTimeout(r, 120));
+        const hover = await page.evaluate((e: Element) => {
+          const cs = getComputedStyle(e as HTMLElement);
+          return {
+            backgroundColor: cs.backgroundColor,
+            color: cs.color,
+            boxShadow: cs.boxShadow,
+            borderColor: cs.borderColor,
+            transform: cs.transform,
+            opacity: cs.opacity,
+            textDecoration: cs.textDecoration,
+          };
+        }, el);
+        // Focus capture
+        let focus: Record<string, string> | undefined;
+        try {
+          await el.focus();
+          await new Promise((r) => setTimeout(r, 80));
+          focus = await page.evaluate((e: Element) => {
+            const cs = getComputedStyle(e as HTMLElement);
+            return {
+              outline: cs.outline,
+              outlineColor: cs.outlineColor,
+              outlineOffset: cs.outlineOffset,
+              boxShadow: cs.boxShadow,
+              borderColor: cs.borderColor,
+            };
+          }, el);
+        } catch { /* focus not applicable */ }
+        componentStates.push({ type, hover, focus });
+        // Move mouse off so next iteration starts clean
+        await page.mouse.move(0, 0).catch(() => {});
+      } catch {
+        // Single selector failures don't block the rest
+      }
+    }
+
+    // Logo download — if the extractor found an <img> logo, intercept by URL.
+    // SVG logos are already inlined via `extraction.logo.inlineSvg`.
+    try {
+      const logoInfo = extraction.logo;
+      if (logoInfo && logoInfo.kind === "img" && logoInfo.url && !logoInfo.url.startsWith("data:")) {
+        const siteSlug = new URL(url).hostname.replace(/[^a-z0-9]/gi, "-");
+        const siteFontsDir = path.join(FONTS_DIR, siteSlug);
+        const ext = (logoInfo.url.match(/\.(png|jpg|jpeg|webp|svg|gif|ico)(\?|$)/i)?.[1] || "png").toLowerCase();
+        const buf = await page.evaluate(async (u: string) => {
+          try {
+            const r = await fetch(u, { mode: "cors" });
+            const b = await r.arrayBuffer();
+            return Array.from(new Uint8Array(b));
+          } catch {
+            return null;
+          }
+        }, logoInfo.url);
+        if (buf) {
+          const fileName = `logo.${ext}`;
+          await fs.mkdir(siteFontsDir, { recursive: true });
+          const localPath = path.join(siteFontsDir, fileName);
+          await fs.writeFile(localPath, Buffer.from(buf));
+          logoInfo.localPath = `/fonts/${siteSlug}/${fileName}`;
+        }
+      }
+    } catch {
+      // Logo download is best-effort
+    }
+
     const title = await page.title();
     const metaDesc = await page
       .$eval('meta[name="description"]', (el) =>
@@ -238,6 +320,7 @@ export async function extractFromPage(
     return {
       ...extraction,
       downloadedFonts,
+      componentStates,
       meta: {
         url,
         title,
@@ -299,6 +382,63 @@ export interface RawExtraction {
     url: string;
     localPath: string;
     format: string;
+  }>;
+  // ── Extended signals — optional so partial/legacy extractions still type-check.
+  gradients?: Array<{
+    value: string;
+    type: "linear" | "radial" | "conic";
+    sampleTag: string;
+    occurrences: number;
+  }>;
+  transitions?: Array<{
+    durationMs: number;
+    easing: string;
+    occurrences: number;
+  }>;
+  logo?: {
+    url: string;
+    kind: "svg" | "img";
+    inlineSvg?: string;
+    alt?: string;
+    colors: string[];
+    localPath?: string;
+  } | null;
+  designSignals?: {
+    usesBackdropBlur: boolean;
+    usesClipPath: boolean;
+    usesCssFilters: boolean;
+    usesBgPatterns: boolean;
+    usesBlendModes: boolean;
+    uses3dTransforms: boolean;
+    usesMasks: boolean;
+    notes: string[];
+  };
+  microcopy?: {
+    heroHeadline: string;
+    heroSubheadline: string;
+    ctaLabels: string[];
+    navLabels: string[];
+    sectionTitles: string[];
+    voiceTags: string[];
+  };
+  heroComposition?: {
+    pattern: "split-left" | "split-right" | "centered" | "full-bleed" | "minimal" | "unknown";
+    hasMedia: boolean;
+    backgroundKind: "solid" | "gradient" | "image" | "video";
+    heightVh: number;
+  };
+  selection?: {
+    selectionBg: string;
+    selectionColor: string;
+    hasCustomScrollbar: boolean;
+    primaryCursor: string;
+    caretColor: string;
+  };
+  /** Hover states captured via page.hover() — only present if the extractor succeeded. */
+  componentStates?: Array<{
+    type: string;
+    hover?: Record<string, string>;
+    focus?: Record<string, string>;
   }>;
   meta: {
     url: string;

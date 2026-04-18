@@ -8,19 +8,181 @@ export function generateDesignMd(
   const sections = [
     generateHeader(name, tokens),
     generateVisualTheme(name, tokens, resolved),
+    generateSignatureAndComposition(tokens),
     generateColorPalette(tokens, resolved),
+    generateGradients(tokens),
     generateFontSetup(tokens, resolved),
     generateTypography(tokens, resolved),
     generateComponentStyles(tokens, resolved),
+    generateMotion(tokens),
+    generateInteractionStyles(tokens),
     generateLayoutPrinciples(tokens, resolved),
     generateDepthElevation(tokens, resolved),
+    generateVoiceAndCopy(tokens),
     generateDosAndDonts(resolved),
     generateResponsive(resolved),
     generateAgentPromptGuide(tokens, resolved),
     generateKitFooter(resolved),
-  ];
+  ].filter(Boolean);
 
   return sections.join("\n\n");
+}
+
+// ── New sections (extended signals) ─────────────────────────────────────────
+
+function generateSignatureAndComposition(tokens: DesignTokens): string | null {
+  const hero = tokens.heroComposition;
+  const signals = tokens.designSignals;
+  const logo = tokens.logo;
+  if (!hero && !signals && !logo) return null;
+
+  const lines: string[] = ["## Signature & Composition\n"];
+
+  if (hero) {
+    const patternLabel: Record<string, string> = {
+      "split-left": "split layout with media on the left",
+      "split-right": "split layout with media on the right",
+      "centered": "centered single-column",
+      "full-bleed": "full-bleed edge-to-edge",
+      "minimal": "minimal, content-forward",
+      "unknown": "generic",
+    };
+    lines.push(
+      `**Hero pattern:** ${patternLabel[hero.pattern] || hero.pattern}` +
+        (hero.heightVh > 0 ? ` (~${Math.round(hero.heightVh * 100)}vh tall)` : "") +
+        `. Background is **${hero.backgroundKind}**${hero.hasMedia ? " with visible media" : " without media"}.`
+    );
+  }
+
+  if (logo) {
+    if (logo.kind === "svg") {
+      const palette = logo.colors.length > 0 ? ` Brand palette inside the mark: \`${logo.colors.slice(0, 4).join("`, `")}\`.` : "";
+      lines.push(`**Logo:** inline SVG.${palette}`);
+    } else if (logo.url) {
+      lines.push(`**Logo:** raster image at \`${logo.url}\`${logo.alt ? ` — alt text: "${logo.alt}"` : ""}.`);
+    }
+  }
+
+  if (signals) {
+    const active: string[] = [];
+    if (signals.usesBackdropBlur) active.push("backdrop-blur (glassmorphism)");
+    if (signals.usesBgPatterns) active.push("background patterns / textures");
+    if (signals.usesClipPath) active.push("custom clip-paths");
+    if (signals.usesCssFilters) active.push("CSS filters (blur/hue-rotate/etc.)");
+    if (signals.usesBlendModes) active.push("mix-blend-mode layering");
+    if (signals.uses3dTransforms) active.push("3D transforms / perspective");
+    if (signals.usesMasks) active.push("CSS masks");
+    if (active.length > 0) {
+      lines.push(`**Advanced CSS in play:** ${active.join(", ")}. Reuse these — they're part of the signature.`);
+    }
+  }
+
+  return lines.length > 1 ? lines.join("\n\n") : null;
+}
+
+function generateGradients(tokens: DesignTokens): string | null {
+  const gradients = tokens.gradients || [];
+  if (gradients.length === 0) return null;
+
+  let md = `## Gradients\n\nGradients actually used by this brand — prefer these over inventing new ones.\n\n`;
+  md += `| # | Type | Usage hint | Value |\n|---|------|------------|-------|\n`;
+  for (let i = 0; i < Math.min(gradients.length, 8); i++) {
+    const g = gradients[i];
+    md += `| ${i + 1} | ${g.type} | \`<${g.sampleTag}>\` (×${g.occurrences}) | \`${truncate(g.value, 80)}\` |\n`;
+  }
+  return md;
+}
+
+function generateMotion(tokens: DesignTokens): string | null {
+  const tr = tokens.transitions || [];
+  if (tr.length === 0) return null;
+
+  const top = tr[0];
+  const fast = tr.some((t) => t.durationMs <= 120);
+  const slow = tr.some((t) => t.durationMs >= 400);
+  const character = fast && !slow ? "snappy" : slow && !fast ? "deliberate" : "balanced";
+
+  let md = `## Motion & Timing\n\nTransitions feel **${character}** — the dominant pair is \`${top.durationMs}ms ${top.easing}\`.\n\n`;
+  md += `| Duration | Easing | Occurrences |\n|----------|--------|-------------|\n`;
+  for (const t of tr.slice(0, 6)) {
+    md += `| ${t.durationMs}ms | \`${t.easing}\` | ${t.occurrences} |\n`;
+  }
+  md += `\nApply to hover states, expand/collapse, color transitions. Avoid anything above the slowest observed value — it'd feel foreign.`;
+  return md;
+}
+
+function generateInteractionStyles(tokens: DesignTokens): string | null {
+  const buttonWithStates = tokens.components.find((c) => c.type === "button" && c.states);
+  const selection = tokens.selection;
+  if (!buttonWithStates?.states?.hover && !selection?.selectionBg && !selection?.hasCustomScrollbar) return null;
+
+  const lines: string[] = ["## Interaction Styles\n"];
+
+  if (buttonWithStates?.states) {
+    const h = buttonWithStates.states.hover;
+    const f = buttonWithStates.states.focus;
+    if (h) {
+      const items: string[] = [];
+      if (h.backgroundColor) items.push(`background → \`${h.backgroundColor}\``);
+      if (h.color) items.push(`text → \`${h.color}\``);
+      if (h.boxShadow && h.boxShadow !== "none") items.push(`shadow → \`${truncate(h.boxShadow, 60)}\``);
+      if (h.transform && h.transform !== "none") items.push(`transform → \`${h.transform}\``);
+      if (h.opacity && h.opacity !== "1") items.push(`opacity → ${h.opacity}`);
+      if (items.length > 0) {
+        lines.push(`**Primary button hover:** ${items.join(", ")}.`);
+      }
+    }
+    if (f?.outline && f.outline !== "none") {
+      lines.push(`**Focus ring:** \`${f.outline}\`${f.outlineOffset ? ` offset ${f.outlineOffset}` : ""}.`);
+    } else if (f?.boxShadow && f.boxShadow !== "none" && (!h?.boxShadow || h.boxShadow !== f.boxShadow)) {
+      lines.push(`**Focus ring:** via box-shadow \`${truncate(f.boxShadow, 80)}\`.`);
+    }
+  }
+
+  if (selection?.selectionBg) {
+    lines.push(
+      `**Text selection:** background \`${selection.selectionBg}\`` +
+        (selection.selectionColor ? `, text \`${selection.selectionColor}\`` : "") + `.`
+    );
+  }
+  if (selection?.hasCustomScrollbar) {
+    lines.push(`**Scrollbar:** custom-styled (\`::-webkit-scrollbar\` rules present).`);
+  }
+  if (selection?.caretColor) {
+    lines.push(`**Caret color in inputs:** \`${selection.caretColor}\`.`);
+  }
+
+  return lines.length > 1 ? lines.join("\n\n") : null;
+}
+
+function generateVoiceAndCopy(tokens: DesignTokens): string | null {
+  const mc = tokens.microcopy;
+  if (!mc || (!mc.heroHeadline && mc.ctaLabels.length === 0)) return null;
+
+  const lines: string[] = ["## Voice & Microcopy\n"];
+
+  if (mc.heroHeadline) {
+    lines.push(`**Hero headline:**\n\n> ${mc.heroHeadline}`);
+  }
+  if (mc.heroSubheadline) {
+    lines.push(`**Hero sub:**\n\n> ${mc.heroSubheadline}`);
+  }
+  if (mc.ctaLabels.length > 0) {
+    lines.push(`**CTA vocabulary:** ${mc.ctaLabels.slice(0, 8).map((c) => `\`${c}\``).join(", ")}.`);
+  }
+  if (mc.navLabels.length > 0) {
+    lines.push(`**Nav:** ${mc.navLabels.slice(0, 8).map((n) => `\`${n}\``).join(", ")}.`);
+  }
+  if (mc.voiceTags.length > 0) {
+    lines.push(`**Voice signals:** ${mc.voiceTags.join(" · ")}.`);
+  }
+
+  return lines.join("\n\n");
+}
+
+function truncate(s: string, max: number): string {
+  if (s.length <= max) return s;
+  return s.slice(0, max - 1) + "…";
 }
 
 function generateHeader(name: string, tokens: DesignTokens): string {

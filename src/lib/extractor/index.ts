@@ -44,6 +44,27 @@ export function finalizeExtraction(raw: RawExtraction): {
   const radii = processRadii(raw.radii);
   const components = processComponents(raw.componentStyles);
 
+  // Merge hover/focus states captured by the browser layer into the matching
+  // component records. We key by component.type ("button", "link"…).
+  if (raw.componentStates && raw.componentStates.length > 0) {
+    for (const state of raw.componentStates) {
+      const target = components.find((c) => c.type === state.type);
+      if (target) {
+        target.states = {};
+        if (state.hover) target.states.hover = state.hover;
+        if (state.focus) target.states.focus = state.focus;
+      }
+    }
+  }
+
+  // Deduplicate & cap gradient/transition lists by occurrence.
+  const gradients = (raw.gradients || [])
+    .sort((a, b) => b.occurrences - a.occurrences)
+    .slice(0, 12);
+  const transitions = (raw.transitions || [])
+    .sort((a, b) => b.occurrences - a.occurrences)
+    .slice(0, 8);
+
   const tokens: DesignTokens = {
     colors,
     typography,
@@ -59,6 +80,13 @@ export function finalizeExtraction(raw: RawExtraction): {
     fontFaces: raw.fontFaces,
     downloadedFonts: raw.downloadedFonts,
     cssVariables: raw.cssVars,
+    gradients,
+    transitions,
+    logo: raw.logo ?? null,
+    designSignals: raw.designSignals,
+    microcopy: raw.microcopy,
+    heroComposition: raw.heroComposition,
+    selection: raw.selection,
     meta: {
       ...raw.meta,
       extractedAt: new Date().toISOString(),
