@@ -36,7 +36,11 @@ export function finalizeExtraction(raw: RawExtraction): {
   resolved: ResolvedDesign;
   quality: DesignQualityScore;
 } {
-  const colors = processColors(raw.colors, raw.pageBackground);
+  // Merge pixel evidence into the CSS-derived color list BEFORE processing.
+  const mergedColors = mergePixelEvidence(raw.colors, raw);
+  const colors = processColors(mergedColors, raw.pageBackground);
+  // Correct role assignments using per-rect pixel colors (if any).
+  applyPixelRoleCorrections(colors, raw);
   const typography = processTypography(raw.fonts);
   const typeScale = processTypeScale(raw.headingStyles, raw.bodyStyle, raw.fontSizes);
   const spacing = processSpacing(raw.spacings);
@@ -97,6 +101,126 @@ export function finalizeExtraction(raw: RawExtraction): {
   const quality = scoreDesignQuality(tokens, resolved);
 
   return { tokens, resolved, quality };
+}
+
+// ── Pixel evidence merge ───────────────────────────────────────────────────
+// The CSS extraction sees colors set on elements. It misses colors that only
+// exist in rendered images (logos, image backgrounds), gradients (which render
+// as midtones), or in regions outside the DOM tree we sampled. The screenshot
+// sees ALL rendered pixels — we use it as visual ground truth.
+
+function mergePixelEvidence(
+  cssColors: Array<{ hex: string; count: number }>,
+  raw: RawExtraction
+): Array<{ hex: string; count: number }> {
+  const pixels = raw.pixels;
+  if (!pixels) return cssColors;
+
+  const merged: Array<{ hex: string; count: number }> = [...cssColors];
+  const byHex = new Map(merged.map((c) => [c.hex.toLowerCase(), c]));
+
+  // Boost CSS colors that the pixel analysis confirms are visually dominant.
+  // A color with CSS count 50 that also tops the hero palette gets its count
+  // multiplied so role-assignment prefers it.
+  for (const pc of [...pixels.heroColors, ...pixels.dominantColors]) {
+    const match = findCloseColor(merged, pc.hex, 20);
+    if (match) {
+      match.count += Math.round(pc.count * 0.3);
+    } else {
+      // Pixel-only color — comes from a rendered image/SVG/gradient. Inject at
+      // a conservative count so it doesn't outrank strong CSS colors.
+      merged.push({ hex: pc.hex, count: Math.max(5, Math.round(pc.count * 0.15)) });
+      byHex.set(pc.hex.toLowerCase(), merged[merged.length - 1]);
+    }
+  }
+
+  // Rect-sampled colors (per button/card) are very high-signal — they reveal
+  // the true rendered CTA color through gradients and bg-images.
+  for (const rc of pixels.rectColors) {
+    const match = findCloseColor(merged, rc.hex, 18);
+    if (match) {
+      match.count += 40;
+    } else {
+      merged.push({ hex: rc.hex, count: 30 });
+    }
+  }
+
+  return merged;
+}
+
+function findCloseColor(
+  list: Array<{ hex: string; count: number }>,
+  target: string,
+  threshold: number
+): { hex: string; count: number } | undefined {
+  for (const c of list) {
+    if (colorDistance(c.hex, target) < threshold) return c;
+  }
+  return undefined;
+}
+
+function applyPixelRoleCorrections(
+  colors: ColorToken[],
+  raw: RawExtraction
+): void {
+  const pixels = raw.pixels;
+  if (!pixels) return;
+
+  // Correct "primary" using button rect colors — if a rect-sampled button
+  // color matches a palette entry, that entry is almost certainly the primary.
+  const buttonRectColors = pixels.rectColors
+    .filter((r) => r.id.startsWith("button-"))
+    .slice(0, 5);
+
+  if (buttonRectColors.length > 0) {
+    for (const br of buttonRectColors) {
+      const match = findCloseColorToken(colors, br.hex, 18);
+      if (!match) continue;
+      // Don't override background/text roles — a button can share bg-like colors.
+      if (match.role === "background" || match.role === "text-primary" || match.role === "text-secondary") continue;
+      // Skip if it's already the primary
+      if (match.role === "primary") return;
+      // Demote whoever was "primary" before and promote this one
+      const current = colors.find((c) => c.role === "primary");
+      if (current && current !== match) current.role = "accent";
+      match.role = "primary";
+      return;
+    }
+  }
+
+  // Correct "background" using lightness analysis: if pixels are overwhelmingly
+  // dark (or light) the background role must be consistent.
+  const current = colors.find((c) => c.role === "background");
+  if (current) {
+    const isDarkBg = getLuminance(current.hex) < 0.3;
+    const pixelsMostlyDark = pixels.lightness.dark > 0.45;
+    if (isDarkBg !== pixelsMostlyDark && pixels.heroColors.length > 0) {
+      // Re-pick background from the most frequent hero color whose luminance
+      // matches the pixel-majority.
+      const candidate = pixels.heroColors.find((hc) => {
+        const lum = getLuminance(hc.hex);
+        return pixelsMostlyDark ? lum < 0.3 : lum > 0.7;
+      });
+      if (candidate) {
+        const match = findCloseColorToken(colors, candidate.hex, 20);
+        if (match) {
+          current.role = "surface";
+          match.role = "background";
+        }
+      }
+    }
+  }
+}
+
+function findCloseColorToken(
+  colors: ColorToken[],
+  target: string,
+  threshold: number
+): ColorToken | undefined {
+  for (const c of colors) {
+    if (colorDistance(c.hex, target) < threshold) return c;
+  }
+  return undefined;
 }
 
 // ── Color Processing ──

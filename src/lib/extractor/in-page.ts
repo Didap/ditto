@@ -20,7 +20,20 @@ export function extractDesignData() {
     type: string;
     tag: string;
     styles: Record<string, string>;
+    /** Viewport-relative bounding rect at screenshot time. Only present when
+        the element is within the viewport (for pixel sampling). */
+    rect?: { x: number; y: number; w: number; h: number };
   }> = [];
+
+  /** Returns the rect if the element is visible in the viewport, else null. */
+  function visibleRect(el: HTMLElement): { x: number; y: number; w: number; h: number } | null {
+    const r = el.getBoundingClientRect();
+    if (r.width < 8 || r.height < 8) return null;
+    if (r.top < 0 || r.left < 0) return null;
+    if (r.top > window.innerHeight || r.left > window.innerWidth) return null;
+    if (r.right > window.innerWidth + 1 || r.bottom > window.innerHeight + 1) return null;
+    return { x: Math.round(r.left), y: Math.round(r.top), w: Math.round(r.width), h: Math.round(r.height) };
+  }
 
   // Extract CSS custom properties from :root
   for (const sheet of document.styleSheets) {
@@ -127,6 +140,7 @@ export function extractDesignData() {
           fontFamily: cs.fontFamily.split(",")[0].trim().replace(/['"]/g, ""),
           boxShadow: cs.boxShadow,
         },
+        rect: visibleRect(el) || undefined,
       });
     }
 
@@ -144,6 +158,7 @@ export function extractDesignData() {
             fontSize: cs.fontSize,
             fontFamily: cs.fontFamily.split(",")[0].trim().replace(/['"]/g, ""),
           },
+          rect: visibleRect(el) || undefined,
         });
       }
     }
@@ -164,6 +179,7 @@ export function extractDesignData() {
           boxShadow: cs.boxShadow,
           padding: cs.padding,
         },
+        rect: visibleRect(el) || undefined,
       });
     }
 
@@ -182,6 +198,7 @@ export function extractDesignData() {
           fontWeight: cs.fontWeight,
           fontFamily: cs.fontFamily.split(",")[0].trim().replace(/['"]/g, ""),
         },
+        rect: visibleRect(el) || undefined,
       });
     }
   }

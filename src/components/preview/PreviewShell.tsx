@@ -115,16 +115,27 @@ export function PreviewShell({
       ))}
       {/* Inject @font-face CSS */}
       {fontFaceCss && <style dangerouslySetInnerHTML={{ __html: fontFaceCss }} />}
-      {/* Form-element font inheritance — browsers apply a system font to
-          button/input/select/textarea by default, which overrides the
-          brand fonts on things like FAQ triggers (Radix Accordion → <button>). */}
+      {/* Force font-family inheritance across the whole preview subtree.
+          Browsers reset font-family on form elements (button/input/select)
+          via user-agent styles, and Ditto's outer app sets global fonts
+          (CanvaSans/LeoSans) that would otherwise leak into primitives whose
+          children don't explicitly set font-family (FAQ questions, etc.).
+          The `* { font-family: inherit }` rule has class-level specificity,
+          so inline-style overrides like `fontFamily: var(--d-font-heading)`
+          on h1/h2 still win. */}
       <style dangerouslySetInnerHTML={{ __html: `
+.preview-shell,
+.preview-shell * {
+  font-family: inherit;
+}
+.preview-shell {
+  font-family: var(--d-font-body);
+}
 .preview-shell button,
 .preview-shell input,
 .preview-shell textarea,
 .preview-shell select,
 .preview-shell optgroup {
-  font-family: inherit;
   font-size: inherit;
   font-weight: inherit;
   color: inherit;

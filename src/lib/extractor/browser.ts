@@ -2,6 +2,7 @@ import type { Browser } from "puppeteer";
 import fs from "fs/promises";
 import path from "path";
 import { extractDesignData } from "./in-page";
+import { analyzeScreenshot, type RectSample } from "./pixel-analysis";
 
 // Lazy-load puppeteer-extra + stealth only when extraction is actually called.
 // Top-level import would crash all routes if stealth's CJS deps are missing.
@@ -214,6 +215,24 @@ export async function extractFromPage(
 
     const extraction = await page.evaluate(extractDesignData);
 
+    // Pixel analysis of the screenshot — ground truth for color role assignment.
+    // Collect rects for components we can sample (must be inside the viewport).
+    try {
+      const rectSamples: RectSample[] = [];
+      const byType: Record<string, number> = {};
+      for (const comp of extraction.componentStyles) {
+        if (!comp.rect) continue;
+        const idx = (byType[comp.type] = (byType[comp.type] || 0) + 1) - 1;
+        rectSamples.push({ id: `${comp.type}-${idx}`, rect: comp.rect });
+      }
+      const pixels = analyzeScreenshot(screenshot as unknown as string, rectSamples);
+      if (pixels) {
+        (extraction as typeof extraction & { pixels?: typeof pixels }).pixels = pixels;
+      }
+    } catch (err) {
+      console.warn("[extract] pixel analysis failed:", err);
+    }
+
     // Hover/focus capture — hover on a representative button and re-read its
     // computed style. Wrap in try/finally so a single selector miss doesn't
     // tank the whole extraction.
@@ -351,7 +370,16 @@ export interface RawExtraction {
     type: string;
     tag: string;
     styles: Record<string, string>;
+    rect?: { x: number; y: number; w: number; h: number };
   }>;
+  /** Pixel-level analysis of the screenshot — populated server-side after capture. */
+  pixels?: {
+    dominantColors: Array<{ hex: string; count: number }>;
+    headerColors: Array<{ hex: string; count: number }>;
+    heroColors: Array<{ hex: string; count: number }>;
+    rectColors: Array<{ id: string; hex: string; alpha: number }>;
+    lightness: { dark: number; mid: number; light: number };
+  };
   headingStyles: Array<{
     tag: string;
     fontSize: string;

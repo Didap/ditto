@@ -16,6 +16,7 @@ import { BlogPreview } from "@/components/preview/pages/BlogPreview";
 import { ComponentsPreview } from "@/components/preview/pages/ComponentsPreview";
 import { FloatingEditor } from "@/components/FloatingEditor";
 import { Lock, Coins, Info } from "lucide-react";
+import { DESIGN_MACROS, applyMacros } from "@/lib/design-macros";
 
 interface FeatureStatus {
   unlocked: boolean;
@@ -82,6 +83,8 @@ export function DesignDetailClient({ initialDesign, slug }: DesignDetailProps) {
   const [activePreview, setActivePreview] = useState("landing");
   const [activeTab, setActiveTab] = useState<"preview" | "tokens" | "designmd">("preview");
   const [editResolved, setEditResolved] = useState<StoredDesign["resolved"]>(initialDesign.resolved);
+  const [activeMacros, setActiveMacros] = useState<string[]>([]);
+  const [savingMacros, setSavingMacros] = useState(false);
   const [unlocks, setUnlocks] = useState<UnlockStatus>({
     devkit: { unlocked: initialDesign.unlockedFeatures?.devkit ?? false, cost: 50 },
     complete: { unlocked: initialDesign.unlockedFeatures?.complete ?? false, cost: 100 },
@@ -109,6 +112,38 @@ export function DesignDetailClient({ initialDesign, slug }: DesignDetailProps) {
   useEffect(() => {
     fetchUnlocks(slug);
   }, [slug, fetchUnlocks]);
+
+  const toggleMacro = (id: string) => {
+    setActiveMacros((prev) => {
+      const next = prev.includes(id) ? prev.filter((m) => m !== id) : [...prev, id];
+      // Recompute editResolved from the ORIGINAL stored design + active macros,
+      // so toggling a macro off cleanly reverts its effect.
+      const result = applyMacros(design.tokens, design.resolved, next);
+      setEditResolved(result.resolved);
+      return next;
+    });
+  };
+
+  const saveActiveMacros = async () => {
+    if (activeMacros.length === 0) return;
+    setSavingMacros(true);
+    try {
+      const res = await fetch(`/api/designs/${slug}/macros`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ macroIds: activeMacros, save: true }),
+      });
+      if (!res.ok) throw new Error("Save failed");
+      const data = await res.json();
+      setDesign((d) => ({ ...d, tokens: data.tokens, resolved: data.resolved }));
+      setEditResolved(data.resolved);
+      setActiveMacros([]);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setSavingMacros(false);
+    }
+  };
 
   const purchaseFeature = async (feature: "devkit" | "complete") => {
     setConfirmModal(null);
@@ -406,6 +441,61 @@ export function DesignDetailClient({ initialDesign, slug }: DesignDetailProps) {
                 {page.label}
               </button>
             ))}
+          </div>
+
+          {/* Design Macros — preset transformations the user can toggle to
+              shift the overall sentiment. Pure client-side math. */}
+          <div className="mb-4 rounded-xl border border-(--ditto-border) bg-(--ditto-surface) p-4">
+            <div className="flex items-center justify-between mb-3">
+              <div>
+                <h3 className="text-sm font-semibold text-(--ditto-text)">
+                  Ritocchi di sentiment
+                </h3>
+                <p className="text-xs text-(--ditto-text-muted) mt-0.5">
+                  Clicca per provare. Non salva finché non premi &quot;Salva ritocchi&quot;.
+                </p>
+              </div>
+              {activeMacros.length > 0 && (
+                <div className="flex gap-2">
+                  <button
+                    onClick={() => {
+                      setActiveMacros([]);
+                      setEditResolved(design.resolved);
+                    }}
+                    className="text-xs text-(--ditto-text-secondary) hover:text-(--ditto-text) underline"
+                  >
+                    Reset
+                  </button>
+                  <button
+                    onClick={saveActiveMacros}
+                    disabled={savingMacros}
+                    className="rounded-md bg-(--ditto-primary) text-(--ditto-bg) text-xs font-medium px-3 py-1.5 hover:bg-(--ditto-primary-hover) disabled:opacity-50"
+                  >
+                    {savingMacros ? "Salvataggio…" : `Salva ${activeMacros.length} ritocch${activeMacros.length === 1 ? "o" : "i"}`}
+                  </button>
+                </div>
+              )}
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {DESIGN_MACROS.map((m) => {
+                const isActive = activeMacros.includes(m.id);
+                return (
+                  <button
+                    key={m.id}
+                    onClick={() => toggleMacro(m.id)}
+                    title={m.description}
+                    className={
+                      "rounded-full border px-3 py-1.5 text-xs font-medium transition-colors " +
+                      (isActive
+                        ? "border-(--ditto-primary) bg-(--ditto-primary) text-(--ditto-bg)"
+                        : "border-(--ditto-border) bg-(--ditto-bg) text-(--ditto-text-secondary) hover:border-(--ditto-primary)/50 hover:text-(--ditto-text)")
+                    }
+                  >
+                    {m.label}
+                  </button>
+                );
+              })}
+            </div>
           </div>
 
           {/* Preview */}
