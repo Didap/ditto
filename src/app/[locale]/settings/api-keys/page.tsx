@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Copy, Check } from "lucide-react";
+import { Copy, Check, Terminal, Sparkles, KeyRound } from "lucide-react";
 
 interface ApiKey {
   id: string;
@@ -19,8 +19,10 @@ interface CreatedKey {
   createdAt: string;
 }
 
-function CopyButton({ text, label = "Copia" }: { text: string; label?: string }) {
+/** Inline copy button with Lucide icons. */
+function CopyBtn({ text, size = "sm" }: { text: string; size?: "sm" | "md" }) {
   const [copied, setCopied] = useState(false);
+  const icon = size === "md" ? "w-4 h-4" : "w-3.5 h-3.5";
   return (
     <button
       onClick={async () => {
@@ -28,54 +30,23 @@ function CopyButton({ text, label = "Copia" }: { text: string; label?: string })
         setCopied(true);
         setTimeout(() => setCopied(false), 1500);
       }}
-      className="shrink-0 inline-flex items-center gap-1.5 rounded-md border border-(--ditto-border) bg-(--ditto-surface) text-(--ditto-text-secondary) text-[11px] font-medium px-2 py-1 hover:text-(--ditto-text) hover:border-(--ditto-text-muted) transition-colors"
+      className="shrink-0 inline-flex items-center justify-center w-8 h-8 rounded-md text-(--ditto-text-muted) hover:text-(--ditto-text) hover:bg-(--ditto-bg) transition-colors"
+      title={copied ? "Copiato" : "Copia"}
     >
-      {copied ? (
-        <>
-          <Check className="w-3 h-3" strokeWidth={2} />
-          Copiato
-        </>
-      ) : (
-        <>
-          <Copy className="w-3 h-3" strokeWidth={1.75} />
-          {label}
-        </>
-      )}
+      {copied ? <Check className={icon} strokeWidth={2.25} /> : <Copy className={icon} strokeWidth={1.75} />}
     </button>
   );
 }
 
-function Snippet({ code }: { code: string }) {
+/** Terminal-style one-liner with integrated copy button. */
+function Cmd({ children }: { children: string }) {
   return (
-    <div className="flex items-center gap-2 rounded-lg border border-(--ditto-border) bg-(--ditto-bg) px-3 py-2">
-      <pre className="flex-1 text-xs font-mono text-(--ditto-text) overflow-x-auto whitespace-pre-wrap break-all">
-        {code}
-      </pre>
-      <CopyButton text={code} />
-    </div>
-  );
-}
-
-function Step({
-  number,
-  title,
-  children,
-}: {
-  number: number;
-  title: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <div className="flex gap-4">
-      <div className="shrink-0 w-8 h-8 rounded-full bg-(--ditto-primary) text-(--ditto-bg) text-sm font-bold flex items-center justify-center">
-        {number}
-      </div>
-      <div className="flex-1 min-w-0 pb-2">
-        <h3 className="text-sm font-semibold text-(--ditto-text) mb-2">{title}</h3>
-        <div className="text-sm text-(--ditto-text-secondary) leading-relaxed space-y-2">
-          {children}
-        </div>
-      </div>
+    <div className="group flex items-center gap-2 rounded-lg border border-(--ditto-border) bg-(--ditto-bg) pl-3 pr-1.5 py-2">
+      <span className="text-(--ditto-text-muted) text-sm select-none">$</span>
+      <code className="flex-1 text-sm font-mono text-(--ditto-text) overflow-x-auto whitespace-pre-wrap break-all">
+        {children}
+      </code>
+      <CopyBtn text={children} />
     </div>
   );
 }
@@ -86,7 +57,8 @@ export default function ApiKeysPage() {
   const [creating, setCreating] = useState(false);
   const [newKeyName, setNewKeyName] = useState("");
   const [justCreated, setJustCreated] = useState<CreatedKey | null>(null);
-  const [copiedKey, setCopiedKey] = useState(false);
+  const [copiedNewKey, setCopiedNewKey] = useState(false);
+  const [showMcp, setShowMcp] = useState(false);
 
   const load = async () => {
     setLoading(true);
@@ -126,7 +98,7 @@ export default function ApiKeysPage() {
   };
 
   const revoke = async (id: string) => {
-    if (!confirm("Revocare questa chiave? Tutti gli script che la usano smetteranno di funzionare.")) return;
+    if (!confirm("Revocare questa chiave? Chi la sta usando perderà accesso.")) return;
     await fetch(`/api/auth/keys/${id}`, { method: "DELETE" });
     await load();
   };
@@ -134,168 +106,177 @@ export default function ApiKeysPage() {
   const copyNewKey = async () => {
     if (!justCreated) return;
     await navigator.clipboard.writeText(justCreated.key);
-    setCopiedKey(true);
-    setTimeout(() => setCopiedKey(false), 2000);
+    setCopiedNewKey(true);
+    setTimeout(() => setCopiedNewKey(false), 2000);
   };
 
-  const hasKey = keys.length > 0;
-
   return (
-    <div className="max-w-3xl mx-auto pb-16">
-      <h1 className="text-2xl font-bold tracking-tight text-(--ditto-text) mb-2">
-        CLI &amp; API Keys
+    <div className="max-w-2xl mx-auto pb-20">
+      {/* Header */}
+      <div className="flex items-center gap-2 mb-2 text-(--ditto-primary)">
+        <Terminal className="w-5 h-5" strokeWidth={1.75} />
+        <span className="text-xs font-semibold uppercase tracking-wider">CLI & API</span>
+      </div>
+      <h1 className="text-3xl font-bold tracking-tight text-(--ditto-text) mb-2">
+        Usa Ditto dal tuo terminale
       </h1>
-      <p className="text-sm text-(--ditto-text-secondary) mb-8">
-        Usa Ditto dal terminale o da qualsiasi agente MCP (Claude Code, Cursor, Zed).
-        Stesso account, stessi crediti, pipeline identica al web.
+      <p className="text-base text-(--ditto-text-secondary) mb-10 leading-relaxed">
+        Estrai un design da qualsiasi URL senza aprire il browser.
+        Stessi crediti del web, stessi comandi ovunque.
       </p>
 
-      {/* ─── Getting started ─────────────────────────────────────────────── */}
+      {/* ─── Quick start ─────────────────────────────────────────────── */}
       <section className="mb-10">
-        <h2 className="text-lg font-semibold text-(--ditto-text) mb-1">
-          Come partire in 4 passi
+        <h2 className="text-sm font-semibold text-(--ditto-text) mb-4 uppercase tracking-wider">
+          Quick start
         </h2>
-        <p className="text-xs text-(--ditto-text-muted) mb-6">
-          Setup una volta, poi estrai da qualsiasi progetto.
-        </p>
 
-        <div className="space-y-5">
-          <Step number={1} title="Installa il CLI">
-            <p>Richiede Node.js 18+.</p>
-            <Snippet code="npm i -g @didap/ditto" />
-          </Step>
+        <ol className="space-y-4">
+          <li>
+            <div className="flex items-center gap-3 mb-2">
+              <span className="w-6 h-6 rounded-full bg-(--ditto-primary) text-(--ditto-bg) text-xs font-bold flex items-center justify-center">
+                1
+              </span>
+              <span className="text-sm font-medium text-(--ditto-text)">Installa</span>
+            </div>
+            <div className="pl-9">
+              <Cmd>npm i -g @didap/ditto</Cmd>
+            </div>
+          </li>
 
-          <Step number={2} title="Genera una chiave API">
-            <p>
-              Qui sotto trovi il form &quot;Nuova chiave&quot;. Scegli un nome descrittivo (es.
-              <em> &quot;laptop&quot;</em>, <em>&quot;CI GitHub&quot;</em>), clicca Crea,
-              <strong> copia la chiave adesso</strong>: per sicurezza non sarà più mostrata.
+          <li>
+            <div className="flex items-center gap-3 mb-2">
+              <span className="w-6 h-6 rounded-full bg-(--ditto-primary) text-(--ditto-bg) text-xs font-bold flex items-center justify-center">
+                2
+              </span>
+              <span className="text-sm font-medium text-(--ditto-text)">
+                Genera una chiave qui sotto e copiala
+              </span>
+            </div>
+            <p className="pl-9 text-xs text-(--ditto-text-muted)">
+              Usa il form più in basso. La chiave viene mostrata una sola volta.
             </p>
-          </Step>
+          </li>
 
-          <Step number={3} title="Login dal terminale">
-            <p>
-              Scegli uno dei due: interattivo (ti chiede la chiave) o diretto con flag{" "}
-              <code className="text-xs font-mono bg-(--ditto-bg) px-1 py-0.5 rounded">--key</code>.
-            </p>
-            <Snippet code="ditto login" />
-            <p className="text-xs">oppure, per script / CI:</p>
-            <Snippet code="ditto login --key ditto_live_XXXX" />
-            <p className="text-xs">
-              La chiave viene salvata in <code className="font-mono">~/.ditto/config.json</code> con
-              permessi user-only (0600). In alternativa puoi usare la variabile d&apos;ambiente{" "}
-              <code className="font-mono">DITTO_API_KEY</code>.
-            </p>
-          </Step>
-
-          <Step number={4} title="Estrai un design">
-            <p>
-              Spostati nella cartella del progetto in cui vuoi il file <code className="font-mono">DESIGN.md</code> e lancia:
-            </p>
-            <Snippet code="ditto https://stripe.com" />
-            <p className="text-xs">
-              Esempio completo: estrai Linear con nome custom e percorso custom.
-            </p>
-            <Snippet code="ditto https://linear.app --name Linear --out docs/linear.md" />
-          </Step>
-        </div>
+          <li>
+            <div className="flex items-center gap-3 mb-2">
+              <span className="w-6 h-6 rounded-full bg-(--ditto-primary) text-(--ditto-bg) text-xs font-bold flex items-center justify-center">
+                3
+              </span>
+              <span className="text-sm font-medium text-(--ditto-text)">Estrai un design</span>
+            </div>
+            <div className="pl-9 space-y-2">
+              <Cmd>ditto login</Cmd>
+              <Cmd>ditto https://stripe.com</Cmd>
+              <p className="text-xs text-(--ditto-text-muted) pl-1">
+                Scrive <code className="font-mono">DESIGN.md</code> nella cartella corrente.
+                Scala 100 crediti dal tuo account.
+              </p>
+            </div>
+          </li>
+        </ol>
       </section>
 
-      {/* ─── Newly-created key banner ───────────────────────────────────── */}
-      {justCreated && (
-        <div className="mb-8 rounded-xl border border-(--ditto-primary) bg-(--ditto-primary)/10 p-5">
-          <h3 className="text-sm font-semibold text-(--ditto-text) mb-1">
-            Chiave creata: {justCreated.name}
-          </h3>
-          <p className="text-xs text-(--ditto-text-secondary) mb-3">
-            Copiala adesso. Per sicurezza non verrà più mostrata dopo aver chiuso questo messaggio.
-            Se la perdi, revoca e rigenera.
-          </p>
-          <div className="flex gap-2 items-center mb-3">
-            <code className="flex-1 rounded-lg bg-(--ditto-bg) text-(--ditto-text) text-xs font-mono px-3 py-2 overflow-x-auto whitespace-nowrap border border-(--ditto-border)">
-              {justCreated.key}
-            </code>
-            <button
-              onClick={copyNewKey}
-              className="shrink-0 inline-flex items-center gap-1.5 rounded-lg bg-(--ditto-primary) text-(--ditto-bg) text-xs font-medium px-3 py-2 hover:bg-(--ditto-primary-hover)"
-            >
-              {copiedKey ? (
-                <>
-                  <Check className="w-3.5 h-3.5" strokeWidth={2.25} />
-                  Copiata
-                </>
-              ) : (
-                <>
-                  <Copy className="w-3.5 h-3.5" strokeWidth={2} />
-                  Copia
-                </>
-              )}
-            </button>
+      {/* ─── New key — form + big card if just created ──────────────────── */}
+      <section className="mb-10">
+        <h2 className="text-sm font-semibold text-(--ditto-text) mb-4 uppercase tracking-wider">
+          Le tue chiavi
+        </h2>
+
+        {/* Just-created banner */}
+        {justCreated && (
+          <div className="mb-4 rounded-xl border-2 border-(--ditto-primary) bg-(--ditto-primary)/10 p-5">
+            <div className="flex items-start gap-2 mb-3">
+              <Sparkles className="w-4 h-4 text-(--ditto-primary) mt-0.5 shrink-0" strokeWidth={1.75} />
+              <div>
+                <p className="text-sm font-semibold text-(--ditto-text)">Chiave creata!</p>
+                <p className="text-xs text-(--ditto-text-secondary)">
+                  Copiala ora — per sicurezza non verrà più mostrata.
+                </p>
+              </div>
+            </div>
+            <div className="flex gap-2 items-center mb-3">
+              <code className="flex-1 rounded-lg bg-(--ditto-bg) text-(--ditto-text) text-xs font-mono px-3 py-2 overflow-x-auto whitespace-nowrap border border-(--ditto-border)">
+                {justCreated.key}
+              </code>
+              <button
+                onClick={copyNewKey}
+                className="shrink-0 inline-flex items-center gap-1.5 rounded-lg bg-(--ditto-primary) text-(--ditto-bg) text-xs font-medium px-3 py-2 hover:bg-(--ditto-primary-hover)"
+              >
+                {copiedNewKey ? (
+                  <>
+                    <Check className="w-3.5 h-3.5" strokeWidth={2.25} />
+                    Copiata
+                  </>
+                ) : (
+                  <>
+                    <Copy className="w-3.5 h-3.5" strokeWidth={2} />
+                    Copia
+                  </>
+                )}
+              </button>
+            </div>
+            <p className="text-xs text-(--ditto-text-secondary) mb-2">
+              Login rapido (incollalo nel tuo terminale):
+            </p>
+            <Cmd>{`ditto login --key ${justCreated.key}`}</Cmd>
             <button
               onClick={() => setJustCreated(null)}
-              className="shrink-0 rounded-lg border border-(--ditto-border) text-(--ditto-text-secondary) text-xs font-medium px-3 py-2 hover:text-(--ditto-text)"
+              className="mt-3 text-xs text-(--ditto-text-muted) hover:text-(--ditto-text) underline"
             >
-              Chiudi
+              Ho copiato, chiudi
             </button>
           </div>
-          <div className="rounded-lg border border-(--ditto-border) bg-(--ditto-bg) p-3">
-            <p className="text-[11px] text-(--ditto-text-muted) mb-2">Quick login:</p>
-            <Snippet code={`ditto login --key ${justCreated.key}`} />
-          </div>
-        </div>
-      )}
+        )}
 
-      {/* ─── Create form ─────────────────────────────────────────────────── */}
-      <section className="mb-8 rounded-xl border border-(--ditto-border) bg-(--ditto-surface) p-5">
-        <h2 className="text-sm font-semibold text-(--ditto-text) mb-3">Nuova chiave</h2>
-        <div className="flex flex-col sm:flex-row gap-2">
+        {/* Create form */}
+        <div className="flex flex-col sm:flex-row gap-2 mb-4">
           <input
             type="text"
             value={newKeyName}
             onChange={(e) => setNewKeyName(e.target.value)}
-            placeholder="Nome descrittivo (es. 'laptop', 'CI GitHub')"
-            className="flex-1 rounded-lg border border-(--ditto-border) bg-(--ditto-bg) px-4 py-2 text-sm text-(--ditto-text) placeholder-(--ditto-text-muted) outline-none focus:border-(--ditto-primary)"
+            placeholder="Dai un nome alla chiave (es. 'laptop', 'CI')"
+            className="flex-1 rounded-lg border border-(--ditto-border) bg-(--ditto-surface) px-4 py-2.5 text-sm text-(--ditto-text) placeholder-(--ditto-text-muted) outline-none focus:border-(--ditto-primary)"
             disabled={creating}
             maxLength={50}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") create();
+            }}
           />
           <button
             onClick={create}
             disabled={creating}
-            className="rounded-lg bg-(--ditto-primary) text-(--ditto-bg) text-sm font-medium px-4 py-2 hover:bg-(--ditto-primary-hover) disabled:opacity-50"
+            className="inline-flex items-center justify-center gap-2 rounded-lg bg-(--ditto-primary) text-(--ditto-bg) text-sm font-medium px-4 py-2.5 hover:bg-(--ditto-primary-hover) disabled:opacity-50"
           >
-            {creating ? "Creazione…" : "Crea"}
+            <KeyRound className="w-4 h-4" strokeWidth={1.75} />
+            {creating ? "Creazione…" : "Genera chiave"}
           </button>
         </div>
-      </section>
 
-      {/* ─── Active keys ─────────────────────────────────────────────────── */}
-      <section className="mb-10 rounded-xl border border-(--ditto-border) bg-(--ditto-surface)">
-        <div className="px-5 py-3 border-b border-(--ditto-border) flex items-center justify-between">
-          <h2 className="text-sm font-semibold text-(--ditto-text)">Chiavi attive</h2>
-          <span className="text-xs text-(--ditto-text-muted)">{keys.length} totali</span>
-        </div>
+        {/* Keys list */}
         {loading ? (
-          <p className="px-5 py-6 text-xs text-(--ditto-text-muted)">Caricamento…</p>
+          <p className="text-xs text-(--ditto-text-muted) py-3">Caricamento…</p>
         ) : keys.length === 0 ? (
-          <p className="px-5 py-6 text-xs text-(--ditto-text-muted)">
+          <p className="text-xs text-(--ditto-text-muted) py-3">
             Nessuna chiave ancora. Creane una qui sopra per iniziare.
           </p>
         ) : (
-          <ul className="divide-y divide-(--ditto-border)">
+          <ul className="rounded-xl border border-(--ditto-border) bg-(--ditto-surface) divide-y divide-(--ditto-border)">
             {keys.map((k) => (
-              <li key={k.id} className="px-5 py-3 flex items-center gap-3">
+              <li key={k.id} className="px-4 py-3 flex items-center gap-3">
                 <div className="flex-1 min-w-0">
                   <p className="text-sm text-(--ditto-text) truncate">{k.name}</p>
-                  <p className="text-xs text-(--ditto-text-muted) font-mono">
-                    {k.keyPrefix}…  ·  creata {new Date(k.createdAt).toLocaleDateString()}
+                  <p className="text-xs text-(--ditto-text-muted) font-mono truncate">
+                    {k.keyPrefix}…
+                    <span className="mx-2 text-(--ditto-border)">·</span>
                     {k.lastUsedAt
-                      ? `  ·  ultima uso ${new Date(k.lastUsedAt).toLocaleDateString()}`
-                      : "  ·  mai usata"}
+                      ? `usata ${relTime(k.lastUsedAt)}`
+                      : "mai usata"}
                   </p>
                 </div>
                 <button
                   onClick={() => revoke(k.id)}
-                  className="shrink-0 rounded-lg border border-(--ditto-border) text-(--ditto-text-secondary) text-xs font-medium px-3 py-1.5 hover:text-red-500 hover:border-red-500/40 transition-colors"
+                  className="shrink-0 text-xs font-medium text-(--ditto-text-muted) px-2 py-1 rounded hover:text-red-500 transition-colors"
                 >
                   Revoca
                 </button>
@@ -305,77 +286,70 @@ export default function ApiKeysPage() {
         )}
       </section>
 
-      {/* ─── How it works ───────────────────────────────────────────────── */}
+      {/* ─── FAQ ────────────────────────────────────────────────────── */}
       <section className="mb-10">
-        <h2 className="text-lg font-semibold text-(--ditto-text) mb-4">Come funziona</h2>
-
-        <div className="space-y-4">
-          <div className="rounded-xl border border-(--ditto-border) bg-(--ditto-surface) p-5">
-            <h3 className="text-sm font-semibold text-(--ditto-text) mb-2">
-              Dove finisce il file estratto?
-            </h3>
-            <p className="text-sm text-(--ditto-text-secondary) leading-relaxed mb-2">
-              <code className="font-mono">ditto &lt;url&gt;</code> scrive un file chiamato{" "}
-              <code className="font-mono">DESIGN.md</code> nella cartella corrente (CWD). Non viene
-              salvato sui server di Ditto: vive solo sul tuo disco, è tuo.
-            </p>
-            <p className="text-sm text-(--ditto-text-secondary) leading-relaxed mb-2">
-              Se invece vuoi anche vederlo nella tua libreria Ditto su{" "}
-              <code className="font-mono">/dashboard</code> (per usarlo con l&apos;editor, i macros,
-              i kit scaricabili), aggiungi il flag{" "}
-              <code className="font-mono">--save</code>:
-            </p>
-            <Snippet code="ditto https://stripe.com --save" />
-          </div>
-
-          <div className="rounded-xl border border-(--ditto-border) bg-(--ditto-surface) p-5">
-            <h3 className="text-sm font-semibold text-(--ditto-text) mb-2">
-              Come vengono spesi i crediti?
-            </h3>
-            <p className="text-sm text-(--ditto-text-secondary) leading-relaxed mb-2">
-              Stesso saldo del web: quando estrai dal CLI, Ditto scala 100 crediti dal tuo account.
-              Se il sito target è protetto da WAF e il primo tentativo fallisce, riproviamo tramite
-              proxy residenziale — la prima estrazione &quot;speciale&quot; di ogni mese è inclusa,
-              le successive costano 100 crediti extra.
-            </p>
-            <p className="text-sm text-(--ditto-text-secondary) leading-relaxed mb-2">
-              Per controllare il saldo live:
-            </p>
-            <Snippet code="ditto whoami" />
-          </div>
-
-          <div className="rounded-xl border border-(--ditto-border) bg-(--ditto-surface) p-5">
-            <h3 className="text-sm font-semibold text-(--ditto-text) mb-2">
-              Revoca o perdita di una chiave
-            </h3>
-            <p className="text-sm text-(--ditto-text-secondary) leading-relaxed">
-              Le chiavi vengono mostrate <strong>una sola volta</strong>, al momento della creazione.
-              Il server non le conserva in chiaro (solo l&apos;hash SHA-256). Se perdi una chiave o
-              sospetti che sia stata leakata, revocala dalla lista qui sopra e creane una nuova — è
-              istantaneo.
-            </p>
-          </div>
-        </div>
+        <h2 className="text-sm font-semibold text-(--ditto-text) mb-4 uppercase tracking-wider">
+          Domande frequenti
+        </h2>
+        <dl className="space-y-4">
+          <FAQ q="Dove finisce il file estratto?">
+            Nella cartella in cui ti trovi quando lanci il comando. Il file si chiama{" "}
+            <code className="font-mono text-xs bg-(--ditto-bg) px-1 py-0.5 rounded">DESIGN.md</code>,
+            è tuo, vive sul disco. Se vuoi vederlo anche su Ditto aggiungi{" "}
+            <code className="font-mono text-xs bg-(--ditto-bg) px-1 py-0.5 rounded">--save</code>.
+          </FAQ>
+          <FAQ q="Quanto costa?">
+            100 crediti per estrazione, come dal web. Per il comando{" "}
+            <code className="font-mono text-xs bg-(--ditto-bg) px-1 py-0.5 rounded">merge</code>{" "}
+            (blend di più siti): 100 × N estrazioni + 300 extra per la miscela.
+            Se qualcosa va storto, rimborso automatico.
+          </FAQ>
+          <FAQ q="Come vedo quanti crediti ho?">
+            <Cmd>ditto whoami</Cmd>
+          </FAQ>
+          <FAQ q="Posso vedere i design salvati?">
+            Sì, lista + apertura diretti dal terminale:
+            <div className="mt-2 space-y-1.5">
+              <Cmd>ditto list</Cmd>
+              <Cmd>ditto view stripe</Cmd>
+            </div>
+          </FAQ>
+          <FAQ q="Ho perso una chiave, che faccio?">
+            Revocala dalla lista qui sopra e creane una nuova. Le chiavi non sono
+            mai salvate in chiaro sui nostri server, per cui non possiamo
+            recuperartela — solo sostituirla.
+          </FAQ>
+        </dl>
       </section>
 
-      {/* ─── MCP setup ──────────────────────────────────────────────────── */}
+      {/* ─── MCP (collapsed by default) ─────────────────────────────────── */}
       <section>
-        <h2 className="text-lg font-semibold text-(--ditto-text) mb-1">
-          Usa Ditto dai tuoi agenti AI
-        </h2>
-        <p className="text-xs text-(--ditto-text-muted) mb-4">
-          Il pacchetto include un secondo binary{" "}
-          <code className="font-mono">ditto-mcp</code> che espone l&apos;estrazione come tool MCP.
-          Qualsiasi agente compatibile (Claude Code, Cursor, Zed) può chiamarla durante una sessione.
-        </p>
-
-        <div className="rounded-xl border border-(--ditto-border) bg-(--ditto-surface) p-5 space-y-3">
-          <p className="text-sm text-(--ditto-text-secondary)">
-            Aggiungi a <code className="font-mono">~/.claude.json</code> (o{" "}
-            <code className="font-mono">.mcp.json</code> del progetto):
-          </p>
-          <Snippet
-            code={`{
+        <button
+          onClick={() => setShowMcp(!showMcp)}
+          className="w-full flex items-center justify-between text-left"
+        >
+          <h2 className="text-sm font-semibold text-(--ditto-text) uppercase tracking-wider">
+            Per sviluppatori AI &mdash; Claude Code, Cursor, Zed
+          </h2>
+          <span className="text-xs text-(--ditto-text-muted)">
+            {showMcp ? "Nascondi ↑" : "Mostra ↓"}
+          </span>
+        </button>
+        {showMcp && (
+          <div className="mt-4 rounded-xl border border-(--ditto-border) bg-(--ditto-surface) p-5 space-y-3">
+            <p className="text-sm text-(--ditto-text-secondary) leading-relaxed">
+              Il pacchetto include un server MCP:{" "}
+              <code className="font-mono text-xs">ditto-mcp</code>. Qualsiasi
+              agente compatibile può chiamare l&apos;estrazione durante una sessione.
+            </p>
+            <p className="text-xs text-(--ditto-text-muted)">
+              Aggiungi a <code className="font-mono">~/.claude.json</code> (o{" "}
+              <code className="font-mono">.mcp.json</code> del progetto):
+            </p>
+            <div className="relative rounded-lg border border-(--ditto-border) bg-(--ditto-bg) p-3">
+              <div className="absolute top-2 right-2">
+                <CopyBtn
+                  text={`{
   "mcpServers": {
     "ditto": {
       "command": "ditto-mcp",
@@ -383,31 +357,46 @@ export default function ApiKeysPage() {
     }
   }
 }`}
-          />
-          <p className="text-xs text-(--ditto-text-muted)">
-            Tool esposti:{" "}
-            <code className="font-mono">extract_design(url, name?, save?)</code>{" "}
-            e <code className="font-mono">whoami()</code>. L&apos;agente chiede conferma prima di
-            scalare i crediti se usi Claude Code con{" "}
-            <code className="font-mono">permissionMode: plan</code>.
-          </p>
-        </div>
+                  size="md"
+                />
+              </div>
+              <pre className="text-xs font-mono text-(--ditto-text) overflow-x-auto pr-10">{`{
+  "mcpServers": {
+    "ditto": {
+      "command": "ditto-mcp",
+      "env": { "DITTO_API_KEY": "ditto_live_..." }
+    }
+  }
+}`}</pre>
+            </div>
+            <p className="text-xs text-(--ditto-text-muted)">
+              Tools esposti:{" "}
+              <code className="font-mono">extract_design</code>,{" "}
+              <code className="font-mono">whoami</code>.
+            </p>
+          </div>
+        )}
       </section>
-
-      {!hasKey && (
-        <p className="mt-10 text-center text-xs text-(--ditto-text-muted)">
-          Hai bisogno d&apos;aiuto? Leggi la README del pacchetto su{" "}
-          <a
-            href="https://www.npmjs.com/package/@didap/ditto"
-            target="_blank"
-            rel="noopener"
-            className="underline hover:text-(--ditto-text)"
-          >
-            npm
-          </a>
-          .
-        </p>
-      )}
     </div>
   );
+}
+
+function FAQ({ q, children }: { q: string; children: React.ReactNode }) {
+  return (
+    <div>
+      <dt className="text-sm font-medium text-(--ditto-text) mb-1">{q}</dt>
+      <dd className="text-sm text-(--ditto-text-secondary) leading-relaxed">{children}</dd>
+    </div>
+  );
+}
+
+function relTime(iso: string): string {
+  const now = Date.now();
+  const t = new Date(iso).getTime();
+  const diff = Math.floor((now - t) / 1000);
+  if (diff < 60) return "adesso";
+  if (diff < 3600) return `${Math.floor(diff / 60)} min fa`;
+  if (diff < 86400) return `${Math.floor(diff / 3600)} ore fa`;
+  if (diff < 86400 * 7) return `${Math.floor(diff / 86400)} giorni fa`;
+  return new Date(iso).toLocaleDateString();
 }
