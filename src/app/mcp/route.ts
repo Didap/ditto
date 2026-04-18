@@ -163,8 +163,10 @@ const mcpHandler = createMcpHandler(
     // Let the MCP handler pick reasonable defaults.
   },
   {
-    // Route base — matches the folder path (app/mcp)
-    basePath: "/mcp",
+    // Default basePath "" → streamableHttpEndpoint = "/mcp" which is exactly
+    // where this route lives. Setting basePath: "/mcp" here would make the
+    // handler expect /mcp/mcp (for a [transport]-segmented route), and our
+    // static /mcp folder would 404 on every POST.
     maxDuration: 300,
     verboseLogs: false,
   }
