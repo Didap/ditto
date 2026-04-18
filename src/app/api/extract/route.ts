@@ -68,7 +68,11 @@ export async function POST(req: NextRequest) {
 
     if (error instanceof WafBlockedError) {
       return NextResponse.json(
-        { error: error.message, refunded: deducted ? COSTS.ADD_DESIGN : 0 },
+        {
+          error: error.message,
+          refunded: deducted ? COSTS.ADD_DESIGN : 0,
+          waf: true,
+        },
         { status: 422 }
       );
     }

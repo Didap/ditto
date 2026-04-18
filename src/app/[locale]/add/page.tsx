@@ -2,11 +2,12 @@
 
 import { useState, useEffect } from "react";
 import { useCredits } from "@/lib/credits-context";
-import { useLocalePath } from "@/lib/locale-context";
+import { useLocalePath, usePathnameLocale } from "@/lib/locale-context";
 import { useOnborda } from "onborda";
 import { hasSeenTour } from "@/lib/onboarding";
 
 type ExtractionState = "idle" | "extracting" | "done" | "error";
+type BookmarkletState = "idle" | "loading" | "ready" | "error";
 
 interface ExtractionProgress {
   step: string;
@@ -15,6 +16,7 @@ interface ExtractionProgress {
 
 export default function AddDesignPage() {
   const lp = useLocalePath();
+  const locale = usePathnameLocale();
   const [url, setUrl] = useState("");
   const [name, setName] = useState("");
   const [state, setState] = useState<ExtractionState>("idle");
@@ -24,6 +26,9 @@ export default function AddDesignPage() {
   });
   const [error, setError] = useState("");
   const [resultSlug, setResultSlug] = useState("");
+  const [wafBlocked, setWafBlocked] = useState(false);
+  const [bookmarkletState, setBookmarkletState] = useState<BookmarkletState>("idle");
+  const [bookmarkletHref, setBookmarkletHref] = useState("");
   const { credits, deduct, refresh } = useCredits();
 
   const canAdd = credits !== null && credits >= 100;
@@ -41,6 +46,9 @@ export default function AddDesignPage() {
 
     setState("extracting");
     setError("");
+    setWafBlocked(false);
+    setBookmarkletState("idle");
+    setBookmarkletHref("");
 
     // Simulate progress steps
     const steps = [
@@ -84,6 +92,7 @@ export default function AddDesignPage() {
 
       if (!res.ok) {
         const data = await res.json();
+        if (data.waf) setWafBlocked(true);
         throw new Error(data.error || "Extraction failed");
       }
 
@@ -99,6 +108,23 @@ export default function AddDesignPage() {
       setError(err instanceof Error ? err.message : "Unknown error");
       // Refresh credits — the server refunds on extraction failure (WAF, errors)
       refresh();
+    }
+  };
+
+  const generateBookmarklet = async () => {
+    setBookmarkletState("loading");
+    try {
+      const res = await fetch(`/api/bookmarklet/token?locale=${encodeURIComponent(locale)}`);
+      if (!res.ok) throw new Error("Failed to issue token");
+      const { token } = (await res.json()) as { token: string };
+      const origin = window.location.origin;
+      const scriptUrl = `${origin}/api/bookmarklet/script?t=${encodeURIComponent(token)}`;
+      // Loader bookmarklet: fetches the real extraction script on click
+      const href = `javascript:(function(){var s=document.createElement('script');s.src=${JSON.stringify(scriptUrl)};document.body.appendChild(s);})()`;
+      setBookmarkletHref(href);
+      setBookmarkletState("ready");
+    } catch {
+      setBookmarkletState("error");
     }
   };
 
@@ -192,6 +218,66 @@ export default function AddDesignPage() {
             >
               Try again
             </button>
+          </div>
+        )}
+
+        {/* WAF fallback — bookmarklet extraction from the user's own browser */}
+        {state === "error" && wafBlocked && (
+          <div className="mt-6 rounded-lg border border-(--ditto-border) bg-(--ditto-bg) p-5">
+            <h3 className="text-sm font-semibold text-(--ditto-text) mb-1">
+              Estrazione server-side bloccata dal WAF
+            </h3>
+            <p className="text-xs text-(--ditto-text-secondary) leading-relaxed mb-4">
+              Alcuni siti bloccano i server cloud. Puoi estrarre i tokens direttamente dal tuo browser:
+              genera il bookmarklet, trascinalo nella barra dei segnalibri, apri il sito target e cliccalo.
+              L’estrazione avviene nel tuo tab (che ha già superato la verifica umana) e i dati arrivano a Ditto.
+            </p>
+
+            {bookmarkletState === "idle" && (
+              <button
+                onClick={generateBookmarklet}
+                className="rounded-lg bg-(--ditto-primary) px-4 py-2 text-sm font-medium text-(--ditto-bg) hover:bg-(--ditto-primary-hover) transition-colors"
+              >
+                Genera bookmarklet (valido 10 min)
+              </button>
+            )}
+
+            {bookmarkletState === "loading" && (
+              <p className="text-xs text-(--ditto-text-muted)">Generazione token…</p>
+            )}
+
+            {bookmarkletState === "error" && (
+              <p className="text-xs text-red-400">
+                Impossibile generare il bookmarklet. Riprova tra un momento.
+              </p>
+            )}
+
+            {bookmarkletState === "ready" && bookmarkletHref && (
+              <div className="flex flex-col gap-3">
+                <ol className="text-xs text-(--ditto-text-secondary) list-decimal list-inside space-y-1">
+                  <li>Trascina il link qui sotto sulla barra dei segnalibri.</li>
+                  <li>Apri il sito protetto da WAF in una nuova tab.</li>
+                  <li>Clicca sul segnalibro. Si aprirà una tab su Ditto con il nuovo design.</li>
+                </ol>
+                <a
+                  href={bookmarkletHref}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    alert(
+                      "Trascina questo link sulla barra dei segnalibri — non cliccarlo qui su Ditto."
+                    );
+                  }}
+                  draggable
+                  className="inline-flex items-center self-start gap-2 rounded-lg border border-(--ditto-primary) bg-(--ditto-primary)/10 px-4 py-2 text-sm font-medium text-(--ditto-primary) cursor-grab active:cursor-grabbing select-none"
+                >
+                  Estrai con Ditto →
+                </a>
+                <p className="text-[11px] text-(--ditto-text-muted)">
+                  L’estrazione via bookmarklet consuma 100 crediti al momento del salvataggio,
+                  esattamente come l’estrazione server-side.
+                </p>
+              </div>
+            )}
           </div>
         )}
 

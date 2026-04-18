@@ -44,6 +44,10 @@ export enum ApiError {
 
   // Figma
   FIGMA_MISSING_PARAMS = "Missing token, fileKey, or resolved design",
+
+  // Bookmarklet fallback
+  INVALID_TOKEN = "Invalid or expired bookmarklet token",
+  INVALID_EXTRACTION_DATA = "Invalid extraction payload",
 }
 
 /** Format an insufficient credits message with amounts */

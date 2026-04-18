@@ -21,7 +21,18 @@ export async function extractDesign(url: string): Promise<{
   quality: DesignQualityScore;
 }> {
   const raw = await extractFromPage(url);
+  return finalizeExtraction(raw);
+}
 
+/**
+ * Runs the processing pipeline on a `RawExtraction` obtained from any source
+ * (Puppeteer server-side, or the user's browser via the bookmarklet fallback).
+ */
+export function finalizeExtraction(raw: RawExtraction): {
+  tokens: DesignTokens;
+  resolved: ResolvedDesign;
+  quality: DesignQualityScore;
+} {
   const colors = processColors(raw.colors, raw.pageBackground);
   const typography = processTypography(raw.fonts);
   const typeScale = processTypeScale(raw.headingStyles, raw.bodyStyle, raw.fontSizes);
