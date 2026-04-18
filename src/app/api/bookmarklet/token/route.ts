@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getRequiredUser, unauthorized } from "@/lib/auth-helpers";
 import { signToken } from "@/lib/bookmarklet-token";
+import { buildBookmarkletHref } from "@/lib/bookmarklet-builder";
 
 export async function GET(req: NextRequest) {
   const user = await getRequiredUser();
@@ -11,5 +12,6 @@ export async function GET(req: NextRequest) {
   const safeLocale = /^[a-z]{2}$/.test(locale) ? locale : "en";
 
   const token = signToken({ uid: user.id, locale: safeLocale });
-  return NextResponse.json({ token });
+  const bookmarkletHref = buildBookmarkletHref(token, url.origin);
+  return NextResponse.json({ token, bookmarkletHref });
 }

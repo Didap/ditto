@@ -151,11 +151,8 @@ export default function AddDesignPage() {
     try {
       const res = await fetch(`/api/bookmarklet/token?locale=${encodeURIComponent(locale)}`);
       if (!res.ok) throw new Error("Failed to issue token");
-      const { token } = (await res.json()) as { token: string };
-      const origin = window.location.origin;
-      const scriptUrl = `${origin}/api/bookmarklet/script?t=${encodeURIComponent(token)}`;
-      // Loader bookmarklet: fetches the real extraction script on click
-      const href = `javascript:(function(){var s=document.createElement('script');s.src=${JSON.stringify(scriptUrl)};document.body.appendChild(s);})()`;
+      const { bookmarkletHref: href } = (await res.json()) as { bookmarkletHref: string };
+      if (!href) throw new Error("Missing bookmarklet href");
       setBookmarkletHref(href);
       setBookmarkletState("ready");
     } catch {
