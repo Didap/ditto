@@ -7,3 +7,6 @@ data
 *.db-wal
 .env*.local
 .DS_Store
+
+# CLI package (published separately to npm, not needed in the web app image)
+cli
