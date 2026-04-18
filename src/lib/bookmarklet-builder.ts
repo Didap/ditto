@@ -1,9 +1,17 @@
 import { extractDesignData } from "@/lib/extractor/in-page";
 
+/** Placeholder substituted client-side with `window.location.origin`. */
+export const ORIGIN_PLACEHOLDER = "__DITTO_ORIGIN__";
+
 /**
  * Builds the self-contained JS body the bookmarklet runs in the user's tab.
  * Used both by the thin-loader endpoint (script tag) and by the fat inline
- * bookmarklet (javascript: URI) served as `bookmarkletHref`.
+ * bookmarklet (javascript: URI) served as `bookmarkletBody`.
+ *
+ * The `origin` may be a sentinel (`ORIGIN_PLACEHOLDER`) that the client page
+ * substitutes with `window.location.origin` — that way we don't rely on
+ * `req.url` / forwarded-host header correctness when running behind Coolify's
+ * reverse proxy.
  *
  * Shows a fixed-position notice so the user gets immediate visual feedback —
  * strict CSP on the target site can silently drop injected scripts and the

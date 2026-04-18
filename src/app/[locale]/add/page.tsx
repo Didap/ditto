@@ -160,8 +160,15 @@ export default function AddDesignPage() {
     try {
       const res = await fetch(`/api/bookmarklet/token?locale=${encodeURIComponent(locale)}`);
       if (!res.ok) throw new Error("Failed to issue token");
-      const { bookmarkletHref: href } = (await res.json()) as { bookmarkletHref: string };
-      if (!href) throw new Error("Missing bookmarklet href");
+      const { bookmarkletBody, originPlaceholder } = (await res.json()) as {
+        bookmarkletBody: string;
+        originPlaceholder: string;
+      };
+      if (!bookmarkletBody || !originPlaceholder) {
+        throw new Error("Missing bookmarklet body");
+      }
+      const withOrigin = bookmarkletBody.split(originPlaceholder).join(window.location.origin);
+      const href = `javascript:${encodeURIComponent(withOrigin)}`;
       setBookmarkletHref(href);
       setBookmarkletState("ready");
     } catch {
