@@ -30,6 +30,10 @@ export async function runLogin(args: LoginArgs): Promise<void> {
     process.stderr.write(
       `  ✓ Logged in as ${me.user.email} — ${me.credits} credits available.\n`
     );
+    process.stderr.write(
+      `  → Try it: ditto https://stripe.com\n` +
+      `  → Or see the full workflow: ditto example\n`
+    );
   } catch (err) {
     if (err instanceof DittoApiError) {
       console.error(`  ✗ ${err.message}`);

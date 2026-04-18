@@ -6,6 +6,7 @@ import { runWhoami } from "./commands/whoami.js";
 import { runList } from "./commands/list.js";
 import { runView } from "./commands/view.js";
 import { runMerge } from "./commands/merge.js";
+import { runExample } from "./commands/example.js";
 
 const HELP = `
   ditto — extract a design system from any URL
@@ -16,6 +17,7 @@ const HELP = `
     ditto list                                              List saved designs
     ditto view <slug> [--out <path>]                        Dump DESIGN.md
     ditto whoami                                            Show account + credits
+    ditto example                                           Sample workflow + AI prompts
     ditto login [--key <key>] [--base-url <url>]            Save API key
     ditto logout                                            Clear saved config
     ditto help                                              This screen
@@ -83,6 +85,10 @@ async function main(): Promise<void> {
 
   if (command === "list") {
     return runList();
+  }
+
+  if (command === "example" || command === "demo") {
+    return runExample();
   }
 
   if (command === "view") {

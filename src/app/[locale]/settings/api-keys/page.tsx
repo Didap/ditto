@@ -322,6 +322,45 @@ export default function ApiKeysPage() {
         </dl>
       </section>
 
+      {/* ─── Esempio pratico ─────────────────────────────────────────── */}
+      <section className="mb-10 rounded-xl border border-(--ditto-border) bg-(--ditto-surface) p-5">
+        <h2 className="text-sm font-semibold text-(--ditto-text) mb-3 flex items-center gap-2">
+          <Sparkles className="w-4 h-4 text-(--ditto-primary)" strokeWidth={1.75} />
+          Esempio: estrai Stripe e fallo usare a un agente AI
+        </h2>
+        <ol className="space-y-3 text-sm text-(--ditto-text-secondary)">
+          <li>
+            <strong className="text-(--ditto-text)">1.</strong> Apri il tuo progetto nel
+            terminale:
+            <div className="mt-1.5">
+              <Cmd>cd mio-progetto/</Cmd>
+            </div>
+          </li>
+          <li>
+            <strong className="text-(--ditto-text)">2.</strong> Estrai lo stile:
+            <div className="mt-1.5">
+              <Cmd>ditto https://stripe.com</Cmd>
+            </div>
+            <p className="text-xs text-(--ditto-text-muted) mt-1">
+              Ora hai un <code className="font-mono">DESIGN.md</code> nella cartella.
+            </p>
+          </li>
+          <li>
+            <strong className="text-(--ditto-text)">3.</strong> Apri Claude Code (o Cursor) e
+            chiedigli:
+            <div className="mt-2 rounded-lg border border-(--ditto-primary)/30 bg-(--ditto-primary)/5 px-4 py-3 text-sm italic text-(--ditto-text)">
+              &ldquo;Leggi DESIGN.md e ricostruisci la mia landing page usando quei colori,
+              font e componenti. Replica l&apos;hero pattern descritto e mantieni lo stesso
+              sentiment.&rdquo;
+            </div>
+            <p className="text-xs text-(--ditto-text-muted) mt-1">
+              L&apos;agente userà i token estratti come source of truth per generare UI
+              coerente con il brand.
+            </p>
+          </li>
+        </ol>
+      </section>
+
       {/* ─── MCP (collapsed by default) ─────────────────────────────────── */}
       <section>
         <button
@@ -336,20 +375,52 @@ export default function ApiKeysPage() {
           </span>
         </button>
         {showMcp && (
-          <div className="mt-4 rounded-xl border border-(--ditto-border) bg-(--ditto-surface) p-5 space-y-3">
+          <div className="mt-4 space-y-4">
             <p className="text-sm text-(--ditto-text-secondary) leading-relaxed">
-              Il pacchetto include un server MCP:{" "}
-              <code className="font-mono text-xs">ditto-mcp</code>. Qualsiasi
-              agente compatibile può chiamare l&apos;estrazione durante una sessione.
+              Ditto espone un server MCP che i tuoi agenti AI possono chiamare direttamente
+              durante una sessione (niente bisogno di {"`"}ditto{" "}
+              {"<url>"}{"`"} manuale). Scegli come collegarlo:
             </p>
-            <p className="text-xs text-(--ditto-text-muted)">
-              Aggiungi a <code className="font-mono">~/.claude.json</code> (o{" "}
-              <code className="font-mono">.mcp.json</code> del progetto):
-            </p>
-            <div className="relative rounded-lg border border-(--ditto-border) bg-(--ditto-bg) p-3">
-              <div className="absolute top-2 right-2">
-                <CopyBtn
-                  text={`{
+
+            {/* Option A — hosted HTTP (recommended) */}
+            <div className="rounded-xl border-2 border-(--ditto-primary) bg-(--ditto-surface) p-5">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="text-[10px] font-bold uppercase tracking-wider bg-(--ditto-primary) text-(--ditto-bg) px-2 py-0.5 rounded">
+                  Consigliato
+                </span>
+                <h3 className="text-sm font-semibold text-(--ditto-text)">
+                  A — Server hosted (zero install)
+                </h3>
+              </div>
+              <p className="text-xs text-(--ditto-text-secondary) leading-relaxed mb-3">
+                Usa l&apos;MCP di Ditto direttamente via HTTP — nessun pacchetto npm, nessun
+                binario locale. Claude Code lo aggiunge con un comando.
+              </p>
+              <Cmd>{`claude mcp add --transport http ditto https://dittodesign.dev/mcp --header "Authorization: Bearer ditto_live_..."`}</Cmd>
+              <p className="text-[11px] text-(--ditto-text-muted) mt-2">
+                Sostituisci <code className="font-mono">ditto_live_...</code> con una chiave
+                generata qui sopra. Lo stesso comando funziona per Cursor / Zed, cambia solo
+                il client di gestione.
+              </p>
+            </div>
+
+            {/* Option B — local npm package */}
+            <div className="rounded-xl border border-(--ditto-border) bg-(--ditto-surface) p-5">
+              <h3 className="text-sm font-semibold text-(--ditto-text) mb-2">
+                B — Pacchetto npm (stdio locale)
+              </h3>
+              <p className="text-xs text-(--ditto-text-secondary) leading-relaxed mb-3">
+                Per chi vuole tenersi il binario in locale e non dipendere dal nostro server.
+                Installa il pacchetto e aggiungilo a{" "}
+                <code className="font-mono">~/.claude.json</code>:
+              </p>
+              <div className="space-y-2 mb-3">
+                <Cmd>npm i -g @didap/ditto</Cmd>
+              </div>
+              <div className="relative rounded-lg border border-(--ditto-border) bg-(--ditto-bg) p-3">
+                <div className="absolute top-2 right-2">
+                  <CopyBtn
+                    text={`{
   "mcpServers": {
     "ditto": {
       "command": "ditto-mcp",
@@ -357,10 +428,10 @@ export default function ApiKeysPage() {
     }
   }
 }`}
-                  size="md"
-                />
-              </div>
-              <pre className="text-xs font-mono text-(--ditto-text) overflow-x-auto pr-10">{`{
+                    size="md"
+                  />
+                </div>
+                <pre className="text-xs font-mono text-(--ditto-text) overflow-x-auto pr-10">{`{
   "mcpServers": {
     "ditto": {
       "command": "ditto-mcp",
@@ -368,11 +439,14 @@ export default function ApiKeysPage() {
     }
   }
 }`}</pre>
+              </div>
             </div>
+
             <p className="text-xs text-(--ditto-text-muted)">
-              Tools esposti:{" "}
+              Tools esposti da entrambi:{" "}
               <code className="font-mono">extract_design</code>,{" "}
-              <code className="font-mono">whoami</code>.
+              <code className="font-mono">whoami</code>. L&apos;agente può chiamarli durante
+              la sessione; ogni estrazione scala 100 crediti dal tuo account.
             </p>
           </div>
         )}

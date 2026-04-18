@@ -55,7 +55,7 @@ export default auth((req) => {
   const locale = extractLocale(pathname);
   if (!locale) {
     // No locale prefix → redirect to detected locale
-    const detected = detectLocale(req);
+    const detected = detectLocale(req as unknown as Request);
     const url = req.nextUrl.clone();
     url.pathname = `/${detected}${pathname === "/" ? "" : pathname}`;
     return Response.redirect(url, 307);

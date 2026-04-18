@@ -1,6 +1,6 @@
 {
   "name": "@didap/ditto",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Extract a design system from any website. Writes DESIGN.md into your project, with a matching MCP server for Claude Code / Cursor / Zed.",
   "type": "module",
   "bin": {
