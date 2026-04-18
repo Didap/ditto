@@ -80,5 +80,5 @@ export default auth((req) => {
 });
 
 export const config = {
-  matcher: ["/((?!_next/static|_next/image|favicon\\.ico|robots\\.txt|sitemap\\.xml|llms\\.txt|pricing\\.md|site\\.webmanifest|api/|mcp(?:/|$)|.*\\.json|.*\\.gif|.*\\.png|.*\\.jpg|.*\\.svg|.*\\.webp|.*\\.ico|.*\\.woff2?).*)"],
+  matcher: ["/((?!_next/static|_next/image|favicon\\.ico|robots\\.txt|sitemap\\.xml|llms\\.txt|pricing\\.md|site\\.webmanifest|api/|mcp(?:/|$)|\\.well-known/|.*\\.json|.*\\.gif|.*\\.png|.*\\.jpg|.*\\.svg|.*\\.webp|.*\\.ico|.*\\.woff2?).*)"],
 };

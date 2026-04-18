@@ -383,14 +383,28 @@ export default function ApiKeysPage() {
                 </h3>
               </div>
               <p className="text-xs text-(--ditto-text-secondary) leading-relaxed mb-3">
-                Usa l&apos;MCP di Ditto direttamente via HTTP — nessun pacchetto npm, nessun
-                binario locale. Claude Code lo aggiunge con un comando.
+                Nessun pacchetto npm, nessun binario. Claude Code si collega al nostro
+                server MCP via HTTP con un singolo comando.
               </p>
-              <Cmd>{`claude mcp add --transport http ditto https://dittodesign.dev/mcp --header "Authorization: Bearer ditto_live_..."`}</Cmd>
+
+              <p className="text-xs text-(--ditto-text-secondary) mb-1.5">
+                <strong>1.</strong> Assicurati di avere una chiave generata qui sopra e
+                copiala. Poi lancia nel tuo terminale:
+              </p>
+              <Cmd>{`claude mcp add --transport http ditto https://dittodesign.dev/mcp --header "Authorization: Bearer INCOLLA_LA_TUA_CHIAVE_QUI"`}</Cmd>
+              <div className="mt-2 flex items-start gap-2 rounded-lg border border-(--ditto-warning)/40 bg-(--ditto-warning)/10 px-3 py-2">
+                <span className="text-(--ditto-warning) text-xs font-bold shrink-0">⚠</span>
+                <p className="text-[11px] text-(--ditto-text-secondary) leading-relaxed">
+                  <strong className="text-(--ditto-text)">Il flag <code className="font-mono">--header</code> è obbligatorio.</strong>{" "}
+                  Senza, Claude Code prova a fare OAuth (che non supportiamo) e l&apos;MCP
+                  dà <em>&quot;Failed to parse JSON&quot;</em>. Sostituisci
+                  <code className="font-mono"> INCOLLA_LA_TUA_CHIAVE_QUI</code> con una chiave reale
+                  (es. <code className="font-mono">ditto_live_abc123…</code>).
+                </p>
+              </div>
               <p className="text-[11px] text-(--ditto-text-muted) mt-2">
-                Sostituisci <code className="font-mono">ditto_live_...</code> con una chiave
-                generata qui sopra. Lo stesso comando funziona per Cursor / Zed, cambia solo
-                il client di gestione.
+                Funziona allo stesso modo per Cursor, Zed e altri client MCP — cambia solo
+                il binario CLI del client al posto di <code className="font-mono">claude</code>.
               </p>
             </div>
 

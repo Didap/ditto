@@ -170,7 +170,15 @@ const mcpHandler = createMcpHandler(
   }
 );
 
-/** Extract the Bearer token from the Authorization header. */
+/**
+ * Bearer-token auth wrapper. We intentionally don't advertise an OAuth
+ * resource-metadata URL: this server uses static API keys, not OAuth. If we
+ * set `resourceMetadataPath`, MCP clients (e.g. Claude Code) try to fetch
+ * that URL on 401, parse it as JSON, and blow up with
+ * "SDK auth failed: Failed to parse JSON" if the client forgot the
+ * `--header Authorization: Bearer ...` flag. With `resourceMetadataPath`
+ * omitted, the client just reports "not authenticated" cleanly.
+ */
 const authHandler = withMcpAuth(
   mcpHandler,
   async (_req, token) => {
@@ -180,7 +188,6 @@ const authHandler = withMcpAuth(
   {
     required: true,
     requiredScopes: ["extract"],
-    resourceMetadataPath: "/.well-known/oauth-protected-resource",
   }
 );
 
