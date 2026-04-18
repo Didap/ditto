@@ -216,9 +216,22 @@ export default function ApiKeysPage() {
               </button>
             </div>
             <p className="text-xs text-(--ditto-text-secondary) mb-2">
-              Login rapido (incollalo nel tuo terminale):
+              Incolla uno di questi nel terminale — la chiave è già sostituita:
             </p>
-            <Cmd>{`ditto login --key ${justCreated.key}`}</Cmd>
+            <div className="space-y-2">
+              <div>
+                <p className="text-[11px] text-(--ditto-text-muted) mb-1 pl-1">
+                  CLI — login globale
+                </p>
+                <Cmd>{`ditto login --key ${justCreated.key}`}</Cmd>
+              </div>
+              <div>
+                <p className="text-[11px] text-(--ditto-text-muted) mb-1 pl-1">
+                  MCP hosted — Claude Code / Cursor / Zed
+                </p>
+                <Cmd>{`claude mcp add --transport http ditto https://dittodesign.dev/mcp --header "Authorization: Bearer ${justCreated.key}"`}</Cmd>
+              </div>
+            </div>
             <button
               onClick={() => setJustCreated(null)}
               className="mt-3 text-xs text-(--ditto-text-muted) hover:text-(--ditto-text) underline"
