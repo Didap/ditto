@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint src/",
-    "cli": "tsx cli/index.ts",
+    "cli:local": "tsx scripts/extract-local.ts",
+    "build:cli": "cd cli && npm run build",
     "test": "vitest run",
     "test:watch": "vitest"
   },

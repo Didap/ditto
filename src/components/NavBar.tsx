@@ -173,6 +173,7 @@ export function NavBar({ user }: NavBarProps) {
             <Link href={lp("/catalog")} className="block px-4 py-2 text-sm text-(--ditto-text-secondary) hover:text-(--ditto-text) hover:bg-(--ditto-bg) transition-colors">{t("navCatalog")}</Link>
             <Link href={lp("/add")} className="block px-4 py-2 text-sm text-(--ditto-text-secondary) hover:text-(--ditto-text) hover:bg-(--ditto-bg) transition-colors">{t("navAddDesign")}</Link>
             <Link href={lp("/inspire")} className="block px-4 py-2 text-sm text-(--ditto-text-secondary) hover:text-(--ditto-text) hover:bg-(--ditto-bg) transition-colors">{t("navMixDesign")}</Link>
+            <Link href={lp("/settings/api-keys")} className="block px-4 py-2 text-sm text-(--ditto-text-secondary) hover:text-(--ditto-text) hover:bg-(--ditto-bg) transition-colors">CLI &amp; API keys</Link>
           </div>
           {/* Theme toggle */}
                     <div className="px-4 py-2.5 border-b border-(--ditto-border)">

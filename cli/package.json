@@ -1,0 +1,50 @@
+{
+  "name": "@didap/ditto",
+  "version": "0.1.0",
+  "description": "Extract a design system from any website. Writes DESIGN.md into your project, with a matching MCP server for Claude Code / Cursor / Zed.",
+  "type": "module",
+  "bin": {
+    "ditto": "./dist/index.js",
+    "ditto-mcp": "./dist/mcp.js"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc && chmod +x dist/index.js dist/mcp.js",
+    "dev": "tsc --watch",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "design-system",
+    "design-tokens",
+    "css",
+    "extractor",
+    "mcp",
+    "claude-code",
+    "cli"
+  ],
+  "author": "Didap",
+  "license": "MIT",
+  "homepage": "https://ditto.didap.it",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Didap/ditto.git",
+    "directory": "cli"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.5.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

@@ -1,5 +1,9 @@
 # dependencies
 /node_modules
+/cli/node_modules
+
+# CLI build output (rebuilt on publish)
+/cli/dist
 /.pnp
 .pnp.*
 .yarn/*

@@ -112,6 +112,28 @@ export const designUnlocks = pgTable(
 export type DesignUnlockSelect = typeof designUnlocks.$inferSelect;
 export type DesignUnlockInsert = typeof designUnlocks.$inferInsert;
 
+// ── API Keys (CLI + MCP authentication) ──
+
+export const apiKeys = pgTable(
+  "api_keys",
+  {
+    id: text("id").primaryKey(),
+    userId: text("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    name: text("name").notNull(), // user-visible label
+    keyHash: text("key_hash").notNull().unique(), // SHA-256 of the raw key
+    keyPrefix: text("key_prefix").notNull(), // first 12 chars of raw key for UI display
+    lastUsedAt: timestamp("last_used_at", { withTimezone: true }),
+    revokedAt: timestamp("revoked_at", { withTimezone: true }),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (table) => [index("api_keys_user_idx").on(table.userId)]
+);
+
+export type ApiKeySelect = typeof apiKeys.$inferSelect;
+export type ApiKeyInsert = typeof apiKeys.$inferInsert;
+
 // ── Pricing (plans + credit packs) ──
 
 /** Regional Stripe price entry */
