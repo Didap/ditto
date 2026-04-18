@@ -1,4 +1,4 @@
-import { extractFromPage, type RawExtraction } from "./browser";
+import { extractFromPage, type RawExtraction, type ProxyConfig } from "./browser";
 import type {
   DesignTokens,
   ResolvedDesign,
@@ -15,12 +15,15 @@ import { scoreDesignQuality, type DesignQualityScore } from "../quality-scorer";
 
 // ── Main extraction pipeline ──
 
-export async function extractDesign(url: string): Promise<{
+export async function extractDesign(
+  url: string,
+  opts?: { proxy?: ProxyConfig }
+): Promise<{
   tokens: DesignTokens;
   resolved: ResolvedDesign;
   quality: DesignQualityScore;
 }> {
-  const raw = await extractFromPage(url);
+  const raw = await extractFromPage(url, opts);
   return finalizeExtraction(raw);
 }
 

@@ -221,61 +221,157 @@ export default function AddDesignPage() {
           </div>
         )}
 
-        {/* WAF fallback — bookmarklet extraction from the user's own browser */}
+        {/* Fallback 2 — manual extraction from the user's own browser via bookmarklet.
+            Shown only when BOTH local Puppeteer AND the ScraperAPI proxy retry fail. */}
         {state === "error" && wafBlocked && (
-          <div className="mt-6 rounded-lg border border-(--ditto-border) bg-(--ditto-bg) p-5">
-            <h3 className="text-sm font-semibold text-(--ditto-text) mb-1">
-              Estrazione server-side bloccata dal WAF
-            </h3>
-            <p className="text-xs text-(--ditto-text-secondary) leading-relaxed mb-4">
-              Alcuni siti bloccano i server cloud. Puoi estrarre i tokens direttamente dal tuo browser:
-              genera il bookmarklet, trascinalo nella barra dei segnalibri, apri il sito target e cliccalo.
-              L’estrazione avviene nel tuo tab (che ha già superato la verifica umana) e i dati arrivano a Ditto.
-            </p>
+          <div className="mt-6 rounded-xl border border-(--ditto-border) bg-(--ditto-bg) p-5">
+            <div className="flex items-start gap-3 mb-4">
+              <div className="mt-0.5 w-6 h-6 rounded-full bg-(--ditto-primary)/20 text-(--ditto-primary) text-xs font-bold flex items-center justify-center shrink-0">
+                !
+              </div>
+              <div>
+                <h3 className="text-sm font-semibold text-(--ditto-text) mb-1">
+                  Questo sito ci respinge anche via proxy
+                </h3>
+                <p className="text-xs text-(--ditto-text-secondary) leading-relaxed">
+                  Abbiamo già provato due strade automatiche (il nostro server + un proxy residenziale) ma il sito
+                  ha protezioni più strette del solito. L&apos;alternativa è estrarre dal <strong>tuo</strong> browser,
+                  che ha già superato la verifica umana.
+                </p>
+              </div>
+            </div>
 
             {bookmarkletState === "idle" && (
               <button
                 onClick={generateBookmarklet}
                 className="rounded-lg bg-(--ditto-primary) px-4 py-2 text-sm font-medium text-(--ditto-bg) hover:bg-(--ditto-primary-hover) transition-colors"
               >
-                Genera bookmarklet (valido 10 min)
+                Procedi con estrazione manuale
               </button>
             )}
 
             {bookmarkletState === "loading" && (
-              <p className="text-xs text-(--ditto-text-muted)">Generazione token…</p>
+              <p className="text-xs text-(--ditto-text-muted)">Preparazione del link…</p>
             )}
 
             {bookmarkletState === "error" && (
               <p className="text-xs text-red-400">
-                Impossibile generare il bookmarklet. Riprova tra un momento.
+                Non sono riuscito a generare il link. Riprova tra un momento.
               </p>
             )}
 
             {bookmarkletState === "ready" && bookmarkletHref && (
-              <div className="flex flex-col gap-3">
-                <ol className="text-xs text-(--ditto-text-secondary) list-decimal list-inside space-y-1">
-                  <li>Trascina il link qui sotto sulla barra dei segnalibri.</li>
-                  <li>Apri il sito protetto da WAF in una nuova tab.</li>
-                  <li>Clicca sul segnalibro. Si aprirà una tab su Ditto con il nuovo design.</li>
-                </ol>
-                <a
-                  href={bookmarkletHref}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    alert(
-                      "Trascina questo link sulla barra dei segnalibri — non cliccarlo qui su Ditto."
-                    );
-                  }}
-                  draggable
-                  className="inline-flex items-center self-start gap-2 rounded-lg border border-(--ditto-primary) bg-(--ditto-primary)/10 px-4 py-2 text-sm font-medium text-(--ditto-primary) cursor-grab active:cursor-grabbing select-none"
-                >
-                  Estrai con Ditto →
-                </a>
-                <p className="text-[11px] text-(--ditto-text-muted)">
-                  L’estrazione via bookmarklet consuma 100 crediti al momento del salvataggio,
-                  esattamente come l’estrazione server-side.
+              <div className="flex flex-col gap-4">
+                <p className="text-xs text-(--ditto-text-secondary)">
+                  Segui i 4 passaggi qui sotto. Lo fai una volta sola — poi il segnalibro resta sul tuo browser
+                  e puoi riusarlo su qualsiasi sito &quot;ostico&quot;.
                 </p>
+
+                {/* Step 1 */}
+                <div className="flex gap-3">
+                  <div className="w-6 h-6 rounded-full bg-(--ditto-primary) text-(--ditto-bg) text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">
+                    1
+                  </div>
+                  <div className="flex-1">
+                    <p className="text-sm font-medium text-(--ditto-text) mb-1">
+                      Mostra la barra dei segnalibri
+                    </p>
+                    <p className="text-xs text-(--ditto-text-secondary) leading-relaxed">
+                      Serve visibile per poterci trascinare sopra il link.
+                      Premi{" "}
+                      <kbd className="px-1.5 py-0.5 rounded border border-(--ditto-border) bg-(--ditto-surface) text-[11px] font-mono">
+                        ⌘ Cmd
+                      </kbd>{" "}
+                      +{" "}
+                      <kbd className="px-1.5 py-0.5 rounded border border-(--ditto-border) bg-(--ditto-surface) text-[11px] font-mono">
+                        Shift
+                      </kbd>{" "}
+                      +{" "}
+                      <kbd className="px-1.5 py-0.5 rounded border border-(--ditto-border) bg-(--ditto-surface) text-[11px] font-mono">
+                        B
+                      </kbd>{" "}
+                      su Mac, o{" "}
+                      <kbd className="px-1.5 py-0.5 rounded border border-(--ditto-border) bg-(--ditto-surface) text-[11px] font-mono">
+                        Ctrl
+                      </kbd>{" "}
+                      +{" "}
+                      <kbd className="px-1.5 py-0.5 rounded border border-(--ditto-border) bg-(--ditto-surface) text-[11px] font-mono">
+                        Shift
+                      </kbd>{" "}
+                      +{" "}
+                      <kbd className="px-1.5 py-0.5 rounded border border-(--ditto-border) bg-(--ditto-surface) text-[11px] font-mono">
+                        B
+                      </kbd>{" "}
+                      su Windows/Linux.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Step 2 */}
+                <div className="flex gap-3">
+                  <div className="w-6 h-6 rounded-full bg-(--ditto-primary) text-(--ditto-bg) text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">
+                    2
+                  </div>
+                  <div className="flex-1">
+                    <p className="text-sm font-medium text-(--ditto-text) mb-1">
+                      Trascina questo bottone sulla barra segnalibri
+                    </p>
+                    <p className="text-xs text-(--ditto-text-secondary) leading-relaxed mb-2">
+                      Tieni premuto il tasto sinistro del mouse sul bottone qui sotto, portalo in alto sulla barra
+                      segnalibri, rilascia. Non cliccarlo: trascinalo.
+                    </p>
+                    <a
+                      href={bookmarkletHref}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        alert(
+                          "Non cliccare: trascinalo sulla barra dei segnalibri in alto."
+                        );
+                      }}
+                      draggable
+                      title="Trascinami sulla barra dei segnalibri"
+                      className="inline-flex items-center gap-2 rounded-lg border-2 border-dashed border-(--ditto-primary) bg-(--ditto-primary)/10 hover:bg-(--ditto-primary)/15 px-4 py-2.5 text-sm font-semibold text-(--ditto-primary) cursor-grab active:cursor-grabbing select-none transition-colors"
+                    >
+                      <span className="text-base leading-none">↥</span>
+                      Estrai con Ditto
+                    </a>
+                  </div>
+                </div>
+
+                {/* Step 3 */}
+                <div className="flex gap-3">
+                  <div className="w-6 h-6 rounded-full bg-(--ditto-primary) text-(--ditto-bg) text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">
+                    3
+                  </div>
+                  <div className="flex-1">
+                    <p className="text-sm font-medium text-(--ditto-text) mb-1">
+                      Apri il sito da estrarre in una nuova tab
+                    </p>
+                    <p className="text-xs text-(--ditto-text-secondary) leading-relaxed">
+                      Vai su{" "}
+                      <code className="px-1.5 py-0.5 rounded bg-(--ditto-surface) text-(--ditto-text) text-[11px] font-mono break-all">
+                        {url || "il sito che volevi estrarre"}
+                      </code>{" "}
+                      in una nuova scheda del browser.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Step 4 */}
+                <div className="flex gap-3">
+                  <div className="w-6 h-6 rounded-full bg-(--ditto-primary) text-(--ditto-bg) text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">
+                    4
+                  </div>
+                  <div className="flex-1">
+                    <p className="text-sm font-medium text-(--ditto-text) mb-1">
+                      Una volta sul sito, clicca il segnalibro &quot;Estrai con Ditto&quot;
+                    </p>
+                    <p className="text-xs text-(--ditto-text-secondary) leading-relaxed">
+                      Si aprirà una nuova scheda su Ditto con il messaggio &quot;Design saved&quot;. 100 crediti
+                      vengono scalati solo allora. Il link è valido 10 minuti — dopo, rigeneralo.
+                    </p>
+                  </div>
+                </div>
               </div>
             )}
           </div>

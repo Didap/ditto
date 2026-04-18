@@ -62,6 +62,20 @@ const FONTS_DIR = path.join(process.cwd(), "public", "fonts");
 
 let browserInstance: Browser | null = null;
 
+const BASE_LAUNCH_ARGS = [
+  "--no-sandbox",
+  "--disable-setuid-sandbox",
+  "--disable-dev-shm-usage",
+  "--disable-gpu",
+];
+
+export interface ProxyConfig {
+  /** Proxy host:port, e.g. "proxy-server.scraperapi.com:8001" */
+  server: string;
+  username: string;
+  password: string;
+}
+
 export async function getBrowser(): Promise<Browser> {
   if (browserInstance && browserInstance.connected) {
     return browserInstance;
@@ -70,14 +84,22 @@ export async function getBrowser(): Promise<Browser> {
   browserInstance = (await puppeteerExtra.launch({
     headless: true,
     executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || undefined,
-    args: [
-      "--no-sandbox",
-      "--disable-setuid-sandbox",
-      "--disable-dev-shm-usage",
-      "--disable-gpu",
-    ],
+    args: BASE_LAUNCH_ARGS,
   })) as unknown as Browser;
   return browserInstance;
+}
+
+/**
+ * Launches a fresh (non-cached) browser routed through the given proxy.
+ * Caller is responsible for closing it.
+ */
+async function launchProxiedBrowser(proxy: ProxyConfig): Promise<Browser> {
+  const puppeteerExtra = await loadPuppeteerExtra();
+  return (await puppeteerExtra.launch({
+    headless: true,
+    executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || undefined,
+    args: [...BASE_LAUNCH_ARGS, `--proxy-server=${proxy.server}`],
+  })) as unknown as Browser;
 }
 
 export async function closeBrowser(): Promise<void> {
@@ -87,9 +109,18 @@ export async function closeBrowser(): Promise<void> {
   }
 }
 
-export async function extractFromPage(url: string): Promise<RawExtraction> {
-  const browser = await getBrowser();
+export async function extractFromPage(
+  url: string,
+  opts?: { proxy?: ProxyConfig }
+): Promise<RawExtraction> {
+  const proxy = opts?.proxy;
+  const browser = proxy ? await launchProxiedBrowser(proxy) : await getBrowser();
+  const shouldCloseBrowser = Boolean(proxy);
   const page = await browser.newPage();
+
+  if (proxy) {
+    await page.authenticate({ username: proxy.username, password: proxy.password });
+  }
 
   await page.setViewport({ width: 1440, height: 900 });
   await page.setUserAgent(
@@ -216,7 +247,8 @@ export async function extractFromPage(url: string): Promise<RawExtraction> {
       },
     };
   } finally {
-    await page.close();
+    await page.close().catch(() => {});
+    if (shouldCloseBrowser) await browser.close().catch(() => {});
   }
 }
 

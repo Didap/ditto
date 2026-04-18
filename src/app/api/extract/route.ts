@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { extractDesign } from "@/lib/extractor";
-import { WafBlockedError } from "@/lib/extractor/browser";
+import { WafBlockedError, type ProxyConfig } from "@/lib/extractor/browser";
 import { generateDesignMd } from "@/lib/generator/design-md";
 import { saveDesign, generateSlug } from "@/lib/store";
 import { getRequiredUser, unauthorized } from "@/lib/auth-helpers";
@@ -10,6 +10,19 @@ import type { StoredDesign } from "@/lib/types";
 import { ApiError, insufficientCredits } from "@/lib/errors";
 
 export const maxDuration = 120;
+
+/** Build the ScraperAPI proxy config from env, or null if the key isn't set. */
+function scraperApiProxy(): ProxyConfig | null {
+  const key = process.env.SCRAPERAPI_KEY;
+  if (!key) return null;
+  return {
+    server: "proxy-server.scraperapi.com:8001",
+    // `premium=true` routes through residential IPs; good enough for most WAFs.
+    // Each request costs ~5 credits against the free 5k monthly quota.
+    username: "scraperapi.premium=true",
+    password: key,
+  };
+}
 
 export async function POST(req: NextRequest) {
   const user = await getRequiredUser();
@@ -34,7 +47,31 @@ export async function POST(req: NextRequest) {
     }
     deducted = true;
 
-    const { tokens, resolved, quality } = await extractDesign(url);
+    // Fallback chain: local Puppeteer → ScraperAPI residential proxy → bookmarklet UI
+    let extraction;
+    try {
+      extraction = await extractDesign(url);
+    } catch (firstError) {
+      const proxy = scraperApiProxy();
+      if (firstError instanceof WafBlockedError && proxy) {
+        console.warn("[extract] WAF detected, retrying via ScraperAPI proxy");
+        try {
+          extraction = await extractDesign(url, { proxy });
+        } catch (secondError) {
+          // ScraperAPI couldn't pass either — surface as WAF so UI offers the
+          // bookmarklet fallback rather than a generic 500.
+          console.error("[extract] ScraperAPI fallback failed:", secondError);
+          throw new WafBlockedError(
+            secondError instanceof WafBlockedError
+              ? secondError.message
+              : `Site protected — proxy fallback failed. Try the browser bookmarklet below.`
+          );
+        }
+      } else {
+        throw firstError;
+      }
+    }
+    const { tokens, resolved, quality } = extraction;
 
     const designName = name || tokens.meta.title || "Untitled";
     const designMd = generateDesignMd(designName, tokens, resolved);
