@@ -42,7 +42,7 @@ data/
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-.claude/settings.json
+.claude/
 README.md
 
 # extracted fonts (per-site, downloaded by extractor)
