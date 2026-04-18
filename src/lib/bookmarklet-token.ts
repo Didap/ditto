@@ -1,5 +1,4 @@
 import crypto from "node:crypto";
-import { env } from "@/lib/env";
 
 export interface TokenPayload {
   uid: string;
@@ -8,6 +7,12 @@ export interface TokenPayload {
 }
 
 const DEFAULT_TTL_SECONDS = 600;
+
+function getSecret(): string {
+  const s = process.env.AUTH_SECRET;
+  if (!s) throw new Error("AUTH_SECRET is not set");
+  return s;
+}
 
 function b64url(buf: Buffer): string {
   return buf
@@ -33,7 +38,7 @@ export function signToken(
   };
   const payloadB64 = b64url(Buffer.from(JSON.stringify(full)));
   const sig = crypto
-    .createHmac("sha256", env.AUTH_SECRET)
+    .createHmac("sha256", getSecret())
     .update(payloadB64)
     .digest();
   return `${payloadB64}.${b64url(sig)}`;
@@ -45,7 +50,7 @@ export function verifyToken(token: string): TokenPayload | null {
   const [payloadB64, sigB64] = parts;
 
   const expectedSig = crypto
-    .createHmac("sha256", env.AUTH_SECRET)
+    .createHmac("sha256", getSecret())
     .update(payloadB64)
     .digest();
   const providedSig = b64urlDecode(sigB64);
