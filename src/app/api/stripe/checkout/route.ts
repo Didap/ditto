@@ -57,11 +57,11 @@ export async function POST(req: NextRequest) {
     line_items: [{ price: priceId, quantity: 1 }],
     success_url: `${origin}/${loc}/dashboard?checkout=success`,
     cancel_url: `${origin}/${loc}/pricing?checkout=cancelled`,
-    metadata: { userId: user.id },
+    metadata: { userId: user.id, locale: loc },
     // Apply launch coupon if promo is still active
     ...(launch ? { discounts: [{ coupon: LAUNCH_COUPON_ID }] } : {}),
-    ...(isSubscription ? { subscription_data: { metadata: { userId: user.id } } } : {}),
-    ...(isSubscription ? {} : { payment_intent_data: { metadata: { userId: user.id } } }),
+    ...(isSubscription ? { subscription_data: { metadata: { userId: user.id, locale: loc } } } : {}),
+    ...(isSubscription ? {} : { payment_intent_data: { metadata: { userId: user.id, locale: loc } } }),
   });
 
   return NextResponse.json({ url: session.url });

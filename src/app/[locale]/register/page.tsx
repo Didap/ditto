@@ -3,7 +3,7 @@
 import { useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { useLocalePath } from "@/lib/locale-context";
+import { useLocalePath, usePathnameLocale } from "@/lib/locale-context";
 
 export default function RegisterPage() {
   return (
@@ -16,6 +16,7 @@ export default function RegisterPage() {
 function RegisterForm() {
   const searchParams = useSearchParams();
   const lp = useLocalePath();
+  const locale = usePathnameLocale();
   const referralCode = searchParams.get("ref") || "";
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -45,7 +46,7 @@ function RegisterForm() {
       const res = await fetch("/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, name, password, referralCode }),
+        body: JSON.stringify({ email, name, password, referralCode, locale }),
       });
 
       const data = await res.json();

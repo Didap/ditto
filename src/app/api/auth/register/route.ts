@@ -8,10 +8,16 @@ import { eq } from "drizzle-orm";
 import { generateReferralCode, processReferral } from "@/lib/quests";
 import { ApiError } from "@/lib/errors";
 import { sendVerificationEmail } from "@/lib/email";
+import { LOCALES, type Locale } from "@/lib/i18n";
+
+const LOCALE_CODES = new Set<string>(LOCALES.map((l) => l.code));
 
 export async function POST(req: NextRequest) {
   try {
-    const { email, name, password, referralCode: refCode } = await req.json();
+    const { email, name, password, referralCode: refCode, locale: rawLocale } = await req.json();
+    const locale: Locale = typeof rawLocale === "string" && LOCALE_CODES.has(rawLocale)
+      ? (rawLocale as Locale)
+      : "en";
 
     if (!email || !name || !password) {
       return NextResponse.json(
@@ -69,7 +75,7 @@ export async function POST(req: NextRequest) {
     // Send verification email — don't fail registration if email delivery fails,
     // but always log the error so we can diagnose in production.
     try {
-      const result = await sendVerificationEmail(email, name, verifyToken);
+      const result = await sendVerificationEmail(email, name, verifyToken, locale);
       if (result?.error) {
         console.error("[register] Resend returned error:", result.error);
       }

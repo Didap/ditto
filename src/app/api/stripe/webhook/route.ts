@@ -4,6 +4,13 @@ import { ApiError } from "@/lib/errors";
 import { db } from "@/lib/db";
 import { users, pricing } from "@/lib/db/schema";
 import { eq, sql } from "drizzle-orm";
+import { sendStripePurchaseEmail } from "@/lib/email";
+import type { Locale } from "@/lib/i18n";
+
+const VALID_LOCALES = new Set<string>(["en", "it", "fr", "es"]);
+function parseLocale(raw: string | null | undefined): Locale {
+  return raw && VALID_LOCALES.has(raw) ? (raw as Locale) : "en";
+}
 
 export async function POST(req: NextRequest) {
   const body = await req.text();
@@ -31,6 +38,15 @@ export async function POST(req: NextRequest) {
     return row ?? null;
   }
 
+  async function findUser(userId: string) {
+    const [row] = await db
+      .select({ email: users.email, name: users.name, credits: users.credits })
+      .from(users)
+      .where(eq(users.id, userId))
+      .limit(1);
+    return row ?? null;
+  }
+
   switch (event.type) {
     // ── Checkout completed (one-time pack purchase) ──
     case "checkout.session.completed": {
@@ -50,6 +66,21 @@ export async function POST(req: NextRequest) {
             .set({ credits: sql`${users.credits} + ${pack.credits}` })
             .where(eq(users.id, userId));
           console.log(`[stripe] Added ${pack.credits} credits to user ${userId}`);
+
+          // Thank-you email — don't fail the webhook if delivery is flaky
+          const dbUser = await findUser(userId);
+          if (dbUser) {
+            const locale = parseLocale(session.metadata?.locale);
+            sendStripePurchaseEmail(dbUser.email, dbUser.name, {
+              kind: "pack",
+              productName: pack.name,
+              credits: pack.credits,
+              amountCents: session.amount_total ?? 0,
+              currency: session.currency ?? "usd",
+              balanceAfter: dbUser.credits + pack.credits,
+              locale,
+            }).catch((e) => console.error("[stripe] pack email failed:", e));
+          }
         }
       }
       break;
@@ -58,7 +89,8 @@ export async function POST(req: NextRequest) {
     // ── Subscription invoice paid (initial + recurring) ──
     case "invoice.paid": {
       const invoice = event.data.object;
-      const subscriptionId = (invoice as unknown as Record<string, unknown>).subscription as string | null;
+      const invoiceRaw = invoice as unknown as Record<string, unknown>;
+      const subscriptionId = invoiceRaw.subscription as string | null;
       if (!subscriptionId) break;
 
       const subscription = await stripe.subscriptions.retrieve(subscriptionId);
@@ -79,6 +111,27 @@ export async function POST(req: NextRequest) {
           })
           .where(eq(users.id, userId));
         console.log(`[stripe] User ${userId} → ${plan.id} plan, +${plan.credits} credits`);
+
+        // Thank-you email only on first activation (not recurring renewals —
+        // Stripe already sends its own receipt on every payment).
+        const billingReason = invoiceRaw.billing_reason as string | undefined;
+        if (billingReason === "subscription_create") {
+          const dbUser = await findUser(userId);
+          if (dbUser) {
+            const locale = parseLocale(subscription.metadata?.locale);
+            const amountPaid = (invoiceRaw.amount_paid as number | undefined) ?? 0;
+            const currency = (invoiceRaw.currency as string | undefined) ?? "usd";
+            sendStripePurchaseEmail(dbUser.email, dbUser.name, {
+              kind: "plan",
+              productName: plan.name,
+              credits: plan.credits,
+              amountCents: amountPaid,
+              currency,
+              balanceAfter: dbUser.credits + plan.credits,
+              locale,
+            }).catch((e) => console.error("[stripe] plan email failed:", e));
+          }
+        }
       }
       break;
     }
