@@ -66,15 +66,24 @@ export async function POST(req: NextRequest) {
       if (result.success) referrerName = result.referrerName;
     }
 
-    // Send verification email
-    await sendVerificationEmail(email, name, verifyToken);
+    // Send verification email — don't fail registration if email delivery fails,
+    // but always log the error so we can diagnose in production.
+    try {
+      const result = await sendVerificationEmail(email, name, verifyToken);
+      if (result?.error) {
+        console.error("[register] Resend returned error:", result.error);
+      }
+    } catch (err) {
+      console.error("[register] Verification email threw:", err);
+    }
 
     return NextResponse.json({
       success: true,
       referrerName,
       requiresVerification: true,
     });
-  } catch {
+  } catch (err) {
+    console.error("[register] Failed:", err);
     return NextResponse.json(
       { error: ApiError.REGISTRATION_FAILED },
       { status: 500 }

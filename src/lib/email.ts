@@ -2,7 +2,8 @@ import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-const FROM = "Ditto <noreply@ditto.design>";
+const FROM = process.env.RESEND_FROM || "Ditto <noreply@dittodesign.dev>";
+const APP_URL = process.env.NEXTAUTH_URL || "http://localhost:3000";
 
 // ── Shared styles ──
 
@@ -52,10 +53,7 @@ export async function sendVerificationEmail(
   name: string,
   token: string
 ) {
-  const baseUrl = process.env.NEXTAUTH_URL || process.env.VERCEL_URL
-    ? `https://${process.env.VERCEL_URL}`
-    : "http://localhost:3000";
-  const verifyUrl = `${baseUrl}/api/auth/verify-email?token=${token}`;
+  const verifyUrl = `${APP_URL}/api/auth/verify-email?token=${token}`;
 
   const html = layout(`
     <h2 style="margin:0 0 8px;font-size:20px;color:${BRAND.text};">Verify your email</h2>
@@ -122,9 +120,9 @@ export async function sendPurchaseEmail(
         </tr>
       </table>
     </div>
-    ${button("Go to your design", process.env.NEXTAUTH_URL || "http://localhost:3000")}
+    ${button("Go to your design", APP_URL)}
     <p style="margin:24px 0 0;font-size:12px;color:${BRAND.muted};line-height:1.5;">
-      This purchase is permanent and non-refundable as per our <a href="${process.env.NEXTAUTH_URL || "http://localhost:3000"}/terms" style="color:${BRAND.primary};text-decoration:underline;">Terms and Conditions</a>.
+      This purchase is permanent and non-refundable as per our <a href="${APP_URL}/terms" style="color:${BRAND.primary};text-decoration:underline;">Terms and Conditions</a>.
     </p>
   `);
 
