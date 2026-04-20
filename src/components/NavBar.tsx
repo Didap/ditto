@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect, useRef, useSyncExternalStore } from "react";
-import { Menu, X, LogOut, Coins, User, Sun, Moon, Globe } from "lucide-react";
+import { Menu, X, LogOut, Coins, User, Sun, Moon, Globe, Shield } from "lucide-react";
 import { useCredits } from "@/lib/credits-context";
 import { useLocalePath, useBarePath, usePathnameLocale, useT } from "@/lib/locale-context";
 import { LOCALES } from "@/lib/i18n";
@@ -22,9 +22,10 @@ function getThemeServerSnapshot() {
 
 interface NavBarProps {
   user: { name: string; email: string } | null;
+  isAdmin?: boolean;
 }
 
-export function NavBar({ user }: NavBarProps) {
+export function NavBar({ user, isAdmin = false }: NavBarProps) {
   const pathname = usePathname();
   const lp = useLocalePath();
   const barePath = useBarePath();
@@ -174,6 +175,15 @@ export function NavBar({ user }: NavBarProps) {
             <Link href={lp("/add")} className="block px-4 py-2 text-sm text-(--ditto-text-secondary) hover:text-(--ditto-text) hover:bg-(--ditto-bg) transition-colors">{t("navAddDesign")}</Link>
             <Link href={lp("/inspire")} className="block px-4 py-2 text-sm text-(--ditto-text-secondary) hover:text-(--ditto-text) hover:bg-(--ditto-bg) transition-colors">{t("navMixDesign")}</Link>
             <Link href={lp("/settings/api-keys")} className="block px-4 py-2 text-sm text-(--ditto-text-secondary) hover:text-(--ditto-text) hover:bg-(--ditto-bg) transition-colors">CLI &amp; API keys</Link>
+            {isAdmin && (
+              <Link
+                href={lp("/admin/users")}
+                className="flex items-center gap-2 px-4 py-2 text-sm text-(--ditto-text-secondary) hover:text-(--ditto-text) hover:bg-(--ditto-bg) transition-colors"
+              >
+                <Shield className="w-3.5 h-3.5" strokeWidth={1.5} />
+                Manage Users
+              </Link>
+            )}
           </div>
           {/* Theme toggle */}
                     <div className="px-4 py-2.5 border-b border-(--ditto-border)">

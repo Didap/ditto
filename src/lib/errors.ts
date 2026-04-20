@@ -48,6 +48,14 @@ export enum ApiError {
   // Bookmarklet fallback
   INVALID_TOKEN = "Invalid or expired bookmarklet token",
   INVALID_EXTRACTION_DATA = "Invalid extraction payload",
+
+  // Admin
+  FORBIDDEN = "Forbidden",
+  USER_NOT_FOUND = "User not found",
+  EMAIL_IN_USE = "This email is already registered to another user",
+  INVALID_EMAIL = "Invalid email address",
+  INVALID_CREDITS = "Credits must be a non-negative integer",
+  CANNOT_DELETE_SELF = "You cannot delete your own admin account",
 }
 
 /** Format an insufficient credits message with amounts */

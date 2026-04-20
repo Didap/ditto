@@ -4,6 +4,7 @@ import { CursorFollower } from "@/components/CursorFollower";
 import { CreditsProvider } from "@/lib/credits-context";
 import { OnboardingProvider } from "@/components/OnboardingProvider";
 import { auth } from "@/lib/auth";
+import { isAdminEmail } from "@/lib/admin";
 import { canvaSans, leoSans } from "@/lib/fonts";
 import "./globals.css";
 
@@ -161,7 +162,7 @@ export default async function RootLayout({
         <CreditsProvider>
           <OnboardingProvider>
             <CursorFollower />
-            <NavBar user={user} />
+            <NavBar user={user} isAdmin={isAdminEmail(user?.email)} />
             <main className="mx-auto max-w-7xl px-6 py-8">{children}</main>
           </OnboardingProvider>
         </CreditsProvider>
