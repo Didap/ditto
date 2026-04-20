@@ -82,7 +82,7 @@ export async function sendPurchaseEmail(
   to: string,
   name: string,
   purchase: {
-    type: "catalog" | "devkit" | "complete";
+    type: "catalog" | "devkit" | "complete" | "wordpress";
     designName: string;
     creditsSpent: number;
     creditsRemaining: number;
@@ -92,6 +92,7 @@ export async function sendPurchaseEmail(
     catalog: "Catalog Design",
     devkit: "Dev Kit",
     complete: "Complete Kit",
+    wordpress: "WordPress Theme",
   };
   const label = typeLabels[purchase.type] || purchase.type;
 

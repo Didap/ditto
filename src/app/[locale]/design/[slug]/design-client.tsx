@@ -25,7 +25,10 @@ interface FeatureStatus {
 interface UnlockStatus {
   devkit: FeatureStatus;
   complete: FeatureStatus;
+  wordpress: FeatureStatus;
 }
+
+type UnlockableFeature = "devkit" | "complete" | "wordpress";
 
 function QualityInfoPopover() {
   const [open, setOpen] = useState(false);
@@ -88,9 +91,11 @@ export function DesignDetailClient({ initialDesign, slug }: DesignDetailProps) {
   const [unlocks, setUnlocks] = useState<UnlockStatus>({
     devkit: { unlocked: initialDesign.unlockedFeatures?.devkit ?? false, cost: 50 },
     complete: { unlocked: initialDesign.unlockedFeatures?.complete ?? false, cost: 100 },
+    wordpress: { unlocked: initialDesign.unlockedFeatures?.wordpress ?? false, cost: 50 },
   });
   const [purchasing, setPurchasing] = useState<string | null>(null);
-  const [confirmModal, setConfirmModal] = useState<{ feature: "devkit" | "complete"; cost: number } | null>(null);
+  const [confirmModal, setConfirmModal] = useState<{ feature: UnlockableFeature; cost: number } | null>(null);
+  const [downloadingWp, setDownloadingWp] = useState(false);
   const { deduct, refresh: refreshCredits, credits } = useCredits();
   const { startOnborda } = useOnborda();
 
@@ -145,7 +150,7 @@ export function DesignDetailClient({ initialDesign, slug }: DesignDetailProps) {
     }
   };
 
-  const purchaseFeature = async (feature: "devkit" | "complete") => {
+  const purchaseFeature = async (feature: UnlockableFeature) => {
     setConfirmModal(null);
     setPurchasing(feature);
     try {
@@ -291,6 +296,70 @@ export function DesignDetailClient({ initialDesign, slug }: DesignDetailProps) {
                 )}
               </button>
               <FeatureInfo items={["Storybook project (components + stories)", "CSS tokens (tokens.css)", "Tailwind config (tailwind.config.ts)", "TypeScript types (types.ts)", "Figma tokens (figma-tokens.json)", "DESIGN.md documentation"]} />
+            </div>
+          )}
+
+          {/* WordPress Theme (50cr) — block theme (theme.json + templates + parts + patterns) */}
+          {unlocks.wordpress.unlocked ? (
+            <div className="flex items-center gap-2">
+              <button
+                disabled={downloadingWp}
+                onClick={async () => {
+                  setDownloadingWp(true);
+                  try {
+                    const [JSZip, { generateWordPressTheme }] = await Promise.all([
+                      import("jszip").then((m) => m.default),
+                      import("@/lib/generator/kit-wordpress"),
+                    ]);
+                    const files = await generateWordPressTheme({
+                      designName: design.name,
+                      designSlug: design.slug,
+                      designUrl: design.url,
+                      resolved: design.resolved,
+                      tokens: design.tokens,
+                      screenshotBase64: design.tokens.meta?.screenshot,
+                    });
+                    const zip = new JSZip();
+                    const folder = `${design.slug}-block-theme`;
+                    for (const f of files) zip.file(`${folder}/${f.path}`, f.content);
+                    const blob = await zip.generateAsync({ type: "blob" });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement("a");
+                    a.href = url;
+                    a.download = `${design.slug}-wordpress-theme.zip`;
+                    a.click();
+                    URL.revokeObjectURL(url);
+                  } finally {
+                    setDownloadingWp(false);
+                  }
+                }}
+                className="rounded-lg bg-(--ditto-primary) px-4 py-2 text-sm font-medium text-(--ditto-bg) hover:bg-(--ditto-primary-hover) transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {downloadingWp ? "Bundling fonts…" : "Download WordPress Theme"}
+              </button>
+              <FeatureInfo items={["FSE block theme (theme.json driven)", "Full palette, fonts, spacing & shadows mapped", "Self-hosted fonts bundled in /assets/fonts", "8 templates + header/footer parts + 3 patterns", "Drop into wp-content/themes/ and activate"]} />
+            </div>
+          ) : (
+            <div className="flex items-center gap-1">
+              <button
+                onClick={() => setConfirmModal({ feature: "wordpress", cost: unlocks.wordpress.cost ?? 50 })}
+                disabled={purchasing === "wordpress" || (credits !== null && credits < (unlocks.wordpress.cost ?? 50))}
+                className="rounded-lg bg-(--ditto-primary) px-4 py-2 text-sm font-medium text-(--ditto-bg) hover:bg-(--ditto-primary-hover) transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1.5"
+              >
+                {purchasing === "wordpress" ? (
+                  <>
+                    <span className="w-3 h-3 border-2 border-(--ditto-bg) border-t-transparent rounded-full animate-spin" />
+                    Unlocking...
+                  </>
+                ) : (
+                  <>
+                    <Lock className="w-3.5 h-3.5" strokeWidth={1.5} />
+                    WordPress Theme &middot; {unlocks.wordpress.cost ?? 50}
+                    <Coins className="w-3 h-3" strokeWidth={1.5} />
+                  </>
+                )}
+              </button>
+              <FeatureInfo items={["FSE block theme (theme.json driven)", "Full palette, fonts, spacing & shadows mapped", "Self-hosted fonts bundled in /assets/fonts", "8 templates + header/footer parts + 3 patterns", "Drop into wp-content/themes/ and activate"]} />
             </div>
           )}
 
@@ -574,7 +643,13 @@ export function DesignDetailClient({ initialDesign, slug }: DesignDetailProps) {
       {/* Purchase confirm modal */}
       {confirmModal && (
         <PurchaseConfirmModal
-          label={confirmModal.feature === "devkit" ? "Unlock Dev Kit" : "Unlock Complete Kit"}
+          label={
+            confirmModal.feature === "devkit"
+              ? "Unlock Dev Kit"
+              : confirmModal.feature === "wordpress"
+                ? "Unlock WordPress Theme"
+                : "Unlock Complete Kit"
+          }
           description="Once unlocked, you can download it for 15 days."
           cost={confirmModal.cost}
           currentCredits={credits ?? 0}

@@ -308,5 +308,6 @@ export interface StoredDesign {
   unlockedFeatures?: {
     devkit: boolean;
     complete: boolean;
+    wordpress: boolean;
   };
 }

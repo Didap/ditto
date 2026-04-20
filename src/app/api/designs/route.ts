@@ -57,6 +57,7 @@ export async function GET(req: NextRequest) {
         unlockedFeatures: {
           devkit: active?.has("devkit") ?? false,
           complete: active?.has("complete") ?? false,
+          wordpress: active?.has("wordpress") ?? false,
         },
       };
     });

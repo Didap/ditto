@@ -61,6 +61,7 @@ export async function getDashboardDesigns(userId: string): Promise<StoredDesign[
       unlockedFeatures: {
         devkit: active?.has("devkit") ?? false,
         complete: active?.has("complete") ?? false,
+        wordpress: active?.has("wordpress") ?? false,
       },
     };
   });
@@ -162,6 +163,7 @@ export async function getDesignBySlug(userId: string, slug: string) {
     unlockedFeatures: {
       devkit: features.has("devkit"),
       complete: features.has("complete"),
+      wordpress: features.has("wordpress"),
     },
   } satisfies StoredDesign;
 }
