@@ -5,7 +5,6 @@ import { users, designUnlocks } from "@/lib/db/schema";
 import { eq, and, gte, sql } from "drizzle-orm";
 import { nanoid } from "nanoid";
 import { ApiError, insufficientCredits } from "@/lib/errors";
-import { sendPurchaseEmail } from "@/lib/email";
 
 type Feature =
   | "devkit"
@@ -22,15 +21,6 @@ const FEATURE_COST: Record<Feature, number> = {
   elementor: 50,
   "wp-bundle": 100,
 };
-const FEATURE_LABEL: Record<Feature, string> = {
-  devkit: "Dev Kit",
-  complete: "Complete Kit",
-  wordpress: "WordPress Theme",
-  plugin: "WordPress Plugin",
-  elementor: "Elementor Kit",
-  "wp-bundle": "WordPress Pack",
-};
-
 function isValidFeature(f: string): f is Feature {
   return (
     f === "devkit" ||
@@ -163,21 +153,7 @@ export async function POST(
       expiresAt,
     });
 
-    // Send purchase confirmation email
-    const [dbUser] = await db
-      .select({ credits: users.credits })
-      .from(users)
-      .where(eq(users.id, user.id))
-      .limit(1);
-
-    const featureLabel = FEATURE_LABEL[feature];
-    sendPurchaseEmail(user.email, user.name, {
-      type: feature,
-      designName: `${slug} — ${featureLabel}`,
-      creditsSpent: cost,
-      creditsRemaining: dbUser?.credits ?? 0,
-    }).catch(() => {}); // fire-and-forget
-
+    // No email on credit spend — only Stripe subscription purchases trigger mail.
     return NextResponse.json({
       unlocked: true,
       creditsSpent: cost,

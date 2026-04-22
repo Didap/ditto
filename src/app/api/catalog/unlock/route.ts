@@ -9,7 +9,6 @@ import { users } from "@/lib/db/schema";
 import { eq, sql, gte, and } from "drizzle-orm";
 import { nanoid } from "nanoid";
 import { ApiError, insufficientCredits } from "@/lib/errors";
-import { sendPurchaseEmail } from "@/lib/email";
 import type { StoredDesign } from "@/lib/types";
 
 /** POST — unlock a catalog design for UNLOCK_COST credits */
@@ -80,20 +79,7 @@ export async function POST(req: NextRequest) {
 
     await saveDesign(user.id, design);
 
-    // Send purchase confirmation email
-    const [dbUser] = await db
-      .select({ credits: users.credits })
-      .from(users)
-      .where(eq(users.id, user.id))
-      .limit(1);
-
-    sendPurchaseEmail(user.email, user.name, {
-      type: "catalog",
-      designName: entry.name,
-      creditsSpent: UNLOCK_COST,
-      creditsRemaining: dbUser?.credits ?? 0,
-    }).catch(() => {}); // fire-and-forget
-
+    // No email on credit spend — only Stripe subscription purchases trigger mail.
     return NextResponse.json({
       slug: entry.id,
       name: entry.name,

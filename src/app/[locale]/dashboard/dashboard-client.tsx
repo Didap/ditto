@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import type { StoredDesign } from "@/lib/types";
+import type { StoredDesign, DashboardDesignCard } from "@/lib/types";
 import { qualityColor } from "@/lib/quality-scorer";
 import { LottieLoader } from "@/components/LottieLoader";
 import { useCredits } from "@/lib/credits-context";
@@ -19,18 +19,34 @@ import {
   X,
   RotateCcw,
   Recycle,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 
 interface DashboardProps {
-  initialDesigns: StoredDesign[];
+  initialDesigns: DashboardDesignCard[];
   initialTrash: StoredDesign[];
+  initialPage: number;
+  initialTotalPages: number;
+  initialTotal: number;
+  perPage: number;
 }
 
-export function DashboardClient({ initialDesigns, initialTrash }: DashboardProps) {
+export function DashboardClient({
+  initialDesigns,
+  initialTrash,
+  initialPage,
+  initialTotalPages,
+  initialTotal,
+  perPage,
+}: DashboardProps) {
   const lp = useLocalePath();
   const { credits, refresh: refreshCredits } = useCredits();
-  const [designs, setDesigns] = useState<StoredDesign[]>(initialDesigns);
-  const [loading] = useState(false);
+  const [designs, setDesigns] = useState<DashboardDesignCard[]>(initialDesigns);
+  const [page, setPage] = useState(initialPage);
+  const [totalPages, setTotalPages] = useState(initialTotalPages);
+  const [total, setTotal] = useState(initialTotal);
+  const [loading, setLoading] = useState(false);
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [deleting, setDeleting] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
@@ -44,16 +60,35 @@ export function DashboardClient({ initialDesigns, initialTrash }: DashboardProps
     return stored ? new Set(JSON.parse(stored)) : new Set<string>();
   });
 
-  const fetchDesigns = () => {
-    fetch("/api/designs")
+  const fetchDesigns = (targetPage: number = page) => {
+    setLoading(true);
+    fetch(`/api/designs?page=${targetPage}&perPage=${perPage}`)
       .then((r) => {
         if (!r.ok) throw new Error("Failed");
         return r.json();
       })
       .then((data) => {
-        if (Array.isArray(data)) setDesigns(data);
+        if (data && Array.isArray(data.designs)) {
+          setDesigns(data.designs);
+          setPage(data.page ?? targetPage);
+          setTotalPages(data.totalPages ?? 1);
+          setTotal(data.total ?? 0);
+        }
       })
-      .catch(() => {});
+      .catch(() => {})
+      .finally(() => setLoading(false));
+  };
+
+  const goToPage = (next: number) => {
+    const clamped = Math.max(1, Math.min(next, totalPages));
+    if (clamped === page) return;
+    fetchDesigns(clamped);
+    if (typeof window !== "undefined") {
+      const url = new URL(window.location.href);
+      if (clamped === 1) url.searchParams.delete("page");
+      else url.searchParams.set("page", String(clamped));
+      window.history.replaceState(null, "", url.toString());
+    }
   };
 
   const fetchTrash = () => {
@@ -233,18 +268,48 @@ export function DashboardClient({ initialDesigns, initialTrash }: DashboardProps
           </div>
         </div>
       ) : (
-        <div id="tour-design-grid" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {designs.map((design) => (
-            <DesignCard
-              key={design.id}
-              design={design}
-              selected={selected.has(design.slug)}
-              isNew={!seenDesigns.has(design.slug)}
-              onToggleSelect={() => toggleSelect(design.slug)}
-              onSeen={() => markSeen(design.slug)}
-            />
-          ))}
-        </div>
+        <>
+          <div id="tour-design-grid" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {designs.map((design) => (
+              <DesignCard
+                key={design.id}
+                design={design}
+                selected={selected.has(design.slug)}
+                isNew={!seenDesigns.has(design.slug)}
+                onToggleSelect={() => toggleSelect(design.slug)}
+                onSeen={() => markSeen(design.slug)}
+              />
+            ))}
+          </div>
+
+          {totalPages > 1 && (
+            <div className="mt-8 flex items-center justify-center gap-3">
+              <button
+                onClick={() => goToPage(page - 1)}
+                disabled={page <= 1 || loading}
+                className="inline-flex items-center gap-1 rounded-lg border border-(--ditto-border) px-3 py-1.5 text-sm text-(--ditto-text-secondary) hover:text-(--ditto-text) hover:border-(--ditto-text-muted) transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                aria-label="Previous page"
+              >
+                <ChevronLeft className="w-4 h-4" strokeWidth={1.5} />
+                Prev
+              </button>
+              <span className="text-xs text-(--ditto-text-muted) tabular-nums">
+                Page <span className="text-(--ditto-text) font-semibold">{page}</span> of {totalPages}
+                <span className="mx-2 opacity-40">·</span>
+                {total} design{total === 1 ? "" : "s"}
+              </span>
+              <button
+                onClick={() => goToPage(page + 1)}
+                disabled={page >= totalPages || loading}
+                className="inline-flex items-center gap-1 rounded-lg border border-(--ditto-border) px-3 py-1.5 text-sm text-(--ditto-text-secondary) hover:text-(--ditto-text) hover:border-(--ditto-text-muted) transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                aria-label="Next page"
+              >
+                Next
+                <ChevronRight className="w-4 h-4" strokeWidth={1.5} />
+              </button>
+            </div>
+          )}
+        </>
       )}
 
       {/* Trash section — only visible when there are trashed items */}
@@ -510,7 +575,7 @@ function DesignCard({
   onToggleSelect,
   onSeen,
 }: {
-  design: StoredDesign;
+  design: DashboardDesignCard;
   selected: boolean;
   isNew: boolean;
   onToggleSelect: () => void;

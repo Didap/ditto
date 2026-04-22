@@ -313,3 +313,14 @@ export interface StoredDesign {
     elementor: boolean;
   };
 }
+
+/**
+ * Slim variant used on the dashboard grid. Strips the heavy `tokens`,
+ * `designMd` and `description` fields — only `resolved` is needed to render
+ * the mini-mockup on each card. Saves tens of MB on payloads for users with
+ * many designs.
+ */
+export type DashboardDesignCard = Omit<
+  StoredDesign,
+  "tokens" | "designMd" | "description"
+>;

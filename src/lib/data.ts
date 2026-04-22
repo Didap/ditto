@@ -3,11 +3,13 @@ import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { designs, designUnlocks, users } from "@/lib/db/schema";
 import { eq, and, sql, inArray, isNull } from "drizzle-orm";
-import { listDesigns, listTrash } from "@/lib/store";
+import { listDesignsSlim, listTrash } from "@/lib/store";
 import { getQuestStatuses } from "@/lib/quests";
 import { CATALOG, UNLOCK_COST } from "@/lib/catalog";
 import { scoreDesignQuality } from "@/lib/quality-scorer";
-import type { StoredDesign } from "@/lib/types";
+import type { StoredDesign, DashboardDesignCard } from "@/lib/types";
+
+export const DASHBOARD_PAGE_SIZE = 9;
 
 /** Get authenticated user or null */
 export async function getUser() {
@@ -16,10 +18,35 @@ export async function getUser() {
   return session.user as { id: string; name: string; email: string };
 }
 
-/** Fetch enriched designs for the dashboard */
-export async function getDashboardDesigns(userId: string): Promise<StoredDesign[]> {
-  const rawDesigns = await listDesigns(userId);
+export interface DashboardDesignsPage {
+  designs: DashboardDesignCard[];
+  total: number;
+  page: number;
+  perPage: number;
+  totalPages: number;
+}
 
+/** Fetch enriched, paginated designs for the dashboard. */
+export async function getDashboardDesigns(
+  userId: string,
+  opts: { page?: number; perPage?: number } = {},
+): Promise<DashboardDesignsPage> {
+  const perPage = Math.max(1, Math.min(opts.perPage ?? DASHBOARD_PAGE_SIZE, 48));
+  const pageRequested = Math.max(1, opts.page ?? 1);
+  const offset = (pageRequested - 1) * perPage;
+
+  const { designs: rawDesigns, total } = await listDesignsSlim(userId, {
+    limit: perPage,
+    offset,
+  });
+
+  const totalPages = Math.max(1, Math.ceil(total / perPage));
+  const page = Math.min(pageRequested, totalPages);
+
+  // Enrich only the fetched page — the unlock queries below are always
+  // per-user but are lightweight (they touch only `designUnlocks`), so we
+  // run them once even when we're on page N. Intersection is via the
+  // `designSlug` map, so enrichment for the current page is still O(page).
   const unlocks = await db
     .select({
       designSlug: designUnlocks.designSlug,
@@ -37,7 +64,7 @@ export async function getDashboardDesigns(userId: string): Promise<StoredDesign[
     })
     .from(designUnlocks)
     .where(
-      sql`${designUnlocks.userId} = ${userId} AND ${designUnlocks.expiresAt} >= ${new Date()}`
+      sql`${designUnlocks.userId} = ${userId} AND ${designUnlocks.expiresAt} >= ${new Date()}`,
     );
 
   const spentMap = new Map<string, number>();
@@ -51,7 +78,7 @@ export async function getDashboardDesigns(userId: string): Promise<StoredDesign[
     activeMap.get(u.designSlug)!.add(u.feature);
   }
 
-  return rawDesigns.map((d) => {
+  const enriched = rawDesigns.map((d) => {
     const baseCost = d.source === "extracted" ? 100 : 50;
     const unlockSpent = spentMap.get(d.slug) ?? 0;
     const active = activeMap.get(d.slug);
@@ -67,6 +94,8 @@ export async function getDashboardDesigns(userId: string): Promise<StoredDesign[
       },
     };
   });
+
+  return { designs: enriched, total, page, perPage, totalPages };
 }
 
 /** Fetch trashed designs */
