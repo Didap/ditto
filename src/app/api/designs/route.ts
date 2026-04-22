@@ -58,6 +58,8 @@ export async function GET(req: NextRequest) {
           devkit: active?.has("devkit") ?? false,
           complete: active?.has("complete") ?? false,
           wordpress: active?.has("wordpress") ?? false,
+          plugin: active?.has("plugin") ?? false,
+          elementor: active?.has("elementor") ?? false,
         },
       };
     });

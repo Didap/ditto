@@ -10,6 +10,18 @@
  */
 
 import type { ResolvedDesign, DesignTokens } from "../types";
+import {
+  slugDashed,
+  slugUnderscore,
+  phpEscape,
+  htmlEscape,
+  onPrimaryColor,
+  normalizeFontFormat,
+  parseWeightFromFilename,
+  parseStyleFromFilename,
+  fetchFontBytes,
+  type SharedFontFaceEntry,
+} from "./wp-shared";
 
 export interface WPThemeFile {
   path: string;
@@ -28,58 +40,15 @@ export interface GenerateWordPressThemeOptions {
   screenshotBase64?: string;
 }
 
-interface FontFaceEntry {
-  filename: string;
-  format: string;
-  weight: string;
-  style: string;
-}
+type FontFaceEntry = SharedFontFaceEntry;
 
-// ── Helpers ────────────────────────────────────────────────────────────
-
-function onPrimaryColor(primary: string, fallbackDark: string): string {
-  const hex = (primary || "#000000").replace("#", "");
-  if (hex.length !== 6) return "#ffffff";
-  const r = parseInt(hex.slice(0, 2), 16) / 255;
-  const g = parseInt(hex.slice(2, 4), 16) / 255;
-  const b = parseInt(hex.slice(4, 6), 16) / 255;
-  const toLinear = (c: number) =>
-    c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
-  const lum = 0.2126 * toLinear(r) + 0.7152 * toLinear(g) + 0.0722 * toLinear(b);
-  return lum > 0.5 ? fallbackDark : "#ffffff";
-}
-
-function slugDashed(s: string): string {
-  return s
-    .toLowerCase()
-    .replace(/[^a-z0-9-]+/g, "-")
-    .replace(/-+/g, "-")
-    .replace(/^-|-$/g, "");
-}
-
-function slugUnderscore(s: string): string {
-  return s.replace(/[^a-z0-9_]/gi, "_").toLowerCase();
-}
+// ── Helpers (theme-specific) ───────────────────────────────────────────
 
 /** Truncate a slug to fit WordPress text-domain conventions. */
 function textDomainFor(slug: string): string {
   const candidate = `${slug}-block-theme`;
   if (candidate.length <= 30) return candidate;
   return `${slug.slice(0, 22)}-block-theme`;
-}
-
-function phpEscape(s: string): string {
-  return (s || "")
-    .replace(/\\/g, "\\\\")
-    .replace(/'/g, "\\'");
-}
-
-function htmlEscape(s: string): string {
-  return (s || "")
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;");
 }
 
 function base64ToBytes(b64: string): Uint8Array {
@@ -91,37 +60,6 @@ function base64ToBytes(b64: string): Uint8Array {
     return bytes;
   }
   return Uint8Array.from(Buffer.from(stripped, "base64"));
-}
-
-function normalizeFontFormat(format: string): string {
-  const f = (format || "").toLowerCase();
-  if (f === "woff2") return "woff2";
-  if (f === "woff") return "woff";
-  if (f === "otf") return "opentype";
-  if (f === "ttf") return "truetype";
-  if (f === "eot") return "embedded-opentype";
-  return f || "woff2";
-}
-
-/** Best-effort weight extraction from filenames like "0-Family-300.woff2". */
-function parseWeightFromFilename(filename: string): string {
-  const m = filename.match(/-(\d{3})\.(?:woff2?|otf|ttf|eot)$/i);
-  return m ? m[1] : "400";
-}
-
-/** Best-effort italic detection. */
-function parseStyleFromFilename(filename: string): string {
-  return /italic/i.test(filename) ? "italic" : "normal";
-}
-
-async function fetchFontBytes(url: string): Promise<Uint8Array | null> {
-  try {
-    const res = await fetch(url);
-    if (!res.ok) return null;
-    return new Uint8Array(await res.arrayBuffer());
-  } catch {
-    return null;
-  }
 }
 
 // Synthesize a minimal 1200×900 PNG when no screenshot is available.

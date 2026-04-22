@@ -364,7 +364,14 @@ export async function sendPurchaseEmail(
   to: string,
   name: string,
   purchase: {
-    type: "catalog" | "devkit" | "complete" | "wordpress";
+    type:
+      | "catalog"
+      | "devkit"
+      | "complete"
+      | "wordpress"
+      | "plugin"
+      | "elementor"
+      | "wp-bundle";
     designName: string;
     creditsSpent: number;
     creditsRemaining: number;
@@ -375,6 +382,9 @@ export async function sendPurchaseEmail(
     devkit: "Dev Kit",
     complete: "Complete Kit",
     wordpress: "WordPress Theme",
+    plugin: "WordPress Plugin",
+    elementor: "Elementor Kit",
+    "wp-bundle": "WordPress Pack",
   };
   const label = typeLabels[purchase.type] || purchase.type;
 

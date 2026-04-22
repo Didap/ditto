@@ -6,7 +6,7 @@ import { hasSeenTour } from "@/lib/onboarding";
 import type { StoredDesign } from "@/lib/types";
 import { qualityLabel, qualityColor, friendlyIssueMessage } from "@/lib/quality-scorer";
 import { useCredits } from "@/lib/credits-context";
-import { useLocalePath } from "@/lib/locale-context";
+import { useLocalePath, useT } from "@/lib/locale-context";
 import { PreviewShell } from "@/components/preview/PreviewShell";
 import { LandingPreview } from "@/components/preview/pages/LandingPreview";
 import { DashboardPreview } from "@/components/preview/pages/DashboardPreview";
@@ -15,7 +15,7 @@ import { PricingPreview } from "@/components/preview/pages/PricingPreview";
 import { BlogPreview } from "@/components/preview/pages/BlogPreview";
 import { ComponentsPreview } from "@/components/preview/pages/ComponentsPreview";
 import { FloatingEditor } from "@/components/FloatingEditor";
-import { Lock, Coins, Info } from "lucide-react";
+import { Lock, Coins, Info, Sparkles, Code2, Globe, ChevronDown, Check, Package } from "lucide-react";
 import { DESIGN_MACROS, applyMacros } from "@/lib/design-macros";
 
 interface FeatureStatus {
@@ -26,9 +26,18 @@ interface UnlockStatus {
   devkit: FeatureStatus;
   complete: FeatureStatus;
   wordpress: FeatureStatus;
+  plugin: FeatureStatus;
+  elementor: FeatureStatus;
+  wpBundle: FeatureStatus;
 }
 
-type UnlockableFeature = "devkit" | "complete" | "wordpress";
+type UnlockableFeature =
+  | "devkit"
+  | "complete"
+  | "wordpress"
+  | "plugin"
+  | "elementor"
+  | "wp-bundle";
 
 function QualityInfoPopover() {
   const [open, setOpen] = useState(false);
@@ -66,6 +75,357 @@ function QualityInfoPopover() {
   );
 }
 
+// ─── DeveloperDropdown ──────────────────────────────────────────────
+// Popover listing framework options for developers.
+// Sections: React + Tailwind (Dev Kit) and WordPress (Theme, Plugin, Elementor, Pack).
+
+interface DevDropdownProps {
+  open: boolean;
+  setOpen: (open: boolean) => void;
+  unlocks: UnlockStatus;
+  purchasing: string | null;
+  credits: number | null;
+  downloadingWp: boolean;
+  downloadingPlugin: boolean;
+  downloadingElementor: boolean;
+  onBuy: (feature: UnlockableFeature, cost: number) => void;
+  onDownloadDevKit: () => void;
+  onDownloadWpTheme: () => void;
+  onDownloadWpPlugin: () => void;
+  onDownloadElementor: () => void;
+}
+
+interface DevRowProps {
+  label: string;
+  status: FeatureStatus;
+  cost: number;
+  busy: boolean;
+  downloadLabel: string;
+  purchaseKey: UnlockableFeature;
+  feature: UnlockableFeature;
+  purchasing: string | null;
+  canAfford: boolean;
+  onDownload: () => void;
+  onBuy: () => void;
+}
+
+function DevRow({
+  label,
+  status,
+  cost,
+  busy,
+  downloadLabel,
+  purchaseKey,
+  purchasing,
+  canAfford,
+  onDownload,
+  onBuy,
+}: DevRowProps) {
+  return (
+    <div className="flex items-center justify-between gap-3 py-2">
+      <div className="text-sm text-(--ditto-text)">{label}</div>
+      {status.unlocked ? (
+        <button
+          onClick={onDownload}
+          disabled={busy}
+          className="text-xs font-medium rounded-md bg-(--ditto-primary) px-3 py-1.5 text-(--ditto-bg) hover:bg-(--ditto-primary-hover) transition-colors disabled:opacity-60 disabled:cursor-not-allowed flex items-center gap-1"
+        >
+          {busy ? (
+            <>
+              <span className="w-2.5 h-2.5 border-2 border-(--ditto-bg) border-t-transparent rounded-full animate-spin" />
+              Building…
+            </>
+          ) : (
+            <>
+              <Check className="w-3 h-3" strokeWidth={2} /> {downloadLabel}
+            </>
+          )}
+        </button>
+      ) : (
+        <button
+          onClick={onBuy}
+          disabled={purchasing === purchaseKey || !canAfford}
+          className="text-xs font-medium rounded-md border border-(--ditto-border) px-3 py-1.5 text-(--ditto-text-secondary) hover:text-(--ditto-text) hover:border-(--ditto-text-muted) transition-colors disabled:opacity-60 disabled:cursor-not-allowed flex items-center gap-1.5"
+        >
+          {purchasing === purchaseKey ? (
+            <>
+              <span className="w-2.5 h-2.5 border-2 border-(--ditto-primary) border-t-transparent rounded-full animate-spin" />
+              Unlocking…
+            </>
+          ) : (
+            <>
+              <Lock className="w-3 h-3" strokeWidth={1.5} /> {cost}
+              <Coins className="w-3 h-3" strokeWidth={1.5} />
+            </>
+          )}
+        </button>
+      )}
+    </div>
+  );
+}
+
+function DeveloperDropdown({
+  open,
+  setOpen,
+  unlocks,
+  purchasing,
+  credits,
+  downloadingWp,
+  downloadingPlugin,
+  downloadingElementor,
+  onBuy,
+  onDownloadDevKit,
+  onDownloadWpTheme,
+  onDownloadWpPlugin,
+  onDownloadElementor,
+}: DevDropdownProps) {
+  const noWpUnlocked =
+    !unlocks.wordpress.unlocked &&
+    !unlocks.plugin.unlocked &&
+    !unlocks.elementor.unlocked &&
+    !unlocks.wpBundle.unlocked;
+
+  const canAfford = (cost: number | undefined) =>
+    credits === null || credits >= (cost ?? 0);
+
+  return (
+    <div className="relative">
+      <button
+        onClick={() => setOpen(!open)}
+        className="rounded-lg border border-(--ditto-border) px-4 py-2 text-sm font-medium text-(--ditto-text-secondary) hover:text-(--ditto-text) hover:border-(--ditto-text-muted) transition-colors flex items-center gap-1.5"
+      >
+        <Code2 className="w-3.5 h-3.5" strokeWidth={1.5} />
+        Sono uno sviluppatore
+        <ChevronDown
+          className={`w-3.5 h-3.5 transition-transform ${open ? "rotate-180" : ""}`}
+          strokeWidth={1.5}
+        />
+      </button>
+
+      {open && (
+        <>
+          <div
+            className="fixed inset-0 z-40"
+            onClick={() => setOpen(false)}
+            aria-hidden
+          />
+          <div className="absolute right-0 top-full mt-2 z-50 w-96 rounded-lg border border-(--ditto-border) bg-(--ditto-surface) shadow-xl p-4 text-(--ditto-text)">
+            {/* Section: React + Tailwind */}
+            <div className="mb-5">
+              <h4 className="text-[10px] font-semibold uppercase tracking-wider text-(--ditto-text-muted) mb-1">
+                React &amp; TypeScript
+              </h4>
+              <p className="text-xs text-(--ditto-text-muted) mb-2">
+                Storybook · Tailwind config · TypeScript types · Figma tokens
+              </p>
+              <DevRow
+                label="Dev Kit"
+                status={unlocks.devkit}
+                cost={unlocks.devkit.cost ?? 50}
+                busy={false}
+                downloadLabel="Scarica .zip"
+                purchaseKey="devkit"
+                feature="devkit"
+                purchasing={purchasing}
+                canAfford={canAfford(unlocks.devkit.cost)}
+                onDownload={() => {
+                  onDownloadDevKit();
+                  setOpen(false);
+                }}
+                onBuy={() => onBuy("devkit", unlocks.devkit.cost ?? 50)}
+              />
+            </div>
+
+            {/* Section: WordPress */}
+            <div>
+              <div className="flex items-start justify-between gap-3 mb-1">
+                <h4 className="text-[10px] font-semibold uppercase tracking-wider text-(--ditto-text-muted)">
+                  WordPress
+                </h4>
+                {noWpUnlocked && (
+                  <button
+                    onClick={() => {
+                      onBuy("wp-bundle", unlocks.wpBundle.cost ?? 100);
+                      setOpen(false);
+                    }}
+                    disabled={
+                      purchasing === "wp-bundle" ||
+                      !canAfford(unlocks.wpBundle.cost ?? 100)
+                    }
+                    className="text-[11px] font-medium text-(--ditto-primary) hover:underline flex items-center gap-1 disabled:opacity-60 disabled:no-underline"
+                  >
+                    <Package className="w-3 h-3" strokeWidth={1.5} />
+                    Tutti e 3 a 100 (risparmia 50)
+                  </button>
+                )}
+              </div>
+              <p className="text-xs text-(--ditto-text-muted) mb-2">
+                Scegli il formato, o prendi il pack completo.
+              </p>
+              <DevRow
+                label="Tema WordPress (FSE)"
+                status={unlocks.wordpress}
+                cost={unlocks.wordpress.cost ?? 50}
+                busy={downloadingWp}
+                downloadLabel="Scarica .zip"
+                purchaseKey="wordpress"
+                feature="wordpress"
+                purchasing={purchasing}
+                canAfford={canAfford(unlocks.wordpress.cost)}
+                onDownload={() => {
+                  onDownloadWpTheme();
+                  setOpen(false);
+                }}
+                onBuy={() => onBuy("wordpress", unlocks.wordpress.cost ?? 50)}
+              />
+              <DevRow
+                label="Plugin WordPress (blocchi + tokens)"
+                status={unlocks.plugin}
+                cost={unlocks.plugin.cost ?? 50}
+                busy={downloadingPlugin}
+                downloadLabel="Scarica .zip"
+                purchaseKey="plugin"
+                feature="plugin"
+                purchasing={purchasing}
+                canAfford={canAfford(unlocks.plugin.cost)}
+                onDownload={() => {
+                  onDownloadWpPlugin();
+                  setOpen(false);
+                }}
+                onBuy={() => onBuy("plugin", unlocks.plugin.cost ?? 50)}
+              />
+              <DevRow
+                label="Kit Elementor"
+                status={unlocks.elementor}
+                cost={unlocks.elementor.cost ?? 50}
+                busy={downloadingElementor}
+                downloadLabel="Scarica .zip"
+                purchaseKey="elementor"
+                feature="elementor"
+                purchasing={purchasing}
+                canAfford={canAfford(unlocks.elementor.cost)}
+                onDownload={() => {
+                  onDownloadElementor();
+                  setOpen(false);
+                }}
+                onBuy={() => onBuy("elementor", unlocks.elementor.cost ?? 50)}
+              />
+            </div>
+          </div>
+        </>
+      )}
+    </div>
+  );
+}
+
+// ─── RitocchiDropdown ───────────────────────────────────────────────
+// Compact popover for applying sentiment macros. Opens right-aligned so it
+// doesn't push the preview selector off the row.
+
+interface RitocchiDropdownProps {
+  open: boolean;
+  setOpen: (open: boolean) => void;
+  activeMacros: string[];
+  toggleMacro: (id: string) => void;
+  saving: boolean;
+  onReset: () => void;
+  onSave: () => void;
+}
+
+function RitocchiDropdown({
+  open,
+  setOpen,
+  activeMacros,
+  toggleMacro,
+  saving,
+  onReset,
+  onSave,
+}: RitocchiDropdownProps) {
+  const count = activeMacros.length;
+  return (
+    <div className="relative shrink-0">
+      <button
+        onClick={() => setOpen(!open)}
+        className={
+          "rounded-lg border px-3 py-1.5 text-sm font-medium transition-colors flex items-center gap-1.5 " +
+          (count > 0
+            ? "border-(--ditto-primary) text-(--ditto-text)"
+            : "border-(--ditto-border) text-(--ditto-text-secondary) hover:text-(--ditto-text) hover:border-(--ditto-text-muted)")
+        }
+      >
+        <Sparkles className="w-3.5 h-3.5" strokeWidth={1.5} />
+        Ritocchi
+        {count > 0 && (
+          <span className="inline-flex items-center justify-center min-w-[18px] h-[18px] rounded-full bg-(--ditto-primary) text-(--ditto-bg) text-[10px] font-semibold px-1">
+            {count}
+          </span>
+        )}
+        <ChevronDown
+          className={`w-3.5 h-3.5 transition-transform ${open ? "rotate-180" : ""}`}
+          strokeWidth={1.5}
+        />
+      </button>
+
+      {open && (
+        <>
+          <div
+            className="fixed inset-0 z-40"
+            onClick={() => setOpen(false)}
+            aria-hidden
+          />
+          <div className="absolute right-0 top-full mt-2 z-50 w-[420px] rounded-lg border border-(--ditto-border) bg-(--ditto-surface) shadow-xl p-4 text-(--ditto-text)">
+            <div className="flex items-start justify-between gap-3 mb-3">
+              <div>
+                <h3 className="text-sm font-semibold">Ritocchi di sentiment</h3>
+                <p className="text-xs text-(--ditto-text-muted) mt-0.5 leading-snug">
+                  Clicca per provare. Non salva finché non premi &quot;Salva&quot;.
+                </p>
+              </div>
+              {count > 0 && (
+                <div className="flex items-center gap-2 shrink-0">
+                  <button
+                    onClick={onReset}
+                    className="text-xs text-(--ditto-text-secondary) hover:text-(--ditto-text) underline"
+                  >
+                    Reset
+                  </button>
+                  <button
+                    onClick={onSave}
+                    disabled={saving}
+                    className="rounded-md bg-(--ditto-primary) text-(--ditto-bg) text-xs font-medium px-3 py-1.5 hover:bg-(--ditto-primary-hover) disabled:opacity-50"
+                  >
+                    {saving ? "Salvataggio…" : `Salva ${count}`}
+                  </button>
+                </div>
+              )}
+            </div>
+            <div className="flex flex-wrap gap-1.5">
+              {DESIGN_MACROS.map((m) => {
+                const isActive = activeMacros.includes(m.id);
+                return (
+                  <button
+                    key={m.id}
+                    onClick={() => toggleMacro(m.id)}
+                    title={m.description}
+                    className={
+                      "rounded-full border px-2.5 py-1 text-xs font-medium transition-colors " +
+                      (isActive
+                        ? "border-(--ditto-primary) bg-(--ditto-primary) text-(--ditto-bg)"
+                        : "border-(--ditto-border) bg-(--ditto-bg) text-(--ditto-text-secondary) hover:border-(--ditto-primary)/50 hover:text-(--ditto-text)")
+                    }
+                  >
+                    {m.label}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        </>
+      )}
+    </div>
+  );
+}
+
 const PREVIEW_PAGES = [
   { id: "landing", label: "Landing", Component: LandingPreview },
   { id: "dashboard", label: "Dashboard", Component: DashboardPreview },
@@ -82,6 +442,7 @@ interface DesignDetailProps {
 
 export function DesignDetailClient({ initialDesign, slug }: DesignDetailProps) {
   const lp = useLocalePath();
+  const t = useT();
   const [design, setDesign] = useState<StoredDesign>(initialDesign);
   const [activePreview, setActivePreview] = useState("landing");
   const [activeTab, setActiveTab] = useState<"preview" | "tokens" | "designmd">("preview");
@@ -92,10 +453,17 @@ export function DesignDetailClient({ initialDesign, slug }: DesignDetailProps) {
     devkit: { unlocked: initialDesign.unlockedFeatures?.devkit ?? false, cost: 50 },
     complete: { unlocked: initialDesign.unlockedFeatures?.complete ?? false, cost: 100 },
     wordpress: { unlocked: initialDesign.unlockedFeatures?.wordpress ?? false, cost: 50 },
+    plugin: { unlocked: initialDesign.unlockedFeatures?.plugin ?? false, cost: 50 },
+    elementor: { unlocked: initialDesign.unlockedFeatures?.elementor ?? false, cost: 50 },
+    wpBundle: { unlocked: false, cost: 100 },
   });
   const [purchasing, setPurchasing] = useState<string | null>(null);
   const [confirmModal, setConfirmModal] = useState<{ feature: UnlockableFeature; cost: number } | null>(null);
   const [downloadingWp, setDownloadingWp] = useState(false);
+  const [downloadingPlugin, setDownloadingPlugin] = useState(false);
+  const [downloadingElementor, setDownloadingElementor] = useState(false);
+  const [devOpen, setDevOpen] = useState(false);
+  const [ritocchiOpen, setRitocchiOpen] = useState(false);
   const { deduct, refresh: refreshCredits, credits } = useCredits();
   const { startOnborda } = useOnborda();
 
@@ -163,14 +531,198 @@ export function DesignDetailClient({ initialDesign, slug }: DesignDetailProps) {
         const data = await res.json();
         deduct(data.creditsSpent);
         refreshCredits();
-        setUnlocks((prev) => ({
-          ...prev,
-          [feature]: { unlocked: true, expiresAt: data.expiresAt },
-        }));
+        setUnlocks((prev) => {
+          if (feature === "wp-bundle") {
+            return {
+              ...prev,
+              wpBundle: { unlocked: true },
+              wordpress: { ...prev.wordpress, unlocked: true },
+              plugin: { ...prev.plugin, unlocked: true },
+              elementor: { ...prev.elementor, unlocked: true },
+            };
+          }
+          // Map "wp-bundle" (not in UnlockStatus keys) away; normal features map 1:1.
+          const key = feature as Exclude<UnlockableFeature, "wp-bundle">;
+          return { ...prev, [key]: { unlocked: true } };
+        });
       }
     } catch {}
     setPurchasing(null);
   };
+
+  // ─── Download handlers ────────────────────────────────────────────
+  const downloadDesignMd = useCallback(() => {
+    const blob = new Blob([design.designMd], { type: "text/markdown" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `${design.slug}-DESIGN.md`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }, [design]);
+
+  const downloadDevKit = useCallback(async () => {
+    const [
+      JSZip,
+      { generateStorybookProject },
+      { generateCssVariables },
+      { generateFigmaTokensStudio },
+      { generateTailwindConfig },
+      { generateTypeDefinitions },
+    ] = await Promise.all([
+      import("jszip").then((m) => m.default),
+      import("@/lib/generator/kit-storybook"),
+      import("@/lib/generator/components-code"),
+      import("@/lib/generator/figma-tokens"),
+      import("@/lib/generator/kit-tailwind"),
+      import("@/lib/generator/kit-types"),
+    ]);
+    const r = design.resolved;
+    const zip = new JSZip();
+    const sbFiles = generateStorybookProject(design.name, r, design.tokens.fontSources || []);
+    for (const f of sbFiles) zip.file(f.path, f.content);
+    zip.file("tokens.css", generateCssVariables(r));
+    zip.file("figma-tokens.json", generateFigmaTokensStudio(r));
+    zip.file("tailwind.config.ts", generateTailwindConfig(r));
+    zip.file("types.ts", generateTypeDefinitions(r));
+    zip.file("DESIGN.md", design.designMd);
+    zip.file("README.md", `# ${design.name} — Dev Kit\n\nGenerated by Ditto.\n\n## Quick start\n\n\`\`\`bash\nnpm install\nnpm run storybook\n\`\`\`\n\n## Contents\n\n- **Storybook project** — Interactive component explorer (\`src/\`)\n- **tokens.css** — CSS custom properties\n- **tailwind.config.ts** — Tailwind theme with design tokens\n- **types.ts** — TypeScript interfaces and typed token object\n- **figma-tokens.json** — Tokens Studio format for Figma\n- **DESIGN.md** — Full design system documentation\n`);
+    const blob = await zip.generateAsync({ type: "blob" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `${design.slug}-devkit.zip`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }, [design]);
+
+  const downloadWpTheme = useCallback(async () => {
+    setDownloadingWp(true);
+    try {
+      const [JSZip, { generateWordPressTheme }] = await Promise.all([
+        import("jszip").then((m) => m.default),
+        import("@/lib/generator/kit-wordpress"),
+      ]);
+      const files = await generateWordPressTheme({
+        designName: design.name,
+        designSlug: design.slug,
+        designUrl: design.url,
+        resolved: design.resolved,
+        tokens: design.tokens,
+        screenshotBase64: design.tokens.meta?.screenshot,
+      });
+      const zip = new JSZip();
+      const folder = `${design.slug}-block-theme`;
+      for (const f of files) zip.file(`${folder}/${f.path}`, f.content);
+      const blob = await zip.generateAsync({ type: "blob" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `${design.slug}-wordpress-theme.zip`;
+      a.click();
+      URL.revokeObjectURL(url);
+    } finally {
+      setDownloadingWp(false);
+    }
+  }, [design]);
+
+  const downloadWpPlugin = useCallback(async () => {
+    setDownloadingPlugin(true);
+    try {
+      const [JSZip, { generateWordPressPlugin }] = await Promise.all([
+        import("jszip").then((m) => m.default),
+        import("@/lib/generator/kit-wordpress-plugin"),
+      ]);
+      const files = await generateWordPressPlugin({
+        designName: design.name,
+        designSlug: design.slug,
+        designUrl: design.url,
+        resolved: design.resolved,
+        tokens: design.tokens,
+      });
+      const zip = new JSZip();
+      const folder = `${design.slug}-ditto-plugin`;
+      for (const f of files) zip.file(`${folder}/${f.path}`, f.content);
+      const blob = await zip.generateAsync({ type: "blob" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `${design.slug}-wordpress-plugin.zip`;
+      a.click();
+      URL.revokeObjectURL(url);
+    } finally {
+      setDownloadingPlugin(false);
+    }
+  }, [design]);
+
+  const downloadElementor = useCallback(async () => {
+    setDownloadingElementor(true);
+    try {
+      const [JSZip, { generateElementorKit }] = await Promise.all([
+        import("jszip").then((m) => m.default),
+        import("@/lib/generator/kit-elementor"),
+      ]);
+      const files = await generateElementorKit({
+        designName: design.name,
+        designSlug: design.slug,
+        designUrl: design.url,
+        resolved: design.resolved,
+        tokens: design.tokens,
+      });
+      const zip = new JSZip();
+      for (const f of files) zip.file(f.path, f.content);
+      const blob = await zip.generateAsync({ type: "blob" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `${design.slug}-elementor-kit.zip`;
+      a.click();
+      URL.revokeObjectURL(url);
+    } finally {
+      setDownloadingElementor(false);
+    }
+  }, [design]);
+
+  const downloadCompleteKit = useCallback(async () => {
+    const [
+      JSZip,
+      { generateStorybookProject },
+      { generateComponentsCode, generateCssVariables },
+      { generateKitPages },
+      { generateFigmaTokensStudio },
+      { generateTailwindConfig },
+      { generateTypeDefinitions },
+    ] = await Promise.all([
+      import("jszip").then((m) => m.default),
+      import("@/lib/generator/kit-storybook"),
+      import("@/lib/generator/components-code"),
+      import("@/lib/generator/kit-html"),
+      import("@/lib/generator/figma-tokens"),
+      import("@/lib/generator/kit-tailwind"),
+      import("@/lib/generator/kit-types"),
+    ]);
+    const r = design.resolved;
+    const zip = new JSZip();
+    const sbFiles = generateStorybookProject(design.name, r, design.tokens.fontSources || []);
+    for (const f of sbFiles) zip.file(f.path, f.content);
+    zip.file("tokens.css", generateCssVariables(r));
+    zip.file("figma-tokens.json", generateFigmaTokensStudio(r));
+    zip.file("tailwind.config.ts", generateTailwindConfig(r));
+    zip.file("types.ts", generateTypeDefinitions(r));
+    zip.file("components.tsx", generateComponentsCode(r));
+    const pages = generateKitPages(design.name, r, design.tokens.fontSources || []);
+    const pagesFolder = zip.folder("pages")!;
+    for (const page of pages) pagesFolder.file(page.filename, page.html);
+    zip.file("DESIGN.md", design.designMd);
+    zip.file("README.md", `# ${design.name} — Complete Kit\n\nGenerated by Ditto. Everything you need to implement this design system.\n\n## For developers\n\n\`\`\`bash\nnpm install\nnpm run storybook\n\`\`\`\n\n## For designers & non-devs\n\nOpen the \`pages/\` folder — it contains ready-to-use HTML pages (landing, dashboard, auth, pricing, blog) that you can open in any browser.\n\n## Contents\n\n- **Storybook project** — Interactive component explorer (\`src/\`)\n- **pages/** — 5 ready-to-use HTML pages\n- **components.tsx** — 14 React components with inline styles\n- **tokens.css** — CSS custom properties\n- **tailwind.config.ts** — Tailwind theme with design tokens\n- **types.ts** — TypeScript interfaces and typed token object\n- **figma-tokens.json** — Tokens Studio format for Figma\n- **DESIGN.md** — Full design system documentation\n`);
+    const blob = await zip.generateAsync({ type: "blob" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `${design.slug}-complete-kit.zip`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }, [design]);
 
   const ActiveComponent =
     PREVIEW_PAGES.find((p) => p.id === activePreview)?.Component || LandingPreview;
@@ -178,244 +730,105 @@ export function DesignDetailClient({ initialDesign, slug }: DesignDetailProps) {
   return (
     <div>
       {/* Header */}
-      <div id="tour-design-header" className="flex items-center justify-between mb-6">
-        <div>
-          <div className="flex items-center gap-3 mb-1">
+      <div id="tour-design-header" className="flex items-start justify-between gap-6 mb-6">
+        <div className="min-w-0 flex-1">
+          <div className="flex items-center gap-3 mb-2">
             <a
               href={lp("/dashboard")}
-              className="text-sm text-(--ditto-text-muted) hover:text-(--ditto-text) transition-colors"
+              className="inline-flex items-center gap-1.5 rounded-lg border border-(--ditto-border) px-3 py-1.5 text-xs font-medium text-(--ditto-text-secondary) hover:text-(--ditto-text) hover:border-(--ditto-text-muted) transition-colors"
             >
-              ← Library
+              {t("designLibraryBack")}
             </a>
           </div>
           <div className="flex items-center gap-3">
             <h1 className="text-2xl font-bold tracking-tight text-(--ditto-text)">
               {design.name}
             </h1>
-            {design.quality && (
-              <div className="relative inline-flex items-center gap-1 mr-4">
-                <span
-                  className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold"
-                  style={{
-                    backgroundColor: qualityColor(design.quality.overall) + "18",
-                    color: qualityColor(design.quality.overall),
-                  }}
-                >
-                  <svg viewBox="0 0 16 16" className="w-3.5 h-3.5" fill="currentColor">
-                    <path d="M8 1.5l2.1 4.3 4.7.7-3.4 3.3.8 4.7L8 12.2 3.8 14.5l.8-4.7L1.2 6.5l4.7-.7z"/>
-                  </svg>
-                  {design.quality.overall}<span className="opacity-60">/100</span>
-                  <span className="opacity-70">{qualityLabel(design.quality.overall)}</span>
-                </span>
-                <QualityInfoPopover />
-              </div>
-            )}
           </div>
-          <div className="flex items-center gap-3 mt-1">
-            {design.url && (
-              <a
-                href={design.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm text-(--ditto-text-muted) hover:text-(--ditto-primary) transition-colors"
-              >
-                {design.url} ↗
-              </a>
-            )}
+          <div className="flex items-center gap-2 mt-2 flex-wrap">
+            {design.url && (() => {
+              const urls = design.url
+                .split(",")
+                .map((s) => s.trim())
+                .filter(Boolean);
+              if (urls.length === 0) return null;
+              return (
+                <>
+                  <span className="text-xs text-(--ditto-text-muted)">
+                    {t("designInspiredBy")}
+                  </span>
+                  {urls.map((u) => {
+                    let label = u;
+                    try {
+                      label = new URL(u).hostname.replace(/^www\./, "");
+                    } catch {
+                      // fall back to raw string if URL parsing fails
+                    }
+                    return (
+                      <a
+                        key={u}
+                        href={u}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 rounded-lg border border-(--ditto-border) px-2.5 py-1 text-xs font-medium text-(--ditto-text-secondary) hover:text-(--ditto-primary) hover:border-(--ditto-text-muted) transition-colors"
+                      >
+                        {label} <span aria-hidden>↗</span>
+                      </a>
+                    );
+                  })}
+                </>
+              );
+            })()}
             {(design.creditsSpent ?? 0) > 0 && (
-              <span className="flex items-center gap-1 text-xs text-(--ditto-text-muted)">
+              <span className="flex items-center gap-1 text-xs text-(--ditto-text-muted) ml-1">
                 <Coins className="w-3 h-3 text-(--ditto-primary)" strokeWidth={1.5} />
                 {design.creditsSpent} credits spent
               </span>
             )}
           </div>
         </div>
-        <div id="tour-kits" className="flex gap-2 flex-wrap">
-          {/* Dev Kit (50cr) — Storybook + tokens + Tailwind + types + Figma */}
-          {unlocks.devkit.unlocked ? (
-            <div className="flex items-center gap-2">
-              <button
-                onClick={async () => {
-                  const [
-                    JSZip,
-                    { generateStorybookProject },
-                    { generateCssVariables },
-                    { generateFigmaTokensStudio },
-                    { generateTailwindConfig },
-                    { generateTypeDefinitions },
-                  ] = await Promise.all([
-                    import("jszip").then((m) => m.default),
-                    import("@/lib/generator/kit-storybook"),
-                    import("@/lib/generator/components-code"),
-                    import("@/lib/generator/figma-tokens"),
-                    import("@/lib/generator/kit-tailwind"),
-                    import("@/lib/generator/kit-types"),
-                  ]);
-                  const r = design.resolved;
-                  const zip = new JSZip();
-                  const sbFiles = generateStorybookProject(design.name, r, design.tokens.fontSources || []);
-                  for (const f of sbFiles) zip.file(f.path, f.content);
-                  zip.file("tokens.css", generateCssVariables(r));
-                  zip.file("figma-tokens.json", generateFigmaTokensStudio(r));
-                  zip.file("tailwind.config.ts", generateTailwindConfig(r));
-                  zip.file("types.ts", generateTypeDefinitions(r));
-                  zip.file("DESIGN.md", design.designMd);
-                  zip.file("README.md", `# ${design.name} — Dev Kit\n\nGenerated by Ditto.\n\n## Quick start\n\n\`\`\`bash\nnpm install\nnpm run storybook\n\`\`\`\n\n## Contents\n\n- **Storybook project** — Interactive component explorer (\`src/\`)\n- **tokens.css** — CSS custom properties\n- **tailwind.config.ts** — Tailwind theme with design tokens\n- **types.ts** — TypeScript interfaces and typed token object\n- **figma-tokens.json** — Tokens Studio format for Figma\n- **DESIGN.md** — Full design system documentation\n`);
-                  const blob = await zip.generateAsync({ type: "blob" });
-                  const url = URL.createObjectURL(blob);
-                  const a = document.createElement("a");
-                  a.href = url;
-                  a.download = `${design.slug}-devkit.zip`;
-                  a.click();
-                  URL.revokeObjectURL(url);
-                }}
-                className="rounded-lg bg-(--ditto-primary) px-4 py-2 text-sm font-medium text-(--ditto-bg) hover:bg-(--ditto-primary-hover) transition-colors"
-              >
-                Download Dev Kit
-              </button>
-              <FeatureInfo items={["Storybook project (components + stories)", "CSS tokens (tokens.css)", "Tailwind config (tailwind.config.ts)", "TypeScript types (types.ts)", "Figma tokens (figma-tokens.json)", "DESIGN.md documentation"]} />
-            </div>
-          ) : (
-            <div className="flex items-center gap-1">
-              <button
-                onClick={() => setConfirmModal({ feature: "devkit", cost: unlocks.devkit.cost ?? 50 })}
-                disabled={purchasing === "devkit" || (credits !== null && credits < (unlocks.devkit.cost ?? 50))}
-                className="rounded-lg bg-(--ditto-primary) px-4 py-2 text-sm font-medium text-(--ditto-bg) hover:bg-(--ditto-primary-hover) transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1.5"
-              >
-                {purchasing === "devkit" ? (
-                  <>
-                    <span className="w-3 h-3 border-2 border-(--ditto-bg) border-t-transparent rounded-full animate-spin" />
-                    Unlocking...
-                  </>
-                ) : (
-                  <>
-                    <Lock className="w-3.5 h-3.5" strokeWidth={1.5} />
-                    Dev Kit &middot; {unlocks.devkit.cost ?? 50}
-                    <Coins className="w-3 h-3" strokeWidth={1.5} />
-                  </>
-                )}
-              </button>
-              <FeatureInfo items={["Storybook project (components + stories)", "CSS tokens (tokens.css)", "Tailwind config (tailwind.config.ts)", "TypeScript types (types.ts)", "Figma tokens (figma-tokens.json)", "DESIGN.md documentation"]} />
-            </div>
-          )}
+        <div id="tour-kits" className="flex gap-2 items-center shrink-0">
+          {/* ─── [1] Integra con l'AI — always free, downloads DESIGN.md ─── */}
+          <div className="flex items-center gap-1.5">
+            <button
+              id="tour-designmd-btn"
+              onClick={downloadDesignMd}
+              className="rounded-lg border border-(--ditto-border) px-4 py-2 text-sm font-medium text-(--ditto-text-secondary) hover:text-(--ditto-text) hover:border-(--ditto-text-muted) transition-colors flex items-center gap-1.5"
+            >
+              <Sparkles className="w-3.5 h-3.5" strokeWidth={1.5} />
+              Integra con l&apos;AI
+            </button>
+            <DesignMdInfo />
+          </div>
 
-          {/* WordPress Theme (50cr) — block theme (theme.json + templates + parts + patterns) */}
-          {unlocks.wordpress.unlocked ? (
-            <div className="flex items-center gap-2">
-              <button
-                disabled={downloadingWp}
-                onClick={async () => {
-                  setDownloadingWp(true);
-                  try {
-                    const [JSZip, { generateWordPressTheme }] = await Promise.all([
-                      import("jszip").then((m) => m.default),
-                      import("@/lib/generator/kit-wordpress"),
-                    ]);
-                    const files = await generateWordPressTheme({
-                      designName: design.name,
-                      designSlug: design.slug,
-                      designUrl: design.url,
-                      resolved: design.resolved,
-                      tokens: design.tokens,
-                      screenshotBase64: design.tokens.meta?.screenshot,
-                    });
-                    const zip = new JSZip();
-                    const folder = `${design.slug}-block-theme`;
-                    for (const f of files) zip.file(`${folder}/${f.path}`, f.content);
-                    const blob = await zip.generateAsync({ type: "blob" });
-                    const url = URL.createObjectURL(blob);
-                    const a = document.createElement("a");
-                    a.href = url;
-                    a.download = `${design.slug}-wordpress-theme.zip`;
-                    a.click();
-                    URL.revokeObjectURL(url);
-                  } finally {
-                    setDownloadingWp(false);
-                  }
-                }}
-                className="rounded-lg bg-(--ditto-primary) px-4 py-2 text-sm font-medium text-(--ditto-bg) hover:bg-(--ditto-primary-hover) transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                {downloadingWp ? "Bundling fonts…" : "Download WordPress Theme"}
-              </button>
-              <FeatureInfo items={["FSE block theme (theme.json driven)", "Full palette, fonts, spacing & shadows mapped", "Self-hosted fonts bundled in /assets/fonts", "8 templates + header/footer parts + 3 patterns", "Drop into wp-content/themes/ and activate"]} />
-            </div>
-          ) : (
-            <div className="flex items-center gap-1">
-              <button
-                onClick={() => setConfirmModal({ feature: "wordpress", cost: unlocks.wordpress.cost ?? 50 })}
-                disabled={purchasing === "wordpress" || (credits !== null && credits < (unlocks.wordpress.cost ?? 50))}
-                className="rounded-lg bg-(--ditto-primary) px-4 py-2 text-sm font-medium text-(--ditto-bg) hover:bg-(--ditto-primary-hover) transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1.5"
-              >
-                {purchasing === "wordpress" ? (
-                  <>
-                    <span className="w-3 h-3 border-2 border-(--ditto-bg) border-t-transparent rounded-full animate-spin" />
-                    Unlocking...
-                  </>
-                ) : (
-                  <>
-                    <Lock className="w-3.5 h-3.5" strokeWidth={1.5} />
-                    WordPress Theme &middot; {unlocks.wordpress.cost ?? 50}
-                    <Coins className="w-3 h-3" strokeWidth={1.5} />
-                  </>
-                )}
-              </button>
-              <FeatureInfo items={["FSE block theme (theme.json driven)", "Full palette, fonts, spacing & shadows mapped", "Self-hosted fonts bundled in /assets/fonts", "8 templates + header/footer parts + 3 patterns", "Drop into wp-content/themes/ and activate"]} />
-            </div>
-          )}
+          {/* ─── [2] Sono uno sviluppatore — popover with framework options ─── */}
+          <DeveloperDropdown
+            open={devOpen}
+            setOpen={setDevOpen}
+            unlocks={unlocks}
+            purchasing={purchasing}
+            credits={credits}
+            downloadingWp={downloadingWp}
+            downloadingPlugin={downloadingPlugin}
+            downloadingElementor={downloadingElementor}
+            onBuy={(feature, cost) => setConfirmModal({ feature, cost })}
+            onDownloadDevKit={downloadDevKit}
+            onDownloadWpTheme={downloadWpTheme}
+            onDownloadWpPlugin={downloadWpPlugin}
+            onDownloadElementor={downloadElementor}
+          />
 
-          {/* Complete Kit (100cr) — Everything in Dev Kit + HTML pages + components + beginner guide */}
+          {/* ─── [3] Sito Statico — Complete Kit (HTML pages + components) ─── */}
           {unlocks.complete.unlocked ? (
             <div className="flex items-center gap-2">
               <button
-                onClick={async () => {
-                  const [
-                    JSZip,
-                    { generateStorybookProject },
-                    { generateComponentsCode, generateCssVariables },
-                    { generateKitPages },
-                    { generateFigmaTokensStudio },
-                    { generateTailwindConfig },
-                    { generateTypeDefinitions },
-                  ] = await Promise.all([
-                    import("jszip").then((m) => m.default),
-                    import("@/lib/generator/kit-storybook"),
-                    import("@/lib/generator/components-code"),
-                    import("@/lib/generator/kit-html"),
-                    import("@/lib/generator/figma-tokens"),
-                    import("@/lib/generator/kit-tailwind"),
-                    import("@/lib/generator/kit-types"),
-                  ]);
-                  const r = design.resolved;
-                  const zip = new JSZip();
-                  // Storybook project
-                  const sbFiles = generateStorybookProject(design.name, r, design.tokens.fontSources || []);
-                  for (const f of sbFiles) zip.file(f.path, f.content);
-                  // Dev artifacts
-                  zip.file("tokens.css", generateCssVariables(r));
-                  zip.file("figma-tokens.json", generateFigmaTokensStudio(r));
-                  zip.file("tailwind.config.ts", generateTailwindConfig(r));
-                  zip.file("types.ts", generateTypeDefinitions(r));
-                  zip.file("components.tsx", generateComponentsCode(r));
-                  // HTML preview pages
-                  const pages = generateKitPages(design.name, r, design.tokens.fontSources || []);
-                  const pagesFolder = zip.folder("pages")!;
-                  for (const page of pages) pagesFolder.file(page.filename, page.html);
-                  // Docs
-                  zip.file("DESIGN.md", design.designMd);
-                  zip.file("README.md", `# ${design.name} — Complete Kit\n\nGenerated by Ditto. Everything you need to implement this design system.\n\n## For developers\n\n\`\`\`bash\nnpm install\nnpm run storybook\n\`\`\`\n\n## For designers & non-devs\n\nOpen the \`pages/\` folder — it contains ready-to-use HTML pages (landing, dashboard, auth, pricing, blog) that you can open in any browser.\n\n## Contents\n\n- **Storybook project** — Interactive component explorer (\`src/\`)\n- **pages/** — 5 ready-to-use HTML pages\n- **components.tsx** — 14 React components with inline styles\n- **tokens.css** — CSS custom properties\n- **tailwind.config.ts** — Tailwind theme with design tokens\n- **types.ts** — TypeScript interfaces and typed token object\n- **figma-tokens.json** — Tokens Studio format for Figma\n- **DESIGN.md** — Full design system documentation\n`);
-                  const blob = await zip.generateAsync({ type: "blob" });
-                  const url = URL.createObjectURL(blob);
-                  const a = document.createElement("a");
-                  a.href = url;
-                  a.download = `${design.slug}-complete-kit.zip`;
-                  a.click();
-                  URL.revokeObjectURL(url);
-                }}
-                className="rounded-lg border border-(--ditto-border) px-4 py-2 text-sm font-medium text-(--ditto-text-secondary) hover:text-(--ditto-text) hover:border-(--ditto-text-muted) transition-colors"
+                onClick={downloadCompleteKit}
+                className="rounded-lg border border-(--ditto-border) px-4 py-2 text-sm font-medium text-(--ditto-text-secondary) hover:text-(--ditto-text) hover:border-(--ditto-text-muted) transition-colors flex items-center gap-1.5"
               >
-                Download Complete Kit
+                <Globe className="w-3.5 h-3.5" strokeWidth={1.5} />
+                Scarica Sito Statico
               </button>
-              <FeatureInfo items={["Everything in Dev Kit, plus:", "5 ready-to-use HTML pages", "React components (14) with inline styles", "Beginner-friendly README", "Open pages in any browser — no setup needed"]} />
+              <FeatureInfo align="right" items={["5 ready-to-use HTML pages", "React components (14) with inline styles", "Beginner-friendly README", "Open pages in any browser — no setup needed"]} />
             </div>
           ) : (
             <div className="flex items-center gap-1">
@@ -431,26 +844,15 @@ export function DesignDetailClient({ initialDesign, slug }: DesignDetailProps) {
                   </>
                 ) : (
                   <>
-                    <Lock className="w-3.5 h-3.5" strokeWidth={1.5} />
-                    Complete Kit &middot; {unlocks.complete.cost ?? 100}
+                    <Globe className="w-3.5 h-3.5" strokeWidth={1.5} />
+                    Sito Statico &middot; {unlocks.complete.cost ?? 100}
                     <Coins className="w-3 h-3" strokeWidth={1.5} />
                   </>
                 )}
               </button>
-              <FeatureInfo items={["Everything in Dev Kit, plus:", "5 ready-to-use HTML pages", "React components (14) with inline styles", "Beginner-friendly README", "Open pages in any browser — no setup needed"]} />
+              <FeatureInfo align="right" items={["5 ready-to-use HTML pages", "React components (14) with inline styles", "Beginner-friendly README", "Open pages in any browser — no setup needed"]} />
             </div>
           )}
-
-          {/* Copy DESIGN.md — always free */}
-          <button
-            id="tour-designmd-btn"
-            onClick={() => {
-              navigator.clipboard.writeText(design.designMd);
-            }}
-            className="rounded-lg border border-(--ditto-border) px-4 py-2 text-sm font-medium text-(--ditto-text-secondary) hover:text-(--ditto-text) hover:border-(--ditto-text-muted) transition-colors"
-          >
-            Copy DESIGN.md
-          </button>
         </div>
       </div>
 
@@ -485,86 +887,68 @@ export function DesignDetailClient({ initialDesign, slug }: DesignDetailProps) {
       {/* Preview Tab */}
       {activeTab === "preview" && (
         <div>
-          {/* Preview page selector */}
-          <div className="flex gap-2 mb-4">
-            {PREVIEW_PAGES.map((page) => (
-              <button
-                key={page.id}
-                onClick={() => setActivePreview(page.id)}
-                className="rounded-lg px-3 py-1.5 text-sm transition-colors"
-                style={{
-                  backgroundColor:
-                    activePreview === page.id
-                      ? "var(--ditto-primary)"
-                      : "var(--ditto-surface)",
-                  color:
-                    activePreview === page.id
-                      ? "var(--ditto-bg)"
-                      : "var(--ditto-text-secondary)",
-                  border:
-                    activePreview === page.id
-                      ? "none"
-                      : "1px solid var(--ditto-border)",
-                }}
-              >
-                {page.label}
-              </button>
-            ))}
-          </div>
-
-          {/* Design Macros — preset transformations the user can toggle to
-              shift the overall sentiment. Pure client-side math. */}
-          <div className="mb-4 rounded-xl border border-(--ditto-border) bg-(--ditto-surface) p-4">
-            <div className="flex items-center justify-between mb-3">
-              <div>
-                <h3 className="text-sm font-semibold text-(--ditto-text)">
-                  Ritocchi di sentiment
-                </h3>
-                <p className="text-xs text-(--ditto-text-muted) mt-0.5">
-                  Clicca per provare. Non salva finché non premi &quot;Salva ritocchi&quot;.
-                </p>
-              </div>
-              {activeMacros.length > 0 && (
-                <div className="flex gap-2">
-                  <button
-                    onClick={() => {
-                      setActiveMacros([]);
-                      setEditResolved(design.resolved);
-                    }}
-                    className="text-xs text-(--ditto-text-secondary) hover:text-(--ditto-text) underline"
-                  >
-                    Reset
-                  </button>
-                  <button
-                    onClick={saveActiveMacros}
-                    disabled={savingMacros}
-                    className="rounded-md bg-(--ditto-primary) text-(--ditto-bg) text-xs font-medium px-3 py-1.5 hover:bg-(--ditto-primary-hover) disabled:opacity-50"
-                  >
-                    {savingMacros ? "Salvataggio…" : `Salva ${activeMacros.length} ritocch${activeMacros.length === 1 ? "o" : "i"}`}
-                  </button>
-                </div>
+          {/* Preview page selector + Quality score (left) + Ritocchi dropdown (right) */}
+          <div className="flex items-center justify-between gap-3 mb-4">
+            <div className="flex items-center gap-3 flex-wrap">
+              {design.quality && (
+                <>
+                  <div className="relative inline-flex items-center gap-1">
+                    <span
+                      className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold"
+                      style={{
+                        backgroundColor: qualityColor(design.quality.overall) + "18",
+                        color: qualityColor(design.quality.overall),
+                      }}
+                    >
+                      <svg viewBox="0 0 16 16" className="w-3.5 h-3.5" fill="currentColor">
+                        <path d="M8 1.5l2.1 4.3 4.7.7-3.4 3.3.8 4.7L8 12.2 3.8 14.5l.8-4.7L1.2 6.5l4.7-.7z"/>
+                      </svg>
+                      {design.quality.overall}<span className="opacity-60">/100</span>
+                      <span className="opacity-70">{qualityLabel(design.quality.overall)}</span>
+                    </span>
+                    <QualityInfoPopover />
+                  </div>
+                  <span aria-hidden className="h-5 w-px bg-(--ditto-border)" />
+                </>
               )}
+              {PREVIEW_PAGES.map((page) => (
+                <button
+                  key={page.id}
+                  onClick={() => setActivePreview(page.id)}
+                  className="rounded-lg px-3 py-1.5 text-sm transition-colors"
+                  style={{
+                    backgroundColor:
+                      activePreview === page.id
+                        ? "var(--ditto-primary)"
+                        : "var(--ditto-surface)",
+                    color:
+                      activePreview === page.id
+                        ? "var(--ditto-bg)"
+                        : "var(--ditto-text-secondary)",
+                    border:
+                      activePreview === page.id
+                        ? "none"
+                        : "1px solid var(--ditto-border)",
+                  }}
+                >
+                  {page.label}
+                </button>
+              ))}
             </div>
-            <div className="flex flex-wrap gap-2">
-              {DESIGN_MACROS.map((m) => {
-                const isActive = activeMacros.includes(m.id);
-                return (
-                  <button
-                    key={m.id}
-                    onClick={() => toggleMacro(m.id)}
-                    title={m.description}
-                    className={
-                      "rounded-full border px-3 py-1.5 text-xs font-medium transition-colors " +
-                      (isActive
-                        ? "border-(--ditto-primary) bg-(--ditto-primary) text-(--ditto-bg)"
-                        : "border-(--ditto-border) bg-(--ditto-bg) text-(--ditto-text-secondary) hover:border-(--ditto-primary)/50 hover:text-(--ditto-text)")
-                    }
-                  >
-                    {m.label}
-                  </button>
-                );
-              })}
-            </div>
+
+            {/* Ritocchi di sentiment — compact dropdown on the right */}
+            <RitocchiDropdown
+              open={ritocchiOpen}
+              setOpen={setRitocchiOpen}
+              activeMacros={activeMacros}
+              toggleMacro={toggleMacro}
+              saving={savingMacros}
+              onReset={() => {
+                setActiveMacros([]);
+                setEditResolved(design.resolved);
+              }}
+              onSave={saveActiveMacros}
+            />
           </div>
 
           {/* Preview */}
@@ -644,13 +1028,16 @@ export function DesignDetailClient({ initialDesign, slug }: DesignDetailProps) {
       {confirmModal && (
         <PurchaseConfirmModal
           label={
-            confirmModal.feature === "devkit"
-              ? "Unlock Dev Kit"
-              : confirmModal.feature === "wordpress"
-                ? "Unlock WordPress Theme"
-                : "Unlock Complete Kit"
+            {
+              devkit: "Unlock Dev Kit",
+              wordpress: "Unlock WordPress Theme",
+              plugin: "Unlock WordPress Plugin",
+              elementor: "Unlock Elementor Kit",
+              "wp-bundle": "Unlock WordPress Pack (Theme + Plugin + Elementor)",
+              complete: "Unlock Complete Kit",
+            }[confirmModal.feature]
           }
-          description="Once unlocked, you can download it for 15 days."
+          description="Once unlocked, the download stays available forever."
           cost={confirmModal.cost}
           currentCredits={credits ?? 0}
           processing={purchasing === confirmModal.feature}
@@ -1120,8 +1507,60 @@ function TokensView({ design, onBoost }: { design: StoredDesign; onBoost: () => 
   );
 }
 
-function FeatureInfo({ items }: { items: string[] }) {
+function DesignMdInfo() {
   const [open, setOpen] = useState(false);
+  return (
+    <div className="relative">
+      <button
+        onClick={() => setOpen(!open)}
+        className="w-5 h-5 rounded-full border border-(--ditto-border) bg-(--ditto-surface) text-(--ditto-text-muted) hover:text-(--ditto-text) hover:border-(--ditto-text-muted) transition-colors flex items-center justify-center"
+        aria-label="Cos'è DESIGN.md"
+      >
+        <Info className="w-3 h-3" strokeWidth={1.5} />
+      </button>
+      {open && (
+        <>
+          <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} />
+          <div className="absolute left-0 top-7 z-50 w-80 rounded-lg border border-(--ditto-border) bg-(--ditto-surface) shadow-xl p-4 text-xs text-(--ditto-text)">
+            <p className="font-semibold text-sm mb-2">Cos&apos;è DESIGN.md</p>
+            <p className="text-(--ditto-text-muted) mb-3 leading-relaxed">
+              Un file Markdown che descrive l&apos;intero design system estratto: palette, tipografia, spaziature, ombre, radii, componenti e linee guida d&apos;uso — pronto come contesto per modelli AI.
+            </p>
+            <p className="font-semibold text-[11px] uppercase tracking-wide text-(--ditto-text-muted) mb-1.5">Come usarlo</p>
+            <ul className="space-y-1.5 text-(--ditto-text-muted) mb-3 leading-relaxed">
+              <li className="flex items-start gap-1.5">
+                <span className="text-(--ditto-primary) mt-0.5 shrink-0">1.</span>
+                Scarica il file, aprilo o copiane il contenuto.
+              </li>
+              <li className="flex items-start gap-1.5">
+                <span className="text-(--ditto-primary) mt-0.5 shrink-0">2.</span>
+                Incollalo in Claude, ChatGPT, Cursor o qualsiasi agente AI come system prompt o allegato.
+              </li>
+              <li className="flex items-start gap-1.5">
+                <span className="text-(--ditto-primary) mt-0.5 shrink-0">3.</span>
+                Chiedi all&apos;AI di generare componenti, pagine o contenuti — li produrrà rispettando i token del design.
+              </li>
+            </ul>
+            <p className="font-semibold text-[11px] uppercase tracking-wide text-(--ditto-text-muted) mb-1.5">Esempio di prompt</p>
+            <pre className="bg-(--ditto-bg) border border-(--ditto-border) rounded-md p-2 text-[10.5px] text-(--ditto-text-secondary) whitespace-pre-wrap leading-snug">
+{`Usa questo design system come riferimento
+e crea un componente Pricing con 3 piani.`}
+            </pre>
+          </div>
+        </>
+      )}
+    </div>
+  );
+}
+
+function FeatureInfo({ items, align = "center" }: { items: string[]; align?: "left" | "center" | "right" }) {
+  const [open, setOpen] = useState(false);
+  const positionClass =
+    align === "right"
+      ? "right-0"
+      : align === "left"
+        ? "left-0"
+        : "left-1/2 -translate-x-1/2";
   return (
     <div className="relative">
       <button
@@ -1134,7 +1573,7 @@ function FeatureInfo({ items }: { items: string[] }) {
       {open && (
         <>
           <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} />
-          <div className="absolute left-1/2 -translate-x-1/2 top-7 z-50 w-64 rounded-lg border border-(--ditto-border) bg-(--ditto-surface) shadow-xl p-3">
+          <div className={`absolute ${positionClass} top-7 z-50 w-64 rounded-lg border border-(--ditto-border) bg-(--ditto-surface) shadow-xl p-3`}>
             <p className="text-xs font-semibold text-(--ditto-text) mb-2">Includes:</p>
             <ul className="space-y-1">
               {items.map((item) => (

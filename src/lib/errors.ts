@@ -39,7 +39,7 @@ export enum ApiError {
   INVALID_RECYCLE_ACTION = "Invalid action. Must be 'catalog' or 'credits'",
 
   // Unlocks
-  INVALID_FEATURE = "Invalid feature. Must be 'kit' or 'storybook'",
+  INVALID_FEATURE = "Invalid feature",
   FEATURE_ALREADY_UNLOCKED = "Feature already unlocked",
 
   // Figma

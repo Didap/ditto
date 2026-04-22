@@ -110,6 +110,10 @@ const translations = {
     pricingTeamF4: "Everything in Pro",
     pricingTeamF5: "Priority support",
     pricingTeamF6: "Team collaboration (soon)",
+
+    // Design detail
+    designLibraryBack: "← Library",
+    designInspiredBy: "Inspired by:",
   },
   it: {
     navLogin: "Accedi",
@@ -205,6 +209,10 @@ const translations = {
     pricingTeamF4: "Tutto in Pro",
     pricingTeamF5: "Supporto prioritario",
     pricingTeamF6: "Collaborazione team (in arrivo)",
+
+    // Design detail
+    designLibraryBack: "← Libreria",
+    designInspiredBy: "Ispirato da:",
   },
   fr: {
     navLogin: "Se connecter",
@@ -300,6 +308,10 @@ const translations = {
     pricingTeamF4: "Tout dans Pro",
     pricingTeamF5: "Support prioritaire",
     pricingTeamF6: "Collaboration equipe (bientot)",
+
+    // Design detail
+    designLibraryBack: "← Bibliotheque",
+    designInspiredBy: "Inspire par :",
   },
   es: {
     navLogin: "Iniciar sesion",
@@ -395,6 +407,10 @@ const translations = {
     pricingTeamF4: "Todo en Pro",
     pricingTeamF5: "Soporte prioritario",
     pricingTeamF6: "Colaboracion en equipo (pronto)",
+
+    // Design detail
+    designLibraryBack: "← Biblioteca",
+    designInspiredBy: "Inspirado en:",
   },
 } as const;
 

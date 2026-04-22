@@ -7,16 +7,39 @@ import { nanoid } from "nanoid";
 import { ApiError, insufficientCredits } from "@/lib/errors";
 import { sendPurchaseEmail } from "@/lib/email";
 
-type Feature = "devkit" | "complete" | "wordpress";
-const FEATURE_COST: Record<Feature, number> = { devkit: 50, complete: 100, wordpress: 50 };
+type Feature =
+  | "devkit"
+  | "complete"
+  | "wordpress"
+  | "plugin"
+  | "elementor"
+  | "wp-bundle";
+const FEATURE_COST: Record<Feature, number> = {
+  devkit: 50,
+  complete: 100,
+  wordpress: 50,
+  plugin: 50,
+  elementor: 50,
+  "wp-bundle": 100,
+};
 const FEATURE_LABEL: Record<Feature, string> = {
   devkit: "Dev Kit",
   complete: "Complete Kit",
   wordpress: "WordPress Theme",
+  plugin: "WordPress Plugin",
+  elementor: "Elementor Kit",
+  "wp-bundle": "WordPress Pack",
 };
 
 function isValidFeature(f: string): f is Feature {
-  return f === "devkit" || f === "complete" || f === "wordpress";
+  return (
+    f === "devkit" ||
+    f === "complete" ||
+    f === "wordpress" ||
+    f === "plugin" ||
+    f === "elementor" ||
+    f === "wp-bundle"
+  );
 }
 
 /** Find an existing unlock for a user+slug+feature (no expiry check — permanent) */
@@ -45,11 +68,18 @@ export async function GET(
 
   const { slug } = await params;
 
-  const [devkit, complete, wordpress] = await Promise.all([
-    getUnlock(user.id, slug, "devkit"),
-    getUnlock(user.id, slug, "complete"),
-    getUnlock(user.id, slug, "wordpress"),
-  ]);
+  const [devkit, complete, wordpress, plugin, elementor, wpBundle] =
+    await Promise.all([
+      getUnlock(user.id, slug, "devkit"),
+      getUnlock(user.id, slug, "complete"),
+      getUnlock(user.id, slug, "wordpress"),
+      getUnlock(user.id, slug, "plugin"),
+      getUnlock(user.id, slug, "elementor"),
+      getUnlock(user.id, slug, "wp-bundle"),
+    ]);
+
+  // wp-bundle grants access to all three WordPress features.
+  const hasBundle = Boolean(wpBundle);
 
   return NextResponse.json({
     devkit: devkit
@@ -58,9 +88,18 @@ export async function GET(
     complete: complete
       ? { unlocked: true }
       : { unlocked: false, cost: FEATURE_COST.complete },
-    wordpress: wordpress
+    wordpress: wordpress || hasBundle
       ? { unlocked: true }
       : { unlocked: false, cost: FEATURE_COST.wordpress },
+    plugin: plugin || hasBundle
+      ? { unlocked: true }
+      : { unlocked: false, cost: FEATURE_COST.plugin },
+    elementor: elementor || hasBundle
+      ? { unlocked: true }
+      : { unlocked: false, cost: FEATURE_COST.elementor },
+    wpBundle: hasBundle
+      ? { unlocked: true }
+      : { unlocked: false, cost: FEATURE_COST["wp-bundle"] },
   });
 }
 

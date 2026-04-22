@@ -309,5 +309,7 @@ export interface StoredDesign {
     devkit: boolean;
     complete: boolean;
     wordpress: boolean;
+    plugin: boolean;
+    elementor: boolean;
   };
 }
