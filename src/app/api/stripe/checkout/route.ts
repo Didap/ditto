@@ -6,6 +6,8 @@ import { users } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
 import { ApiError } from "@/lib/errors";
 import { isLaunchActive, LAUNCH_COUPON_ID } from "@/lib/regions";
+import { trackServer } from "@/lib/analytics/posthog-server";
+import { EVENTS } from "@/lib/analytics/events";
 
 export async function POST(req: NextRequest) {
   const user = await getRequiredUser();
@@ -62,6 +64,11 @@ export async function POST(req: NextRequest) {
     ...(launch ? { discounts: [{ coupon: LAUNCH_COUPON_ID }] } : {}),
     ...(isSubscription ? { subscription_data: { metadata: { userId: user.id, locale: loc } } } : {}),
     ...(isSubscription ? {} : { payment_intent_data: { metadata: { userId: user.id, locale: loc } } }),
+  });
+
+  trackServer(user.id, EVENTS.STRIPE_CHECKOUT_OPENED, {
+    plan: isSubscription ? "subscription" : "payment",
+    priceId,
   });
 
   return NextResponse.json({ url: session.url });

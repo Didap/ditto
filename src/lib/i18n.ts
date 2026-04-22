@@ -117,6 +117,16 @@ const translations = {
 
     // Profile / account
     navProfile: "Profile",
+
+    // Analytics consent
+    consentTitle: "Help us improve Ditto.",
+    consentBody:
+      "We use cookies and product analytics to understand how Ditto is used. No tracking for ads. You can change your choice anytime from Profile settings.",
+    consentAccept: "Accept analytics",
+    consentDeny: "Refuse",
+    consentManageTitle: "Product analytics",
+    consentManageBody:
+      "Send anonymous usage data to help us improve Ditto. No marketing or third-party ads.",
   },
   it: {
     navLogin: "Accedi",
@@ -219,6 +229,16 @@ const translations = {
 
     // Profile / account
     navProfile: "Profilo",
+
+    // Analytics consent
+    consentTitle: "Aiutaci a migliorare Ditto.",
+    consentBody:
+      "Usiamo cookie e analytics di prodotto per capire come Ditto viene usato. Nessun tracking pubblicitario. Puoi cambiare idea quando vuoi dalle impostazioni Profilo.",
+    consentAccept: "Accetta analytics",
+    consentDeny: "Rifiuta",
+    consentManageTitle: "Analytics di prodotto",
+    consentManageBody:
+      "Invia dati di utilizzo anonimi per aiutarci a migliorare Ditto. Niente marketing o pubblicità di terze parti.",
   },
   fr: {
     navLogin: "Se connecter",
@@ -321,6 +341,16 @@ const translations = {
 
     // Profile / account
     navProfile: "Profil",
+
+    // Analytics consent
+    consentTitle: "Aidez-nous a ameliorer Ditto.",
+    consentBody:
+      "Nous utilisons des cookies et des analytics produit pour comprendre comment Ditto est utilise. Aucun suivi publicitaire. Vous pouvez changer d'avis a tout moment dans les parametres du profil.",
+    consentAccept: "Accepter",
+    consentDeny: "Refuser",
+    consentManageTitle: "Analytics produit",
+    consentManageBody:
+      "Envoyer des donnees d'utilisation anonymes pour nous aider a ameliorer Ditto. Pas de marketing ni de publicite tiers.",
   },
   es: {
     navLogin: "Iniciar sesion",
@@ -423,6 +453,16 @@ const translations = {
 
     // Profile / account
     navProfile: "Perfil",
+
+    // Analytics consent
+    consentTitle: "Ayudanos a mejorar Ditto.",
+    consentBody:
+      "Usamos cookies y analiticas de producto para entender como se usa Ditto. Sin publicidad ni seguimiento. Puedes cambiar tu decision cuando quieras desde los ajustes del Perfil.",
+    consentAccept: "Aceptar",
+    consentDeny: "Rechazar",
+    consentManageTitle: "Analiticas de producto",
+    consentManageBody:
+      "Envia datos de uso anonimos para ayudarnos a mejorar Ditto. Sin marketing ni anuncios de terceros.",
   },
 } as const;
 

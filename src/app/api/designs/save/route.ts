@@ -4,6 +4,8 @@ import { getRequiredUser, unauthorized } from "@/lib/auth-helpers";
 import { nanoid } from "nanoid";
 import type { StoredDesign } from "@/lib/types";
 import { ApiError } from "@/lib/errors";
+import { trackServer } from "@/lib/analytics/posthog-server";
+import { EVENTS } from "@/lib/analytics/events";
 
 export async function POST(req: NextRequest) {
   const user = await getRequiredUser();
@@ -38,6 +40,7 @@ export async function POST(req: NextRequest) {
     };
 
     await saveDesign(user.id, design);
+    trackServer(user.id, EVENTS.DESIGN_SAVED, { slug, source: design.source });
 
     return NextResponse.json({ slug, name });
   } catch (error) {

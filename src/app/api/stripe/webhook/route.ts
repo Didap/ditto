@@ -6,6 +6,8 @@ import { users, pricing } from "@/lib/db/schema";
 import { eq, sql } from "drizzle-orm";
 import { sendStripePurchaseEmail } from "@/lib/email";
 import type { Locale } from "@/lib/i18n";
+import { trackServer } from "@/lib/analytics/posthog-server";
+import { EVENTS } from "@/lib/analytics/events";
 
 const VALID_LOCALES = new Set<string>(["en", "it", "fr", "es"]);
 function parseLocale(raw: string | null | undefined): Locale {
@@ -66,6 +68,12 @@ export async function POST(req: NextRequest) {
             .set({ credits: sql`${users.credits} + ${pack.credits}` })
             .where(eq(users.id, userId));
           console.log(`[stripe] Added ${pack.credits} credits to user ${userId}`);
+          trackServer(userId, EVENTS.PAYMENT_COMPLETED, {
+            priceId,
+            credits: pack.credits,
+            amountCents: session.amount_total ?? 0,
+            currency: session.currency ?? "usd",
+          });
 
           // Thank-you email — don't fail the webhook if delivery is flaky
           const dbUser = await findUser(userId);
@@ -116,11 +124,18 @@ export async function POST(req: NextRequest) {
         // Stripe already sends its own receipt on every payment).
         const billingReason = invoiceRaw.billing_reason as string | undefined;
         if (billingReason === "subscription_create") {
+          const amountPaid = (invoiceRaw.amount_paid as number | undefined) ?? 0;
+          const currency = (invoiceRaw.currency as string | undefined) ?? "usd";
+          trackServer(userId, EVENTS.SUBSCRIPTION_ACTIVATED, {
+            priceId,
+            planId: plan.id,
+            credits: plan.credits,
+            amountCents: amountPaid,
+            currency,
+          });
           const dbUser = await findUser(userId);
           if (dbUser) {
             const locale = parseLocale(subscription.metadata?.locale);
-            const amountPaid = (invoiceRaw.amount_paid as number | undefined) ?? 0;
-            const currency = (invoiceRaw.currency as string | undefined) ?? "usd";
             sendStripePurchaseEmail(dbUser.email, dbUser.name, {
               kind: "plan",
               productName: plan.name,
@@ -150,6 +165,7 @@ export async function POST(req: NextRequest) {
         })
         .where(eq(users.id, userId));
       console.log(`[stripe] User ${userId} → free plan (subscription cancelled)`);
+      trackServer(userId, EVENTS.SUBSCRIPTION_CANCELLED, { subscriptionId: subscription.id });
       break;
     }
   }

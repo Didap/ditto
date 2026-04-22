@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { NavBar } from "@/components/NavBar";
 import { CursorFollower } from "@/components/CursorFollower";
 import { QuestsWidget } from "@/components/QuestsWidget";
+import { PostHogProvider } from "@/components/analytics/PostHogProvider";
+import { ConsentBanner } from "@/components/analytics/ConsentBanner";
 import { CreditsProvider } from "@/lib/credits-context";
 import { OnboardingProvider } from "@/components/OnboardingProvider";
 import { auth } from "@/lib/auth";
@@ -74,7 +77,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const session = await auth();
-  let user: { name: string; email: string; avatarUrl: string | null } | null = null;
+  let user: { id: string; name: string; email: string; avatarUrl: string | null } | null = null;
   if (session?.user?.id) {
     const [row] = await db
       .select({
@@ -87,6 +90,7 @@ export default async function RootLayout({
       .limit(1);
     if (row) {
       user = {
+        id: session.user.id,
         name: row.name,
         email: row.email,
         avatarUrl: row.avatarUrl,
@@ -185,6 +189,10 @@ export default async function RootLayout({
             <NavBar user={user} isAdmin={isAdminEmail(user?.email)} />
             <main className="mx-auto max-w-7xl px-6 py-8">{children}</main>
             <QuestsWidget authed={!!user} />
+            <Suspense fallback={null}>
+              <PostHogProvider user={user ? { id: user.id, email: user.email, name: user.name } : null} />
+            </Suspense>
+            <ConsentBanner />
           </OnboardingProvider>
         </CreditsProvider>
       </body>

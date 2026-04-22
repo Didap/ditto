@@ -10,6 +10,8 @@ import {
   normalizeSeed,
   randomSeed,
 } from "@/lib/avatar-dittato";
+import { setConsent, useConsent } from "@/lib/analytics/consent";
+import { useT } from "@/lib/locale-context";
 
 interface ProfileData {
   id: string;
@@ -307,6 +309,9 @@ export default function ProfilePage() {
         </div>
       </section>
 
+      {/* Analytics consent toggle */}
+      <AnalyticsConsentSection />
+
       {/* Save bar */}
       <div className="flex items-center justify-between gap-3 sticky bottom-4">
         <div className="text-xs">
@@ -332,5 +337,44 @@ export default function ProfilePage() {
         </button>
       </div>
     </div>
+  );
+}
+
+// ─── Analytics consent toggle ─────────────────────────────────────────
+function AnalyticsConsentSection() {
+  const consent = useConsent();
+  const t = useT();
+  const enabled = consent === "granted";
+  return (
+    <section className="mb-8 rounded-xl border border-(--ditto-border) bg-(--ditto-surface) p-6">
+      <h2 className="text-sm font-semibold text-(--ditto-text) mb-2">
+        {t("consentManageTitle")}
+      </h2>
+      <p className="text-xs text-(--ditto-text-muted) mb-4 leading-relaxed">
+        {t("consentManageBody")}
+      </p>
+      <button
+        type="button"
+        onClick={() => setConsent(enabled ? "denied" : "granted")}
+        className="flex items-center justify-between w-full"
+      >
+        <span className="text-sm text-(--ditto-text)">
+          {enabled ? t("consentAccept") : t("consentDeny")}
+        </span>
+        <span
+          className="relative inline-block w-10 h-5 rounded-full transition-colors"
+          style={{
+            backgroundColor: enabled
+              ? "var(--ditto-primary)"
+              : "var(--ditto-border)",
+          }}
+        >
+          <span
+            className="absolute top-0.5 w-4 h-4 rounded-full bg-(--ditto-bg) shadow-sm transition-all"
+            style={{ left: enabled ? "calc(100% - 18px)" : "2px" }}
+          />
+        </span>
+      </button>
+    </section>
   );
 }

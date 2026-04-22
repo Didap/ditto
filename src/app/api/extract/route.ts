@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getRequiredUser, unauthorized } from "@/lib/auth-helpers";
 import { runExtractionPipeline } from "@/lib/extract-pipeline";
+import { trackServer } from "@/lib/analytics/posthog-server";
+import { EVENTS } from "@/lib/analytics/events";
 
 export const maxDuration = 120;
 
@@ -13,9 +15,13 @@ export async function POST(req: NextRequest) {
   if (!user) return unauthorized();
 
   const { url, name } = await req.json().catch(() => ({}));
+  trackServer(user.id, EVENTS.EXTRACT_STARTED, { source: "url", url });
+
+  const startedAt = Date.now();
   const result = await runExtractionPipeline(user.id, url, name, { save: true });
 
   if (!result.ok) {
+    trackServer(user.id, EVENTS.EXTRACT_FAILED, { reason: result.error ?? "unknown", url });
     return NextResponse.json(
       {
         error: result.error,
@@ -25,6 +31,11 @@ export async function POST(req: NextRequest) {
       { status: result.status }
     );
   }
+
+  trackServer(user.id, EVENTS.EXTRACT_COMPLETED, {
+    slug: result.slug ?? "",
+    durationMs: Date.now() - startedAt,
+  });
 
   return NextResponse.json({
     slug: result.slug,

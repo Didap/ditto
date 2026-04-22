@@ -357,3 +357,73 @@ export async function sendStripePurchaseEmail(
     html,
   });
 }
+
+// ── Email: Admin Welcome Gift (1,000 credits) ──
+// Bilingual by design: English first, then Italian in the same message.
+
+export async function sendWelcomeGiftEmail(
+  to: string,
+  name: string,
+  credits: number = 1000,
+) {
+  const safeName = name?.trim() || "there";
+  const safeNameIt = name?.trim() || "ciao";
+
+  const subject = `A little thank-you from Ditto — ${credits.toLocaleString("en-US")} credits for you`;
+
+  const html = layout(`
+    <h2 style="margin:0 0 16px;font-size:22px;color:${BRAND.text};letter-spacing:-0.3px;">
+      Hi ${safeName},
+    </h2>
+    <p style="margin:0 0 16px;font-size:14px;color:${BRAND.text};line-height:1.7;">
+      Thank you for using Ditto — it genuinely means a lot to us that you've chosen our platform as part of your workflow.
+    </p>
+    <p style="margin:0 0 16px;font-size:14px;color:${BRAND.text};line-height:1.7;">
+      As a small token of our appreciation, we've added
+      <strong style="color:${BRAND.primary};">${credits.toLocaleString("en-US")} credits</strong>
+      to your account. They're already available and ready to use whenever you need them.
+    </p>
+    <p style="margin:0 0 16px;font-size:14px;color:${BRAND.text};line-height:1.7;">
+      If you have any feedback, ideas, or run into anything we can help with, just reply to this email — we'd love to hear from you.
+    </p>
+    <p style="margin:0 0 24px;font-size:14px;color:${BRAND.text};line-height:1.7;">
+      Thanks again for being part of Ditto.
+    </p>
+    <p style="margin:0 0 2px;font-size:14px;color:${BRAND.text};">Best,</p>
+    <p style="margin:0 0 2px;font-size:14px;color:${BRAND.text};font-weight:600;">William</p>
+    <p style="margin:0 0 32px;font-size:13px;color:${BRAND.muted};">The Ditto Team</p>
+
+    <div style="height:1px;background:${BRAND.border};margin:32px 0;"></div>
+    <p style="margin:0 0 16px;font-size:11px;color:${BRAND.muted};text-transform:uppercase;letter-spacing:1px;">
+      🇮🇹 Versione italiana
+    </p>
+
+    <h2 style="margin:0 0 16px;font-size:22px;color:${BRAND.text};letter-spacing:-0.3px;">
+      Ciao ${safeNameIt},
+    </h2>
+    <p style="margin:0 0 16px;font-size:14px;color:${BRAND.text};line-height:1.7;">
+      Grazie per aver scelto Ditto — significa davvero molto per noi che tu abbia deciso di includere la nostra piattaforma nel tuo flusso di lavoro.
+    </p>
+    <p style="margin:0 0 16px;font-size:14px;color:${BRAND.text};line-height:1.7;">
+      Come piccolo segno di apprezzamento, abbiamo aggiunto
+      <strong style="color:${BRAND.primary};">${credits.toLocaleString("it-IT")} crediti</strong>
+      al tuo account. Sono già disponibili e pronti per essere usati quando ti servono.
+    </p>
+    <p style="margin:0 0 16px;font-size:14px;color:${BRAND.text};line-height:1.7;">
+      Se hai qualche feedback, idee o qualcosa in cui possiamo aiutarti, rispondi pure a questa email — ci fa piacere sentirti.
+    </p>
+    <p style="margin:0 0 24px;font-size:14px;color:${BRAND.text};line-height:1.7;">
+      Grazie ancora per far parte di Ditto.
+    </p>
+    <p style="margin:0 0 2px;font-size:14px;color:${BRAND.text};">Un saluto,</p>
+    <p style="margin:0 0 2px;font-size:14px;color:${BRAND.text};font-weight:600;">William</p>
+    <p style="margin:0;font-size:13px;color:${BRAND.muted};">Il team di Ditto</p>
+  `);
+
+  return resend.emails.send({
+    from: FROM,
+    to,
+    subject,
+    html,
+  });
+}

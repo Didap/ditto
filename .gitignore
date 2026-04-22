@@ -47,3 +47,4 @@ README.md
 
 # extracted fonts (per-site, downloaded by extractor)
 /public/fonts/*/
+.env.local

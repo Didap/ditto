@@ -5,6 +5,8 @@ import { users, designUnlocks } from "@/lib/db/schema";
 import { eq, and, gte, sql } from "drizzle-orm";
 import { nanoid } from "nanoid";
 import { ApiError, insufficientCredits } from "@/lib/errors";
+import { trackServer } from "@/lib/analytics/posthog-server";
+import { EVENTS } from "@/lib/analytics/events";
 
 type Feature =
   | "devkit"
@@ -134,6 +136,11 @@ export async function POST(
       .from(users)
       .where(eq(users.id, user.id))
       .limit(1);
+    trackServer(user.id, EVENTS.CREDITS_DEPLETED, {
+      required: cost,
+      available: dbUser?.credits ?? 0,
+      context: `unlock:${feature}`,
+    });
     return NextResponse.json(
       { error: insufficientCredits(cost, dbUser?.credits ?? 0) },
       { status: 402 }
@@ -151,6 +158,12 @@ export async function POST(
       feature,
       creditsSpent: cost,
       expiresAt,
+    });
+
+    trackServer(user.id, EVENTS.DESIGN_UNLOCKED, {
+      slug,
+      feature,
+      cost,
     });
 
     // No email on credit spend — only Stripe subscription purchases trigger mail.

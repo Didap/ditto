@@ -9,6 +9,8 @@ import { generateReferralCode, processReferral } from "@/lib/quests";
 import { ApiError } from "@/lib/errors";
 import { sendVerificationEmail } from "@/lib/email";
 import { LOCALES, type Locale } from "@/lib/i18n";
+import { trackServer, identifyServer } from "@/lib/analytics/posthog-server";
+import { EVENTS } from "@/lib/analytics/events";
 
 const LOCALE_CODES = new Set<string>(LOCALES.map((l) => l.code));
 
@@ -82,6 +84,9 @@ export async function POST(req: NextRequest) {
     } catch (err) {
       console.error("[register] Verification email threw:", err);
     }
+
+    identifyServer(userId, { email, name });
+    trackServer(userId, EVENTS.USER_SIGNED_UP, { hasReferral: !!referrerName });
 
     return NextResponse.json({
       success: true,

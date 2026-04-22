@@ -37,6 +37,8 @@
     "onborda": "^1.2.5",
     "pg": "^8.20.0",
     "pngjs": "^7.0.0",
+    "posthog-js": "^1.370.0",
+    "posthog-node": "^5.29.5",
     "puppeteer": "^24.0.0",
     "puppeteer-extra": "^3.3.6",
     "puppeteer-extra-plugin-stealth": "^2.11.2",

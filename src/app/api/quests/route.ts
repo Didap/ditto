@@ -5,6 +5,8 @@ import { db } from "@/lib/db";
 import { users } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
 import { ApiError } from "@/lib/errors";
+import { trackServer } from "@/lib/analytics/posthog-server";
+import { EVENTS } from "@/lib/analytics/events";
 
 /** GET — list quest statuses */
 export async function GET() {
@@ -42,6 +44,11 @@ export async function POST(req: NextRequest) {
   if (!result.success) {
     return NextResponse.json({ error: result.error }, { status: 400 });
   }
+
+  trackServer(user.id, EVENTS.QUEST_CLAIMED, {
+    questId,
+    credits: result.credits ?? 0,
+  });
 
   return NextResponse.json({ credits: result.credits });
 }

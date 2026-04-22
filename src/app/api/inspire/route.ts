@@ -7,6 +7,8 @@ import { deductCredits, COSTS } from "@/lib/credits";
 import type { MoodProfile } from "@/lib/mood";
 import { aggregateProfiles } from "@/lib/mood";
 import { ApiError, insufficientCredits } from "@/lib/errors";
+import { trackServer } from "@/lib/analytics/posthog-server";
+import { EVENTS } from "@/lib/analytics/events";
 
 export const maxDuration = 300;
 
@@ -21,6 +23,7 @@ export async function POST(req: NextRequest) {
     const { url } = body as { url: string };
     try {
       const fullUrl = url.startsWith("http") ? url : `https://${url}`;
+      trackServer(user.id, EVENTS.EXTRACT_STARTED, { source: "inspire", url: fullUrl });
       const { tokens, resolved, quality } = await extractDesign(fullUrl);
       const name =
         tokens.meta.title ||
@@ -104,6 +107,11 @@ export async function POST(req: NextRequest) {
         extractedAt: new Date().toISOString(),
       },
     };
+
+    trackServer(user.id, EVENTS.HYBRID_GENERATED, {
+      inspirationCount: inspirations.length,
+      slug,
+    });
 
     // Return full data without saving — client will use /api/designs/save
     return NextResponse.json({

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
-import { Coins, Pencil, Trash2, Check, X, Search, RefreshCw } from "lucide-react";
+import { Coins, Pencil, Trash2, Check, X, Search, RefreshCw, Gift } from "lucide-react";
 
 interface AdminUserRow {
   id: string;
@@ -39,6 +39,8 @@ export function AdminUsersClient({ currentAdminId }: { currentAdminId: string })
   const [savingCredits, setSavingCredits] = useState<string | null>(null);
   const [creditsDraft, setCreditsDraft] = useState<{ id: string; value: string } | null>(null);
   const [busy, setBusy] = useState(false);
+  const [gifting, setGifting] = useState<AdminUserRow | null>(null);
+  const [giftResult, setGiftResult] = useState<{ userId: string; newBalance: number; emailSent: boolean } | null>(null);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -123,6 +125,32 @@ export function AdminUsersClient({ currentAdminId }: { currentAdminId: string })
         )
       );
       setEditing(null);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : String(e));
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const confirmGift = async () => {
+    if (!gifting) return;
+    setBusy(true);
+    setError(null);
+    try {
+      const res = await fetch(`/api/admin/users/${gifting.id}/welcome-gift`, {
+        method: "POST",
+      });
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({}));
+        throw new Error(body?.error ?? `HTTP ${res.status}`);
+      }
+      const data = await res.json();
+      const newBalance = typeof data.credits === "number" ? data.credits : gifting.credits + 1000;
+      setRows((prev) =>
+        prev.map((u) => (u.id === gifting.id ? { ...u, credits: newBalance } : u)),
+      );
+      setGiftResult({ userId: gifting.id, newBalance, emailSent: Boolean(data.emailSent) });
+      setGifting(null);
     } catch (e) {
       setError(e instanceof Error ? e.message : String(e));
     } finally {
@@ -283,6 +311,14 @@ export function AdminUsersClient({ currentAdminId }: { currentAdminId: string })
                   <td className="px-4 py-3 text-right">
                     <div className="inline-flex items-center gap-1">
                       <button
+                        onClick={() => setGifting(u)}
+                        className="inline-flex items-center gap-1 px-2 py-1.5 rounded text-xs font-medium text-(--ditto-primary) border border-(--ditto-primary)/30 hover:bg-(--ditto-primary)/10"
+                        title="Gift 1,000 welcome credits"
+                      >
+                        <Gift className="w-3.5 h-3.5" strokeWidth={1.5} />
+                        Regala 1000
+                      </button>
+                      <button
                         onClick={() =>
                           setEditing({
                             user: u,
@@ -319,6 +355,115 @@ export function AdminUsersClient({ currentAdminId }: { currentAdminId: string })
           </tbody>
         </table>
       </div>
+
+      {/* Gift preview modal */}
+      {gifting && (
+        <Modal onClose={() => setGifting(null)}>
+          <h2 className="flex items-center gap-2 text-lg font-semibold text-(--ditto-text) mb-1">
+            <Gift className="w-5 h-5 text-(--ditto-primary)" strokeWidth={2} />
+            Regala 1000 crediti di benvenuto
+          </h2>
+          <p className="text-xs text-(--ditto-text-muted) mb-4">
+            <strong className="text-(--ditto-text)">{gifting.email}</strong> riceverà{" "}
+            <strong className="text-(--ditto-primary)">+1000 crediti</strong> (saldo:{" "}
+            {gifting.credits} → {gifting.credits + 1000}) e una email di ringraziamento
+            bilingue (EN + IT).
+          </p>
+
+          <div className="rounded-lg border border-(--ditto-border) bg-(--ditto-bg) overflow-hidden">
+            <div className="flex items-center justify-between px-3 py-2 border-b border-(--ditto-border) text-[10px] uppercase tracking-wider text-(--ditto-text-muted)">
+              <span>Anteprima email</span>
+              <span>Da: William &lt;noreply@dittodesign.dev&gt;</span>
+            </div>
+            <div className="px-4 py-3 max-h-[260px] overflow-y-auto text-xs text-(--ditto-text-secondary) leading-relaxed space-y-2">
+              <p className="text-(--ditto-text)">
+                <strong>Oggetto:</strong> A little thank-you from Ditto — 1,000 credits for you
+              </p>
+              <hr className="border-(--ditto-border)" />
+              <p>Hi {gifting.name || "there"},</p>
+              <p>
+                Thank you for using Ditto — it genuinely means a lot to us that you&apos;ve
+                chosen our platform as part of your workflow.
+              </p>
+              <p>
+                As a small token of our appreciation, we&apos;ve added{" "}
+                <strong className="text-(--ditto-primary)">1,000 credits</strong> to your
+                account.
+              </p>
+              <p>
+                If you have any feedback, ideas, or run into anything we can help with, just
+                reply to this email — we&apos;d love to hear from you.
+              </p>
+              <p>Thanks again for being part of Ditto.</p>
+              <p className="text-(--ditto-text-muted)">Best,<br />William<br />The Ditto Team</p>
+              <hr className="border-(--ditto-border) my-3" />
+              <p className="text-[10px] uppercase tracking-wider text-(--ditto-text-muted)">
+                🇮🇹 Versione italiana
+              </p>
+              <p>Ciao {gifting.name || "ciao"},</p>
+              <p>
+                Grazie per aver scelto Ditto — significa davvero molto per noi che tu abbia
+                deciso di includere la nostra piattaforma nel tuo flusso di lavoro.
+              </p>
+              <p>
+                Come piccolo segno di apprezzamento, abbiamo aggiunto{" "}
+                <strong className="text-(--ditto-primary)">1.000 crediti</strong> al tuo
+                account.
+              </p>
+              <p>
+                Se hai qualche feedback, idee o qualcosa in cui possiamo aiutarti, rispondi
+                pure a questa email — ci fa piacere sentirti.
+              </p>
+              <p>Grazie ancora per far parte di Ditto.</p>
+              <p className="text-(--ditto-text-muted)">Un saluto,<br />William<br />Il team di Ditto</p>
+            </div>
+          </div>
+
+          <div className="mt-5 flex items-center justify-end gap-2">
+            <button
+              onClick={() => setGifting(null)}
+              disabled={busy}
+              className="rounded-lg border border-(--ditto-border) px-4 py-2 text-sm text-(--ditto-text-secondary) hover:text-(--ditto-text) hover:border-(--ditto-text-muted)"
+            >
+              Annulla
+            </button>
+            <button
+              onClick={confirmGift}
+              disabled={busy}
+              className="inline-flex items-center gap-2 rounded-lg bg-(--ditto-primary) px-4 py-2 text-sm font-semibold text-(--ditto-bg) hover:bg-(--ditto-primary-hover) disabled:opacity-50"
+            >
+              <Gift className="w-4 h-4" strokeWidth={2} />
+              {busy ? "Invio in corso…" : "Conferma e invia email"}
+            </button>
+          </div>
+        </Modal>
+      )}
+
+      {/* Gift success toast */}
+      {giftResult && (
+        <div className="fixed bottom-6 right-6 z-[70] max-w-sm rounded-xl border border-(--ditto-primary) bg-(--ditto-surface) shadow-2xl p-4 flex items-start gap-3">
+          <Gift className="w-5 h-5 text-(--ditto-primary) mt-0.5 shrink-0" strokeWidth={2} />
+          <div className="flex-1 min-w-0">
+            <p className="text-sm font-semibold text-(--ditto-text)">
+              +1000 crediti consegnati
+            </p>
+            <p className="text-xs text-(--ditto-text-muted) mt-0.5">
+              Saldo ora:{" "}
+              <strong className="text-(--ditto-primary)">{giftResult.newBalance}</strong>.{" "}
+              {giftResult.emailSent
+                ? "Email inviata."
+                : "⚠️ Crediti aggiunti ma l'email non è partita — controlla i log Resend."}
+            </p>
+          </div>
+          <button
+            onClick={() => setGiftResult(null)}
+            className="p-1 rounded text-(--ditto-text-muted) hover:text-(--ditto-text) hover:bg-(--ditto-bg)"
+            aria-label="Close"
+          >
+            <X className="w-4 h-4" strokeWidth={1.5} />
+          </button>
+        </div>
+      )}
 
       {/* Edit modal */}
       {editing && (

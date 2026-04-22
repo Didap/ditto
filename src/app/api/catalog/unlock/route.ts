@@ -9,6 +9,8 @@ import { users } from "@/lib/db/schema";
 import { eq, sql, gte, and } from "drizzle-orm";
 import { nanoid } from "nanoid";
 import { ApiError, insufficientCredits } from "@/lib/errors";
+import { trackServer } from "@/lib/analytics/posthog-server";
+import { EVENTS } from "@/lib/analytics/events";
 import type { StoredDesign } from "@/lib/types";
 
 /** POST — unlock a catalog design for UNLOCK_COST credits */
@@ -78,6 +80,11 @@ export async function POST(req: NextRequest) {
     };
 
     await saveDesign(user.id, design);
+
+    trackServer(user.id, EVENTS.CATALOG_UNLOCKED, {
+      slug: entry.id,
+      cost: UNLOCK_COST,
+    });
 
     // No email on credit spend — only Stripe subscription purchases trigger mail.
     return NextResponse.json({

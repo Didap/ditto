@@ -5,6 +5,8 @@ import { boostDesignQuality, estimateBoostCost } from "@/lib/quality-improver";
 import { generateDesignMd } from "@/lib/generator/design-md";
 import { deductCredits } from "@/lib/credits";
 import { ApiError, insufficientCredits } from "@/lib/errors";
+import { trackServer } from "@/lib/analytics/posthog-server";
+import { EVENTS } from "@/lib/analytics/events";
 
 /** GET — preview the boost cost without applying */
 export async function GET(
@@ -65,6 +67,14 @@ export async function POST(
     tokens: result.tokens,
     resolved: result.resolved,
     designMd,
+  });
+
+  trackServer(user.id, EVENTS.BOOST_APPLIED, {
+    slug,
+    before: result.before.overall,
+    after: result.after.overall,
+    pointsGained: result.pointsGained,
+    creditsCharged: result.creditsCharged,
   });
 
   return NextResponse.json({
