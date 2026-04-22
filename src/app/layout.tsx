@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { NavBar } from "@/components/NavBar";
 import { CursorFollower } from "@/components/CursorFollower";
+import { QuestsWidget } from "@/components/QuestsWidget";
 import { CreditsProvider } from "@/lib/credits-context";
 import { OnboardingProvider } from "@/components/OnboardingProvider";
 import { auth } from "@/lib/auth";
@@ -164,6 +165,7 @@ export default async function RootLayout({
             <CursorFollower />
             <NavBar user={user} isAdmin={isAdminEmail(user?.email)} />
             <main className="mx-auto max-w-7xl px-6 py-8">{children}</main>
+            <QuestsWidget authed={!!user} />
           </OnboardingProvider>
         </CreditsProvider>
       </body>

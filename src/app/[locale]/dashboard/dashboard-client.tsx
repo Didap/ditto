@@ -24,11 +24,9 @@ import {
 interface DashboardProps {
   initialDesigns: StoredDesign[];
   initialTrash: StoredDesign[];
-  initialQuests: QuestStatus[];
-  referralCode: string | null;
 }
 
-export function DashboardClient({ initialDesigns, initialTrash, initialQuests, referralCode }: DashboardProps) {
+export function DashboardClient({ initialDesigns, initialTrash }: DashboardProps) {
   const lp = useLocalePath();
   const { credits, refresh: refreshCredits } = useCredits();
   const [designs, setDesigns] = useState<StoredDesign[]>(initialDesigns);
@@ -168,8 +166,6 @@ export function DashboardClient({ initialDesigns, initialTrash, initialQuests, r
           + Add Design
         </Link>
       </div>
-
-      <div id="tour-quests-panel"><QuestsPanel initialQuests={initialQuests} initialReferralCode={referralCode} /></div>
 
       {/* Bulk action toolbar */}
       {selected.size > 0 && (
@@ -706,155 +702,6 @@ function DesignCard({
           </div>
         </div>
       </Link>
-    </div>
-  );
-}
-
-// ── Quests Panel ──
-
-interface QuestStatus {
-  quest: { id: string; title: string; description: string; credits: number; icon: string; repeatable: string };
-  completed: boolean;
-  completedToday: boolean;
-  totalCompletions: number;
-  canClaim: boolean;
-}
-
-function QuestsPanel({ initialQuests, initialReferralCode }: { initialQuests: QuestStatus[]; initialReferralCode: string | null }) {
-  const [quests, setQuests] = useState<QuestStatus[]>(initialQuests);
-  const [referralCode] = useState<string | null>(initialReferralCode);
-  const [claiming, setClaiming] = useState<string | null>(null);
-  const [expanded, setExpanded] = useState(false);
-  const [copied, setCopied] = useState(false);
-  const { add: addCredits, refresh: refreshCredits } = useCredits();
-
-  const claim = async (questId: string) => {
-    setClaiming(questId);
-    try {
-      const res = await fetch("/api/quests", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ questId }),
-      });
-      if (res.ok) {
-        const awarded = await res.json();
-        addCredits(awarded.credits || 0);
-        refreshCredits();
-        const data = await fetch("/api/quests").then((r) => r.json());
-        setQuests(data.quests || []);
-      }
-    } catch {}
-    setClaiming(null);
-  };
-
-  const claimable = quests.filter((q) => q.canClaim);
-  const done = quests.filter((q) => q.completed && !q.canClaim);
-
-  if (quests.length === 0) return null;
-
-  const referralLink = referralCode
-    ? `${typeof window !== "undefined" ? window.location.origin : ""}/register?ref=${referralCode}`
-    : null;
-
-  return (
-    <div className="mb-8 rounded-xl border border-(--ditto-border) bg-(--ditto-surface) overflow-hidden">
-      <button
-        onClick={() => setExpanded(!expanded)}
-        className="w-full flex items-center justify-between px-5 py-4 cursor-pointer"
-      >
-        <div className="flex items-center gap-3">
-          <span className="text-lg">🎯</span>
-          <span className="text-sm font-semibold text-(--ditto-text)">Quests</span>
-          {claimable.length > 0 && (
-            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-(--ditto-primary)/15 text-(--ditto-primary)">
-              {claimable.length} available
-            </span>
-          )}
-        </div>
-        <span
-          className="text-xs text-(--ditto-text-muted) transition-transform"
-          style={{ transform: expanded ? "rotate(180deg)" : "none" }}
-        >
-          ▼
-        </span>
-      </button>
-
-      {expanded && (
-        <div className="px-5 pb-5 space-y-2">
-          {claimable.map((q) => (
-            <div key={q.quest.id} className="flex items-center justify-between p-3 rounded-lg border border-(--ditto-primary)/20 bg-(--ditto-primary)/5">
-              <div className="flex items-center gap-3">
-                <span className="text-lg">{q.quest.icon}</span>
-                <div>
-                  <div className="text-sm font-medium text-(--ditto-text)">{q.quest.title}</div>
-                  <div className="text-xs text-(--ditto-text-muted)">{q.quest.description}</div>
-                </div>
-              </div>
-              <button
-                onClick={() => claim(q.quest.id)}
-                disabled={claiming === q.quest.id}
-                className="shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold bg-(--ditto-primary) text-(--ditto-bg) disabled:opacity-50"
-              >
-                {claiming === q.quest.id ? "..." : `+${q.quest.credits} cr`}
-              </button>
-            </div>
-          ))}
-
-          {done.map((q) => (
-            <div key={q.quest.id} className="flex items-center justify-between p-3 rounded-lg opacity-50">
-              <div className="flex items-center gap-3">
-                <span className="text-lg">{q.quest.icon}</span>
-                <div>
-                  <div className="text-sm font-medium text-(--ditto-text) line-through">{q.quest.title}</div>
-                  <div className="text-xs text-(--ditto-text-muted)">
-                    {q.quest.repeatable === "daily" ? "Done today" : "Completed"}
-                    {q.totalCompletions > 1 && ` (${q.totalCompletions}x)`}
-                  </div>
-                </div>
-              </div>
-              <span className="text-xs text-(--ditto-text-muted)">✓</span>
-            </div>
-          ))}
-
-          {quests.filter((q) => !q.canClaim && !q.completed).map((q) => (
-            <div key={q.quest.id} className="flex items-center justify-between p-3 rounded-lg opacity-40">
-              <div className="flex items-center gap-3">
-                <span className="text-lg">{q.quest.icon}</span>
-                <div>
-                  <div className="text-sm font-medium text-(--ditto-text)">{q.quest.title}</div>
-                  <div className="text-xs text-(--ditto-text-muted)">{q.quest.description}</div>
-                </div>
-              </div>
-              <span className="text-xs text-(--ditto-text-muted)">+{q.quest.credits} cr</span>
-            </div>
-          ))}
-
-          {referralLink && (
-            <div className="mt-3 pt-3 border-t border-(--ditto-border)">
-              <div className="text-xs font-medium text-(--ditto-text-muted) mb-2">
-                🤝 Your referral link — share to earn 200 credits per signup
-              </div>
-              <div className="flex gap-2">
-                <input
-                  readOnly
-                  value={referralLink}
-                  className="flex-1 text-xs px-3 py-1.5 rounded-lg bg-(--ditto-bg) text-(--ditto-text-muted) border border-(--ditto-border) outline-none"
-                />
-                <button
-                  onClick={() => {
-                    navigator.clipboard.writeText(referralLink);
-                    setCopied(true);
-                    setTimeout(() => setCopied(false), 2000);
-                  }}
-                  className="px-3 py-1.5 rounded-lg text-xs font-medium border border-(--ditto-border) text-(--ditto-text-secondary) hover:text-(--ditto-text) transition-colors"
-                >
-                  {copied ? "Copied!" : "Copy"}
-                </button>
-              </div>
-            </div>
-          )}
-        </div>
-      )}
     </div>
   );
 }
