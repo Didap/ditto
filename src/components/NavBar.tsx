@@ -3,10 +3,11 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect, useRef, useSyncExternalStore } from "react";
-import { Menu, X, LogOut, Coins, User, Sun, Moon, Globe, Shield } from "lucide-react";
+import { Menu, X, LogOut, Coins, Sun, Moon, Globe, Shield } from "lucide-react";
 import { useCredits } from "@/lib/credits-context";
 import { useLocalePath, useBarePath, usePathnameLocale, useT } from "@/lib/locale-context";
 import { LOCALES } from "@/lib/i18n";
+import { resolveAvatar } from "@/lib/avatar-dittato";
 
 // Theme as external store to avoid setState-in-effect lint errors
 function subscribeTheme(cb: () => void) {
@@ -21,7 +22,7 @@ function getThemeServerSnapshot() {
 }
 
 interface NavBarProps {
-  user: { name: string; email: string } | null;
+  user: { name: string; email: string; avatarUrl?: string | null } | null;
   isAdmin?: boolean;
 }
 
@@ -138,14 +139,22 @@ export function NavBar({ user, isAdmin = false }: NavBarProps) {
   );
 
   // User avatar button (opens dropdown)
+  const avatar = user ? resolveAvatar(user.avatarUrl, user.email, 32) : null;
   const userButton = user ? (
     <div className="relative" ref={userMenuRef}>
       <button
         onClick={() => setUserMenuOpen(!userMenuOpen)}
-        className="flex items-center justify-center w-8 h-8 rounded-full border border-(--ditto-border) bg-(--ditto-surface) text-(--ditto-text-muted) hover:text-(--ditto-text) hover:border-(--ditto-text-muted) transition-colors"
+        className="block w-8 h-8 rounded-full border border-(--ditto-border) bg-(--ditto-surface) overflow-hidden hover:border-(--ditto-text-muted) transition-colors"
         title={user?.name || user?.email || "Account"}
       >
-        <User className="w-4 h-4" strokeWidth={1.5} />
+        {avatar && (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={avatar.src}
+            alt={user.name || "Account"}
+            className="w-full h-full object-cover"
+          />
+        )}
       </button>
 
       {/* Dropdown */}
@@ -174,6 +183,7 @@ export function NavBar({ user, isAdmin = false }: NavBarProps) {
             <Link href={lp("/catalog")} className="block px-4 py-2 text-sm text-(--ditto-text-secondary) hover:text-(--ditto-text) hover:bg-(--ditto-bg) transition-colors">{t("navCatalog")}</Link>
             <Link href={lp("/add")} className="block px-4 py-2 text-sm text-(--ditto-text-secondary) hover:text-(--ditto-text) hover:bg-(--ditto-bg) transition-colors">{t("navAddDesign")}</Link>
             <Link href={lp("/inspire")} className="block px-4 py-2 text-sm text-(--ditto-text-secondary) hover:text-(--ditto-text) hover:bg-(--ditto-bg) transition-colors">{t("navMixDesign")}</Link>
+            <Link href={lp("/settings/profile")} className="block px-4 py-2 text-sm text-(--ditto-text-secondary) hover:text-(--ditto-text) hover:bg-(--ditto-bg) transition-colors">{t("navProfile")}</Link>
             <Link href={lp("/settings/api-keys")} className="block px-4 py-2 text-sm text-(--ditto-text-secondary) hover:text-(--ditto-text) hover:bg-(--ditto-bg) transition-colors">CLI &amp; API keys</Link>
             {isAdmin && (
               <Link
@@ -222,10 +232,10 @@ export function NavBar({ user, isAdmin = false }: NavBarProps) {
   ) : (
     <Link
       href={lp("/login")}
-      className="flex items-center justify-center w-8 h-8 rounded-full border border-(--ditto-border) bg-(--ditto-surface) text-(--ditto-text-muted) hover:text-(--ditto-text) hover:border-(--ditto-text-muted) transition-colors"
+      className="flex items-center justify-center w-8 h-8 rounded-full border border-(--ditto-border) bg-(--ditto-surface) text-(--ditto-text-muted) hover:text-(--ditto-text) hover:border-(--ditto-text-muted) transition-colors text-xs font-semibold"
       title="Sign in"
     >
-      <User className="w-4 h-4" strokeWidth={1.5} />
+      {t("navLogin").slice(0, 1)}
     </Link>
   );
 

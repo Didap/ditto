@@ -49,6 +49,15 @@ export enum ApiError {
   INVALID_TOKEN = "Invalid or expired bookmarklet token",
   INVALID_EXTRACTION_DATA = "Invalid extraction payload",
 
+  // Profile
+  NAME_TOO_SHORT = "Name must be at least 2 characters",
+  NAME_TOO_LONG = "Name must be at most 60 characters",
+  AVATAR_MISSING = "No avatar file provided",
+  AVATAR_INVALID_TYPE = "Avatar must be a JPEG, PNG, or WebP image",
+  AVATAR_TOO_LARGE = "Avatar must be at most 5 MB",
+  CLOUDINARY_NOT_CONFIGURED = "Image uploads are not configured on this server",
+  UPLOAD_FAILED = "Upload failed",
+
   // Admin
   FORBIDDEN = "Forbidden",
   USER_NOT_FOUND = "User not found",

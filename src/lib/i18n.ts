@@ -114,6 +114,9 @@ const translations = {
     // Design detail
     designLibraryBack: "← Library",
     designInspiredBy: "Inspired by:",
+
+    // Profile / account
+    navProfile: "Profile",
   },
   it: {
     navLogin: "Accedi",
@@ -213,6 +216,9 @@ const translations = {
     // Design detail
     designLibraryBack: "← Libreria",
     designInspiredBy: "Ispirato da:",
+
+    // Profile / account
+    navProfile: "Profilo",
   },
   fr: {
     navLogin: "Se connecter",
@@ -312,6 +318,9 @@ const translations = {
     // Design detail
     designLibraryBack: "← Bibliotheque",
     designInspiredBy: "Inspire par :",
+
+    // Profile / account
+    navProfile: "Profil",
   },
   es: {
     navLogin: "Iniciar sesion",
@@ -411,6 +420,9 @@ const translations = {
     // Design detail
     designLibraryBack: "← Biblioteca",
     designInspiredBy: "Inspirado en:",
+
+    // Profile / account
+    navProfile: "Perfil",
   },
 } as const;
 

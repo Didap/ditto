@@ -7,6 +7,9 @@ import { OnboardingProvider } from "@/components/OnboardingProvider";
 import { auth } from "@/lib/auth";
 import { isAdminEmail } from "@/lib/admin";
 import { canvaSans, leoSans } from "@/lib/fonts";
+import { db } from "@/lib/db";
+import { users } from "@/lib/db/schema";
+import { eq } from "drizzle-orm";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -71,9 +74,25 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const session = await auth();
-  const user = session?.user
-    ? { name: session.user.name ?? "", email: session.user.email ?? "" }
-    : null;
+  let user: { name: string; email: string; avatarUrl: string | null } | null = null;
+  if (session?.user?.id) {
+    const [row] = await db
+      .select({
+        name: users.name,
+        email: users.email,
+        avatarUrl: users.avatarUrl,
+      })
+      .from(users)
+      .where(eq(users.id, session.user.id))
+      .limit(1);
+    if (row) {
+      user = {
+        name: row.name,
+        email: row.email,
+        avatarUrl: row.avatarUrl,
+      };
+    }
+  }
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
