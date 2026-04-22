@@ -30,4 +30,4 @@ Allow: /
 User-agent: CCBot
 Disallow: /
 
-Sitemap: https://ditto.design/sitemap.xml
+Sitemap: https://dittodesign.dev/sitemap.xml
