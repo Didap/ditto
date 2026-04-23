@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useCallback } from "react";
 import { Coins, Pencil, Trash2, Check, X, Search, RefreshCw, Gift } from "lucide-react";
-import { useT } from "@/lib/locale-context";
+import { useT, useLocale } from "@/lib/locale-context";
 
 interface AdminUserRow {
   id: string;
@@ -32,6 +32,7 @@ function formatDate(iso: string | null): string {
 
 export function AdminUsersClient({ currentAdminId }: { currentAdminId: string }) {
   const t = useT();
+  const locale = useLocale();
   const [rows, setRows] = useState<AdminUserRow[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -141,6 +142,8 @@ export function AdminUsersClient({ currentAdminId }: { currentAdminId: string })
     try {
       const res = await fetch(`/api/admin/users/${gifting.id}/welcome-gift`, {
         method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ locale }),
       });
       if (!res.ok) {
         const body = await res.json().catch(() => ({}));

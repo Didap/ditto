@@ -5,19 +5,22 @@ import { eq, sql } from "drizzle-orm";
 import { getAdminUser } from "@/lib/admin";
 import { ApiError } from "@/lib/errors";
 import { sendWelcomeGiftEmail } from "@/lib/email";
+import { LOCALES, type Locale } from "@/lib/i18n";
 
 const GIFT_AMOUNT = 1000;
+const LOCALE_CODES = new Set<string>(LOCALES.map((l) => l.code));
 
 /**
  * POST /api/admin/users/[id]/welcome-gift — admin-only.
  *
  * Atomically adds `GIFT_AMOUNT` credits to the target user and sends the
- * bilingual "thank you" email. Errors on email delivery don't roll back
- * credits (email is fire-and-forget on the happy path, but we surface
- * provider errors so admin can retry or investigate).
+ * localized "thank you" email. Optional JSON body: `{ locale?: Locale }` —
+ * picks the recipient's language (defaults to English). Errors on email
+ * delivery don't roll back credits (email is fire-and-forget on the happy
+ * path, but we surface provider errors so admin can retry or investigate).
  */
 export async function POST(
-  _req: Request,
+  req: Request,
   { params }: { params: Promise<{ id: string }> },
 ) {
   const admin = await getAdminUser();
@@ -26,6 +29,13 @@ export async function POST(
   }
 
   const { id } = await params;
+
+  const body = await req.json().catch(() => ({}));
+  const rawLocale = body?.locale;
+  const locale: Locale =
+    typeof rawLocale === "string" && LOCALE_CODES.has(rawLocale)
+      ? (rawLocale as Locale)
+      : "en";
 
   // Load target user first so we can address them by name in the email.
   const [target] = await db
@@ -60,7 +70,7 @@ export async function POST(
     .limit(1);
 
   try {
-    await sendWelcomeGiftEmail(target.email, target.name, GIFT_AMOUNT);
+    await sendWelcomeGiftEmail(target.email, target.name, GIFT_AMOUNT, locale);
   } catch (err) {
     console.error("[welcome-gift email]", err);
     // Credits already added — report success but flag the email issue so admin

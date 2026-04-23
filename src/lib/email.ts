@@ -83,17 +83,18 @@ export async function sendStripePurchaseEmail(
   });
 }
 
-// ── Admin welcome gift (bilingual EN + IT) ──
+// ── Admin welcome gift ──
 
 export async function sendWelcomeGiftEmail(
   to: string,
   name: string,
   credits: number = 1000,
+  locale: Locale = "en",
 ) {
   return getResend().emails.send({
     from: FROM,
     to,
-    subject: welcomeGiftSubject(credits),
-    react: WelcomeGiftEmail({ name, credits }),
+    subject: welcomeGiftSubject(credits, locale),
+    react: WelcomeGiftEmail({ name, credits, locale }),
   });
 }
