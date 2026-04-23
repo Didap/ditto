@@ -19,21 +19,21 @@ export async function GET() {
   // Enrich with credits spent
   const unlocks = await db
     .select({
-      designSlug: designUnlocks.designSlug,
+      designId: designUnlocks.designId,
       totalSpent: sql<number>`cast(sum(${designUnlocks.creditsSpent}) as integer)`.as("total_spent"),
     })
     .from(designUnlocks)
     .where(eq(designUnlocks.userId, user.id))
-    .groupBy(designUnlocks.designSlug);
+    .groupBy(designUnlocks.designId);
 
   const spentMap = new Map<string, number>();
   for (const u of unlocks) {
-    spentMap.set(u.designSlug, Number(u.totalSpent));
+    spentMap.set(u.designId, Number(u.totalSpent));
   }
 
   const enriched = trashed.map((d) => ({
     ...d,
-    creditsSpent: (d.source === "extracted" ? 100 : 50) + (spentMap.get(d.slug) ?? 0),
+    creditsSpent: (d.source === "extracted" ? 100 : 50) + (spentMap.get(d.id) ?? 0),
   }));
 
   return NextResponse.json(enriched);

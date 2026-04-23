@@ -21,17 +21,17 @@ export async function GET(req: NextRequest) {
     // Shared unlock lookups (per-user, cheap).
     const unlocks = await db
       .select({
-        designSlug: designUnlocks.designSlug,
+        designId: designUnlocks.designId,
         feature: designUnlocks.feature,
         totalSpent: sql<number>`cast(sum(${designUnlocks.creditsSpent}) as integer)`.as("total_spent"),
       })
       .from(designUnlocks)
       .where(eq(designUnlocks.userId, user.id))
-      .groupBy(designUnlocks.designSlug, designUnlocks.feature);
+      .groupBy(designUnlocks.designId, designUnlocks.feature);
 
     const activeUnlocks = await db
       .select({
-        designSlug: designUnlocks.designSlug,
+        designId: designUnlocks.designId,
         feature: designUnlocks.feature,
       })
       .from(designUnlocks)
@@ -41,19 +41,19 @@ export async function GET(req: NextRequest) {
 
     const spentMap = new Map<string, number>();
     for (const u of unlocks) {
-      spentMap.set(u.designSlug, (spentMap.get(u.designSlug) ?? 0) + Number(u.totalSpent));
+      spentMap.set(u.designId, (spentMap.get(u.designId) ?? 0) + Number(u.totalSpent));
     }
 
     const activeMap = new Map<string, Set<string>>();
     for (const u of activeUnlocks) {
-      if (!activeMap.has(u.designSlug)) activeMap.set(u.designSlug, new Set());
-      activeMap.get(u.designSlug)!.add(u.feature);
+      if (!activeMap.has(u.designId)) activeMap.set(u.designId, new Set());
+      activeMap.get(u.designId)!.add(u.feature);
     }
 
-    const enrich = <T extends { slug: string; source: string }>(d: T) => {
+    const enrich = <T extends { id: string; source: string }>(d: T) => {
       const baseCost = d.source === "extracted" ? 100 : 50;
-      const unlockSpent = spentMap.get(d.slug) ?? 0;
-      const active = activeMap.get(d.slug);
+      const unlockSpent = spentMap.get(d.id) ?? 0;
+      const active = activeMap.get(d.id);
       return {
         ...d,
         creditsSpent: baseCost + unlockSpent,

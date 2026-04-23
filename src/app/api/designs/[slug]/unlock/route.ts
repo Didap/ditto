@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getRequiredUser, unauthorized } from "@/lib/auth-helpers";
 import { db } from "@/lib/db";
-import { users, designUnlocks } from "@/lib/db/schema";
-import { eq, and, gte, sql } from "drizzle-orm";
+import { users, designs, designUnlocks } from "@/lib/db/schema";
+import { eq, and, gte, isNull, sql } from "drizzle-orm";
 import { nanoid } from "nanoid";
 import { ApiError, insufficientCredits } from "@/lib/errors";
 import { trackServer } from "@/lib/analytics/posthog-server";
@@ -28,20 +28,32 @@ function isValidFeature(f: string): f is Feature {
   );
 }
 
-/** Find an existing unlock for a user+slug+feature (no expiry check — permanent) */
-async function getUnlock(userId: string, designSlug: string, feature: string) {
+/** Find an existing unlock for a user+design+feature (no expiry check — permanent) */
+async function getUnlock(userId: string, designId: string, feature: string) {
   const [row] = await db
     .select()
     .from(designUnlocks)
     .where(
       and(
         eq(designUnlocks.userId, userId),
-        eq(designUnlocks.designSlug, designSlug),
+        eq(designUnlocks.designId, designId),
         eq(designUnlocks.feature, feature)
       )
     )
     .limit(1);
   return row ?? null;
+}
+
+/** Resolve a user-scoped slug to a design id (active designs only). */
+async function resolveDesignId(userId: string, slug: string): Promise<string | null> {
+  const [row] = await db
+    .select({ id: designs.id })
+    .from(designs)
+    .where(
+      and(eq(designs.userId, userId), eq(designs.slug, slug), isNull(designs.deletedAt))
+    )
+    .limit(1);
+  return row?.id ?? null;
 }
 
 /** GET — check unlock status for a design (both features) */
@@ -53,13 +65,17 @@ export async function GET(
   if (!user) return unauthorized();
 
   const { slug } = await params;
+  const designId = await resolveDesignId(user.id, slug);
+  if (!designId) {
+    return NextResponse.json({ error: ApiError.DESIGN_NOT_FOUND }, { status: 404 });
+  }
 
   const [devkit, complete, wordpress, elementor] =
     await Promise.all([
-      getUnlock(user.id, slug, "devkit"),
-      getUnlock(user.id, slug, "complete"),
-      getUnlock(user.id, slug, "wordpress"),
-      getUnlock(user.id, slug, "elementor"),
+      getUnlock(user.id, designId, "devkit"),
+      getUnlock(user.id, designId, "complete"),
+      getUnlock(user.id, designId, "wordpress"),
+      getUnlock(user.id, designId, "elementor"),
     ]);
 
   return NextResponse.json({
@@ -96,8 +112,13 @@ export async function POST(
     );
   }
 
+  const designId = await resolveDesignId(user.id, slug);
+  if (!designId) {
+    return NextResponse.json({ error: ApiError.DESIGN_NOT_FOUND }, { status: 404 });
+  }
+
   // Already unlocked?
-  const existing = await getUnlock(user.id, slug, feature);
+  const existing = await getUnlock(user.id, designId, feature);
   if (existing) {
     return NextResponse.json(
       { error: ApiError.FEATURE_ALREADY_UNLOCKED },
@@ -137,7 +158,7 @@ export async function POST(
     await db.insert(designUnlocks).values({
       id: nanoid(),
       userId: user.id,
-      designSlug: slug,
+      designId,
       feature,
       creditsSpent: cost,
       expiresAt,

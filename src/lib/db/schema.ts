@@ -3,16 +3,19 @@ import {
   text,
   integer,
   jsonb,
-  timestamp,
   uniqueIndex,
   index,
+  type AnyPgColumn,
 } from "drizzle-orm/pg-core";
 import type { DesignTokens, ResolvedDesign } from "@/lib/types";
+import { timestamptz, timestamps } from "./_helpers";
 
 // ── Users ──
 
 export const users = pgTable("users", {
-  id: text("id").primaryKey(),
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => crypto.randomUUID()),
   email: text("email").notNull().unique(),
   name: text("name").notNull(),
   passwordHash: text("password_hash").notNull(),
@@ -21,19 +24,20 @@ export const users = pgTable("users", {
   stripeCustomerId: text("stripe_customer_id"),
   stripeSubscriptionId: text("stripe_subscription_id"),
   referralCode: text("referral_code"),
-  referredBy: text("referred_by"),
+  referredBy: text("referred_by").references((): AnyPgColumn => users.id, {
+    onDelete: "set null",
+  }),
   avatarUrl: text("avatar_url"),
-  emailVerified: timestamp("email_verified", { withTimezone: true }),
+  emailVerified: timestamptz("email_verified"),
   verifyToken: text("verify_token"),
-  verifyTokenExpires: timestamp("verify_token_expires", { withTimezone: true }),
-  lastLoginAt: timestamp("last_login_at", { withTimezone: true }),
+  verifyTokenExpires: timestamptz("verify_token_expires"),
+  lastLoginAt: timestamptz("last_login_at"),
   // Monthly usage counter for "special" (proxy-fallback) extractions.
   // 1st of each month is free (covered by base 100-credit cost); subsequent
   // ones cost an additional SPECIAL_EXTRACTION_EXTRA_COST credits each.
   specialExtractionMonth: text("special_extraction_month"), // "YYYY-MM"
   specialExtractionCount: integer("special_extraction_count").notNull().default(0),
-  createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
-  updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+  ...timestamps,
 });
 
 export type UserSelect = typeof users.$inferSelect;
@@ -44,7 +48,9 @@ export type UserInsert = typeof users.$inferInsert;
 export const designs = pgTable(
   "designs",
   {
-    id: text("id").primaryKey(),
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => crypto.randomUUID()),
     userId: text("user_id")
       .notNull()
       .references(() => users.id, { onDelete: "cascade" }),
@@ -56,9 +62,8 @@ export const designs = pgTable(
     resolved: jsonb("resolved").$type<ResolvedDesign>().notNull(),
     designMd: text("design_md").notNull(),
     source: text("source").notNull(), // "extracted" | "imported"
-    deletedAt: timestamp("deleted_at", { withTimezone: true }), // null = active, set = soft-deleted
-    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
-    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+    deletedAt: timestamptz("deleted_at"), // null = active, set = soft-deleted
+    ...timestamps,
   },
   (table) => [
     uniqueIndex("designs_user_slug_idx").on(table.userId, table.slug),
@@ -73,16 +78,19 @@ export type DesignInsert = typeof designs.$inferInsert;
 export const questCompletions = pgTable(
   "quest_completions",
   {
-    id: text("id").primaryKey(),
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => crypto.randomUUID()),
     userId: text("user_id")
       .notNull()
       .references(() => users.id, { onDelete: "cascade" }),
     questId: text("quest_id").notNull(),
     creditsAwarded: integer("credits_awarded").notNull(),
-    completedAt: timestamp("completed_at", { withTimezone: true }).notNull().defaultNow(),
+    completedAt: timestamptz("completed_at").notNull().defaultNow(),
+    ...timestamps,
   },
   (table) => [
-    index("quest_user_idx").on(table.userId, table.questId),
+    uniqueIndex("quest_user_idx").on(table.userId, table.questId),
   ]
 );
 
@@ -94,18 +102,23 @@ export type QuestCompletionInsert = typeof questCompletions.$inferInsert;
 export const designUnlocks = pgTable(
   "design_unlocks",
   {
-    id: text("id").primaryKey(),
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => crypto.randomUUID()),
     userId: text("user_id")
       .notNull()
       .references(() => users.id, { onDelete: "cascade" }),
-    designSlug: text("design_slug").notNull(),
+    designId: text("design_id")
+      .notNull()
+      .references(() => designs.id, { onDelete: "cascade" }),
     feature: text("feature").notNull(), // "kit" | "storybook"
     creditsSpent: integer("credits_spent").notNull(),
-    unlockedAt: timestamp("unlocked_at", { withTimezone: true }).notNull().defaultNow(),
-    expiresAt: timestamp("expires_at", { withTimezone: true }).notNull(),
+    unlockedAt: timestamptz("unlocked_at").notNull().defaultNow(),
+    expiresAt: timestamptz("expires_at").notNull(),
+    ...timestamps,
   },
   (table) => [
-    index("unlock_user_design_idx").on(table.userId, table.designSlug, table.feature),
+    index("unlock_user_design_idx").on(table.userId, table.designId, table.feature),
   ]
 );
 
@@ -117,16 +130,18 @@ export type DesignUnlockInsert = typeof designUnlocks.$inferInsert;
 export const apiKeys = pgTable(
   "api_keys",
   {
-    id: text("id").primaryKey(),
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => crypto.randomUUID()),
     userId: text("user_id")
       .notNull()
       .references(() => users.id, { onDelete: "cascade" }),
     name: text("name").notNull(), // user-visible label
     keyHash: text("key_hash").notNull().unique(), // SHA-256 of the raw key
     keyPrefix: text("key_prefix").notNull(), // first 12 chars of raw key for UI display
-    lastUsedAt: timestamp("last_used_at", { withTimezone: true }),
-    revokedAt: timestamp("revoked_at", { withTimezone: true }),
-    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    lastUsedAt: timestamptz("last_used_at"),
+    revokedAt: timestamptz("revoked_at"),
+    ...timestamps,
   },
   (table) => [index("api_keys_user_idx").on(table.userId)]
 );
@@ -144,7 +159,7 @@ export type RegionalPrice = {
 };
 
 export const pricing = pgTable("pricing", {
-  id: text("id").primaryKey(), // "pro", "team", "pack-500", etc.
+  id: text("id").primaryKey(), // "pro", "team", "pack-500", etc. — stable, human-authored
   type: text("type").notNull(), // "plan" | "pack"
   name: text("name").notNull(),
   credits: integer("credits").notNull(),
@@ -154,6 +169,7 @@ export const pricing = pgTable("pricing", {
   stripePrices: jsonb("stripe_prices").$type<Record<string, RegionalPrice>>(), // regional prices
   sortOrder: integer("sort_order").notNull().default(0),
   active: integer("active").notNull().default(1), // 1 = visible
+  ...timestamps,
 });
 
 export type PricingSelect = typeof pricing.$inferSelect;

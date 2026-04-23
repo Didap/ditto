@@ -32,7 +32,7 @@ export async function GET(
     })
     .from(designUnlocks)
     .where(
-      sql`${designUnlocks.userId} = ${user.id} AND ${designUnlocks.designSlug} = ${slug}`
+      sql`${designUnlocks.userId} = ${user.id} AND ${designUnlocks.designId} = ${design.id}`
     )
     .groupBy(designUnlocks.feature);
 
@@ -40,7 +40,7 @@ export async function GET(
     .select({ feature: designUnlocks.feature })
     .from(designUnlocks)
     .where(
-      sql`${designUnlocks.userId} = ${user.id} AND ${designUnlocks.designSlug} = ${slug} AND ${designUnlocks.expiresAt} >= ${new Date()}`
+      sql`${designUnlocks.userId} = ${user.id} AND ${designUnlocks.designId} = ${design.id} AND ${designUnlocks.expiresAt} >= ${new Date()}`
     );
 
   const unlockSpent = unlockRows.reduce((sum, r) => sum + Number(r.totalSpent), 0);

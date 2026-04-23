@@ -50,6 +50,13 @@
       "when": 1776532292072,
       "tag": "0006_tiresome_aaron_stack",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1776968085126,
+      "tag": "0007_schema_cleanup",
+      "breakpoints": true
     }
   ]
 }

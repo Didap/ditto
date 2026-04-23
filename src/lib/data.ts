@@ -46,20 +46,20 @@ export async function getDashboardDesigns(
   // Enrich only the fetched page — the unlock queries below are always
   // per-user but are lightweight (they touch only `designUnlocks`), so we
   // run them once even when we're on page N. Intersection is via the
-  // `designSlug` map, so enrichment for the current page is still O(page).
+  // `designId` map, so enrichment for the current page is still O(page).
   const unlocks = await db
     .select({
-      designSlug: designUnlocks.designSlug,
+      designId: designUnlocks.designId,
       feature: designUnlocks.feature,
       totalSpent: sql<number>`cast(sum(${designUnlocks.creditsSpent}) as integer)`.as("total_spent"),
     })
     .from(designUnlocks)
     .where(eq(designUnlocks.userId, userId))
-    .groupBy(designUnlocks.designSlug, designUnlocks.feature);
+    .groupBy(designUnlocks.designId, designUnlocks.feature);
 
   const activeUnlocks = await db
     .select({
-      designSlug: designUnlocks.designSlug,
+      designId: designUnlocks.designId,
       feature: designUnlocks.feature,
     })
     .from(designUnlocks)
@@ -69,19 +69,19 @@ export async function getDashboardDesigns(
 
   const spentMap = new Map<string, number>();
   for (const u of unlocks) {
-    spentMap.set(u.designSlug, (spentMap.get(u.designSlug) ?? 0) + Number(u.totalSpent));
+    spentMap.set(u.designId, (spentMap.get(u.designId) ?? 0) + Number(u.totalSpent));
   }
 
   const activeMap = new Map<string, Set<string>>();
   for (const u of activeUnlocks) {
-    if (!activeMap.has(u.designSlug)) activeMap.set(u.designSlug, new Set());
-    activeMap.get(u.designSlug)!.add(u.feature);
+    if (!activeMap.has(u.designId)) activeMap.set(u.designId, new Set());
+    activeMap.get(u.designId)!.add(u.feature);
   }
 
   const enriched = rawDesigns.map((d) => {
     const baseCost = d.source === "extracted" ? 100 : 50;
-    const unlockSpent = spentMap.get(d.slug) ?? 0;
-    const active = activeMap.get(d.slug);
+    const unlockSpent = spentMap.get(d.id) ?? 0;
+    const active = activeMap.get(d.id);
     return {
       ...d,
       creditsSpent: baseCost + unlockSpent,
@@ -103,21 +103,21 @@ export async function getTrashDesigns(userId: string): Promise<StoredDesign[]> {
 
   const unlocks = await db
     .select({
-      designSlug: designUnlocks.designSlug,
+      designId: designUnlocks.designId,
       totalSpent: sql<number>`cast(sum(${designUnlocks.creditsSpent}) as integer)`.as("total_spent"),
     })
     .from(designUnlocks)
     .where(eq(designUnlocks.userId, userId))
-    .groupBy(designUnlocks.designSlug);
+    .groupBy(designUnlocks.designId);
 
   const spentMap = new Map<string, number>();
   for (const u of unlocks) {
-    spentMap.set(u.designSlug, Number(u.totalSpent));
+    spentMap.set(u.designId, Number(u.totalSpent));
   }
 
   return trashed.map((d) => ({
     ...d,
-    creditsSpent: (d.source === "extracted" ? 100 : 50) + (spentMap.get(d.slug) ?? 0),
+    creditsSpent: (d.source === "extracted" ? 100 : 50) + (spentMap.get(d.id) ?? 0),
   }));
 }
 
@@ -178,7 +178,7 @@ export async function getDesignBySlug(userId: string, slug: string) {
     .select({ feature: designUnlocks.feature })
     .from(designUnlocks)
     .where(
-      sql`${designUnlocks.userId} = ${userId} AND ${designUnlocks.designSlug} = ${slug} AND ${designUnlocks.expiresAt} >= ${new Date()}`
+      sql`${designUnlocks.userId} = ${userId} AND ${designUnlocks.designId} = ${d.id} AND ${designUnlocks.expiresAt} >= ${new Date()}`
     );
 
   const features = new Set(activeUnlocks.map((u) => u.feature));
