@@ -1,7 +1,15 @@
 import { Resend } from "resend";
 import type { Locale } from "@/lib/i18n";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+let resendClient: Resend | null = null;
+function getResend(): Resend {
+  if (!resendClient) {
+    const key = process.env.RESEND_API_KEY;
+    if (!key) throw new Error("RESEND_API_KEY is not set");
+    resendClient = new Resend(key);
+  }
+  return resendClient;
+}
 
 const FROM = process.env.RESEND_FROM || "Ditto <noreply@dittodesign.dev>";
 const APP_URL = process.env.NEXTAUTH_URL || "http://localhost:3000";
@@ -180,7 +188,7 @@ export async function sendVerificationEmail(
     </p>
   `);
 
-  return resend.emails.send({
+  return getResend().emails.send({
     from: FROM,
     to,
     subject: copy.subject,
@@ -350,7 +358,7 @@ export async function sendStripePurchaseEmail(
     </p>
   `);
 
-  return resend.emails.send({
+  return getResend().emails.send({
     from: FROM,
     to,
     subject,
@@ -420,7 +428,7 @@ export async function sendWelcomeGiftEmail(
     <p style="margin:0;font-size:13px;color:${BRAND.muted};">Il team di Ditto</p>
   `);
 
-  return resend.emails.send({
+  return getResend().emails.send({
     from: FROM,
     to,
     subject,

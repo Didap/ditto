@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getUserFromBearerOrSession } from "@/lib/auth-helpers";
 import { getCredits } from "@/lib/credits";
 import { getSpecialExtractionQuota } from "@/lib/special-extraction-quota";
+import { ApiError } from "@/lib/errors";
 
 /**
  * Whoami for CLI — accepts Bearer token and returns the authenticated user's
@@ -13,7 +14,7 @@ import { getSpecialExtractionQuota } from "@/lib/special-extraction-quota";
 export async function GET(req: NextRequest) {
   const user = await getUserFromBearerOrSession(req);
   if (!user) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return NextResponse.json({ error: ApiError.UNAUTHORIZED }, { status: 401 });
   }
 
   const [{ credits, plan }, quota] = await Promise.all([

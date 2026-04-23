@@ -41,7 +41,7 @@ export async function POST(req: NextRequest) {
     );
   }
   if (!urls.every((u) => typeof u === "string" && u.length > 0)) {
-    return NextResponse.json({ error: "invalid urls" }, { status: 400 });
+    return NextResponse.json({ error: ApiError.INVALID_URLS }, { status: 400 });
   }
 
   // Normalize weights — default to 1 per URL.

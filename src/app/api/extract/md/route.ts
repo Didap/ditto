@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getUserFromBearerOrSession } from "@/lib/auth-helpers";
 import { runExtractionPipeline } from "@/lib/extract-pipeline";
+import { ApiError } from "@/lib/errors";
 
 export const maxDuration = 120;
 
@@ -16,7 +17,7 @@ export const maxDuration = 120;
 export async function POST(req: NextRequest) {
   const user = await getUserFromBearerOrSession(req);
   if (!user) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return NextResponse.json({ error: ApiError.UNAUTHORIZED }, { status: 401 });
   }
 
   const { url, name } = await req.json().catch(() => ({}));

@@ -44,7 +44,7 @@ export async function POST(
   const save = !!body.save;
 
   if (macroIds.length === 0) {
-    return NextResponse.json({ error: "macroIds is required" }, { status: 400 });
+    return NextResponse.json({ error: ApiError.MACRO_IDS_REQUIRED }, { status: 400 });
   }
 
   const result = applyMacros(design.tokens, design.resolved, macroIds);

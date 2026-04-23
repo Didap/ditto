@@ -32,6 +32,17 @@ export enum ApiError {
   CATALOG_ITEM_NOT_FOUND = "Catalog item not found",
   CATALOG_ALREADY_UNLOCKED = "Design already unlocked",
 
+  // Trash actions
+  NOT_FOUND_IN_TRASH = "Not found in trash",
+  INVALID_ACTION = "Invalid action",
+
+  // Bulk ops
+  INVALID_URLS = "Invalid URLs",
+  MACRO_IDS_REQUIRED = "macroIds is required",
+
+  // API keys
+  KEY_NOT_FOUND = "Key not found",
+
   // Recycle
   DESIGN_NOT_IN_TRASH = "Design is not in trash",
   DESIGN_NOT_RECYCLABLE = "This design was obtained via recycling and cannot be recycled again",

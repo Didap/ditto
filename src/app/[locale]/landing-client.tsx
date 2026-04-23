@@ -163,12 +163,18 @@ function FontGlitch({ text, glitchWords = ["design"] }: { text: string; glitchWo
         const isBlob = blobs[i];
 
         return (
-          <span key={i} className="inline-grid align-middle" style={{ gridTemplateAreas: "'cell'" }}>
-            {/* Word layer */}
+          <span key={i} className="relative inline-block align-middle whitespace-nowrap">
+            {/* Sizer — renders the word in the default gradient font to reserve
+                a stable layout width. Overlays below are absolute, so their
+                (potentially wider / narrower) glitch rendering can't push the
+                surrounding content around. */}
+            <span aria-hidden="true" className="ditto-gradient-text invisible">
+              {word}
+            </span>
+            {/* Word layer (overlay) */}
             <span
-              className="transition-all duration-500 ease-in-out"
+              className="absolute inset-0 flex items-center justify-center transition-all duration-500 ease-in-out"
               style={{
-                gridArea: "cell",
                 opacity: !isRevealed ? 0 : isBlob ? 0 : 1,
                 transform: !isRevealed ? "translateY(4px) scale(0.95)" : isBlob ? "scale(0.5)" : "scale(1)",
                 filter: !isRevealed ? "blur(8px)" : isBlob ? "blur(4px)" : "blur(0px)",
@@ -180,11 +186,10 @@ function FontGlitch({ text, glitchWords = ["design"] }: { text: string; glitchWo
                 <span className="ditto-gradient-text">{word}</span>
               )}
             </span>
-            {/* Blob layer */}
+            {/* Blob layer (overlay) */}
             <span
-              className="flex items-center justify-center transition-all duration-500 ease-in-out"
+              className="absolute inset-0 flex items-center justify-center transition-all duration-500 ease-in-out"
               style={{
-                gridArea: "cell",
                 opacity: isBlob && isRevealed ? 1 : 0,
                 transform: isBlob && isRevealed ? "scale(1)" : "scale(0.3)",
                 filter: isBlob && isRevealed ? "blur(0px)" : "blur(4px)",

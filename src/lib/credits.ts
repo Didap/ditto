@@ -1,6 +1,6 @@
 import { db } from "@/lib/db";
 import { users } from "@/lib/db/schema";
-import { eq, sql } from "drizzle-orm";
+import { eq, and, gte, sql } from "drizzle-orm";
 
 export const COSTS = {
   ADD_DESIGN: 100,
@@ -21,16 +21,26 @@ export async function hasEnoughCredits(userId: string, cost: number): Promise<bo
   return credits >= cost;
 }
 
+/**
+ * Atomically deduct credits. Uses a conditional UPDATE so concurrent requests
+ * can't both pass a check-then-write and push the balance negative; PostgreSQL
+ * serializes the row update and only the request that still sees enough credits
+ * succeeds.
+ */
 export async function deductCredits(userId: string, cost: number): Promise<{ success: boolean; remaining: number }> {
-  const { credits } = await getCredits(userId);
-  if (credits < cost) return { success: false, remaining: credits };
-
-  await db
+  const rows = await db
     .update(users)
     .set({ credits: sql`${users.credits} - ${cost}` })
-    .where(eq(users.id, userId));
+    .where(and(eq(users.id, userId), gte(users.credits, cost)))
+    .returning({ remaining: users.credits });
 
-  return { success: true, remaining: credits - cost };
+  if (rows.length > 0) {
+    return { success: true, remaining: rows[0].remaining };
+  }
+
+  // Deduction failed — surface the current balance so callers can report it.
+  const { credits } = await getCredits(userId);
+  return { success: false, remaining: credits };
 }
 
 /** Refund credits (add back) — use when an operation fails after deducting */

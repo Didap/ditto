@@ -3,6 +3,7 @@ import { db } from "@/lib/db";
 import { apiKeys } from "@/lib/db/schema";
 import { and, eq } from "drizzle-orm";
 import { getRequiredUser, unauthorized } from "@/lib/auth-helpers";
+import { ApiError } from "@/lib/errors";
 
 /** Revoke (soft-delete) an API key belonging to the authenticated user. */
 export async function DELETE(
@@ -21,7 +22,7 @@ export async function DELETE(
     .returning({ id: apiKeys.id });
 
   if (result.length === 0) {
-    return NextResponse.json({ error: "Key not found" }, { status: 404 });
+    return NextResponse.json({ error: ApiError.KEY_NOT_FOUND }, { status: 404 });
   }
 
   return NextResponse.json({ ok: true });

@@ -8,6 +8,7 @@ import {
 import { db } from "@/lib/db";
 import { designUnlocks } from "@/lib/db/schema";
 import { eq, sql } from "drizzle-orm";
+import { ApiError } from "@/lib/errors";
 
 /** GET — list soft-deleted designs (trash) */
 export async function GET() {
@@ -50,15 +51,15 @@ export async function POST(req: NextRequest) {
     const ok = await restoreDesign(user.id, slug);
     return ok
       ? NextResponse.json({ ok: true })
-      : NextResponse.json({ error: "Not found in trash" }, { status: 404 });
+      : NextResponse.json({ error: ApiError.NOT_FOUND_IN_TRASH }, { status: 404 });
   }
 
   if (action === "permanent-delete") {
     const ok = await permanentlyDeleteDesign(user.id, slug);
     return ok
       ? NextResponse.json({ ok: true })
-      : NextResponse.json({ error: "Not found in trash" }, { status: 404 });
+      : NextResponse.json({ error: ApiError.NOT_FOUND_IN_TRASH }, { status: 404 });
   }
 
-  return NextResponse.json({ error: "Invalid action" }, { status: 400 });
+  return NextResponse.json({ error: ApiError.INVALID_ACTION }, { status: 400 });
 }
