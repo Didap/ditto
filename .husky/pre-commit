@@ -1,0 +1,15 @@
+#!/usr/bin/env sh
+
+# Fail fast — if anything errors, abort the commit.
+set -e
+
+echo "▸ lint"
+npm run lint --silent
+
+echo "▸ typecheck"
+npm run typecheck --silent
+
+echo "▸ test"
+npm test --silent
+
+echo "✔ pre-commit checks passed"

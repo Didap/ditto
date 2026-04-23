@@ -58,96 +58,103 @@ const baseOpts = {
   tokens: baseTokens,
 };
 
-describe("generateElementorKit — file structure", () => {
-  it("emits manifest.json, site-settings.json, and 4 template files", async () => {
+describe("generateElementorKit — theme file structure", () => {
+  it("emits the required WordPress theme files", async () => {
     const files = await generateElementorKit(baseOpts);
     const paths = files.map((f) => f.path);
-    expect(paths).toContain("manifest.json");
-    expect(paths).toContain("site-settings.json");
-    const tplPaths = paths.filter((p) => p.startsWith("templates/") && p.endsWith(".json"));
-    expect(tplPaths).toHaveLength(4);
+    expect(paths).toContain("style.css");
+    expect(paths).toContain("functions.php");
+    expect(paths).toContain("theme.json");
+    expect(paths).toContain("index.php");
+    expect(paths).toContain("header.php");
+    expect(paths).toContain("footer.php");
+    expect(paths).toContain("readme.txt");
+    expect(paths).toContain("screenshot.png");
   });
 
-  it("all files are valid JSON", async () => {
+  it("emits Elementor JSON templates for each page plus header/footer", async () => {
     const files = await generateElementorKit(baseOpts);
-    for (const f of files) {
-      expect(() => JSON.parse(f.content as string)).not.toThrow();
+    const paths = files.map((f) => f.path);
+    expect(paths).toContain("elementor-templates/header.json");
+    expect(paths).toContain("elementor-templates/footer.json");
+    expect(paths).toContain("elementor-templates/page-home.json");
+    expect(paths).toContain("elementor-templates/page-about.json");
+    expect(paths).toContain("elementor-templates/page-services.json");
+    expect(paths).toContain("elementor-templates/page-contact.json");
+    expect(paths).toContain("elementor-templates/page-blog.json");
+  });
+
+  it("every Elementor JSON template is valid JSON with the expected wrapper shape", async () => {
+    const files = await generateElementorKit(baseOpts);
+    const tplFiles = files.filter(
+      (f) => f.path.startsWith("elementor-templates/") && f.path.endsWith(".json"),
+    );
+    expect(tplFiles.length).toBeGreaterThan(0);
+    for (const f of tplFiles) {
+      const doc = JSON.parse(f.content as string);
+      expect(doc.version).toBe("0.4");
+      expect(["wp-page", "header", "footer", "section"]).toContain(doc.type);
+      expect(Array.isArray(doc.content)).toBe(true);
+      expect(doc.content.length).toBeGreaterThan(0);
+      expect(doc.content[0].elType).toBe("section");
     }
   });
 });
 
-describe("generateElementorKit — manifest.json", () => {
-  it("includes required top-level fields", async () => {
+describe("generateElementorKit — style.css header", () => {
+  it("contains WordPress theme metadata derived from designName", async () => {
     const files = await generateElementorKit(baseOpts);
-    const manifest = JSON.parse(files.find((f) => f.path === "manifest.json")!.content as string);
-    expect(manifest.name).toBe("acme");
-    expect(manifest.title).toContain("Acme");
-    expect(manifest.version).toBe("1.0.0");
-    expect(manifest.elementor_version).toBeDefined();
-    expect(typeof manifest.created).toBe("string");
-    expect(manifest["site-settings"]).toBeDefined();
-    expect(manifest.templates).toBeDefined();
-    expect(Object.keys(manifest.templates)).toHaveLength(4);
-  });
-
-  it("references ids that match the template files on disk", async () => {
-    const files = await generateElementorKit(baseOpts);
-    const manifest = JSON.parse(files.find((f) => f.path === "manifest.json")!.content as string);
-    const tplFilenames = files
-      .filter((f) => f.path.startsWith("templates/") && f.path.endsWith(".json"))
-      .map((f) => f.path.replace("templates/", "").replace(".json", ""));
-    for (const id of Object.keys(manifest.templates)) {
-      expect(tplFilenames).toContain(id);
-    }
+    const css = files.find((f) => f.path === "style.css")!.content as string;
+    expect(css).toContain("Theme Name: Acme");
+    expect(css).toContain("Text Domain:");
   });
 });
 
-describe("generateElementorKit — site-settings.json", () => {
-  it("maps 4 system colors to Ditto roles", async () => {
+describe("generateElementorKit — theme.json", () => {
+  it("is version 3 with a palette covering Ditto color roles", async () => {
     const files = await generateElementorKit(baseOpts);
-    const settings = JSON.parse(
-      files.find((f) => f.path === "site-settings.json")!.content as string
-    ).settings;
-    expect(settings.system_colors).toHaveLength(4);
-    expect(settings.system_colors.find((c: { _id: string }) => c._id === "primary").color).toBe("#6366f1");
-    expect(settings.system_colors.find((c: { _id: string }) => c._id === "accent").color).toBe("#ec4899");
-    expect(settings.system_colors.find((c: { _id: string }) => c._id === "text").color).toBe("#0f172a");
+    const parsed = JSON.parse(
+      files.find((f) => f.path === "theme.json")!.content as string,
+    );
+    expect(parsed.version).toBe(3);
+    const slugs: string[] = parsed.settings.color.palette.map(
+      (p: { slug: string }) => p.slug,
+    );
+    expect(slugs).toEqual(
+      expect.arrayContaining([
+        "primary",
+        "secondary",
+        "accent",
+        "background",
+        "surface",
+        "text-primary",
+        "border",
+      ]),
+    );
+    const primary = parsed.settings.color.palette.find(
+      (p: { slug: string }) => p.slug === "primary",
+    );
+    expect(primary.color).toBe("#6366f1");
   });
 
-  it("maps 8 custom colors with unique ids", async () => {
+  it("registers heading and body font families", async () => {
     const files = await generateElementorKit(baseOpts);
-    const settings = JSON.parse(
-      files.find((f) => f.path === "site-settings.json")!.content as string
-    ).settings;
-    expect(settings.custom_colors).toHaveLength(8);
-    const ids = settings.custom_colors.map((c: { _id: string }) => c._id);
-    expect(new Set(ids).size).toBe(ids.length);
-  });
-
-  it("maps 4 system typography definitions with font families", async () => {
-    const files = await generateElementorKit(baseOpts);
-    const settings = JSON.parse(
-      files.find((f) => f.path === "site-settings.json")!.content as string
-    ).settings;
-    expect(settings.system_typography).toHaveLength(4);
-    for (const t of settings.system_typography) {
-      expect(t.typography_font_family).toBeTruthy();
-    }
-  });
-
-  it("ships sensible button defaults from design tokens", async () => {
-    const files = await generateElementorKit(baseOpts);
-    const settings = JSON.parse(
-      files.find((f) => f.path === "site-settings.json")!.content as string
-    ).settings;
-    expect(settings.button_background_color).toBe("#6366f1");
-    expect(settings.button_hover_background_color).toBe("#ec4899");
-    expect(settings.button_border_radius.top).toBe(8);
+    const parsed = JSON.parse(
+      files.find((f) => f.path === "theme.json")!.content as string,
+    );
+    const slugs = parsed.settings.typography.fontFamilies.map(
+      (f: { slug: string }) => f.slug,
+    );
+    expect(slugs).toEqual(expect.arrayContaining(["heading", "body"]));
+    const heading = parsed.settings.typography.fontFamilies.find(
+      (f: { slug: string }) => f.slug === "heading",
+    );
+    expect(heading.fontFamily).toContain("Inter");
   });
 });
 
-describe("generateElementorKit — templates", () => {
-  it("hero template uses microcopy when present", async () => {
+describe("generateElementorKit — page-home template", () => {
+  it("hero section uses microcopy when present", async () => {
     const tokens: DesignTokens = {
       ...baseTokens,
       microcopy: {
@@ -160,38 +167,28 @@ describe("generateElementorKit — templates", () => {
       },
     };
     const files = await generateElementorKit({ ...baseOpts, tokens });
-    const heroFile = files.filter((f) => f.path.startsWith("templates/"))[0];
-    const body = heroFile.content as string;
+    const body = files.find(
+      (f) => f.path === "elementor-templates/page-home.json",
+    )!.content as string;
     expect(body).toContain("Ship faster");
     expect(body).toContain("A platform for builders");
     expect(body).toContain("Start Free");
   });
 
-  it("hero template falls back to default headline without microcopy", async () => {
+  it("hero section falls back to default headline without microcopy", async () => {
     const files = await generateElementorKit(baseOpts);
-    const heroFile = files.filter((f) => f.path.startsWith("templates/"))[0];
-    const body = heroFile.content as string;
+    const body = files.find(
+      (f) => f.path === "elementor-templates/page-home.json",
+    )!.content as string;
     expect(body).toContain("Welcome to Acme");
   });
 
-  it("each template has the expected wrapper shape", async () => {
+  it("widgets reference resolved colors and fonts", async () => {
     const files = await generateElementorKit(baseOpts);
-    const tplFiles = files.filter((f) => f.path.startsWith("templates/"));
-    for (const f of tplFiles) {
-      const doc = JSON.parse(f.content as string);
-      expect(doc.version).toBe("0.4");
-      expect(doc.type).toBe("section");
-      expect(Array.isArray(doc.content)).toBe(true);
-      expect(doc.content.length).toBeGreaterThan(0);
-      expect(doc.content[0].elType).toBe("section");
-    }
-  });
-
-  it("templates reference design colors and fonts via widget settings", async () => {
-    const files = await generateElementorKit(baseOpts);
-    const tplFiles = files.filter((f) => f.path.startsWith("templates/"));
-    const hero = tplFiles[0].content as string;
-    expect(hero).toContain('"#6366f1"');
-    expect(hero).toContain('"Inter"');
+    const body = files.find(
+      (f) => f.path === "elementor-templates/page-home.json",
+    )!.content as string;
+    expect(body).toContain('"#6366f1"');
+    expect(body).toContain('"Inter"');
   });
 });

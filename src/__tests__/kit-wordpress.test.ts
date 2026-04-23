@@ -87,9 +87,14 @@ describe("generateWordPressTheme — file structure", () => {
     expect(files.some((f) => f.path.startsWith("assets/fonts/"))).toBe(false);
   });
 
-  it("does not emit assets/logo.svg when no logo is present", async () => {
+  it("emits a placeholder assets/logo.svg when no logo is present", async () => {
+    // The generator always ships a logo asset so the Site Logo block works out
+    // of the box — a brand-coloured placeholder is synthesized when extraction
+    // didn't find one. See kit-wordpress.ts `hasLogo` branch.
     const files = await generateWordPressTheme(baseOpts);
-    expect(files.some((f) => f.path === "assets/logo.svg")).toBe(false);
+    const logo = files.find((f) => f.path === "assets/logo.svg");
+    expect(logo).toBeDefined();
+    expect(logo!.content).toContain("<svg");
   });
 });
 
@@ -127,12 +132,14 @@ describe("generateWordPressTheme — theme.json", () => {
     }
   });
 
-  it("emits a hero pattern referencing front-page", async () => {
+  it("front-page template references the expected pattern variants", async () => {
+    // Front-page composes section patterns keyed by variant (default = "classic").
+    // See tplFrontPage in kit-wordpress.ts.
     const files = await generateWordPressTheme(baseOpts);
     const front = files.find((f) => f.path === "templates/front-page.html")!;
-    expect(front.content).toContain('"acme/hero-default"');
-    expect(front.content).toContain('"acme/feature-grid"');
-    expect(front.content).toContain('"acme/cta"');
+    expect(front.content).toContain('"acme/hero-classic"');
+    expect(front.content).toContain('"acme/features-classic"');
+    expect(front.content).toContain('"acme/cta-classic"');
   });
 });
 
