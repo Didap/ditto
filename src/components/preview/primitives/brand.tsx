@@ -1,7 +1,7 @@
 "use client";
 
 import React, { createContext, useContext } from "react";
-import type { HeaderVariant } from "@/lib/types";
+import type { HeaderVariant, SectionVariant, SectionKey } from "@/lib/types";
 import { Button } from "./index";
 
 // ── Brand context ─────────────────────────────────────────────────────────
@@ -15,6 +15,13 @@ export interface BrandContextValue {
   name: string;
   /** Which header variant to render. */
   headerVariant: HeaderVariant;
+  /** Per-section variants — default "classic" each. */
+  heroVariant: SectionVariant;
+  featuresVariant: SectionVariant;
+  statsVariant: SectionVariant;
+  reviewsVariant: SectionVariant;
+  ctaVariant: SectionVariant;
+  footerVariant: SectionVariant;
   /** Nav labels (override default Home/Features/Pricing/Blog). */
   navLinks?: string[];
 }
@@ -22,6 +29,12 @@ export interface BrandContextValue {
 const DEFAULT_CONTEXT: BrandContextValue = {
   name: "Brand",
   headerVariant: "classic",
+  heroVariant: "classic",
+  featuresVariant: "classic",
+  statsVariant: "classic",
+  reviewsVariant: "classic",
+  ctaVariant: "classic",
+  footerVariant: "classic",
 };
 
 const BrandContext = createContext<BrandContextValue>(DEFAULT_CONTEXT);
@@ -37,6 +50,12 @@ export function BrandProvider({
     ...DEFAULT_CONTEXT,
     ...value,
     headerVariant: value.headerVariant || DEFAULT_CONTEXT.headerVariant,
+    heroVariant: value.heroVariant || DEFAULT_CONTEXT.heroVariant,
+    featuresVariant: value.featuresVariant || DEFAULT_CONTEXT.featuresVariant,
+    statsVariant: value.statsVariant || DEFAULT_CONTEXT.statsVariant,
+    reviewsVariant: value.reviewsVariant || DEFAULT_CONTEXT.reviewsVariant,
+    ctaVariant: value.ctaVariant || DEFAULT_CONTEXT.ctaVariant,
+    footerVariant: value.footerVariant || DEFAULT_CONTEXT.footerVariant,
     name: value.name || DEFAULT_CONTEXT.name,
   };
   return <BrandContext.Provider value={resolved}>{children}</BrandContext.Provider>;

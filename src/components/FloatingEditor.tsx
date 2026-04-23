@@ -1,10 +1,25 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import type { ResolvedDesign, HeaderVariant } from "@/lib/types";
-import { HEADER_VARIANTS } from "@/lib/types";
+import type { ResolvedDesign, HeaderVariant, SectionVariant, SectionKey } from "@/lib/types";
+import { HEADER_VARIANTS, SECTION_KEYS, SECTION_LABELS } from "@/lib/types";
 import { HEADER_VARIANT_DESCRIPTIONS } from "@/components/preview/primitives/brand";
-import { Paintbrush, X as XIcon, Sparkles, Upload, Trash2 } from "lucide-react";
+import { Paintbrush, X as XIcon, Sparkles, Upload, Trash2, Dices, RotateCcw, ChevronDown } from "lucide-react";
+
+/** Each section's variant lives in a different field on resolved. */
+const SECTION_VARIANT_FIELD: Record<SectionKey, keyof ResolvedDesign> = {
+  hero: "heroVariant",
+  features: "featuresVariant",
+  stats: "statsVariant",
+  reviews: "reviewsVariant",
+  cta: "ctaVariant",
+  footer: "footerVariant",
+};
+
+function readVariant(resolved: ResolvedDesign, key: SectionKey): SectionVariant {
+  const v = resolved[SECTION_VARIANT_FIELD[key]] as SectionVariant | undefined;
+  return v || "classic";
+}
 
 const COLOR_FIELDS: Array<{ key: keyof ResolvedDesign; label: string; group: string }> = [
   { key: "colorPrimary", label: "Primary", group: "Brand" },
@@ -48,6 +63,7 @@ export function FloatingEditor({
   const [tab, setTab] = useState<"colors" | "fonts" | "shape" | "brand" | "figma">("colors");
   const [brandBusy, setBrandBusy] = useState<"upload" | "remove" | null>(null);
   const [brandError, setBrandError] = useState<string | null>(null);
+  const [sectionOverridesOpen, setSectionOverridesOpen] = useState(false);
   const logoInputRef = useRef<HTMLInputElement>(null);
   const [guideVisible, setGuideVisible] = useState(false);
   const [guideDismissed, setGuideDismissed] = useState(false);
@@ -129,19 +145,89 @@ export function FloatingEditor({
     }
   };
 
-  const pickHeaderVariant = async (variant: HeaderVariant) => {
-    onChange({ ...resolved, headerVariant: variant });
+  const patchBrand = async (payload: Record<string, unknown>) => {
     if (!slug) return;
     try {
       await fetch(`/api/designs/${slug}/logo`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ variant }),
+        body: JSON.stringify(payload),
       });
     } catch {
       // Non-fatal — local state already reflects the choice; backend can retry on next save.
     }
   };
+
+  const pickHeaderVariant = (variant: HeaderVariant) => {
+    onChange({ ...resolved, headerVariant: variant });
+    patchBrand({ headerVariant: variant });
+  };
+
+  const pickSectionVariant = (section: SectionKey, variant: SectionVariant) => {
+    const field = SECTION_VARIANT_FIELD[section];
+    onChange({ ...resolved, [field]: variant });
+    patchBrand({ [field]: variant });
+  };
+
+  /** Preset: apply one variant to ALL sections (header + 6 landing sections). */
+  const applyPreset = (variant: SectionVariant) => {
+    const next = {
+      ...resolved,
+      headerVariant: variant,
+      heroVariant: variant,
+      featuresVariant: variant,
+      statsVariant: variant,
+      reviewsVariant: variant,
+      ctaVariant: variant,
+      footerVariant: variant,
+    };
+    onChange(next);
+    patchBrand({
+      headerVariant: variant,
+      heroVariant: variant,
+      featuresVariant: variant,
+      statsVariant: variant,
+      reviewsVariant: variant,
+      ctaVariant: variant,
+      footerVariant: variant,
+    });
+  };
+
+  /** Shuffle: pick a random variant for each section independently. */
+  const shuffleAll = () => {
+    const pick = (): SectionVariant => HEADER_VARIANTS[Math.floor(Math.random() * HEADER_VARIANTS.length)];
+    const next = {
+      ...resolved,
+      headerVariant: pick(),
+      heroVariant: pick(),
+      featuresVariant: pick(),
+      statsVariant: pick(),
+      reviewsVariant: pick(),
+      ctaVariant: pick(),
+      footerVariant: pick(),
+    };
+    onChange(next);
+    patchBrand({
+      headerVariant: next.headerVariant,
+      heroVariant: next.heroVariant,
+      featuresVariant: next.featuresVariant,
+      statsVariant: next.statsVariant,
+      reviewsVariant: next.reviewsVariant,
+      ctaVariant: next.ctaVariant,
+      footerVariant: next.footerVariant,
+    });
+  };
+
+  /** Reset: back to Classic everywhere. */
+  const resetAll = () => applyPreset("classic");
+
+  /** True when every section is the same variant → show active preset highlight. */
+  const currentPreset = (() => {
+    const h = resolved.headerVariant || "classic";
+    const keys: SectionKey[] = ["hero", "features", "stats", "reviews", "cta", "footer"];
+    const allMatch = keys.every((k) => readVariant(resolved, k) === h);
+    return allMatch ? h : null;
+  })();
 
   const setBrandName = (name: string) => {
     onChange({ ...resolved, brandName: name });
@@ -462,19 +548,46 @@ export function FloatingEditor({
                   )}
                 </div>
 
-                {/* Header variant */}
+                {/* ── Stile landing — preset unico + shuffle + reset ── */}
                 <div>
-                  <span className="text-[11px] mb-2 block" style={{ color: "var(--ditto-text-muted)" }}>
-                    Stile header
-                  </span>
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-[11px]" style={{ color: "var(--ditto-text-muted)" }}>
+                      Stile landing
+                    </span>
+                    <div className="flex items-center gap-2">
+                      <button
+                        onClick={shuffleAll}
+                        title="Sorprendimi — randomizza ogni sezione"
+                        className="text-[10px] inline-flex items-center gap-1 transition-colors"
+                        style={{ color: "var(--ditto-text-muted)" }}
+                      >
+                        <Dices className="w-3 h-3" strokeWidth={1.5} />
+                        Sorprendimi
+                      </button>
+                      <span className="text-[10px]" style={{ color: "var(--ditto-border)" }}>·</span>
+                      <button
+                        onClick={resetAll}
+                        title="Ripristina stile originale"
+                        className="text-[10px] inline-flex items-center gap-1 transition-colors"
+                        style={{ color: "var(--ditto-text-muted)" }}
+                      >
+                        <RotateCcw className="w-3 h-3" strokeWidth={1.5} />
+                        Reset
+                      </button>
+                    </div>
+                  </div>
+                  <p className="text-[10px] leading-relaxed mb-2" style={{ color: "var(--ditto-text-muted)" }}>
+                    Un click applica lo stile all&apos;header, all&apos;hero e a tutte le sezioni della landing.
+                  </p>
+
                   <div className="grid grid-cols-2 gap-2">
                     {HEADER_VARIANTS.map((v) => {
                       const meta = HEADER_VARIANT_DESCRIPTIONS[v];
-                      const active = (resolved.headerVariant ?? "classic") === v;
+                      const active = currentPreset === v;
                       return (
                         <button
                           key={v}
-                          onClick={() => pickHeaderVariant(v)}
+                          onClick={() => applyPreset(v)}
                           className="text-left rounded-md border p-2.5 transition-all"
                           style={{
                             borderColor: active ? "var(--ditto-primary)" : "var(--ditto-border)",
@@ -483,58 +596,8 @@ export function FloatingEditor({
                               : "var(--ditto-bg)",
                           }}
                         >
-                          {/* Mini mock of the variant layout */}
-                          <div className="mb-2 h-8 relative rounded-sm overflow-hidden" style={{ backgroundColor: "var(--ditto-surface)", border: "1px solid var(--ditto-border)" }}>
-                            {v === "classic" && (
-                              <div className="absolute inset-0 flex items-center justify-between px-1.5">
-                                <div className="w-3 h-3 rounded-full" style={{ backgroundColor: "var(--ditto-primary)" }} />
-                                <div className="flex gap-0.5">
-                                  <div className="w-2 h-0.5" style={{ backgroundColor: "var(--ditto-text-muted)" }} />
-                                  <div className="w-2 h-0.5" style={{ backgroundColor: "var(--ditto-text-muted)" }} />
-                                  <div className="w-2 h-0.5" style={{ backgroundColor: "var(--ditto-text-muted)" }} />
-                                </div>
-                                <div className="w-3 h-1.5 rounded-[1px]" style={{ backgroundColor: "var(--ditto-primary)" }} />
-                              </div>
-                            )}
-                            {v === "elegante" && (
-                              <div className="absolute inset-0 flex flex-col items-center justify-center gap-0.5">
-                                <div className="w-3 h-3 rounded-full" style={{ backgroundColor: "var(--ditto-primary)" }} />
-                                <div className="w-full h-px" style={{ backgroundColor: "var(--ditto-border)" }} />
-                                <div className="flex gap-1">
-                                  <div className="w-1.5 h-0.5" style={{ backgroundColor: "var(--ditto-text-muted)" }} />
-                                  <div className="w-1.5 h-0.5" style={{ backgroundColor: "var(--ditto-text-muted)" }} />
-                                  <div className="w-1.5 h-0.5" style={{ backgroundColor: "var(--ditto-text-muted)" }} />
-                                </div>
-                              </div>
-                            )}
-                            {v === "artistico" && (
-                              <div className="absolute inset-0 flex items-center justify-between px-1">
-                                <div className="w-3 h-3 rounded-full" style={{ backgroundColor: "var(--ditto-primary)" }} />
-                                <div className="flex gap-0.5 rounded-full px-1.5 py-0.5" style={{ backgroundColor: "var(--ditto-bg)", border: "1px solid var(--ditto-border)" }}>
-                                  <div className="w-2 h-0.5" style={{ backgroundColor: "var(--ditto-text-muted)" }} />
-                                  <div className="w-2 h-0.5" style={{ backgroundColor: "var(--ditto-text-muted)" }} />
-                                </div>
-                                <div className="w-4 h-1.5 rounded-full" style={{ border: "1px solid var(--ditto-text)" }} />
-                              </div>
-                            )}
-                            {v === "fresco" && (
-                              <div className="absolute inset-1 flex items-center justify-between px-1.5 rounded-full" style={{ border: "1px solid var(--ditto-border)", backgroundColor: "var(--ditto-bg)" }}>
-                                <div className="w-2 h-2 rounded-full" style={{ backgroundColor: "var(--ditto-primary)" }} />
-                                <div className="flex gap-0.5">
-                                  <div className="w-1.5 h-0.5" style={{ backgroundColor: "var(--ditto-text-muted)" }} />
-                                  <div className="w-1.5 h-0.5" style={{ backgroundColor: "var(--ditto-text-muted)" }} />
-                                </div>
-                                <div
-                                  className="w-3 h-1.5 rounded-full"
-                                  style={{
-                                    background:
-                                      "linear-gradient(90deg, var(--ditto-primary), var(--ditto-text))",
-                                  }}
-                                />
-                              </div>
-                            )}
-                          </div>
-                          <div className="text-[11px] font-semibold" style={{ color: "var(--ditto-text)" }}>
+                          <VariantMiniMock variant={v} resolved={resolved} />
+                          <div className="text-[11px] font-semibold mt-2" style={{ color: "var(--ditto-text)" }}>
                             {meta.label}
                           </div>
                           <div className="text-[9.5px]" style={{ color: "var(--ditto-text-muted)" }}>
@@ -544,6 +607,47 @@ export function FloatingEditor({
                       );
                     })}
                   </div>
+
+                  {!currentPreset && (
+                    <p className="text-[10px] mt-2" style={{ color: "var(--ditto-text-muted)" }}>
+                      Stile misto — ogni sezione ha una variante diversa.
+                    </p>
+                  )}
+                </div>
+
+                {/* ── Personalizza per sezione (collassato di default) ── */}
+                <div>
+                  <button
+                    onClick={() => setSectionOverridesOpen((v) => !v)}
+                    className="w-full flex items-center justify-between py-1.5 text-[11px] font-medium transition-colors"
+                    style={{ color: "var(--ditto-text-secondary)" }}
+                  >
+                    <span>Personalizza per sezione</span>
+                    <ChevronDown
+                      className="w-3 h-3 transition-transform"
+                      strokeWidth={1.5}
+                      style={{ transform: sectionOverridesOpen ? "rotate(180deg)" : "none" }}
+                    />
+                  </button>
+
+                  {sectionOverridesOpen && (
+                    <div className="space-y-3 mt-2">
+                      {/* Header */}
+                      <SectionVariantRow
+                        label="Header"
+                        value={resolved.headerVariant ?? "classic"}
+                        onChange={pickHeaderVariant}
+                      />
+                      {SECTION_KEYS.map((key) => (
+                        <SectionVariantRow
+                          key={key}
+                          label={SECTION_LABELS[key]}
+                          value={readVariant(resolved, key)}
+                          onChange={(v: SectionVariant) => pickSectionVariant(key, v)}
+                        />
+                      ))}
+                    </div>
+                  )}
                 </div>
               </div>
             )}
@@ -845,6 +949,151 @@ function ColorRow({
           onChange={(e) => onChange(e.target.value)}
           className="absolute w-0 h-0 opacity-0"
         />
+      </div>
+    </div>
+  );
+}
+
+// ── Variant Mini Mock ──────────────────────────────────────────────────
+// Tiny preview of a header/landing variant rendered with the DESIGN's own
+// tokens (primary/secondary/text/border) so the user sees exactly how the
+// choice will look in their context — not in generic grays.
+
+function VariantMiniMock({
+  variant,
+  resolved,
+}: {
+  variant: SectionVariant;
+  resolved: ResolvedDesign;
+}) {
+  const primary = resolved.colorPrimary;
+  const secondary = resolved.colorSecondary;
+  const accent = resolved.colorAccent;
+  const text = resolved.colorTextPrimary;
+  const muted = resolved.colorTextMuted;
+  const surface = resolved.colorSurface;
+  const bg = resolved.colorBackground;
+  const border = resolved.colorBorder;
+
+  return (
+    <div
+      className="h-10 relative overflow-hidden"
+      style={{
+        backgroundColor: bg,
+        border: `1px solid ${border}`,
+        borderRadius: 4,
+      }}
+    >
+      {variant === "classic" && (
+        <div className="absolute inset-0 flex items-center justify-between px-2">
+          <div className="w-3 h-3 rounded-full" style={{ backgroundColor: primary }} />
+          <div className="flex gap-1">
+            <div className="w-2.5 h-0.5" style={{ backgroundColor: muted }} />
+            <div className="w-2.5 h-0.5" style={{ backgroundColor: muted }} />
+            <div className="w-2.5 h-0.5" style={{ backgroundColor: muted }} />
+          </div>
+          <div className="w-4 h-2 rounded-sm" style={{ backgroundColor: primary }} />
+        </div>
+      )}
+      {variant === "elegante" && (
+        <div className="absolute inset-0 flex flex-col items-center justify-center gap-1">
+          <div className="w-3 h-3 rounded-full" style={{ backgroundColor: primary }} />
+          <div className="w-full h-px" style={{ backgroundColor: border }} />
+          <div className="flex gap-1.5">
+            <div className="w-1.5 h-0.5" style={{ backgroundColor: muted }} />
+            <div className="w-1.5 h-0.5" style={{ backgroundColor: muted }} />
+            <div className="w-1.5 h-0.5" style={{ backgroundColor: muted }} />
+          </div>
+        </div>
+      )}
+      {variant === "artistico" && (
+        <>
+          <div
+            aria-hidden
+            className="absolute top-0 right-2 w-6 h-6 rounded-full"
+            style={{ backgroundColor: accent, opacity: 0.4 }}
+          />
+          <div className="absolute inset-0 flex items-center justify-between px-2">
+            <div className="w-3 h-3 rounded-full" style={{ backgroundColor: primary }} />
+            <div
+              className="flex gap-1 rounded-full px-2 py-1"
+              style={{ backgroundColor: surface, border: `1px solid ${border}` }}
+            >
+              <div className="w-2 h-0.5" style={{ backgroundColor: muted }} />
+              <div className="w-2 h-0.5" style={{ backgroundColor: muted }} />
+            </div>
+            <div className="w-5 h-2.5 rounded-full" style={{ border: `1.5px solid ${text}` }} />
+          </div>
+        </>
+      )}
+      {variant === "fresco" && (
+        <div
+          className="absolute inset-1 flex items-center justify-between px-2 rounded-full"
+          style={{
+            backgroundColor: surface,
+            border: `1px solid ${border}`,
+          }}
+        >
+          <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: primary }} />
+          <div className="flex gap-0.5">
+            <div className="w-1.5 h-0.5" style={{ backgroundColor: muted }} />
+            <div className="w-1.5 h-0.5" style={{ backgroundColor: muted }} />
+          </div>
+          <div
+            className="w-4 h-2 rounded-full"
+            style={{
+              background: `linear-gradient(90deg, ${primary}, ${secondary})`,
+            }}
+          />
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ── Section Variant Row ────────────────────────────────────────────────
+// Per-section selector used inside the "Personalizza per sezione" panel.
+
+function SectionVariantRow({
+  label,
+  value,
+  onChange,
+}: {
+  label: string;
+  value: SectionVariant;
+  onChange: (variant: SectionVariant) => void;
+}) {
+  return (
+    <div>
+      <div className="flex items-center justify-between mb-1">
+        <span className="text-[11px] font-medium" style={{ color: "var(--ditto-text)" }}>{label}</span>
+        <span className="text-[9.5px]" style={{ color: "var(--ditto-text-muted)" }}>
+          {HEADER_VARIANT_DESCRIPTIONS[value].label}
+        </span>
+      </div>
+      <div className="grid grid-cols-4 gap-1">
+        {HEADER_VARIANTS.map((v) => {
+          const active = v === value;
+          const meta = HEADER_VARIANT_DESCRIPTIONS[v];
+          return (
+            <button
+              key={v}
+              onClick={() => onChange(v)}
+              title={`${meta.label} — ${meta.tagline}`}
+              className="px-1.5 py-1 text-[9.5px] font-medium transition-all"
+              style={{
+                borderRadius: 4,
+                border: `1px solid ${active ? "var(--ditto-primary)" : "var(--ditto-border)"}`,
+                backgroundColor: active
+                  ? "color-mix(in srgb, var(--ditto-primary) 10%, var(--ditto-bg))"
+                  : "var(--ditto-bg)",
+                color: active ? "var(--ditto-primary)" : "var(--ditto-text-secondary)",
+              }}
+            >
+              {meta.label}
+            </button>
+          );
+        })}
       </div>
     </div>
   );

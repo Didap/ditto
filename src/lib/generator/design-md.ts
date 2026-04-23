@@ -1,4 +1,5 @@
-import type { DesignTokens, ResolvedDesign, HeaderVariant } from "../types";
+import type { DesignTokens, ResolvedDesign, HeaderVariant, SectionVariant, SectionKey } from "../types";
+import { SECTION_KEYS } from "../types";
 
 export function generateDesignMd(
   name: string,
@@ -61,39 +62,87 @@ const HEADER_VARIANT_COPY: Record<
   },
 };
 
+function readSectionVariant(resolved: ResolvedDesign, key: SectionKey): SectionVariant {
+  const field = (
+    {
+      hero: "heroVariant",
+      features: "featuresVariant",
+      stats: "statsVariant",
+      reviews: "reviewsVariant",
+      cta: "ctaVariant",
+      footer: "footerVariant",
+    } as const
+  )[key];
+  return (resolved[field] as SectionVariant | undefined) || "classic";
+}
+
+const SECTION_EN_LABELS: Record<SectionKey, string> = {
+  hero: "Hero",
+  features: "Features",
+  stats: "Stats",
+  reviews: "Reviews",
+  cta: "Final CTA",
+  footer: "Footer",
+};
+
 function generateBrand(name: string, resolved: ResolvedDesign): string {
-  const variant: HeaderVariant = resolved.headerVariant || "classic";
-  const meta = HEADER_VARIANT_COPY[variant];
+  const headerVariant: HeaderVariant = resolved.headerVariant || "classic";
+  const headerMeta = HEADER_VARIANT_COPY[headerVariant];
   const brandName = resolved.brandName || name;
 
   const logoLine = resolved.logoUrl
     ? `**Logo:** user-supplied asset at [\`${resolved.logoUrl}\`](${resolved.logoUrl}). Render at its native aspect ratio; do not force a square crop.`
     : `**Logo:** no custom logo — fall back to the Ditto placeholder mark (two semicircles in \`${resolved.colorPrimary}\` and \`${resolved.colorSecondary}\` forming a full circle). Keep it at ~28–32px tall next to the brand name.`;
 
+  // Detect "unified preset" — every section uses the same variant
+  const allSectionsVariant = SECTION_KEYS.map((k) => readSectionVariant(resolved, k));
+  const unifiedPreset = allSectionsVariant.every((v) => v === headerVariant)
+    ? headerVariant
+    : null;
+
+  // Per-section table rows
+  const sectionRows = [
+    `| Header | **${HEADER_VARIANT_COPY[headerVariant].label}** | ${HEADER_VARIANT_COPY[headerVariant].tagline} |`,
+    ...SECTION_KEYS.map((key) => {
+      const v = readSectionVariant(resolved, key);
+      return `| ${SECTION_EN_LABELS[key]} | **${HEADER_VARIANT_COPY[v].label}** | ${HEADER_VARIANT_COPY[v].tagline} |`;
+    }),
+  ].join("\n");
+
+  const unifiedParagraph = unifiedPreset
+    ? `The whole landing runs on a **unified ${HEADER_VARIANT_COPY[unifiedPreset].label}** preset — header and every landing section share the same aesthetic (${HEADER_VARIANT_COPY[unifiedPreset].tagline.toLowerCase()}).`
+    : `This design uses a **mixed layout** — different sections run on different variants. The combination is listed in the table below.`;
+
   return `## Brand
 
-The brand identity is applied consistently across the header, footer, and sidebar of every exported page.
+The brand identity is applied across the header, 6 landing sections, and exports of every page.
 
 **Brand name:** \`${brandName}\`
 
 ${logoLine}
 
-**Header style:** \`${meta.label}\` — ${meta.tagline}
+${unifiedParagraph}
 
-${meta.description}
+### Current layout per section
 
-### Header variants available
+| Section | Variant | Tone |
+|---------|---------|------|
+${sectionRows}
 
-Any of the four is ready to drop in — pick the one that matches the tone of the product.
+### Variant vocabulary
 
-| Variant | Feel | When to use |
+All four variants are available for every section — mix and match freely, or pick one preset for a coherent system.
+
+| Variant | Tone | When to use |
 |---------|------|-------------|
 | **Classic** | ${HEADER_VARIANT_COPY.classic.tagline} | Default for B2B, productivity, dashboards |
 | **Elegante** | ${HEADER_VARIANT_COPY.elegante.tagline} | Editorial, fashion, luxury, content sites |
 | **Artistico** | ${HEADER_VARIANT_COPY.artistico.tagline} | Creative studios, portfolios, bold brands |
 | **Fresco** | ${HEADER_VARIANT_COPY.fresco.tagline} | Modern SaaS, consumer apps, playful tones |
 
-Currently selected: **${meta.label}**.`;
+### Header in detail
+
+${headerMeta.description}`;
 }
 
 function generateSignatureAndComposition(tokens: DesignTokens): string | null {

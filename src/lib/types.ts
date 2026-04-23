@@ -233,6 +233,38 @@ export const HEADER_VARIANTS: HeaderVariant[] = [
   "fresco",
 ];
 
+/** Every section of the landing shares the same 4-variant palette. */
+export type SectionVariant = HeaderVariant;
+export const SECTION_VARIANTS: SectionVariant[] = HEADER_VARIANTS;
+
+/** Sections whose variant can be picked independently from the header. */
+export type SectionKey =
+  | "hero"
+  | "features"
+  | "stats"
+  | "reviews"
+  | "cta"
+  | "footer";
+
+export const SECTION_KEYS: SectionKey[] = [
+  "hero",
+  "features",
+  "stats",
+  "reviews",
+  "cta",
+  "footer",
+];
+
+/** Human labels for the editor UI + DESIGN.md. */
+export const SECTION_LABELS: Record<SectionKey, string> = {
+  hero: "Hero",
+  features: "Features",
+  stats: "Statistiche",
+  reviews: "Recensioni",
+  cta: "CTA finale",
+  footer: "Footer",
+};
+
 // ── Resolved Design (for preview rendering) ──
 
 export interface ResolvedDesign {
@@ -298,6 +330,13 @@ export interface ResolvedDesign {
   brandName?: string;
   /** Which header layout to render in previews and exports. */
   headerVariant?: HeaderVariant;
+  /** Per-section variants for the landing page. All optional — each defaults to "classic". */
+  heroVariant?: SectionVariant;
+  featuresVariant?: SectionVariant;
+  statsVariant?: SectionVariant;
+  reviewsVariant?: SectionVariant;
+  ctaVariant?: SectionVariant;
+  footerVariant?: SectionVariant;
 }
 
 // ── Design Quality Score ──

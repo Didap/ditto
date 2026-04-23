@@ -8,8 +8,8 @@ import {
   LOGO_TRANSFORMATION,
   isCloudinaryConfigured,
 } from "@/lib/cloudinary";
-import type { HeaderVariant } from "@/lib/types";
-import { HEADER_VARIANTS } from "@/lib/types";
+import type { SectionVariant } from "@/lib/types";
+import { HEADER_VARIANTS, SECTION_VARIANTS, SECTION_KEYS } from "@/lib/types";
 
 const ALLOWED_MIME = new Set([
   "image/svg+xml",
@@ -84,7 +84,7 @@ export async function POST(
     });
     uploadedUrl = result.secure_url;
   } catch (err) {
-    const msg = err instanceof Error ? err.message : String(err);
+    const msg = describeError(err);
     console.error("[logo upload] cloudinary step failed", msg, err);
     return NextResponse.json(
       { error: ApiError.UPLOAD_FAILED, detail: `cloudinary: ${msg}` },
@@ -101,13 +101,37 @@ export async function POST(
     });
     return NextResponse.json({ logoUrl: uploadedUrl });
   } catch (err) {
-    const msg = err instanceof Error ? err.message : String(err);
+    const msg = describeError(err);
     console.error("[logo upload] save step failed", msg, err);
     return NextResponse.json(
       { error: ApiError.UPLOAD_FAILED, detail: `save: ${msg}`, logoUrl: uploadedUrl },
       { status: 500 },
     );
   }
+}
+
+/**
+ * Extract a human-readable message from anything a caller might throw.
+ * Cloudinary's SDK rejects with a plain object like `{message, http_code, name}`
+ * instead of an Error, so `String(err)` returns "[object Object]" — useless.
+ */
+function describeError(err: unknown): string {
+  if (err instanceof Error) return err.message;
+  if (err && typeof err === "object") {
+    const rec = err as Record<string, unknown>;
+    const inner = rec.error && typeof rec.error === "object" ? (rec.error as Record<string, unknown>) : null;
+    const message = inner?.message ?? rec.message;
+    if (typeof message === "string" && message.length > 0) {
+      const code = rec.http_code ?? rec.code ?? inner?.http_code;
+      return code ? `${message} (${code})` : message;
+    }
+    try {
+      return JSON.stringify(err);
+    } catch {
+      return "[unserializable error]";
+    }
+  }
+  return String(err);
 }
 
 /** Remove the custom logo (reverts to the Ditto placeholder). */
@@ -146,7 +170,25 @@ export async function DELETE(
   return NextResponse.json({ ok: true });
 }
 
-/** Update the chosen header variant. Body: { variant: HeaderVariant }. */
+/**
+ * Update any brand-related fields on a design in one shot.
+ *
+ * Body accepts any subset of:
+ *   {
+ *     variant?: HeaderVariant,           // legacy: sets headerVariant
+ *     headerVariant?: HeaderVariant,
+ *     heroVariant?: SectionVariant,
+ *     featuresVariant?: SectionVariant,
+ *     statsVariant?: SectionVariant,
+ *     reviewsVariant?: SectionVariant,
+ *     ctaVariant?: SectionVariant,
+ *     footerVariant?: SectionVariant,
+ *     brandName?: string,
+ *   }
+ *
+ * The editor uses this for the preset row (sets all section variants at once)
+ * and the per-section selectors.
+ */
 export async function PATCH(
   req: NextRequest,
   { params }: { params: Promise<{ slug: string }> },
@@ -164,19 +206,47 @@ export async function PATCH(
   }
 
   const body = await req.json().catch(() => ({}));
-  const variant = body.variant as HeaderVariant | undefined;
   const brandName = typeof body.brandName === "string" ? body.brandName : undefined;
 
-  if (variant && !HEADER_VARIANTS.includes(variant)) {
-    return NextResponse.json(
-      { error: ApiError.INVALID_HEADER_VARIANT },
-      { status: 400 },
-    );
+  // Collect variant updates. Accept the legacy `variant` key as alias for
+  // `headerVariant` so older clients keep working.
+  const variantFields: Array<[string, SectionVariant[]]> = [
+    ["headerVariant", HEADER_VARIANTS],
+    ["heroVariant", SECTION_VARIANTS],
+    ["featuresVariant", SECTION_VARIANTS],
+    ["statsVariant", SECTION_VARIANTS],
+    ["reviewsVariant", SECTION_VARIANTS],
+    ["ctaVariant", SECTION_VARIANTS],
+    ["footerVariant", SECTION_VARIANTS],
+  ];
+
+  const updates: Record<string, SectionVariant> = {};
+
+  if (body.variant && !updates.headerVariant) {
+    if (!HEADER_VARIANTS.includes(body.variant)) {
+      return NextResponse.json(
+        { error: ApiError.INVALID_HEADER_VARIANT },
+        { status: 400 },
+      );
+    }
+    updates.headerVariant = body.variant;
+  }
+
+  for (const [key, allowed] of variantFields) {
+    const v = body[key];
+    if (v === undefined) continue;
+    if (!allowed.includes(v)) {
+      return NextResponse.json(
+        { error: ApiError.INVALID_HEADER_VARIANT, detail: `invalid value for ${key}` },
+        { status: 400 },
+      );
+    }
+    updates[key] = v;
   }
 
   const resolved = {
     ...design.resolved,
-    ...(variant ? { headerVariant: variant } : {}),
+    ...updates,
     ...(brandName !== undefined ? { brandName } : {}),
   };
 
@@ -188,3 +258,5 @@ export async function PATCH(
 
   return NextResponse.json({ resolved });
 }
+
+void SECTION_KEYS;

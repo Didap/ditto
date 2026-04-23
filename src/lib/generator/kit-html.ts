@@ -5,7 +5,15 @@
  * that can be opened directly in a browser — no build step, no dependencies.
  */
 
-import type { ResolvedDesign, FontSource, HeaderVariant } from "../types";
+import type { ResolvedDesign, FontSource, HeaderVariant, SectionVariant } from "../types";
+import {
+  buildHeroHtml,
+  buildFeaturesHtml,
+  buildStatsHtml,
+  buildReviewsHtml,
+  buildCtaHtml,
+  buildLandingFooterHtml,
+} from "./kit-html-sections";
 
 // ── Brand mark helpers ──
 
@@ -276,36 +284,7 @@ ${body}
 // ── Shared HTML fragments (now dynamic — see buildNavHtml / buildFooterHtml) ──
 
 // ── Shared new component HTML ──
-
-const reviewsHtml = `<section class="px-8 py-16">
-  <h2 class="text-xl font-bold mb-8 text-center" style="color: var(--d-text-primary); font-family: var(--d-font-heading)">What Our Users Say</h2>
-  <div class="grid grid-cols-3 gap-5">
-    <div class="p-5" style="background: var(--d-surface); border: 1px solid var(--d-border); border-radius: var(--d-radius-lg)">
-      <div class="flex gap-0.5 mb-3"><span style="color: var(--d-warning)">★★★★★</span></div>
-      <p class="text-sm mb-4 leading-relaxed" style="color: var(--d-text-secondary)">"This tool has completely changed how we approach design systems. The extraction is incredibly accurate."</p>
-      <div class="flex items-center gap-3">
-        <div class="avatar" style="width:32px;height:32px;font-size:0.7rem">SC</div>
-        <div><div class="text-sm font-medium" style="color: var(--d-text-primary)">Sarah Chen</div><div class="text-xs" style="color: var(--d-text-muted)">Product Designer</div></div>
-      </div>
-    </div>
-    <div class="p-5" style="background: var(--d-surface); border: 1px solid var(--d-border); border-radius: var(--d-radius-lg)">
-      <div class="flex gap-0.5 mb-3"><span style="color: var(--d-warning)">★★★★★</span></div>
-      <p class="text-sm mb-4 leading-relaxed" style="color: var(--d-text-secondary)">"We've tried many design tools but nothing comes close. The generated components work perfectly."</p>
-      <div class="flex items-center gap-3">
-        <div class="avatar" style="width:32px;height:32px;font-size:0.7rem">JW</div>
-        <div><div class="text-sm font-medium" style="color: var(--d-text-primary)">James Wilson</div><div class="text-xs" style="color: var(--d-text-muted)">Frontend Lead</div></div>
-      </div>
-    </div>
-    <div class="p-5" style="background: var(--d-surface); border: 1px solid var(--d-border); border-radius: var(--d-radius-lg)">
-      <div class="flex gap-0.5 mb-3"><span style="color: var(--d-warning)">★★★★</span><span style="color: var(--d-border)">★</span></div>
-      <p class="text-sm mb-4 leading-relaxed" style="color: var(--d-text-secondary)">"The ability to blend multiple design inspirations into a cohesive system is a game changer."</p>
-      <div class="flex items-center gap-3">
-        <div class="avatar" style="width:32px;height:32px;font-size:0.7rem">ML</div>
-        <div><div class="text-sm font-medium" style="color: var(--d-text-primary)">Maria Lopez</div><div class="text-xs" style="color: var(--d-text-muted)">CTO at StartupXYZ</div></div>
-      </div>
-    </div>
-  </div>
-</section>`;
+// (legacy `reviewsHtml` removed — landings now use buildReviewsHtml per variant)
 
 const faqHtml = `<section class="px-8 py-16 max-w-2xl mx-auto">
   <h2 class="text-xl font-bold mb-6 text-center" style="color: var(--d-text-primary); font-family: var(--d-font-heading)">Frequently Asked Questions</h2>
@@ -375,79 +354,28 @@ const chartsHtml = `<div class="grid grid-cols-2 gap-4 mb-6">
 // ── Page generators ──
 
 function landingHtml(r: ResolvedDesign, brandName: string, variant: HeaderVariant): string {
+  const heroV: SectionVariant = r.heroVariant || "classic";
+  const featuresV: SectionVariant = r.featuresVariant || "classic";
+  const statsV: SectionVariant = r.statsVariant || "classic";
+  const reviewsV: SectionVariant = r.reviewsVariant || "classic";
+  const ctaV: SectionVariant = r.ctaVariant || "classic";
+  const footerV: SectionVariant = r.footerVariant || "classic";
   return `<div class="flex flex-col min-h-screen">
   ${buildNavHtml(r, brandName, variant)}
 
-  <!-- Hero -->
-  <section class="px-8 py-20 text-center">
-    <span class="badge">New Release v2.0</span>
-    <h1 class="mt-4 text-5xl leading-tight tracking-tight" style="color: var(--d-text-primary); font-family: var(--d-font-heading); font-weight: var(--d-weight-heading)">
-      Build beautiful products<br>faster than ever
-    </h1>
-    <p class="mt-4 text-lg max-w-xl mx-auto" style="color: var(--d-text-secondary)">
-      The modern platform for teams who want to ship great experiences. Design, develop, and deploy — all in one place.
-    </p>
-    <div class="mt-8 flex gap-3 justify-center">
-      <button class="btn-primary btn-lg">Get Started Free</button>
-      <button class="btn-secondary btn-lg">View Demo</button>
-    </div>
-  </section>
+  ${buildHeroHtml(heroV)}
 
-  <!-- Stats -->
-  <section class="px-8 pb-16">
-    <div class="grid grid-cols-3 gap-6 max-w-3xl mx-auto">
-      <div class="text-center">
-        <div class="text-3xl font-bold" style="color: var(--d-text-primary); font-family: var(--d-font-heading)">12,000+</div>
-        <div class="text-sm mt-1" style="color: var(--d-text-muted)">Active Users</div>
-      </div>
-      <div class="text-center">
-        <div class="text-3xl font-bold" style="color: var(--d-text-primary); font-family: var(--d-font-heading)">99.99%</div>
-        <div class="text-sm mt-1" style="color: var(--d-text-muted)">Uptime</div>
-      </div>
-      <div class="text-center">
-        <div class="text-3xl font-bold" style="color: var(--d-text-primary); font-family: var(--d-font-heading)">40+</div>
-        <div class="text-sm mt-1" style="color: var(--d-text-muted)">Countries</div>
-      </div>
-    </div>
-  </section>
+  ${buildStatsHtml(statsV)}
 
-  <!-- Features -->
-  <section class="px-8 py-16" style="background: var(--d-surface)">
-    <h2 class="text-2xl font-bold text-center mb-10" style="color: var(--d-text-primary); font-family: var(--d-font-heading)">Everything you need</h2>
-    <div class="grid grid-cols-3 gap-6 max-w-4xl mx-auto">
-      <div class="card p-6">
-        <div class="mb-3 text-xl" style="color: var(--d-primary)">⚡</div>
-        <h3 class="text-base font-semibold mb-2" style="color: var(--d-text-primary)">Lightning Fast</h3>
-        <p class="text-sm" style="color: var(--d-text-secondary)">Built for speed with optimized rendering and smart caching.</p>
-      </div>
-      <div class="card p-6">
-        <div class="mb-3 text-xl" style="color: var(--d-primary)">🛡️</div>
-        <h3 class="text-base font-semibold mb-2" style="color: var(--d-text-primary)">Fully Secure</h3>
-        <p class="text-sm" style="color: var(--d-text-secondary)">Enterprise-grade security with end-to-end encryption.</p>
-      </div>
-      <div class="card p-6">
-        <div class="mb-3 text-xl" style="color: var(--d-primary)">🔗</div>
-        <h3 class="text-base font-semibold mb-2" style="color: var(--d-text-primary)">Easy Integration</h3>
-        <p class="text-sm" style="color: var(--d-text-secondary)">Connect with your favorite tools in just a few clicks.</p>
-      </div>
-    </div>
-  </section>
+  ${buildFeaturesHtml(featuresV)}
 
-  ${reviewsHtml}
+  ${buildReviewsHtml(reviewsV)}
 
   ${faqHtml}
 
-  <!-- CTA -->
-  <section class="px-8 py-16 text-center">
-    <h2 class="text-2xl font-bold mb-3" style="color: var(--d-text-primary); font-family: var(--d-font-heading)">Ready to get started?</h2>
-    <p class="text-sm mb-6" style="color: var(--d-text-secondary)">Join thousands of teams already building with us.</p>
-    <div class="flex gap-3 justify-center max-w-md mx-auto">
-      <input class="input-field flex-1" placeholder="Enter your email">
-      <button class="btn-primary btn-md">Subscribe</button>
-    </div>
-  </section>
+  ${buildCtaHtml(ctaV)}
 
-  ${buildFooterHtml(r, brandName)}
+  ${buildLandingFooterHtml(r, brandName, footerV)}
 </div>`;
 }
 
