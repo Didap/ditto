@@ -1,7 +1,7 @@
 "use client";
 
 import React, { createContext, useContext } from "react";
-import type { HeaderVariant, SectionVariant, SectionKey } from "@/lib/types";
+import type { HeaderVariant, SectionVariant } from "@/lib/types";
 import { Button } from "./index";
 
 // ── Brand context ─────────────────────────────────────────────────────────
