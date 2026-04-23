@@ -154,6 +154,104 @@ function crc32(data: Uint8Array): number {
   return (c ^ 0xffffffff) >>> 0;
 }
 
+/**
+ * Generate a 256×256 PNG version of the Ditto placeholder mark (two
+ * semicircles in primary + secondary brand colors, transparent outside).
+ *
+ * PNG (raster) is shipped alongside the SVG specifically because WordPress
+ * blocks SVG uploads by default for security. The demo importer uses this
+ * PNG to set the Site Logo so no SVG upload ever happens — keeps the theme
+ * friendly with Wordfence / iThemes / Sucuri / ModSecurity.
+ */
+function synthesizeDittoLogoPng(primary: string, secondary: string): Uint8Array {
+  const W = 256;
+  const H = 256;
+  const hex = (h: string): [number, number, number] => {
+    const s = (h || "#cccccc").replace("#", "").padEnd(6, "c").slice(0, 6);
+    return [parseInt(s.slice(0, 2), 16) || 0, parseInt(s.slice(2, 4), 16) || 0, parseInt(s.slice(4, 6), 16) || 0];
+  };
+  const [r1, g1, b1] = hex(primary);
+  const [r2, g2, b2] = hex(secondary);
+
+  // Build raw RGBA pixel buffer with PNG filter byte prefixed to each row.
+  const stride = W * 4 + 1;
+  const raw = new Uint8Array(stride * H);
+  const cx = W / 2;
+  const cy = H / 2;
+  const radius = W / 2 - 2;
+
+  for (let y = 0; y < H; y++) {
+    raw[y * stride] = 0;
+    for (let x = 0; x < W; x++) {
+      const dx = x - cx + 0.5;
+      const dy = y - cy + 0.5;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      const off = y * stride + 1 + x * 4;
+      if (dist > radius) {
+        raw[off] = 0; raw[off + 1] = 0; raw[off + 2] = 0; raw[off + 3] = 0;
+      } else if (dx < 0) {
+        raw[off] = r1; raw[off + 1] = g1; raw[off + 2] = b1; raw[off + 3] = 255;
+      } else {
+        raw[off] = r2; raw[off + 1] = g2; raw[off + 2] = b2; raw[off + 3] = 255;
+      }
+    }
+  }
+
+  // PNG signature
+  const signature = new Uint8Array([137, 80, 78, 71, 13, 10, 26, 10]);
+
+  // IHDR: width, height, bit depth 8, color type 6 (RGBA), no compression/filter/interlace
+  const ihdrData = new Uint8Array(13);
+  const v = new DataView(ihdrData.buffer);
+  v.setUint32(0, W);
+  v.setUint32(4, H);
+  ihdrData[8] = 8; ihdrData[9] = 6; ihdrData[10] = 0; ihdrData[11] = 0; ihdrData[12] = 0;
+
+  // DEFLATE: uncompressed stored blocks (max 65535 bytes/block) — zlib wrapper.
+  const adler = adler32(raw);
+  const blocks: number[] = [];
+  let pos = 0;
+  while (pos < raw.length) {
+    const len = Math.min(0xffff, raw.length - pos);
+    const isLast = pos + len >= raw.length ? 1 : 0;
+    blocks.push(isLast);
+    blocks.push(len & 0xff, (len >>> 8) & 0xff);
+    blocks.push((~len) & 0xff, ((~len) >>> 8) & 0xff);
+    for (let i = 0; i < len; i++) blocks.push(raw[pos + i]);
+    pos += len;
+  }
+  const idatData = new Uint8Array(2 + blocks.length + 4);
+  idatData[0] = 0x78; idatData[1] = 0x01;
+  for (let i = 0; i < blocks.length; i++) idatData[2 + i] = blocks[i];
+  new DataView(idatData.buffer).setUint32(2 + blocks.length, adler);
+
+  const buildChunk = (type: string, data: Uint8Array): Uint8Array => {
+    const out = new Uint8Array(12 + data.length);
+    const dv = new DataView(out.buffer);
+    dv.setUint32(0, data.length);
+    out[4] = type.charCodeAt(0); out[5] = type.charCodeAt(1); out[6] = type.charCodeAt(2); out[7] = type.charCodeAt(3);
+    out.set(data, 8);
+    const crcBuf = new Uint8Array(4 + data.length);
+    crcBuf[0] = type.charCodeAt(0); crcBuf[1] = type.charCodeAt(1); crcBuf[2] = type.charCodeAt(2); crcBuf[3] = type.charCodeAt(3);
+    crcBuf.set(data, 4);
+    dv.setUint32(8 + data.length, crc32(crcBuf));
+    return out;
+  };
+
+  const ihdrChunk = buildChunk("IHDR", ihdrData);
+  const idatChunk = buildChunk("IDAT", idatData);
+  const iendChunk = buildChunk("IEND", new Uint8Array(0));
+
+  const total = signature.length + ihdrChunk.length + idatChunk.length + iendChunk.length;
+  const png = new Uint8Array(total);
+  let off = 0;
+  png.set(signature, off); off += signature.length;
+  png.set(ihdrChunk, off); off += ihdrChunk.length;
+  png.set(idatChunk, off); off += idatChunk.length;
+  png.set(iendChunk, off);
+  return png;
+}
+
 // ── theme.json ────────────────────────────────────────────────────────
 
 function buildThemeJson(
@@ -1049,13 +1147,30 @@ class Ditto_Wp_Demo_Importer {
 \tpublic static function render_page() {
 \t\t$done = (bool) get_option( self::OPTION_DONE );
 \t\t$action = admin_url( 'admin-post.php' );
+\t\t$warnings = get_transient( 'ditto_wp_import_warnings' );
+\t\tif ( $warnings ) delete_transient( 'ditto_wp_import_warnings' );
+\t\t$just_imported = ! empty( $_GET['imported'] );
+\t\t$partial = ! empty( $_GET['partial'] );
 \t\t?>
 \t\t<div class="wrap">
 \t\t\t<h1><?php echo esc_html( '${designNameEsc} — Demo Importer' ); ?></h1>
-\t\t\t<?php if ( $done ) : ?>
-\t\t\t\t<div class="notice notice-success"><p><?php esc_html_e( 'Demo already imported. Re-running will update existing pages with matching slugs.', '${textDomain}' ); ?></p></div>
+\t\t\t<?php if ( $just_imported && ! $partial ) : ?>
+\t\t\t\t<div class="notice notice-success"><p><?php esc_html_e( 'Demo imported successfully! Visit your site to see the homepage.', '${textDomain}' ); ?></p></div>
+\t\t\t<?php elseif ( $just_imported && $partial ) : ?>
+\t\t\t\t<div class="notice notice-warning"><p><strong><?php esc_html_e( 'Demo imported with warnings:', '${textDomain}' ); ?></strong></p>
+\t\t\t\t<?php if ( is_array( $warnings ) ) : ?>
+\t\t\t\t\t<ul style="list-style:disc;padding-left:20px">
+\t\t\t\t\t<?php foreach ( $warnings as $w ) : ?>
+\t\t\t\t\t\t<li><?php echo esc_html( $w ); ?></li>
+\t\t\t\t\t<?php endforeach; ?>
+\t\t\t\t\t</ul>
+\t\t\t\t<?php endif; ?>
+\t\t\t\t<p><?php esc_html_e( 'Pages and menu were created — only the steps above failed. You can complete them manually (e.g. Site Identity → upload assets/logo.png as Site Logo).', '${textDomain}' ); ?></p></div>
+\t\t\t<?php elseif ( $done ) : ?>
+\t\t\t\t<div class="notice notice-info"><p><?php esc_html_e( 'Demo already imported. Re-running will update existing pages with matching slugs.', '${textDomain}' ); ?></p></div>
 \t\t\t<?php endif; ?>
-\t\t\t<p><?php esc_html_e( 'This creates 5 pages (Home / About / Services / Blog / Contact), assigns each to the matching Ditto page template, sets Home as the static front page and builds a Primary menu.', '${textDomain}' ); ?></p>
+\t\t\t<p><?php esc_html_e( 'This creates 5 pages (Home / About / Services / Blog / Contact), assigns each to the matching Ditto page template, sets Home as the static front page, builds a Primary menu, and sets the bundled logo (PNG) as Site Logo.', '${textDomain}' ); ?></p>
+\t\t\t<p style="color:#646970"><?php esc_html_e( 'The importer never uploads SVG files — it uses the PNG placeholder (assets/logo.png) for the Site Logo so it works with Wordfence, iThemes, Sucuri and ModSecurity. Upload assets/logo.svg manually from Site Identity if you prefer vector.', '${textDomain}' ); ?></p>
 \t\t\t<form method="post" action="<?php echo esc_url( $action ); ?>">
 \t\t\t\t<input type="hidden" name="action" value="ditto_wp_import_demo" />
 \t\t\t\t<?php wp_nonce_field( self::NONCE ); ?>
@@ -1069,6 +1184,7 @@ class Ditto_Wp_Demo_Importer {
 \t\tif ( ! current_user_can( 'manage_options' ) ) wp_die( 'no perms' );
 \t\tcheck_admin_referer( self::NONCE );
 
+\t\t$warnings = [];
 \t\t$ids = [];
 \t\tforeach ( self::$pages as $p ) {
 \t\t\t$existing = get_page_by_path( $p['slug'] );
@@ -1082,9 +1198,12 @@ class Ditto_Wp_Demo_Importer {
 \t\t\t\t\t'post_type'   => 'page',
 \t\t\t\t] );
 \t\t\t}
-\t\t\tif ( ! is_wp_error( $id ) && $id ) {
+\t\t\tif ( is_wp_error( $id ) ) {
+\t\t\t\t$warnings[] = sprintf( 'Could not create page "%s": %s', $p['title'], $id->get_error_message() );
+\t\t\t\tcontinue;
+\t\t\t}
+\t\t\tif ( $id ) {
 \t\t\t\t$ids[ $p['slug'] ] = $id;
-\t\t\t\t// Assign the Ditto page template (file name matches page slug).
 \t\t\t\tif ( $p['slug'] !== 'home' ) {
 \t\t\t\t\tupdate_post_meta( $id, '_wp_page_template', 'page-' . $p['slug'] . '.html' );
 \t\t\t\t}
@@ -1101,10 +1220,18 @@ class Ditto_Wp_Demo_Importer {
 \t\t\t}
 \t\t}
 
-\t\tself::set_site_logo();
+\t\t$logo_result = self::set_site_logo();
+\t\tif ( is_wp_error( $logo_result ) ) {
+\t\t\t$warnings[] = 'Site Logo: ' . $logo_result->get_error_message();
+\t\t}
+
+\t\tif ( ! empty( $warnings ) ) {
+\t\t\tset_transient( 'ditto_wp_import_warnings', $warnings, 60 );
+\t\t}
 
 \t\tupdate_option( self::OPTION_DONE, 1 );
-\t\twp_safe_redirect( admin_url( 'themes.php?page=ditto-wp-setup&imported=1' ) );
+\t\t$qs = empty( $warnings ) ? 'imported=1' : 'imported=1&partial=1';
+\t\twp_safe_redirect( admin_url( 'themes.php?page=ditto-wp-setup&' . $qs ) );
 \t\texit;
 \t}
 
@@ -1140,32 +1267,56 @@ class Ditto_Wp_Demo_Importer {
 
 \t/**
 \t * Import the bundled logo (assets/logo.svg) into the media library and
-\t * set it as the Site Logo so every <!-- wp:site-logo /--> block renders
-\t * the brand mark out of the box.
+\t * set it as the Site Logo. Uses the PNG version (safe, universally
+\t * accepted by WP + security plugins) instead of the SVG — the SVG is
+\t * shipped but only for manual upload via Site Identity when the user
+\t * has an SVG-Support plugin enabled.
+\t *
+\t * Returns WP_Error on failure so the caller can surface it; never
+\t * throws or escapes.
 \t */
 \tprivate static function set_site_logo() {
-\t\t$logo_path = get_template_directory() . '/assets/logo.svg';
-\t\tif ( ! file_exists( $logo_path ) ) return;
-\t\tif ( get_theme_mod( 'custom_logo' ) ) return; // already set
+\t\tif ( get_theme_mod( 'custom_logo' ) ) return true; // user already chose one
+
+\t\t$logo_path = get_template_directory() . '/assets/logo.png';
+\t\tif ( ! file_exists( $logo_path ) ) {
+\t\t\treturn new WP_Error( 'ditto_logo_missing', 'Bundled logo.png not found in theme.' );
+\t\t}
 
 \t\t$uploads = wp_upload_dir();
-\t\tif ( ! empty( $uploads['error'] ) ) return;
-\t\t$target = trailingslashit( $uploads['path'] ) . 'ditto-site-logo.svg';
-\t\tif ( ! copy( $logo_path, $target ) ) return;
+\t\tif ( ! empty( $uploads['error'] ) ) {
+\t\t\treturn new WP_Error( 'ditto_uploads_unavailable', 'WordPress uploads directory is not writable.' );
+\t\t}
+
+\t\t$target_dir = trailingslashit( $uploads['path'] );
+\t\tif ( ! wp_is_writable( $target_dir ) ) {
+\t\t\treturn new WP_Error( 'ditto_uploads_readonly', 'Uploads directory is read-only — likely a security hardening setting.' );
+\t\t}
+
+\t\t$target = $target_dir . 'ditto-site-logo.png';
+\t\tif ( ! @copy( $logo_path, $target ) ) {
+\t\t\treturn new WP_Error( 'ditto_logo_copy_failed', 'Could not copy logo into uploads — the hosting may restrict copy() from theme contexts. Upload assets/logo.png manually from Site Identity.' );
+\t\t}
 
 \t\t$attachment = [
-\t\t\t'post_mime_type' => 'image/svg+xml',
+\t\t\t'post_mime_type' => 'image/png',
 \t\t\t'post_title'     => 'Site Logo',
 \t\t\t'post_content'   => '',
 \t\t\t'post_status'    => 'inherit',
 \t\t];
 \t\t$attach_id = wp_insert_attachment( $attachment, $target );
-\t\tif ( ! is_wp_error( $attach_id ) && $attach_id ) {
-\t\t\trequire_once ABSPATH . 'wp-admin/includes/image.php';
-\t\t\t$attach_data = wp_generate_attachment_metadata( $attach_id, $target );
-\t\t\twp_update_attachment_metadata( $attach_id, $attach_data );
-\t\t\tset_theme_mod( 'custom_logo', $attach_id );
+\t\tif ( is_wp_error( $attach_id ) ) {
+\t\t\treturn $attach_id;
 \t\t}
+\t\tif ( ! $attach_id ) {
+\t\t\treturn new WP_Error( 'ditto_attach_failed', 'Could not register logo as a media library attachment.' );
+\t\t}
+
+\t\trequire_once ABSPATH . 'wp-admin/includes/image.php';
+\t\t$attach_data = wp_generate_attachment_metadata( $attach_id, $target );
+\t\twp_update_attachment_metadata( $attach_id, $attach_data );
+\t\tset_theme_mod( 'custom_logo', $attach_id );
+\t\treturn true;
 \t}
 }
 
@@ -1344,6 +1495,9 @@ export async function generateWordPressTheme(
 
   // 2. Logo — prefer extracted inline SVG, else synthesize the Ditto placeholder
   // so the theme always has an assets/logo.svg to plug into the Site Logo block.
+  // We ship BOTH a PNG (used by the demo importer to set Site Logo — safe,
+  // WP accepts it natively) and an SVG (kept as a static asset so designers
+  // with SVG-Support plugins can upload it manually for crisp scaling).
   let hasLogo = false;
   if (tokens.logo?.inlineSvg) {
     files.push({ path: "assets/logo.svg", content: tokens.logo.inlineSvg });
@@ -1355,6 +1509,12 @@ export async function generateWordPressTheme(
     });
     hasLogo = true;
   }
+  // PNG version is always synthesized (256×256 placeholder with brand colors)
+  // — this is the one the demo importer uploads to the media library.
+  files.push({
+    path: "assets/logo.png",
+    content: synthesizeDittoLogoPng(opts.resolved.colorPrimary, opts.resolved.colorSecondary),
+  });
 
   // 3. Screenshot
   if (opts.screenshotBase64) {
