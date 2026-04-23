@@ -100,7 +100,10 @@ export function FloatingEditor({
         body: form,
       });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Upload failed");
+      if (!res.ok) {
+        const msg = data.detail ? `${data.error}: ${data.detail}` : data.error || "Upload failed";
+        throw new Error(msg);
+      }
       onChange({ ...resolved, logoUrl: data.logoUrl });
     } catch (err) {
       setBrandError(err instanceof Error ? err.message : "Upload failed");

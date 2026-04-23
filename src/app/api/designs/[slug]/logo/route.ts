@@ -72,6 +72,7 @@ export async function POST(
   const buffer = Buffer.from(arrayBuffer);
   const isSvg = file.type === "image/svg+xml";
 
+  let uploadedUrl: string | null = null;
   try {
     const result = await uploadImage({
       buffer,
@@ -81,19 +82,29 @@ export async function POST(
       format: isSvg ? "preserve" : "webp",
       transformation: isSvg ? undefined : LOGO_TRANSFORMATION,
     });
+    uploadedUrl = result.secure_url;
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err);
+    console.error("[logo upload] cloudinary step failed", msg, err);
+    return NextResponse.json(
+      { error: ApiError.UPLOAD_FAILED, detail: `cloudinary: ${msg}` },
+      { status: 500 },
+    );
+  }
 
-    const resolved = { ...design.resolved, logoUrl: result.secure_url };
+  try {
+    const resolved = { ...design.resolved, logoUrl: uploadedUrl };
     await saveDesign(user.id, {
       ...design,
       resolved,
       updatedAt: new Date().toISOString(),
     });
-
-    return NextResponse.json({ logoUrl: result.secure_url });
+    return NextResponse.json({ logoUrl: uploadedUrl });
   } catch (err) {
-    console.error("[logo upload]", err);
+    const msg = err instanceof Error ? err.message : String(err);
+    console.error("[logo upload] save step failed", msg, err);
     return NextResponse.json(
-      { error: ApiError.UPLOAD_FAILED },
+      { error: ApiError.UPLOAD_FAILED, detail: `save: ${msg}`, logoUrl: uploadedUrl },
       { status: 500 },
     );
   }
