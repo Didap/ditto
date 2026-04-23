@@ -4,6 +4,7 @@ import React from "react";
 import * as AccordionPrimitive from "@radix-ui/react-accordion";
 import * as SwitchPrimitive from "@radix-ui/react-switch";
 import * as TabsPrimitive from "@radix-ui/react-tabs";
+import { BrandMark as BrandMarkCmp, useBrand as useBrandCtx } from "./brand";
 
 // ── All preview components use CSS variables from the design tokens ──
 // Variables are set on the parent .preview-shell element
@@ -169,44 +170,17 @@ export function Badge({
   );
 }
 
-// ── Nav ──
+// ── Nav ── (see ./brand.tsx for the 4 variants + BrandProvider)
 
-export function Nav({
-  brand = "Brand",
-  links = ["Home", "Features", "Pricing", "Blog"],
-}: {
-  brand?: string;
-  links?: string[];
-}) {
-  return (
-    <nav
-      className="flex items-center justify-between px-6 py-3"
-      style={{
-        backgroundColor: "var(--d-bg)",
-        borderBottom: "1px solid var(--d-border)",
-      }}
-    >
-      <span
-        className="text-lg font-bold"
-        style={{ color: "var(--d-text-primary)" }}
-      >
-        {brand}
-      </span>
-      <div className="flex items-center gap-6">
-        {links.map((link) => (
-          <span
-            key={link}
-            className="text-[0.875rem] cursor-pointer transition-colors"
-            style={{ color: "var(--d-text-secondary)" }}
-          >
-            {link}
-          </span>
-        ))}
-        <Button size="sm">Get Started</Button>
-      </div>
-    </nav>
-  );
-}
+export {
+  Nav,
+  BrandMark,
+  BrandProvider,
+  LogoPlaceholder,
+  useBrand,
+  HEADER_VARIANT_DESCRIPTIONS,
+} from "./brand";
+export type { BrandContextValue } from "./brand";
 
 // ── Table ──
 
@@ -379,11 +353,8 @@ export function Sidebar({
         borderRight: "1px solid var(--d-border)",
       }}
     >
-      <div
-        className="px-4 pb-4 text-base font-bold"
-        style={{ color: "var(--d-text-primary)" }}
-      >
-        App Name
+      <div className="px-4 pb-4">
+        <BrandMarkCmp size={22} nameSize="0.9375rem" />
       </div>
       <div className="flex flex-col gap-0.5 px-2">
         {items.map((item) => (
@@ -455,6 +426,7 @@ export function StatCard({
 // ── Footer ──
 
 export function Footer() {
+  const { name } = useBrandCtx();
   return (
     <footer
       className="px-6 py-8 mt-auto"
@@ -465,12 +437,10 @@ export function Footer() {
     >
       <div className="flex justify-between">
         <div>
-          <div
-            className="font-bold mb-2"
-            style={{ color: "var(--d-text-primary)" }}
-          >
-            Brand
+          <div className="mb-2">
+            <BrandMarkCmp size={20} nameSize="0.9375rem" />
           </div>
+          <div className="sr-only">{name}</div>
           <div
             className="text-[0.8125rem]"
             style={{ color: "var(--d-text-muted)" }}

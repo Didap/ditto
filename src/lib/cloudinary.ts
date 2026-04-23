@@ -56,6 +56,11 @@ export interface UploadImageParams {
   transformation?: UploadApiOptions["transformation"];
   /** Max file size in bytes (defaults to 5MB). */
   maxBytes?: number;
+  /**
+   * Output format. Defaults to "webp" for rasterized uploads. Pass "preserve"
+   * to skip conversion — needed for SVG so it stays vector.
+   */
+  format?: "webp" | "preserve";
 }
 
 export async function uploadImage({
@@ -64,6 +69,7 @@ export async function uploadImage({
   publicId,
   transformation,
   maxBytes = 5 * 1024 * 1024,
+  format = "webp",
 }: UploadImageParams): Promise<UploadApiResponse> {
   ensureConfigured();
 
@@ -71,24 +77,32 @@ export async function uploadImage({
     throw new Error(`File too large: ${buffer.length} bytes (max ${maxBytes}).`);
   }
 
+  const options: UploadApiOptions = {
+    folder: `ditto/${folder}`,
+    public_id: publicId,
+    overwrite: true,
+    resource_type: "image",
+    transformation,
+  };
+  if (format === "webp") options.format = "webp";
+
   return new Promise<UploadApiResponse>((resolve, reject) => {
-    const stream = cloudinary.uploader.upload_stream(
-      {
-        folder: `ditto/${folder}`,
-        public_id: publicId,
-        overwrite: true,
-        resource_type: "image",
-        format: "webp",
-        transformation,
-      },
-      (err, result) => {
-        if (err) return reject(err);
-        if (!result) return reject(new Error("Cloudinary upload returned no result"));
-        resolve(result);
-      },
-    );
+    const stream = cloudinary.uploader.upload_stream(options, (err, result) => {
+      if (err) return reject(err);
+      if (!result) return reject(new Error("Cloudinary upload returned no result"));
+      resolve(result);
+    });
     stream.end(buffer);
   });
+}
+
+/**
+ * Delete an asset by its public_id (with the `ditto/` prefix already included
+ * in the stored path). Used when the user removes their custom logo.
+ */
+export async function deleteImage(publicId: string): Promise<void> {
+  ensureConfigured();
+  await cloudinary.uploader.destroy(publicId, { resource_type: "image" });
 }
 
 /** Default avatar transformation: 256x256 square crop, face-aware, webp. */

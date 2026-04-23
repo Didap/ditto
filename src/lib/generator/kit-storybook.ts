@@ -153,7 +153,7 @@ export default preview;
   // ── src/components.tsx ──
   files.push({
     path: "src/components.tsx",
-    content: generateComponents(),
+    content: generateComponents(resolved),
   });
 
   // ── Stories ──
@@ -270,8 +270,68 @@ function getLuminance(hex: string): number {
 
 // ── Components source (embedded as string for the generated project) ──
 
-function generateComponents(): string {
+function generateComponents(resolved: ResolvedDesign): string {
+  const brandNameLiteral = JSON.stringify(resolved.brandName || "Brand");
+  const logoUrlLiteral = resolved.logoUrl ? JSON.stringify(resolved.logoUrl) : "null";
+  const headerVariantLiteral = JSON.stringify(resolved.headerVariant || "classic");
+
   return `import React from "react";
+
+// ── Brand ──
+
+export type HeaderVariant = "classic" | "elegante" | "artistico" | "fresco";
+
+export const brandConfig: {
+  name: string;
+  logoUrl: string | null;
+  headerVariant: HeaderVariant;
+} = {
+  name: ${brandNameLiteral},
+  logoUrl: ${logoUrlLiteral},
+  headerVariant: ${headerVariantLiteral},
+};
+
+export function LogoPlaceholder({ size = 28, title = brandConfig.name }: { size?: number; title?: string }) {
+  return (
+    <svg role="img" aria-label={title} width={size} height={size} viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+      <title>{title}</title>
+      <path d="M16 0 A16 16 0 0 1 16 32 Z" fill="var(--d-primary)" />
+      <path d="M16 0 A16 16 0 0 0 16 32 Z" fill="var(--d-secondary)" />
+    </svg>
+  );
+}
+
+export function BrandMark({
+  size = 28,
+  showName = true,
+  nameSize = "1rem",
+  nameWeight = 700,
+  name = brandConfig.name,
+  logoUrl = brandConfig.logoUrl,
+}: {
+  size?: number;
+  showName?: boolean;
+  nameSize?: string;
+  nameWeight?: number;
+  name?: string;
+  logoUrl?: string | null;
+}) {
+  return (
+    <span style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>
+      {logoUrl ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src={logoUrl} alt={name} style={{ height: size, width: "auto", maxWidth: size * 3, objectFit: "contain", display: "block" }} />
+      ) : (
+        <LogoPlaceholder size={size} title={name} />
+      )}
+      {showName && (
+        <span style={{ color: "var(--d-text-primary)", fontFamily: "var(--d-font-heading)", fontWeight: nameWeight, fontSize: nameSize, letterSpacing: "-0.01em" }}>
+          {name}
+        </span>
+      )}
+    </span>
+  );
+}
 
 // ── Button ──
 
@@ -413,18 +473,88 @@ export function Tabs({ items = ["Tab 1", "Tab 2", "Tab 3"], active = 0 }: { item
   );
 }
 
-// ── Nav ──
+// ── Nav (4 variants, picked by brandConfig.headerVariant or \`variant\` prop) ──
 
-export function Nav({ brand = "Brand", links = ["Home", "Features", "Pricing", "Blog"] }: { brand?: string; links?: string[] }) {
+const DEFAULT_LINKS = ["Home", "Features", "Pricing", "Blog"];
+
+function NavClassic({ links = DEFAULT_LINKS, cta = "Get Started" }: { links?: string[]; cta?: string }) {
   return (
     <nav style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "12px 24px", backgroundColor: "var(--d-bg)", borderBottom: "1px solid var(--d-border)" }}>
-      <span style={{ fontSize: "1.125rem", fontWeight: 700, color: "var(--d-text-primary)" }}>{brand}</span>
+      <BrandMark />
       <div style={{ display: "flex", alignItems: "center", gap: 24 }}>
         {links.map((link) => <span key={link} style={{ fontSize: "0.875rem", color: "var(--d-text-secondary)", cursor: "pointer" }}>{link}</span>)}
-        <Button size="sm">Get Started</Button>
+        <Button size="sm">{cta}</Button>
       </div>
     </nav>
   );
+}
+
+function NavElegante({ links = DEFAULT_LINKS, cta = "Get Started" }: { links?: string[]; cta?: string }) {
+  return (
+    <nav style={{ display: "flex", flexDirection: "column", alignItems: "center", padding: "24px 24px 0", backgroundColor: "var(--d-bg)" }}>
+      <div style={{ width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 20 }}>
+        <span style={{ width: 96 }} />
+        <BrandMark size={32} nameSize="1.25rem" nameWeight={500} />
+        <div style={{ width: 96, display: "flex", justifyContent: "flex-end" }}>
+          <button style={{ fontSize: "0.75rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--d-text-secondary)", background: "none", border: "none", cursor: "pointer" }}>{cta}</button>
+        </div>
+      </div>
+      <div style={{ width: "100%", height: 1, backgroundColor: "var(--d-border)" }} />
+      <div style={{ display: "flex", justifyContent: "center", gap: 40, padding: "12px 0" }}>
+        {links.map((link) => <span key={link} style={{ fontSize: "0.75rem", letterSpacing: "0.22em", textTransform: "uppercase", color: "var(--d-text-secondary)", cursor: "pointer" }}>{link}</span>)}
+      </div>
+      <div style={{ width: "100%", height: 1, backgroundColor: "var(--d-border)" }} />
+    </nav>
+  );
+}
+
+function NavArtistico({ links = DEFAULT_LINKS, cta = "Get Started" }: { links?: string[]; cta?: string }) {
+  return (
+    <nav style={{ position: "relative", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "20px 24px", backgroundColor: "var(--d-bg)" }}>
+      <div style={{ position: "relative" }}>
+        <span aria-hidden style={{ position: "absolute", left: -8, top: -8, width: 40, height: 40, borderRadius: "50%", backgroundColor: "var(--d-accent)", opacity: 0.25, filter: "blur(2px)" }} />
+        <span style={{ position: "relative" }}><BrandMark size={32} nameSize="1.125rem" nameWeight={800} /></span>
+      </div>
+      <div style={{ position: "absolute", left: "50%", transform: "translateX(-50%)", display: "flex", alignItems: "center", gap: 4, padding: "6px 8px", backgroundColor: "color-mix(in srgb, var(--d-surface) 80%, transparent)", backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)", border: "1px solid var(--d-border)", borderRadius: "var(--d-radius-full)", boxShadow: "var(--d-shadow-sm)" }}>
+        {links.map((link, i) => (
+          <span key={link} style={{ padding: "4px 12px", fontSize: "0.8125rem", cursor: "pointer", color: i === 0 ? "var(--d-text-primary)" : "var(--d-text-secondary)", backgroundColor: i === 0 ? "color-mix(in srgb, var(--d-primary) 12%, transparent)" : "transparent", borderRadius: "var(--d-radius-full)", fontWeight: i === 0 ? 600 : 400 }}>{link}</span>
+        ))}
+      </div>
+      <button style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "8px 20px", fontSize: "0.875rem", fontWeight: 600, cursor: "pointer", color: "var(--d-text-primary)", backgroundColor: "transparent", border: "2px solid var(--d-text-primary)", borderRadius: "var(--d-radius-full)" }}>
+        {cta}<span aria-hidden style={{ color: "var(--d-accent)" }}>✦</span>
+      </button>
+    </nav>
+  );
+}
+
+function NavFresco({ links = DEFAULT_LINKS, cta = "Start free" }: { links?: string[]; cta?: string }) {
+  const dots = ["●", "◆", "■", "▲", "★", "◉"];
+  return (
+    <nav style={{ padding: "16px 16px 0", backgroundColor: "var(--d-bg)" }}>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "10px 16px", backgroundColor: "var(--d-surface)", border: "1px solid var(--d-border)", borderRadius: "var(--d-radius-full)", boxShadow: "var(--d-shadow-sm)" }}>
+        <BrandMark size={26} nameSize="0.9375rem" nameWeight={700} />
+        <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
+          {links.map((link, i) => (
+            <span key={link} style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "6px 12px", fontSize: "0.8125rem", cursor: "pointer", color: "var(--d-text-secondary)", borderRadius: "var(--d-radius-full)" }}>
+              <span aria-hidden style={{ fontSize: "0.625rem", color: "var(--d-primary)" }}>{dots[i % dots.length]}</span>{link}
+            </span>
+          ))}
+        </div>
+        <button style={{ display: "inline-flex", alignItems: "center", padding: "6px 16px", fontSize: "0.8125rem", fontWeight: 600, cursor: "pointer", color: "var(--d-on-primary)", background: "linear-gradient(135deg, var(--d-primary) 0%, var(--d-secondary) 100%)", borderRadius: "var(--d-radius-full)", boxShadow: "var(--d-shadow-sm)", border: "none" }}>{cta}</button>
+      </div>
+    </nav>
+  );
+}
+
+export function Nav({ links, cta, variant }: { links?: string[]; cta?: string; variant?: HeaderVariant }) {
+  const v = variant || brandConfig.headerVariant;
+  switch (v) {
+    case "elegante": return <NavElegante links={links} cta={cta} />;
+    case "artistico": return <NavArtistico links={links} cta={cta} />;
+    case "fresco": return <NavFresco links={links} cta={cta} />;
+    case "classic":
+    default: return <NavClassic links={links} cta={cta} />;
+  }
 }
 
 // ── Sidebar ──
@@ -432,7 +562,7 @@ export function Nav({ brand = "Brand", links = ["Home", "Features", "Pricing", "
 export function Sidebar({ items = [{ label: "Dashboard", icon: "◫", active: true }, { label: "Analytics", icon: "◈" }, { label: "Customers", icon: "◉" }, { label: "Products", icon: "▦" }, { label: "Settings", icon: "⚙" }] }: { items?: Array<{ label: string; icon?: string; active?: boolean }> }) {
   return (
     <aside style={{ display: "flex", flexDirection: "column", width: 224, padding: "16px 0", backgroundColor: "var(--d-surface)", borderRight: "1px solid var(--d-border)" }}>
-      <div style={{ padding: "0 16px 16px", fontSize: "1rem", fontWeight: 700, color: "var(--d-text-primary)" }}>App Name</div>
+      <div style={{ padding: "0 16px 16px" }}><BrandMark size={22} nameSize="0.9375rem" /></div>
       <div style={{ display: "flex", flexDirection: "column", gap: 2, padding: "0 8px" }}>
         {items.map((item) => (
           <span key={item.label} style={{ display: "flex", alignItems: "center", gap: 12, padding: "8px 12px", fontSize: "0.875rem", cursor: "pointer", color: item.active ? "var(--d-primary)" : "var(--d-text-secondary)", backgroundColor: item.active ? "color-mix(in srgb, var(--d-primary) 10%, transparent)" : "transparent", borderRadius: "var(--d-radius-md)", fontWeight: item.active ? 600 : 400 }}>
@@ -463,7 +593,7 @@ export function Footer() {
     <footer style={{ padding: "24px 32px", backgroundColor: "var(--d-surface)", borderTop: "1px solid var(--d-border)" }}>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <div>
-          <div style={{ fontWeight: 700, marginBottom: 8, color: "var(--d-text-primary)" }}>Brand</div>
+          <div style={{ marginBottom: 8 }}><BrandMark size={20} nameSize="0.9375rem" /></div>
           <div style={{ fontSize: "0.8125rem", color: "var(--d-text-muted)" }}>Building the future, one pixel at a time.</div>
         </div>
         <div style={{ display: "flex", gap: 48 }}>
@@ -864,12 +994,19 @@ import { Nav } from "./components";
 const meta: Meta<typeof Nav> = {
   title: "Components/Nav",
   component: Nav,
-  argTypes: { brand: { control: "text" } },
+  argTypes: {
+    variant: { control: { type: "select" }, options: ["classic", "elegante", "artistico", "fresco"] },
+    cta: { control: "text" },
+  },
 };
 export default meta;
 type Story = StoryObj<typeof Nav>;
 
-export const Default: Story = { args: { brand: "MyApp", links: ["Dashboard", "Products", "Customers", "Settings"] } };
+export const Default: Story = { args: { links: ["Dashboard", "Products", "Customers", "Settings"] } };
+export const Classic: Story = { args: { variant: "classic", links: ["Home", "Features", "Pricing", "Blog"] } };
+export const Elegante: Story = { args: { variant: "elegante", links: ["Journal", "Shop", "About", "Stockists"] } };
+export const Artistico: Story = { args: { variant: "artistico", links: ["Work", "Studio", "Process", "Contact"] } };
+export const Fresco: Story = { args: { variant: "fresco", links: ["Product", "Docs", "Pricing", "Changelog"] } };
 `;
 }
 

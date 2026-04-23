@@ -44,6 +44,18 @@ type FontFaceEntry = SharedFontFaceEntry;
 
 // ── Helpers (theme-specific) ───────────────────────────────────────────
 
+/** Build the Ditto placeholder mark — two semicircles using the brand colors. */
+function buildDittoPlaceholderSvg(primary: string, secondary: string): string {
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="128" height="128">
+  <title>Ditto placeholder mark</title>
+  <path d="M16 0 A16 16 0 0 1 16 32 Z" fill="${primary}"/>
+  <path d="M16 0 A16 16 0 0 0 16 32 Z" fill="${secondary}"/>
+</svg>
+`;
+}
+
+
 /** Truncate a slug to fit WordPress text-domain conventions. */
 function textDomainFor(slug: string): string {
   const candidate = `${slug}-block-theme`;
@@ -504,6 +516,21 @@ function buildReadmeTxt(opts: GenerateWordPressThemeOptions, hasFonts: boolean, 
   if (hasLogo) {
     lines.push(`3. Set the bundled logo: Appearance → Editor → Styles → set Site Logo to assets/logo.svg`);
   }
+  if (opts.resolved.logoUrl) {
+    lines.push(``);
+    lines.push(`== Brand ==`);
+    lines.push(``);
+    lines.push(`Brand name: ${opts.resolved.brandName || designName}`);
+    lines.push(`Header style: ${opts.resolved.headerVariant || "classic"} (applied to parts/header.html)`);
+    lines.push(`Custom logo: ${opts.resolved.logoUrl}`);
+    lines.push(`Download the logo and upload it via Appearance → Editor → Styles → Site Logo.`);
+  } else {
+    lines.push(``);
+    lines.push(`== Brand ==`);
+    lines.push(``);
+    lines.push(`Header style: ${opts.resolved.headerVariant || "classic"} (applied to parts/header.html)`);
+    lines.push(`No custom logo was uploaded — WordPress will render the Ditto placeholder mark (two semicircles) until a Site Logo is set in the editor.`);
+  }
   lines.push(``);
   lines.push(`== Changelog ==`);
   lines.push(``);
@@ -724,12 +751,94 @@ function tplFrontPage(designSlug: string): string {
 function partHeader(opts: GenerateWordPressThemeOptions): string {
   const navLabels = (opts.tokens.microcopy?.navLabels ?? []).filter(Boolean).slice(0, 5);
   const labels = navLabels.length > 0 ? navLabels : ["Home", "About", "Blog", "Contact"];
+  const variant = opts.resolved.headerVariant || "classic";
   const navItems = labels
     .map(
       (l) =>
         `      <!-- wp:navigation-link {"label":"${htmlEscape(l)}","url":"#"} /-->`
     )
     .join("\n");
+
+  if (variant === "elegante") {
+    return `<!-- wp:group {"layout":{"type":"constrained"},"style":{"spacing":{"padding":{"top":"var:preset|spacing|50","bottom":"var:preset|spacing|0"}}}} -->
+<div class="wp-block-group">
+  <!-- wp:group {"layout":{"type":"flex","justifyContent":"center"}} -->
+  <div class="wp-block-group">
+    <!-- wp:site-logo {"width":48} /-->
+    <!-- wp:site-title {"level":0,"fontSize":"xl","style":{"typography":{"fontWeight":"500","letterSpacing":"-0.01em"}}} /-->
+  </div>
+  <!-- /wp:group -->
+  <!-- wp:separator {"className":"is-style-wide"} -->
+  <hr class="wp-block-separator has-alpha-channel-opacity is-style-wide"/>
+  <!-- /wp:separator -->
+  <!-- wp:navigation {"layout":{"type":"flex","justifyContent":"center"},"fontSize":"sm","style":{"typography":{"letterSpacing":"0.22em","textTransform":"uppercase"}}} -->
+${navItems}
+  <!-- /wp:navigation -->
+  <!-- wp:separator {"className":"is-style-wide"} -->
+  <hr class="wp-block-separator has-alpha-channel-opacity is-style-wide"/>
+  <!-- /wp:separator -->
+</div>
+<!-- /wp:group -->
+`;
+  }
+
+  if (variant === "artistico") {
+    return `<!-- wp:group {"layout":{"type":"flex","justifyContent":"space-between","flexWrap":"nowrap"},"style":{"spacing":{"padding":{"top":"var:preset|spacing|40","bottom":"var:preset|spacing|40","left":"var:preset|spacing|40","right":"var:preset|spacing|40"}}}} -->
+<div class="wp-block-group">
+  <!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap"}} -->
+  <div class="wp-block-group">
+    <!-- wp:site-logo {"width":40} /-->
+    <!-- wp:site-title {"level":0,"fontSize":"lg","style":{"typography":{"fontWeight":"800"}}} /-->
+  </div>
+  <!-- /wp:group -->
+
+  <!-- wp:navigation {"layout":{"type":"flex","justifyContent":"center"},"fontSize":"sm","className":"ditto-artistico-nav","style":{"border":{"radius":"var(--wp--preset--spacing--60)","width":"1px","color":"var(--wp--preset--color--border)"},"spacing":{"padding":{"top":"var:preset|spacing|20","bottom":"var:preset|spacing|20","left":"var:preset|spacing|30","right":"var:preset|spacing|30"}}}} -->
+${navItems}
+  <!-- /wp:navigation -->
+
+  <!-- wp:buttons -->
+  <div class="wp-block-buttons">
+    <!-- wp:button {"textColor":"text-primary","style":{"border":{"width":"2px","color":"var(--wp--preset--color--text-primary)","radius":"999px"},"color":{"background":"transparent"}}} -->
+    <div class="wp-block-button"><a class="wp-block-button__link has-text-primary-color has-text-color has-border-color wp-element-button" style="border-color:var(--wp--preset--color--text-primary);border-width:2px;border-radius:999px;background:transparent">Get Started ✦</a></div>
+    <!-- /wp:button -->
+  </div>
+  <!-- /wp:buttons -->
+</div>
+<!-- /wp:group -->
+`;
+  }
+
+  if (variant === "fresco") {
+    return `<!-- wp:group {"layout":{"type":"constrained"},"style":{"spacing":{"padding":{"top":"var:preset|spacing|30","left":"var:preset|spacing|30","right":"var:preset|spacing|30"}}}} -->
+<div class="wp-block-group">
+  <!-- wp:group {"layout":{"type":"flex","justifyContent":"space-between","flexWrap":"nowrap"},"style":{"border":{"radius":"999px","width":"1px","color":"var(--wp--preset--color--border)"},"spacing":{"padding":{"top":"var:preset|spacing|20","bottom":"var:preset|spacing|20","left":"var:preset|spacing|40","right":"var:preset|spacing|40"}}},"backgroundColor":"surface"} -->
+  <div class="wp-block-group has-surface-background-color has-background" style="border-color:var(--wp--preset--color--border);border-width:1px;border-radius:999px">
+    <!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap"}} -->
+    <div class="wp-block-group">
+      <!-- wp:site-logo {"width":28} /-->
+      <!-- wp:site-title {"level":0,"fontSize":"md","style":{"typography":{"fontWeight":"700"}}} /-->
+    </div>
+    <!-- /wp:group -->
+
+    <!-- wp:navigation {"layout":{"type":"flex","justifyContent":"center"},"fontSize":"sm"} -->
+${navItems}
+    <!-- /wp:navigation -->
+
+    <!-- wp:buttons -->
+    <div class="wp-block-buttons">
+      <!-- wp:button {"style":{"border":{"radius":"999px"},"color":{"gradient":"linear-gradient(135deg, var(--wp--preset--color--primary) 0%, var(--wp--preset--color--secondary) 100%)"}}} -->
+      <div class="wp-block-button"><a class="wp-block-button__link has-background wp-element-button" style="border-radius:999px;background:linear-gradient(135deg, var(--wp--preset--color--primary) 0%, var(--wp--preset--color--secondary) 100%)">Start free</a></div>
+      <!-- /wp:button -->
+    </div>
+    <!-- /wp:buttons -->
+  </div>
+  <!-- /wp:group -->
+</div>
+<!-- /wp:group -->
+`;
+  }
+
+  // Classic (default)
   return `<!-- wp:group {"layout":{"type":"flex","justifyContent":"space-between","flexWrap":"nowrap"},"style":{"spacing":{"padding":{"top":"var:preset|spacing|30","bottom":"var:preset|spacing|30","left":"var:preset|spacing|40","right":"var:preset|spacing|40"}},"border":{"bottom":{"color":"var:preset|color|border","width":"1px","style":"solid"}}}} -->
 <div class="wp-block-group">
   <!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap"}} -->
@@ -979,10 +1088,17 @@ export async function generateWordPressTheme(
     fontFaceMap.set(r.df.family, arr);
   }
 
-  // 2. Logo
+  // 2. Logo — prefer extracted inline SVG, else synthesize the Ditto placeholder
+  // so the theme always has an assets/logo.svg to plug into the Site Logo block.
   let hasLogo = false;
   if (tokens.logo?.inlineSvg) {
     files.push({ path: "assets/logo.svg", content: tokens.logo.inlineSvg });
+    hasLogo = true;
+  } else {
+    files.push({
+      path: "assets/logo.svg",
+      content: buildDittoPlaceholderSvg(opts.resolved.colorPrimary, opts.resolved.colorSecondary),
+    });
     hasLogo = true;
   }
 

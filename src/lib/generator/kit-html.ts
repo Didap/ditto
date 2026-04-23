@@ -5,7 +5,138 @@
  * that can be opened directly in a browser — no build step, no dependencies.
  */
 
-import type { ResolvedDesign, FontSource } from "../types";
+import type { ResolvedDesign, FontSource, HeaderVariant } from "../types";
+
+// ── Brand mark helpers ──
+
+function escapeHtml(s: string): string {
+  return s
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+function buildBrandMarkHtml(
+  r: ResolvedDesign,
+  brandName: string,
+  opts: { size?: number; nameSize?: string; nameWeight?: number; showName?: boolean } = {},
+): string {
+  const { size = 28, nameSize = "1rem", nameWeight = 700, showName = true } = opts;
+  const name = escapeHtml(brandName);
+  const logoImg = r.logoUrl
+    ? `<img src="${escapeHtml(r.logoUrl)}" alt="${name}" style="height:${size}px;width:auto;max-width:${size * 3}px;object-fit:contain;display:block" />`
+    : `<svg role="img" aria-label="${name}" width="${size}" height="${size}" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><title>${name}</title><path d="M16 0 A16 16 0 0 1 16 32 Z" fill="var(--d-primary)"/><path d="M16 0 A16 16 0 0 0 16 32 Z" fill="var(--d-secondary)"/></svg>`;
+  const nameSpan = showName
+    ? `<span style="color:var(--d-text-primary);font-family:var(--d-font-heading);font-weight:${nameWeight};font-size:${nameSize};letter-spacing:-0.01em">${name}</span>`
+    : "";
+  return `<span style="display:inline-flex;align-items:center;gap:8px">${logoImg}${nameSpan}</span>`;
+}
+
+function buildNavHtml(r: ResolvedDesign, brandName: string, variant: HeaderVariant): string {
+  const brand = buildBrandMarkHtml(r, brandName);
+  const links = ["Home", "Features", "Pricing", "Blog"];
+
+  if (variant === "elegante") {
+    const brandLg = buildBrandMarkHtml(r, brandName, { size: 32, nameSize: "1.25rem", nameWeight: 500 });
+    return `<nav style="display:flex;flex-direction:column;align-items:center;padding:24px 24px 0;background:var(--d-bg)">
+  <div style="width:100%;display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
+    <span style="width:96px"></span>
+    ${brandLg}
+    <div style="width:96px;display:flex;justify-content:flex-end">
+      <button style="font-size:0.75rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--d-text-secondary);background:none;border:none;cursor:pointer">Get Started</button>
+    </div>
+  </div>
+  <div style="width:100%;height:1px;background:var(--d-border)"></div>
+  <div style="display:flex;justify-content:center;gap:40px;padding:12px 0">
+    ${links.map((l) => `<span style="font-size:0.75rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--d-text-secondary);cursor:pointer">${l}</span>`).join("")}
+  </div>
+  <div style="width:100%;height:1px;background:var(--d-border)"></div>
+</nav>`;
+  }
+
+  if (variant === "artistico") {
+    const brandBold = buildBrandMarkHtml(r, brandName, { size: 32, nameSize: "1.125rem", nameWeight: 800 });
+    return `<nav style="position:relative;display:flex;align-items:center;justify-content:space-between;padding:20px 24px;background:var(--d-bg)">
+  <div style="position:relative">
+    <span aria-hidden style="position:absolute;left:-8px;top:-8px;width:40px;height:40px;border-radius:50%;background:var(--d-accent);opacity:0.25;filter:blur(2px)"></span>
+    <span style="position:relative">${brandBold}</span>
+  </div>
+  <div style="position:absolute;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:4px;padding:6px 8px;background:color-mix(in srgb, var(--d-surface) 80%, transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--d-border);border-radius:var(--d-radius-full);box-shadow:var(--d-shadow-sm)">
+    ${links
+      .map(
+        (l, i) =>
+          `<span style="padding:4px 12px;font-size:0.8125rem;cursor:pointer;color:${i === 0 ? "var(--d-text-primary)" : "var(--d-text-secondary)"};background:${i === 0 ? "color-mix(in srgb, var(--d-primary) 12%, transparent)" : "transparent"};border-radius:var(--d-radius-full);font-weight:${i === 0 ? 600 : 400}">${l}</span>`,
+      )
+      .join("")}
+  </div>
+  <button style="display:inline-flex;align-items:center;gap:8px;padding:8px 20px;font-size:0.875rem;font-weight:600;cursor:pointer;color:var(--d-text-primary);background:transparent;border:2px solid var(--d-text-primary);border-radius:var(--d-radius-full)">
+    Get Started <span aria-hidden style="color:var(--d-accent)">✦</span>
+  </button>
+</nav>`;
+  }
+
+  if (variant === "fresco") {
+    const brandSm = buildBrandMarkHtml(r, brandName, { size: 26, nameSize: "0.9375rem", nameWeight: 700 });
+    const dots = ["●", "◆", "■", "▲"];
+    return `<nav style="padding:16px 16px 0;background:var(--d-bg)">
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 16px;background:var(--d-surface);border:1px solid var(--d-border);border-radius:var(--d-radius-full);box-shadow:var(--d-shadow-sm)">
+    ${brandSm}
+    <div style="display:flex;align-items:center;gap:4px">
+      ${links
+        .map(
+          (l, i) =>
+            `<span style="display:inline-flex;align-items:center;gap:6px;padding:6px 12px;font-size:0.8125rem;cursor:pointer;color:var(--d-text-secondary);border-radius:var(--d-radius-full)"><span aria-hidden style="font-size:0.625rem;color:var(--d-primary)">${dots[i % dots.length]}</span>${l}</span>`,
+        )
+        .join("")}
+    </div>
+    <button style="display:inline-flex;align-items:center;padding:6px 16px;font-size:0.8125rem;font-weight:600;cursor:pointer;color:var(--d-on-primary);background:linear-gradient(135deg,var(--d-primary) 0%,var(--d-secondary) 100%);border-radius:var(--d-radius-full);box-shadow:var(--d-shadow-sm);border:none">Start free</button>
+  </div>
+</nav>`;
+  }
+
+  // Classic (default)
+  return `<nav class="nav-bar">
+  ${brand}
+  <div class="flex items-center gap-6">
+    ${links.map((l) => `<span class="text-sm" style="color: var(--d-text-secondary)">${l}</span>`).join("")}
+    <button class="btn-primary btn-sm">Get Started</button>
+  </div>
+</nav>`;
+}
+
+function buildFooterHtml(r: ResolvedDesign, brandName: string): string {
+  const brand = buildBrandMarkHtml(r, brandName, { size: 20, nameSize: "0.9375rem" });
+  return `<footer class="footer-bar">
+  <div class="flex justify-between">
+    <div>
+      <div style="margin-bottom: 8px">${brand}</div>
+      <div class="text-sm" style="color: var(--d-text-muted)">Building the future, one pixel at a time.</div>
+    </div>
+    <div class="flex gap-12">
+      <div>
+        <div class="text-sm font-semibold mb-3" style="color: var(--d-text-primary)">Product</div>
+        <div class="flex flex-col gap-2 text-sm" style="color: var(--d-text-muted)">
+          <span>Link One</span><span>Link Two</span><span>Link Three</span>
+        </div>
+      </div>
+      <div>
+        <div class="text-sm font-semibold mb-3" style="color: var(--d-text-primary)">Company</div>
+        <div class="flex flex-col gap-2 text-sm" style="color: var(--d-text-muted)">
+          <span>Link One</span><span>Link Two</span><span>Link Three</span>
+        </div>
+      </div>
+      <div>
+        <div class="text-sm font-semibold mb-3" style="color: var(--d-text-primary)">Legal</div>
+        <div class="flex flex-col gap-2 text-sm" style="color: var(--d-text-muted)">
+          <span>Link One</span><span>Link Two</span><span>Link Three</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>`;
+}
 
 function cssVarsBlock(r: ResolvedDesign): string {
   const onPrimary = (() => {
@@ -142,47 +273,7 @@ ${body}
 </html>`;
 }
 
-// ── Shared HTML fragments ──
-
-const navHtml = `<nav class="nav-bar">
-  <span class="text-lg font-bold" style="color: var(--d-text-primary)">Brand</span>
-  <div class="flex items-center gap-6">
-    <span class="text-sm" style="color: var(--d-text-secondary)">Home</span>
-    <span class="text-sm" style="color: var(--d-text-secondary)">Features</span>
-    <span class="text-sm" style="color: var(--d-text-secondary)">Pricing</span>
-    <span class="text-sm" style="color: var(--d-text-secondary)">Blog</span>
-    <button class="btn-primary btn-sm">Get Started</button>
-  </div>
-</nav>`;
-
-const footerHtml = `<footer class="footer-bar">
-  <div class="flex justify-between">
-    <div>
-      <div class="font-bold mb-2" style="color: var(--d-text-primary)">Brand</div>
-      <div class="text-sm" style="color: var(--d-text-muted)">Building the future, one pixel at a time.</div>
-    </div>
-    <div class="flex gap-12">
-      <div>
-        <div class="text-sm font-semibold mb-3" style="color: var(--d-text-primary)">Product</div>
-        <div class="flex flex-col gap-2 text-sm" style="color: var(--d-text-muted)">
-          <span>Link One</span><span>Link Two</span><span>Link Three</span>
-        </div>
-      </div>
-      <div>
-        <div class="text-sm font-semibold mb-3" style="color: var(--d-text-primary)">Company</div>
-        <div class="flex flex-col gap-2 text-sm" style="color: var(--d-text-muted)">
-          <span>Link One</span><span>Link Two</span><span>Link Three</span>
-        </div>
-      </div>
-      <div>
-        <div class="text-sm font-semibold mb-3" style="color: var(--d-text-primary)">Legal</div>
-        <div class="flex flex-col gap-2 text-sm" style="color: var(--d-text-muted)">
-          <span>Link One</span><span>Link Two</span><span>Link Three</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</footer>`;
+// ── Shared HTML fragments (now dynamic — see buildNavHtml / buildFooterHtml) ──
 
 // ── Shared new component HTML ──
 
@@ -283,9 +374,9 @@ const chartsHtml = `<div class="grid grid-cols-2 gap-4 mb-6">
 
 // ── Page generators ──
 
-function landingHtml(): string {
+function landingHtml(r: ResolvedDesign, brandName: string, variant: HeaderVariant): string {
   return `<div class="flex flex-col min-h-screen">
-  ${navHtml}
+  ${buildNavHtml(r, brandName, variant)}
 
   <!-- Hero -->
   <section class="px-8 py-20 text-center">
@@ -356,15 +447,16 @@ function landingHtml(): string {
     </div>
   </section>
 
-  ${footerHtml}
+  ${buildFooterHtml(r, brandName)}
 </div>`;
 }
 
-function dashboardHtml(): string {
+function dashboardHtml(r: ResolvedDesign, brandName: string, _variant: HeaderVariant): string {
+  void _variant;
   return `<div class="flex min-h-screen">
   <!-- Sidebar -->
   <aside class="flex flex-col w-56 py-4" style="background: var(--d-surface); border-right: 1px solid var(--d-border)">
-    <div class="px-4 pb-4 text-base font-bold" style="color: var(--d-text-primary)">App Name</div>
+    <div class="px-4 pb-4">${buildBrandMarkHtml(r, brandName, { size: 22, nameSize: "0.9375rem" })}</div>
     <div class="flex flex-col gap-0.5 px-2">
       <span class="flex items-center gap-3 px-3 py-2 text-sm font-semibold" style="color: var(--d-primary); background: color-mix(in srgb, var(--d-primary) 10%, transparent); border-radius: var(--d-radius-md)">◫ Dashboard</span>
       <span class="flex items-center gap-3 px-3 py-2 text-sm" style="color: var(--d-text-secondary)">◈ Analytics</span>
@@ -455,10 +547,12 @@ function dashboardHtml(): string {
 </div>`;
 }
 
-function authHtml(): string {
+function authHtml(r: ResolvedDesign, brandName: string, _variant: HeaderVariant): string {
+  void _variant;
   return `<div class="flex items-center justify-center min-h-screen px-4" style="background: var(--d-bg)">
   <div class="w-full max-w-md">
     <div class="text-center mb-8">
+      <div style="display:flex;justify-content:center;margin-bottom:12px">${buildBrandMarkHtml(r, brandName, { size: 36, showName: false })}</div>
       <div class="text-3xl font-bold mb-2" style="color: var(--d-text-primary); font-family: var(--d-font-heading)">Welcome back</div>
       <p class="text-sm" style="color: var(--d-text-muted)">Sign in to your account to continue</p>
     </div>
@@ -510,9 +604,9 @@ function authHtml(): string {
 </div>`;
 }
 
-function pricingHtml(): string {
+function pricingHtml(r: ResolvedDesign, brandName: string, variant: HeaderVariant): string {
   return `<div class="flex flex-col min-h-screen">
-  ${navHtml}
+  ${buildNavHtml(r, brandName, variant)}
 
   <section class="px-8 py-16 text-center">
     <span class="badge">Pricing</span>
@@ -588,13 +682,13 @@ function pricingHtml(): string {
 
   ${faqHtml}
 
-  ${footerHtml}
+  ${buildFooterHtml(r, brandName)}
 </div>`;
 }
 
-function blogHtml(): string {
+function blogHtml(r: ResolvedDesign, brandName: string, variant: HeaderVariant): string {
   return `<div class="flex flex-col min-h-screen">
-  ${navHtml}
+  ${buildNavHtml(r, brandName, variant)}
 
   <section class="px-8 py-12">
     <h1 class="text-3xl font-bold mb-2" style="color: var(--d-text-primary); font-family: var(--d-font-heading)">Blog</h1>
@@ -674,7 +768,7 @@ function blogHtml(): string {
 
   ${contactFormHtml}
 
-  ${footerHtml}
+  ${buildFooterHtml(r, brandName)}
 </div>`;
 }
 
@@ -691,7 +785,11 @@ export function generateKitPages(
   resolved: ResolvedDesign,
   fontSources: FontSource[]
 ): KitPage[] {
-  const pages: Array<{ id: string; title: string; bodyFn: () => string }> = [
+  const brandName = resolved.brandName || designName;
+  const variant: HeaderVariant = resolved.headerVariant || "classic";
+
+  type BodyFn = (r: ResolvedDesign, brandName: string, variant: HeaderVariant) => string;
+  const pages: Array<{ id: string; title: string; bodyFn: BodyFn }> = [
     { id: "landing", title: "Landing Page", bodyFn: landingHtml },
     { id: "dashboard", title: "Dashboard", bodyFn: dashboardHtml },
     { id: "auth", title: "Auth / Login", bodyFn: authHtml },
@@ -702,6 +800,6 @@ export function generateKitPages(
   return pages.map((p) => ({
     filename: `${p.id}.html`,
     title: `${designName} — ${p.title}`,
-    html: wrap(`${designName} — ${p.title}`, p.bodyFn(), resolved, fontSources),
+    html: wrap(`${designName} — ${p.title}`, p.bodyFn(resolved, brandName, variant), resolved, fontSources),
   }));
 }

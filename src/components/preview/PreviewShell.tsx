@@ -1,7 +1,8 @@
 "use client";
 
 import React from "react";
-import type { ResolvedDesign, FontSource, FontFace as FontFaceType } from "@/lib/types";
+import type { ResolvedDesign, FontSource, FontFace as FontFaceType, HeaderVariant } from "@/lib/types";
+import { BrandProvider } from "./primitives/brand";
 
 function getLuminance(hex: string): number {
   if (!hex.startsWith("#")) return 0.5;
@@ -20,6 +21,10 @@ interface PreviewShellProps {
   fontSources?: FontSource[];
   fontFaces?: FontFaceType[];
   downloadedFonts?: Array<{ family: string; localPath: string; format: string }>;
+  /** Brand name shown in headers/footers. Defaults to `resolved.brandName` or "Brand". */
+  brandName?: string;
+  /** Nav labels to render in the header (classic/elegante/artistico/fresco). */
+  navLinks?: string[];
 }
 
 export function PreviewShell({
@@ -28,7 +33,11 @@ export function PreviewShell({
   fontSources = [],
   fontFaces = [],
   downloadedFonts = [],
+  brandName,
+  navLinks,
 }: PreviewShellProps) {
+  const effectiveBrandName = brandName || resolved.brandName || "Brand";
+  const effectiveHeaderVariant: HeaderVariant = resolved.headerVariant || "classic";
   const onPrimary =
     getLuminance(resolved.colorPrimary) > 0.5
       ? resolved.colorTextPrimary
@@ -98,6 +107,14 @@ export function PreviewShell({
   };
 
   return (
+    <BrandProvider
+      value={{
+        logoUrl: resolved.logoUrl,
+        name: effectiveBrandName,
+        headerVariant: effectiveHeaderVariant,
+        navLinks,
+      }}
+    >
     <div
       className="preview-shell overflow-hidden"
       style={{
@@ -144,5 +161,6 @@ export function PreviewShell({
 ` }} />
       {children}
     </div>
+    </BrandProvider>
   );
 }

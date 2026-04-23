@@ -58,6 +58,12 @@ export enum ApiError {
   CLOUDINARY_NOT_CONFIGURED = "Image uploads are not configured on this server",
   UPLOAD_FAILED = "Upload failed",
 
+  // Branding
+  LOGO_MISSING = "No logo file provided",
+  LOGO_INVALID_TYPE = "Logo must be SVG, PNG, JPEG, or WebP",
+  LOGO_TOO_LARGE = "Logo must be at most 3 MB",
+  INVALID_HEADER_VARIANT = "Invalid header variant",
+
   // Admin
   FORBIDDEN = "Forbidden",
   USER_NOT_FOUND = "User not found",

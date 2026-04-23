@@ -111,6 +111,15 @@ function buildTokensCss(resolved: ResolvedDesign, fontFaces: string[]): string {
   --d-space-lg: ${resolved.spacingLg};
   --d-space-xl: ${resolved.spacingXl};
   --d-space-2xl: ${resolved.spacing2xl};
+
+  /* Brand */
+  --d-brand-name: ${JSON.stringify(resolved.brandName || "Brand")};
+  --d-header-variant: ${JSON.stringify(resolved.headerVariant || "classic")};${
+    resolved.logoUrl
+      ? `
+  --d-logo-url: url("${resolved.logoUrl}");`
+      : ""
+  }
 }
 `;
 }

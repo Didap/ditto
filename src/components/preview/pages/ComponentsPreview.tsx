@@ -284,7 +284,7 @@ export function ComponentsPreview() {
       {/* ── NAVIGATION ── */}
       <Section title="Navigation">
         <Subsection label="Top Navigation">
-          <Nav brand="AppName" links={["Dashboard", "Products", "Customers", "Analytics"]} />
+          <Nav links={["Dashboard", "Products", "Customers", "Analytics"]} />
         </Subsection>
 
         <Subsection label="Sidebar">

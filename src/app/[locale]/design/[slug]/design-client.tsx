@@ -957,6 +957,7 @@ export function DesignDetailClient({ initialDesign, slug }: DesignDetailProps) {
             fontSources={design.tokens.fontSources || []}
             fontFaces={design.tokens.fontFaces || []}
             downloadedFonts={design.tokens.downloadedFonts || []}
+            brandName={(editResolved || design.resolved).brandName || design.name}
           >
             <ActiveComponent />
           </PreviewShell>
@@ -966,6 +967,8 @@ export function DesignDetailClient({ initialDesign, slug }: DesignDetailProps) {
             <FloatingEditor
               resolved={editResolved}
               onChange={setEditResolved}
+              slug={slug}
+              defaultBrandName={design.name}
               allFonts={design.tokens.typography?.map((t) => t.fontFamily) || []}
               inspirationColors={
                 design.tokens.colors?.map((c) => ({ hex: c.hex, source: design.name })) || []

@@ -1,4 +1,4 @@
-import type { DesignTokens, ResolvedDesign } from "../types";
+import type { DesignTokens, ResolvedDesign, HeaderVariant } from "../types";
 
 export function generateDesignMd(
   name: string,
@@ -9,6 +9,7 @@ export function generateDesignMd(
     generateHeader(name, tokens),
     generateVisualTheme(name, tokens, resolved),
     generateSignatureAndComposition(tokens),
+    generateBrand(name, resolved),
     generateColorPalette(tokens, resolved),
     generateGradients(tokens),
     generateFontSetup(tokens, resolved),
@@ -29,6 +30,71 @@ export function generateDesignMd(
 }
 
 // ── New sections (extended signals) ─────────────────────────────────────────
+
+const HEADER_VARIANT_COPY: Record<
+  HeaderVariant,
+  { label: string; tagline: string; description: string }
+> = {
+  classic: {
+    label: "Classic",
+    tagline: "Timeless and refined",
+    description:
+      "Logo on the left, inline navigation links, primary CTA on the right. A neutral baseline that fits most B2B and productivity brands.",
+  },
+  elegante: {
+    label: "Elegante",
+    tagline: "Editorial and quiet",
+    description:
+      "Logo centered above a thin divider, nav labels below in wide-tracked uppercase. Reads like a magazine masthead — great for fashion, editorial, and luxury brands.",
+  },
+  artistico: {
+    label: "Artistico",
+    tagline: "Asymmetric and expressive",
+    description:
+      "Logo with an accent-color halo, a floating pill-shaped navigation with backdrop blur, and an outlined CTA with a decorative accent mark. For creative studios and bold brands.",
+  },
+  fresco: {
+    label: "Fresco",
+    tagline: "Compact and playful",
+    description:
+      "Full pill-shaped header with a soft shadow, colored dot indicators before each link, and a gradient CTA using the primary and secondary colors. Friendly, modern SaaS vibe.",
+  },
+};
+
+function generateBrand(name: string, resolved: ResolvedDesign): string {
+  const variant: HeaderVariant = resolved.headerVariant || "classic";
+  const meta = HEADER_VARIANT_COPY[variant];
+  const brandName = resolved.brandName || name;
+
+  const logoLine = resolved.logoUrl
+    ? `**Logo:** user-supplied asset at [\`${resolved.logoUrl}\`](${resolved.logoUrl}). Render at its native aspect ratio; do not force a square crop.`
+    : `**Logo:** no custom logo — fall back to the Ditto placeholder mark (two semicircles in \`${resolved.colorPrimary}\` and \`${resolved.colorSecondary}\` forming a full circle). Keep it at ~28–32px tall next to the brand name.`;
+
+  return `## Brand
+
+The brand identity is applied consistently across the header, footer, and sidebar of every exported page.
+
+**Brand name:** \`${brandName}\`
+
+${logoLine}
+
+**Header style:** \`${meta.label}\` — ${meta.tagline}
+
+${meta.description}
+
+### Header variants available
+
+Any of the four is ready to drop in — pick the one that matches the tone of the product.
+
+| Variant | Feel | When to use |
+|---------|------|-------------|
+| **Classic** | ${HEADER_VARIANT_COPY.classic.tagline} | Default for B2B, productivity, dashboards |
+| **Elegante** | ${HEADER_VARIANT_COPY.elegante.tagline} | Editorial, fashion, luxury, content sites |
+| **Artistico** | ${HEADER_VARIANT_COPY.artistico.tagline} | Creative studios, portfolios, bold brands |
+| **Fresco** | ${HEADER_VARIANT_COPY.fresco.tagline} | Modern SaaS, consumer apps, playful tones |
+
+Currently selected: **${meta.label}**.`;
+}
 
 function generateSignatureAndComposition(tokens: DesignTokens): string | null {
   const hero = tokens.heroComposition;

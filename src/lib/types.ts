@@ -222,6 +222,17 @@ export interface DesignTokens {
   };
 }
 
+// ── Branding (user-overridable) ──
+
+export type HeaderVariant = "classic" | "elegante" | "artistico" | "fresco";
+
+export const HEADER_VARIANTS: HeaderVariant[] = [
+  "classic",
+  "elegante",
+  "artistico",
+  "fresco",
+];
+
 // ── Resolved Design (for preview rendering) ──
 
 export interface ResolvedDesign {
@@ -279,6 +290,14 @@ export interface ResolvedDesign {
   lineHeightTight: string;
   lineHeightNormal: string;
   lineHeightRelaxed: string;
+
+  // Branding (user-overridable via Brand tab)
+  /** Uploaded logo URL (Cloudinary). Optional — fallback is the Ditto placeholder. */
+  logoUrl?: string;
+  /** Display name shown next to the logo. Defaults to the design name. */
+  brandName?: string;
+  /** Which header layout to render in previews and exports. */
+  headerVariant?: HeaderVariant;
 }
 
 // ── Design Quality Score ──

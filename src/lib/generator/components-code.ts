@@ -460,41 +460,233 @@ export function StatCard({ label, value, change, positive = true }: StatCardProp
   );
 }
 
-// ── Nav ──
+// ── Brand ──
 
-interface NavProps {
-  brand?: string;
-  links?: string[];
+export type HeaderVariant = "classic" | "elegante" | "artistico" | "fresco";
+
+export const brandConfig: {
+  name: string;
+  logoUrl: string | null;
+  headerVariant: HeaderVariant;
+} = {
+  name: ${JSON.stringify(resolved.brandName || "Brand")},
+  logoUrl: ${resolved.logoUrl ? JSON.stringify(resolved.logoUrl) : "null"},
+  headerVariant: ${JSON.stringify(resolved.headerVariant || "classic")},
+};
+
+export function LogoPlaceholder({ size = 28, title = brandConfig.name }: { size?: number; title?: string }) {
+  return (
+    <svg role="img" aria-label={title} width={size} height={size} viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+      <title>{title}</title>
+      <path d="M16 0 A16 16 0 0 1 16 32 Z" fill="var(--color-primary)" />
+      <path d="M16 0 A16 16 0 0 0 16 32 Z" fill="var(--color-secondary)" />
+    </svg>
+  );
 }
 
-export function Nav({ brand = "Brand", links = ["Home", "Features", "Pricing"] }: NavProps) {
+export function BrandMark({
+  size = 28,
+  showName = true,
+  nameSize = "1rem",
+  nameWeight = 700,
+  name = brandConfig.name,
+  logoUrl = brandConfig.logoUrl,
+}: {
+  size?: number;
+  showName?: boolean;
+  nameSize?: string;
+  nameWeight?: number;
+  name?: string;
+  logoUrl?: string | null;
+}) {
+  return (
+    <span style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>
+      {logoUrl ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={logoUrl}
+          alt={name}
+          style={{ height: size, width: "auto", maxWidth: size * 3, objectFit: "contain", display: "block" }}
+        />
+      ) : (
+        <LogoPlaceholder size={size} title={name} />
+      )}
+      {showName && (
+        <span style={{
+          color: "var(--color-text)",
+          fontFamily: "var(--font-heading)",
+          fontWeight: nameWeight,
+          fontSize: nameSize,
+          letterSpacing: "-0.01em",
+        }}>
+          {name}
+        </span>
+      )}
+    </span>
+  );
+}
+
+// ── Nav (4 variants, picked by brandConfig.headerVariant or \`variant\` prop) ──
+
+interface NavProps {
+  links?: string[];
+  cta?: string;
+  variant?: HeaderVariant;
+}
+
+const DEFAULT_LINKS = ["Home", "Features", "Pricing", "Blog"];
+
+function NavClassic({ links = DEFAULT_LINKS, cta = "Get Started" }: NavProps) {
   return (
     <nav style={{
       display: "flex",
       alignItems: "center",
       justifyContent: "space-between",
-      padding: "0 24px",
-      height: 56,
+      padding: "12px 24px",
       backgroundColor: "var(--color-bg)",
       borderBottom: "1px solid var(--color-border)",
     }}>
-      <span style={{ fontWeight: 700, fontSize: "1.125rem", color: "var(--color-text)" }}>
-        {brand}
-      </span>
+      <BrandMark />
       <div style={{ display: "flex", alignItems: "center", gap: 24 }}>
         {links.map((link) => (
+          <span key={link} style={{ fontSize: "0.875rem", color: "var(--color-text-secondary)", cursor: "pointer" }}>
+            {link}
+          </span>
+        ))}
+        <Button size="sm">{cta}</Button>
+      </div>
+    </nav>
+  );
+}
+
+function NavElegante({ links = DEFAULT_LINKS, cta = "Get Started" }: NavProps) {
+  return (
+    <nav style={{ display: "flex", flexDirection: "column", alignItems: "center", padding: "24px 24px 0", backgroundColor: "var(--color-bg)" }}>
+      <div style={{ width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 20 }}>
+        <span style={{ width: 96 }} />
+        <BrandMark size={32} nameSize="1.25rem" nameWeight={500} />
+        <div style={{ width: 96, display: "flex", justifyContent: "flex-end" }}>
+          <button style={{
+            fontSize: "0.75rem", letterSpacing: "0.2em", textTransform: "uppercase",
+            color: "var(--color-text-secondary)", background: "none", border: "none", cursor: "pointer",
+          }}>
+            {cta}
+          </button>
+        </div>
+      </div>
+      <div style={{ width: "100%", height: 1, backgroundColor: "var(--color-border)" }} />
+      <div style={{ display: "flex", justifyContent: "center", gap: 40, padding: "12px 0" }}>
+        {links.map((link) => (
           <span key={link} style={{
-            fontSize: "0.875rem",
-            color: "var(--color-text-secondary)",
-            cursor: "pointer",
+            fontSize: "0.75rem", letterSpacing: "0.22em", textTransform: "uppercase",
+            color: "var(--color-text-secondary)", cursor: "pointer",
           }}>
             {link}
           </span>
         ))}
-        <Button size="sm">Get Started</Button>
+      </div>
+      <div style={{ width: "100%", height: 1, backgroundColor: "var(--color-border)" }} />
+    </nav>
+  );
+}
+
+function NavArtistico({ links = DEFAULT_LINKS, cta = "Get Started" }: NavProps) {
+  return (
+    <nav style={{ position: "relative", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "20px 24px", backgroundColor: "var(--color-bg)" }}>
+      <div style={{ position: "relative" }}>
+        <span aria-hidden style={{
+          position: "absolute", left: -8, top: -8, width: 40, height: 40, borderRadius: "50%",
+          backgroundColor: "var(--color-accent)", opacity: 0.25, filter: "blur(2px)",
+        }} />
+        <span style={{ position: "relative" }}>
+          <BrandMark size={32} nameSize="1.125rem" nameWeight={800} />
+        </span>
+      </div>
+      <div style={{
+        position: "absolute", left: "50%", transform: "translateX(-50%)",
+        display: "flex", alignItems: "center", gap: 4, padding: "6px 8px",
+        backgroundColor: "color-mix(in srgb, var(--color-surface) 80%, transparent)",
+        backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)",
+        border: "1px solid var(--color-border)", borderRadius: "var(--radius-full)",
+        boxShadow: "var(--shadow-sm)",
+      }}>
+        {links.map((link, i) => (
+          <span key={link} style={{
+            padding: "4px 12px", fontSize: "0.8125rem", cursor: "pointer",
+            color: i === 0 ? "var(--color-text)" : "var(--color-text-secondary)",
+            backgroundColor: i === 0 ? "color-mix(in srgb, var(--color-primary) 12%, transparent)" : "transparent",
+            borderRadius: "var(--radius-full)", fontWeight: i === 0 ? 600 : 400,
+          }}>
+            {link}
+          </span>
+        ))}
+      </div>
+      <button style={{
+        display: "inline-flex", alignItems: "center", gap: 8,
+        padding: "8px 20px", fontSize: "0.875rem", fontWeight: 600, cursor: "pointer",
+        color: "var(--color-text)", backgroundColor: "transparent",
+        border: "2px solid var(--color-text)", borderRadius: "var(--radius-full)",
+      }}>
+        {cta}
+        <span aria-hidden style={{ color: "var(--color-accent)" }}>✦</span>
+      </button>
+    </nav>
+  );
+}
+
+function NavFresco({ links = DEFAULT_LINKS, cta = "Start free" }: NavProps) {
+  const dots = ["●", "◆", "■", "▲", "★", "◉"];
+  return (
+    <nav style={{ padding: "16px 16px 0", backgroundColor: "var(--color-bg)" }}>
+      <div style={{
+        display: "flex", alignItems: "center", justifyContent: "space-between",
+        padding: "10px 16px", backgroundColor: "var(--color-surface)",
+        border: "1px solid var(--color-border)", borderRadius: "var(--radius-full)",
+        boxShadow: "var(--shadow-sm)",
+      }}>
+        <BrandMark size={26} nameSize="0.9375rem" nameWeight={700} />
+        <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
+          {links.map((link, i) => (
+            <span key={link} style={{
+              display: "inline-flex", alignItems: "center", gap: 6,
+              padding: "6px 12px", fontSize: "0.8125rem", cursor: "pointer",
+              color: "var(--color-text-secondary)", borderRadius: "var(--radius-full)",
+            }}>
+              <span aria-hidden style={{ fontSize: "0.625rem", color: "var(--color-primary)" }}>
+                {dots[i % dots.length]}
+              </span>
+              {link}
+            </span>
+          ))}
+        </div>
+        <button style={{
+          display: "inline-flex", alignItems: "center",
+          padding: "6px 16px", fontSize: "0.8125rem", fontWeight: 600, cursor: "pointer",
+          color: "#fff",
+          background: "linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%)",
+          borderRadius: "var(--radius-full)", boxShadow: "var(--shadow-sm)",
+          border: "none",
+        }}>
+          {cta}
+        </button>
       </div>
     </nav>
   );
+}
+
+export function Nav({ links, cta, variant }: NavProps) {
+  const v = variant || brandConfig.headerVariant;
+  switch (v) {
+    case "elegante":
+      return <NavElegante links={links} cta={cta} />;
+    case "artistico":
+      return <NavArtistico links={links} cta={cta} />;
+    case "fresco":
+      return <NavFresco links={links} cta={cta} />;
+    case "classic":
+    default:
+      return <NavClassic links={links} cta={cta} />;
+  }
 }
 
 // ── Sidebar ──
@@ -506,12 +698,10 @@ interface SidebarItem {
 }
 
 interface SidebarProps {
-  brand?: string;
   items?: SidebarItem[];
 }
 
 export function Sidebar({
-  brand = "App",
   items = [
     { label: "Dashboard", icon: "◫", active: true },
     { label: "Analytics", icon: "◈" },
@@ -528,8 +718,8 @@ export function Sidebar({
       display: "flex",
       flexDirection: "column",
     }}>
-      <div style={{ padding: "0 16px 16px", fontWeight: 700, color: "var(--color-text)" }}>
-        {brand}
+      <div style={{ padding: "0 16px 16px" }}>
+        <BrandMark size={22} nameSize="0.9375rem" />
       </div>
       <div style={{ display: "flex", flexDirection: "column", gap: 2, padding: "0 8px" }}>
         {items.map((item) => (
@@ -557,12 +747,10 @@ export function Sidebar({
 // ── Footer ──
 
 interface FooterProps {
-  brand?: string;
   sections?: Array<{ title: string; links: string[] }>;
 }
 
 export function Footer({
-  brand = "Brand",
   sections = [
     { title: "Product", links: ["Features", "Pricing", "Docs"] },
     { title: "Company", links: ["About", "Blog", "Careers"] },
@@ -577,7 +765,9 @@ export function Footer({
     }}>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <div>
-          <div style={{ fontWeight: 700, color: "var(--color-text)", marginBottom: 8 }}>{brand}</div>
+          <div style={{ marginBottom: 8 }}>
+            <BrandMark size={20} nameSize="0.9375rem" />
+          </div>
           <div style={{ fontSize: "0.8125rem", color: "var(--color-text-muted)" }}>
             Building the future, one pixel at a time.
           </div>

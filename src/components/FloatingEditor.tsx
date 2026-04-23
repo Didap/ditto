@@ -1,8 +1,10 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import type { ResolvedDesign } from "@/lib/types";
-import { Paintbrush, X as XIcon, Sparkles } from "lucide-react";
+import type { ResolvedDesign, HeaderVariant } from "@/lib/types";
+import { HEADER_VARIANTS } from "@/lib/types";
+import { HEADER_VARIANT_DESCRIPTIONS } from "@/components/preview/primitives/brand";
+import { Paintbrush, X as XIcon, Sparkles, Upload, Trash2 } from "lucide-react";
 
 const COLOR_FIELDS: Array<{ key: keyof ResolvedDesign; label: string; group: string }> = [
   { key: "colorPrimary", label: "Primary", group: "Brand" },
@@ -26,6 +28,10 @@ interface FloatingEditorProps {
   inspirationColors?: Array<{ hex: string; source: string }>;
   onDownloadKit?: () => void;
   showGuide?: boolean; // Show Ditto peek animation on first load
+  /** Design slug — required for brand uploads (POST /api/designs/[slug]/logo). */
+  slug?: string;
+  /** Default brand name shown if the design doesn't have one yet. */
+  defaultBrandName?: string;
 }
 
 export function FloatingEditor({
@@ -35,9 +41,14 @@ export function FloatingEditor({
   inspirationColors = [],
   onDownloadKit,
   showGuide = false,
+  slug,
+  defaultBrandName,
 }: FloatingEditorProps) {
   const [open, setOpen] = useState(false);
-  const [tab, setTab] = useState<"colors" | "fonts" | "shape" | "figma">("colors");
+  const [tab, setTab] = useState<"colors" | "fonts" | "shape" | "brand" | "figma">("colors");
+  const [brandBusy, setBrandBusy] = useState<"upload" | "remove" | null>(null);
+  const [brandError, setBrandError] = useState<string | null>(null);
+  const logoInputRef = useRef<HTMLInputElement>(null);
   const [guideVisible, setGuideVisible] = useState(false);
   const [guideDismissed, setGuideDismissed] = useState(false);
   const [figmaGuide, setFigmaGuide] = useState(false);
@@ -75,6 +86,75 @@ export function FloatingEditor({
 
   const updateFont = (key: "fontHeading" | "fontBody" | "fontMono", value: string) => {
     onChange({ ...resolved, [key]: value });
+  };
+
+  const uploadLogo = async (file: File) => {
+    if (!slug) return;
+    setBrandBusy("upload");
+    setBrandError(null);
+    try {
+      const form = new FormData();
+      form.append("file", file);
+      const res = await fetch(`/api/designs/${slug}/logo`, {
+        method: "POST",
+        body: form,
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Upload failed");
+      onChange({ ...resolved, logoUrl: data.logoUrl });
+    } catch (err) {
+      setBrandError(err instanceof Error ? err.message : "Upload failed");
+    } finally {
+      setBrandBusy(null);
+    }
+  };
+
+  const removeLogo = async () => {
+    if (!slug) return;
+    setBrandBusy("remove");
+    setBrandError(null);
+    try {
+      const res = await fetch(`/api/designs/${slug}/logo`, { method: "DELETE" });
+      if (!res.ok) throw new Error("Remove failed");
+      const { logoUrl: _removed, ...rest } = resolved;
+      void _removed;
+      onChange(rest);
+    } catch (err) {
+      setBrandError(err instanceof Error ? err.message : "Remove failed");
+    } finally {
+      setBrandBusy(null);
+    }
+  };
+
+  const pickHeaderVariant = async (variant: HeaderVariant) => {
+    onChange({ ...resolved, headerVariant: variant });
+    if (!slug) return;
+    try {
+      await fetch(`/api/designs/${slug}/logo`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ variant }),
+      });
+    } catch {
+      // Non-fatal — local state already reflects the choice; backend can retry on next save.
+    }
+  };
+
+  const setBrandName = (name: string) => {
+    onChange({ ...resolved, brandName: name });
+  };
+
+  const persistBrandName = async (name: string) => {
+    if (!slug) return;
+    try {
+      await fetch(`/api/designs/${slug}/logo`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ brandName: name }),
+      });
+    } catch {
+      // Non-fatal.
+    }
   };
 
   return (
@@ -240,7 +320,7 @@ export function FloatingEditor({
 
           {/* Tabs */}
           <div className="flex shrink-0" style={{ borderBottom: "1px solid var(--ditto-border)" }}>
-            {(["colors", "fonts", "shape", "figma"] as const).map((t) => (
+            {(["brand", "colors", "fonts", "shape", "figma"] as const).map((t) => (
               <button
                 key={t}
                 onClick={() => setTab(t)}
@@ -250,13 +330,221 @@ export function FloatingEditor({
                   borderBottom: tab === t ? "2px solid var(--ditto-primary)" : "2px solid transparent",
                 }}
               >
-                {t === "colors" ? "Colori" : t === "fonts" ? "Font" : t === "shape" ? "Forma" : "Figma"}
+                {t === "brand"
+                  ? "Brand"
+                  : t === "colors"
+                    ? "Colori"
+                    : t === "fonts"
+                      ? "Font"
+                      : t === "shape"
+                        ? "Forma"
+                        : "Figma"}
               </button>
             ))}
           </div>
 
           {/* Content */}
           <div className="overflow-y-auto p-4 flex-1">
+            {/* Brand tab */}
+            {tab === "brand" && (
+              <div className="space-y-5">
+                {/* Brand name */}
+                <div>
+                  <span className="text-[11px] mb-1.5 block" style={{ color: "var(--ditto-text-muted)" }}>
+                    Nome brand
+                  </span>
+                  <input
+                    type="text"
+                    value={resolved.brandName ?? defaultBrandName ?? ""}
+                    onChange={(e) => setBrandName(e.target.value)}
+                    onBlur={(e) => persistBrandName(e.target.value)}
+                    placeholder={defaultBrandName || "Brand"}
+                    className="w-full rounded-md border px-2 py-1.5 text-xs outline-none"
+                    style={{
+                      borderColor: "var(--ditto-border)",
+                      backgroundColor: "var(--ditto-bg)",
+                      color: "var(--ditto-text)",
+                    }}
+                  />
+                </div>
+
+                {/* Logo upload */}
+                <div>
+                  <div className="flex items-center justify-between mb-1.5">
+                    <span className="text-[11px]" style={{ color: "var(--ditto-text-muted)" }}>
+                      Logo
+                    </span>
+                    <span className="text-[10px]" style={{ color: "var(--ditto-text-muted)" }}>
+                      SVG, PNG, JPG, WebP · max 3MB
+                    </span>
+                  </div>
+                  <div
+                    className="rounded-md border border-dashed p-3 flex items-center gap-3"
+                    style={{ borderColor: "var(--ditto-border)", backgroundColor: "var(--ditto-bg)" }}
+                  >
+                    {/* Preview: real logo or Ditto placeholder */}
+                    <div
+                      className="w-12 h-12 rounded-md overflow-hidden flex items-center justify-center shrink-0"
+                      style={{ border: "1px solid var(--ditto-border)", backgroundColor: "var(--ditto-surface)" }}
+                    >
+                      {resolved.logoUrl ? (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img
+                          src={resolved.logoUrl}
+                          alt="logo"
+                          style={{ maxWidth: "100%", maxHeight: "100%", objectFit: "contain" }}
+                        />
+                      ) : (
+                        <svg width="32" height="32" viewBox="0 0 32 32" aria-label="Ditto placeholder">
+                          <path d="M16 0 A16 16 0 0 1 16 32 Z" fill={resolved.colorPrimary} />
+                          <path d="M16 0 A16 16 0 0 0 16 32 Z" fill={resolved.colorSecondary} />
+                        </svg>
+                      )}
+                    </div>
+
+                    <div className="flex-1 flex flex-col gap-1.5">
+                      <button
+                        onClick={() => logoInputRef.current?.click()}
+                        disabled={!slug || brandBusy !== null}
+                        className="inline-flex items-center gap-1.5 text-xs font-medium rounded-md px-2.5 py-1.5 disabled:opacity-50"
+                        style={{
+                          backgroundColor: "var(--ditto-primary)",
+                          color: "var(--ditto-bg)",
+                        }}
+                      >
+                        <Upload className="w-3 h-3" strokeWidth={2} />
+                        {brandBusy === "upload"
+                          ? "Caricamento..."
+                          : resolved.logoUrl
+                            ? "Sostituisci"
+                            : "Carica logo"}
+                      </button>
+                      {resolved.logoUrl && (
+                        <button
+                          onClick={removeLogo}
+                          disabled={brandBusy !== null}
+                          className="inline-flex items-center gap-1.5 text-xs font-medium rounded-md px-2.5 py-1.5 border disabled:opacity-50"
+                          style={{
+                            borderColor: "var(--ditto-border)",
+                            color: "var(--ditto-text-secondary)",
+                          }}
+                        >
+                          <Trash2 className="w-3 h-3" strokeWidth={1.5} />
+                          Rimuovi
+                        </button>
+                      )}
+                    </div>
+
+                    <input
+                      ref={logoInputRef}
+                      type="file"
+                      accept="image/svg+xml,image/png,image/jpeg,image/webp"
+                      className="hidden"
+                      onChange={(e) => {
+                        const f = e.target.files?.[0];
+                        if (f) uploadLogo(f);
+                        e.target.value = "";
+                      }}
+                    />
+                  </div>
+                  {!slug && (
+                    <p className="text-[10px] mt-1.5" style={{ color: "var(--ditto-text-muted)" }}>
+                      Salva il design per poter caricare un logo.
+                    </p>
+                  )}
+                  {brandError && (
+                    <p className="text-[10px] mt-1.5" style={{ color: "var(--ditto-error)" }}>
+                      {brandError}
+                    </p>
+                  )}
+                </div>
+
+                {/* Header variant */}
+                <div>
+                  <span className="text-[11px] mb-2 block" style={{ color: "var(--ditto-text-muted)" }}>
+                    Stile header
+                  </span>
+                  <div className="grid grid-cols-2 gap-2">
+                    {HEADER_VARIANTS.map((v) => {
+                      const meta = HEADER_VARIANT_DESCRIPTIONS[v];
+                      const active = (resolved.headerVariant ?? "classic") === v;
+                      return (
+                        <button
+                          key={v}
+                          onClick={() => pickHeaderVariant(v)}
+                          className="text-left rounded-md border p-2.5 transition-all"
+                          style={{
+                            borderColor: active ? "var(--ditto-primary)" : "var(--ditto-border)",
+                            backgroundColor: active
+                              ? "color-mix(in srgb, var(--ditto-primary) 8%, var(--ditto-bg))"
+                              : "var(--ditto-bg)",
+                          }}
+                        >
+                          {/* Mini mock of the variant layout */}
+                          <div className="mb-2 h-8 relative rounded-sm overflow-hidden" style={{ backgroundColor: "var(--ditto-surface)", border: "1px solid var(--ditto-border)" }}>
+                            {v === "classic" && (
+                              <div className="absolute inset-0 flex items-center justify-between px-1.5">
+                                <div className="w-3 h-3 rounded-full" style={{ backgroundColor: "var(--ditto-primary)" }} />
+                                <div className="flex gap-0.5">
+                                  <div className="w-2 h-0.5" style={{ backgroundColor: "var(--ditto-text-muted)" }} />
+                                  <div className="w-2 h-0.5" style={{ backgroundColor: "var(--ditto-text-muted)" }} />
+                                  <div className="w-2 h-0.5" style={{ backgroundColor: "var(--ditto-text-muted)" }} />
+                                </div>
+                                <div className="w-3 h-1.5 rounded-[1px]" style={{ backgroundColor: "var(--ditto-primary)" }} />
+                              </div>
+                            )}
+                            {v === "elegante" && (
+                              <div className="absolute inset-0 flex flex-col items-center justify-center gap-0.5">
+                                <div className="w-3 h-3 rounded-full" style={{ backgroundColor: "var(--ditto-primary)" }} />
+                                <div className="w-full h-px" style={{ backgroundColor: "var(--ditto-border)" }} />
+                                <div className="flex gap-1">
+                                  <div className="w-1.5 h-0.5" style={{ backgroundColor: "var(--ditto-text-muted)" }} />
+                                  <div className="w-1.5 h-0.5" style={{ backgroundColor: "var(--ditto-text-muted)" }} />
+                                  <div className="w-1.5 h-0.5" style={{ backgroundColor: "var(--ditto-text-muted)" }} />
+                                </div>
+                              </div>
+                            )}
+                            {v === "artistico" && (
+                              <div className="absolute inset-0 flex items-center justify-between px-1">
+                                <div className="w-3 h-3 rounded-full" style={{ backgroundColor: "var(--ditto-primary)" }} />
+                                <div className="flex gap-0.5 rounded-full px-1.5 py-0.5" style={{ backgroundColor: "var(--ditto-bg)", border: "1px solid var(--ditto-border)" }}>
+                                  <div className="w-2 h-0.5" style={{ backgroundColor: "var(--ditto-text-muted)" }} />
+                                  <div className="w-2 h-0.5" style={{ backgroundColor: "var(--ditto-text-muted)" }} />
+                                </div>
+                                <div className="w-4 h-1.5 rounded-full" style={{ border: "1px solid var(--ditto-text)" }} />
+                              </div>
+                            )}
+                            {v === "fresco" && (
+                              <div className="absolute inset-1 flex items-center justify-between px-1.5 rounded-full" style={{ border: "1px solid var(--ditto-border)", backgroundColor: "var(--ditto-bg)" }}>
+                                <div className="w-2 h-2 rounded-full" style={{ backgroundColor: "var(--ditto-primary)" }} />
+                                <div className="flex gap-0.5">
+                                  <div className="w-1.5 h-0.5" style={{ backgroundColor: "var(--ditto-text-muted)" }} />
+                                  <div className="w-1.5 h-0.5" style={{ backgroundColor: "var(--ditto-text-muted)" }} />
+                                </div>
+                                <div
+                                  className="w-3 h-1.5 rounded-full"
+                                  style={{
+                                    background:
+                                      "linear-gradient(90deg, var(--ditto-primary), var(--ditto-text))",
+                                  }}
+                                />
+                              </div>
+                            )}
+                          </div>
+                          <div className="text-[11px] font-semibold" style={{ color: "var(--ditto-text)" }}>
+                            {meta.label}
+                          </div>
+                          <div className="text-[9.5px]" style={{ color: "var(--ditto-text-muted)" }}>
+                            {meta.tagline}
+                          </div>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+            )}
+
             {/* Colors tab */}
             {tab === "colors" && (
               <div className="space-y-3">

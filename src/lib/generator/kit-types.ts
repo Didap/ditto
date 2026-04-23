@@ -65,7 +65,14 @@ export interface DesignTokens {
     normal: string;
     relaxed: string;
   };
+  brand: {
+    name: string;
+    logoUrl: string | null;
+    headerVariant: HeaderVariant;
+  };
 }
+
+export type HeaderVariant = "classic" | "elegante" | "artistico" | "fresco";
 
 export const tokens: DesignTokens = {
   colors: {
@@ -122,6 +129,11 @@ export const tokens: DesignTokens = {
     tight: "${resolved.lineHeightTight}",
     normal: "${resolved.lineHeightNormal}",
     relaxed: "${resolved.lineHeightRelaxed}",
+  },
+  brand: {
+    name: ${JSON.stringify(resolved.brandName || "Brand")},
+    logoUrl: ${resolved.logoUrl ? JSON.stringify(resolved.logoUrl) : "null"},
+    headerVariant: ${JSON.stringify(resolved.headerVariant || "classic")},
   },
 };
 `;
