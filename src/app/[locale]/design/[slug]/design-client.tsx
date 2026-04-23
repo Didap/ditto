@@ -363,7 +363,7 @@ function RitocchiDropdown({
                   <button
                     key={m.id}
                     onClick={() => toggleMacro(m.id)}
-                    title={m.description}
+                    title={t(m.descriptionKey)}
                     className={
                       "rounded-full border px-2.5 py-1 text-xs font-medium transition-colors " +
                       (isActive
@@ -371,7 +371,7 @@ function RitocchiDropdown({
                         : "border-(--ditto-border) bg-(--ditto-bg) text-(--ditto-text-secondary) hover:border-(--ditto-primary)/50 hover:text-(--ditto-text)")
                     }
                   >
-                    {m.label}
+                    {t(m.labelKey)}
                   </button>
                 );
               })}

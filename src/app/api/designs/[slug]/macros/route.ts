@@ -12,8 +12,8 @@ export async function GET() {
   return NextResponse.json({
     macros: DESIGN_MACROS.map((m) => ({
       id: m.id,
-      label: m.label,
-      description: m.description,
+      labelKey: m.labelKey,
+      descriptionKey: m.descriptionKey,
       icon: m.icon,
     })),
   });

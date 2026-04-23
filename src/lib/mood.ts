@@ -1,7 +1,13 @@
 import type { ResolvedDesign, DesignTokens } from "./types";
+import type { TranslationKey } from "@/lib/i18n";
 
 // ── 10 Design Mood Dimensions ──
-// Each is a spectrum from -1 to +1 that maps to concrete design decisions
+// Each is a spectrum from -1 to +1 that maps to concrete design decisions.
+//
+// Note: the string fields below (`label`, `poles`, `description`, `designImpact`)
+// are used ONLY in the English-only DESIGN.md output produced by the hybrid
+// generator. The UI never reads these strings — it looks up translated labels
+// by `id` via keys like `inspireMoodDim_${id}` in the i18n dictionary.
 
 export interface MoodDimension {
   id: string;
@@ -17,102 +23,102 @@ export interface MoodDimension {
 export const MOOD_DIMENSIONS: MoodDimension[] = [
   {
     id: "tone",
-    label: "Tono",
-    poles: ["Giocoso", "Serio"],
-    description: "L'attitudine generale del design",
+    label: "Tone",
+    poles: ["Playful", "Serious"],
+    description: "The overall attitude of the design",
     designImpact: {
-      negative: "Colori vivaci, bordi arrotondati grandi, illustrazioni, font rounded",
-      positive: "Colori sobri, bordi sottili, fotografia, font serif/classici",
+      negative: "Vivid colors, large rounded corners, illustrations, rounded fonts",
+      positive: "Muted colors, thin borders, photography, serif/classic fonts",
     },
   },
   {
     id: "formality",
-    label: "Formalità",
-    poles: ["Casual", "Istituzionale"],
-    description: "Quanto il design appare formale",
+    label: "Formality",
+    poles: ["Casual", "Institutional"],
+    description: "How formal the design feels",
     designImpact: {
-      negative: "Spaziatura rilassata, font sans-serif, linguaggio colloquiale",
-      positive: "Grid rigorosa, serif, gerarchia stretta, elementi corporate",
+      negative: "Relaxed spacing, sans-serif fonts, colloquial language",
+      positive: "Strict grid, serif, tight hierarchy, corporate elements",
     },
   },
   {
     id: "energy",
-    label: "Energia",
-    poles: ["Calmo", "Audace"],
-    description: "L'intensità visiva percepita",
+    label: "Energy",
+    poles: ["Calm", "Bold"],
+    description: "The perceived visual intensity",
     designImpact: {
-      negative: "Whitespace generoso, transizioni morbide, contrasto basso",
-      positive: "Titoli enormi, contrasto forte, animazioni, CTA prominenti",
+      negative: "Generous whitespace, soft transitions, low contrast",
+      positive: "Huge headlines, high contrast, animations, prominent CTAs",
     },
   },
   {
     id: "temperature",
-    label: "Temperatura",
-    poles: ["Caldo", "Freddo"],
-    description: "La sensazione cromatica dominante",
+    label: "Temperature",
+    poles: ["Warm", "Cool"],
+    description: "The dominant chromatic feeling",
     designImpact: {
-      negative: "Arancio/rosso/giallo, toni beige, ombre calde",
-      positive: "Blu/viola/verde, grigi freddi, ombre blue-tinted",
+      negative: "Orange/red/yellow, beige tones, warm shadows",
+      positive: "Blue/purple/green, cool grays, blue-tinted shadows",
     },
   },
   {
     id: "density",
-    label: "Densità",
-    poles: ["Arioso", "Denso"],
-    description: "Quanto contenuto c'è per viewport",
+    label: "Density",
+    poles: ["Airy", "Dense"],
+    description: "How much content fits per viewport",
     designImpact: {
-      negative: "Sezioni a schermo intero, pochi elementi, molta aria",
-      positive: "Grid compatte, tabelle, sidebar, info-dense",
+      negative: "Full-screen sections, few elements, lots of air",
+      positive: "Compact grids, tables, sidebars, info-dense",
     },
   },
   {
     id: "shape",
-    label: "Forma",
-    poles: ["Morbido", "Angolare"],
-    description: "La geometria dei componenti",
+    label: "Shape",
+    poles: ["Soft", "Angular"],
+    description: "The geometry of the components",
     designImpact: {
-      negative: "Border-radius alti (12-24px), pill buttons, blob shapes",
-      positive: "Border-radius bassi (0-4px), linee nette, spigoli vivi",
+      negative: "High border-radius (12-24px), pill buttons, blob shapes",
+      positive: "Low border-radius (0-4px), sharp lines, crisp edges",
     },
   },
   {
     id: "depth",
-    label: "Profondità",
-    poles: ["Piatto", "Tridimensionale"],
-    description: "Quanto il design usa livelli ed elevazione",
+    label: "Depth",
+    poles: ["Flat", "Three-dimensional"],
+    description: "How much the design uses layers and elevation",
     designImpact: {
-      negative: "No ombre, bordi sottili, flat design",
-      positive: "Ombre multi-layer, glassmorphism, gradienti, elevazione",
+      negative: "No shadows, thin borders, flat design",
+      positive: "Multi-layer shadows, glassmorphism, gradients, elevation",
     },
   },
   {
     id: "palette",
     label: "Palette",
-    poles: ["Monocromo", "Vivace"],
-    description: "La ricchezza cromatica",
+    poles: ["Monochrome", "Vibrant"],
+    description: "The chromatic richness",
     designImpact: {
-      negative: "1-2 colori, scala di grigi, accento singolo",
-      positive: "Multi-colore, gradienti, accenti diversificati",
+      negative: "1-2 colors, grayscale, single accent",
+      positive: "Multi-color, gradients, diversified accents",
     },
   },
   {
     id: "typography",
-    label: "Tipografia",
-    poles: ["Espressiva", "Minimale"],
-    description: "Quanto la tipografia è protagonista",
+    label: "Typography",
+    poles: ["Expressive", "Minimal"],
+    description: "How much typography takes the lead",
     designImpact: {
-      negative: "Font display, pesi estremi, sizing grande, decorativa",
-      positive: "System font, pesi normali, sizing contenuto, funzionale",
+      negative: "Display fonts, extreme weights, large sizing, decorative",
+      positive: "System fonts, normal weights, contained sizing, functional",
     },
   },
   {
     id: "motion",
-    label: "Movimento",
-    poles: ["Statico", "Cinematico"],
-    description: "Presenza di animazione e transizioni",
+    label: "Motion",
+    poles: ["Static", "Cinematic"],
+    description: "Presence of animation and transitions",
     designImpact: {
-      negative: "No animazioni, transizioni istantanee",
-      positive: "Scroll animations, hover effects, microinterazioni, parallax",
+      negative: "No animations, instant transitions",
+      positive: "Scroll animations, hover effects, microinteractions, parallax",
     },
   },
 ];
@@ -132,133 +138,138 @@ export interface MoodQuestion {
   }>;
 }
 
+// Note: the string fields below (`question`, `subtitle`, `options[].label`,
+// `options[].description`) are kept as English defaults for any non-UI caller.
+// The UI looks up translated copy by question `id` and option `icon` via i18n
+// keys (`inspireMoodQuestion_${id}`, `inspireMoodOptionLabel_${icon}`, etc.).
+
 export const MOOD_QUESTIONS: MoodQuestion[] = [
   {
     id: "q1",
-    question: "Che personalità ha questa ispirazione?",
-    subtitle: "Pensa a come parlerebbe se fosse una persona",
+    question: "What personality does this inspiration have?",
+    subtitle: "Think of how it would speak if it were a person",
     dimensions: ["tone", "formality"],
     options: [
       {
-        label: "Amichevole",
+        label: "Friendly",
         icon: "smile",
-        description: "Rilassata, accessibile, giocosa",
+        description: "Relaxed, approachable, playful",
         scores: { tone: -0.8, formality: -0.7 },
       },
       {
-        label: "Professionale",
+        label: "Professional",
         icon: "briefcase",
-        description: "Competente, affidabile, moderna",
+        description: "Competent, reliable, modern",
         scores: { tone: 0.2, formality: 0.3 },
       },
       {
-        label: "Autorevole",
+        label: "Authoritative",
         icon: "landmark",
-        description: "Seria, istituzionale, di peso",
+        description: "Serious, institutional, weighty",
         scores: { tone: 0.9, formality: 0.9 },
       },
     ],
   },
   {
     id: "q2",
-    question: "Che energia trasmette?",
-    subtitle: "La prima impressione quando atterri sulla pagina",
+    question: "What energy does it give off?",
+    subtitle: "The first impression when you land on the page",
     dimensions: ["energy", "motion"],
     options: [
       {
         label: "Zen",
         icon: "wind",
-        description: "Calma, spazio, respiro",
+        description: "Calm, space, breathing room",
         scores: { energy: -0.8, motion: -0.6 },
       },
       {
-        label: "Dinamica",
+        label: "Dynamic",
         icon: "zap",
-        description: "Vivace, moderna, fluida",
+        description: "Lively, modern, fluid",
         scores: { energy: 0.4, motion: 0.5 },
       },
       {
-        label: "Esplosiva",
+        label: "Explosive",
         icon: "rocket",
-        description: "Audace, impattante, cinematica",
+        description: "Bold, impactful, cinematic",
         scores: { energy: 0.9, motion: 0.9 },
       },
     ],
   },
   {
     id: "q3",
-    question: "Come percepisci i colori?",
-    subtitle: "La sensazione cromatica generale",
+    question: "How do the colors feel?",
+    subtitle: "The overall chromatic sensation",
     dimensions: ["temperature", "palette"],
     options: [
       {
-        label: "Caldi e ricchi",
+        label: "Warm and rich",
         icon: "sun",
-        description: "Toni caldi, multi-colore, espressivi",
+        description: "Warm tones, multi-color, expressive",
         scores: { temperature: -0.8, palette: 0.7 },
       },
       {
-        label: "Neutri e puliti",
+        label: "Neutral and clean",
         icon: "cloud",
-        description: "Pochi colori, grigi, un accento",
+        description: "Few colors, grays, a single accent",
         scores: { temperature: 0.0, palette: -0.6 },
       },
       {
-        label: "Freddi e sofisticati",
+        label: "Cool and sophisticated",
         icon: "snowflake",
-        description: "Blu, viola, toni freddi, eleganti",
+        description: "Blue, purple, cool tones, elegant",
         scores: { temperature: 0.8, palette: 0.2 },
       },
     ],
   },
   {
     id: "q4",
-    question: "Come sono le forme e la profondità?",
-    subtitle: "La geometria e l'elevazione dei componenti",
+    question: "How are shapes and depth?",
+    subtitle: "The geometry and elevation of the components",
     dimensions: ["shape", "depth"],
     options: [
       {
-        label: "Morbide e piatte",
+        label: "Soft and flat",
         icon: "circle",
-        description: "Bordi arrotondati, niente ombre, minimal",
+        description: "Rounded corners, no shadows, minimal",
         scores: { shape: -0.8, depth: -0.7 },
       },
       {
-        label: "Bilanciate",
+        label: "Balanced",
         icon: "square",
-        description: "Bordi moderati, ombre sottili",
+        description: "Moderate borders, subtle shadows",
         scores: { shape: 0.0, depth: 0.3 },
       },
       {
-        label: "Nette e profonde",
+        label: "Sharp and deep",
         icon: "diamond",
-        description: "Angoli vivi, ombre forti, layers",
+        description: "Crisp angles, strong shadows, layers",
         scores: { shape: 0.8, depth: 0.8 },
       },
     ],
   },
   {
     id: "q5",
-    question: "Come descrivi testo e spazio?",
-    subtitle: "Il rapporto tra contenuto e respiro visivo",
+    question: "How would you describe text and space?",
+    subtitle: "The relationship between content and visual breathing room",
     dimensions: ["density", "typography"],
     options: [
       {
-        label: "Arioso e espressivo",
+        label: "Airy and expressive",
         icon: "palette",
-        description: "Tanto spazio, titoli grandi, font decorate",
+        description: "Plenty of space, large headlines, decorative fonts",
         scores: { density: -0.8, typography: -0.7 },
       },
       {
-        label: "Bilanciato",
+        label: "Balanced",
         icon: "ruler",
-        description: "Buon equilibrio, tipografia funzionale",
+        description: "Good balance, functional typography",
         scores: { density: 0.0, typography: 0.0 },
       },
       {
-        label: "Compatto e minimale",
+        label: "Compact and minimal",
         icon: "layout-grid",
-        description: "Info-dense, font piccoli, efficiente",
+        description: "Info-dense, small fonts, efficient",
         scores: { density: 0.8, typography: 0.8 },
       },
     ],
@@ -335,14 +346,27 @@ export function moodToDesignMap(profile: MoodProfile): MoodDesignMap {
 
 // ── Auto-detect mood from extracted design tokens ──
 
+/**
+ * Structured reason so the UI can translate at render time. `key` is an i18n
+ * key (e.g. `moodReasonQ1Playful`); `detail` is an untranslated trailing
+ * parenthetical like `(14px, 62% sat)` that carries raw numeric evidence.
+ */
+export interface AutoDetectedReason {
+  key: TranslationKey;
+  detail?: string;
+}
+
 export interface AutoDetectedAnswer {
   questionId: string;
+  /** English fallback — the UI reads `inspireMoodQuestion_${questionId}` instead. */
   questionLabel: string;
+  /** English fallback — the UI reads `inspireMoodOptionLabel_${chosenIcon}` instead. */
   chosenOption: string;
   chosenIcon: string;
+  /** English fallback — the UI reads `inspireMoodOptionDesc_${chosenIcon}` instead. */
   chosenDescription: string;
   confidence: "high" | "medium" | "low";
-  reason: string;
+  reason: AutoDetectedReason;
 }
 
 export interface AutoDetectResult {
@@ -357,29 +381,29 @@ export function autoDetectMood(
   const answers: AutoDetectedAnswer[] = [];
   const profile = createEmptyProfile();
 
-  // ── Q1: Personalità (tone + formality) ──
+  // ── Q1: Personality (tone + formality) ──
   {
     const q = MOOD_QUESTIONS[0];
     const avgRadius = parseFloat(resolved.radiusMd) || 8;
     const hasSerif = /serif/i.test(resolved.fontHeading) && !/sans-serif/i.test(resolved.fontHeading);
     const primarySat = getHslSaturation(resolved.colorPrimary);
 
-    let pick = 1; // default: Professionale
+    let pick = 1; // default: Professional
     let confidence: "high" | "medium" | "low" = "medium";
-    let reason = "";
+    let reason: AutoDetectedReason;
 
     if (avgRadius >= 14 && primarySat > 50) {
-      pick = 0; // Amichevole
-      reason = `Border-radius alto (${avgRadius}px) e colori saturi suggeriscono tono giocoso`;
+      pick = 0; // Friendly
+      reason = { key: "moodReasonQ1Playful", detail: `(${avgRadius}px, ${Math.round(primarySat)}%)` };
       confidence = "high";
     } else if (hasSerif || (avgRadius <= 6 && primarySat < 40)) {
-      pick = 2; // Autorevole
+      pick = 2; // Authoritative
       reason = hasSerif
-        ? `Font serif (${resolved.fontHeading}) suggerisce tono istituzionale`
-        : `Bordi netti (${avgRadius}px) e colori sobri suggeriscono autorevolezza`;
+        ? { key: "moodReasonQ1Serif", detail: `(${resolved.fontHeading})` }
+        : { key: "moodReasonQ1Authority", detail: `(${avgRadius}px, ${Math.round(primarySat)}%)` };
       confidence = hasSerif ? "high" : "medium";
     } else {
-      reason = `Valori bilanciati (radius ${avgRadius}px, saturazione ${Math.round(primarySat)}%)`;
+      reason = { key: "moodReasonQ1Balanced", detail: `(${avgRadius}px, ${Math.round(primarySat)}%)` };
     }
 
     const opt = q.options[pick];
@@ -395,27 +419,27 @@ export function autoDetectMood(
     });
   }
 
-  // ── Q2: Energia (energy + motion) ──
+  // ── Q2: Energy (energy + motion) ──
   {
     const q = MOOD_QUESTIONS[1];
     const contrast = getContrastRatio(resolved.colorTextPrimary, resolved.colorBackground);
     const headingWeight = resolved.fontWeightHeading;
     const primarySat = getHslSaturation(resolved.colorPrimary);
 
-    let pick = 1; // default: Dinamica
+    let pick = 1; // default: Dynamic
     let confidence: "high" | "medium" | "low" = "medium";
-    let reason = "";
+    let reason: AutoDetectedReason;
 
     if (contrast < 8 && headingWeight <= 400 && primarySat < 40) {
       pick = 0; // Zen
-      reason = `Contrasto moderato (${contrast.toFixed(1)}), pesi leggeri (${headingWeight}), saturazione bassa`;
+      reason = { key: "moodReasonQ2Zen", detail: `(${contrast.toFixed(1)}, ${headingWeight})` };
       confidence = "high";
     } else if (contrast >= 14 && headingWeight >= 700 && primarySat > 60) {
-      pick = 2; // Esplosiva
-      reason = `Contrasto alto (${contrast.toFixed(1)}), heading bold (${headingWeight}), colori saturi`;
+      pick = 2; // Explosive
+      reason = { key: "moodReasonQ2Explosive", detail: `(${contrast.toFixed(1)}, ${headingWeight})` };
       confidence = "high";
     } else {
-      reason = `Valori intermedi (contrasto ${contrast.toFixed(1)}, peso ${headingWeight})`;
+      reason = { key: "moodReasonQ2Intermediate", detail: `(${contrast.toFixed(1)}, ${headingWeight})` };
     }
 
     const opt = q.options[pick];
@@ -431,27 +455,27 @@ export function autoDetectMood(
     });
   }
 
-  // ── Q3: Colori (temperature + palette) ──
+  // ── Q3: Colors (temperature + palette) ──
   {
     const q = MOOD_QUESTIONS[2];
     const primaryHue = getHue(resolved.colorPrimary);
     const uniqueHues = countUniqueHues(tokens.colors.slice(0, 20).map((c) => c.hex));
     const isWarm = isWarmHue(primaryHue);
 
-    let pick = 1; // default: Neutri e puliti
+    let pick = 1; // default: Neutral
     let confidence: "high" | "medium" | "low" = "medium";
-    let reason = "";
+    let reason: AutoDetectedReason;
 
     if (isWarm && uniqueHues >= 4) {
-      pick = 0; // Caldi e ricchi
-      reason = `Hue primario caldo (${Math.round(primaryHue)}°) con ${uniqueHues} hue distinti`;
+      pick = 0; // Warm and rich
+      reason = { key: "moodReasonQ3Warm", detail: `(${Math.round(primaryHue)}°, ${uniqueHues})` };
       confidence = "high";
     } else if (!isWarm && getHslSaturation(resolved.colorPrimary) > 30) {
-      pick = 2; // Freddi e sofisticati
-      reason = `Hue primario freddo (${Math.round(primaryHue)}°), palette sofisticata`;
+      pick = 2; // Cool and sophisticated
+      reason = { key: "moodReasonQ3Cool", detail: `(${Math.round(primaryHue)}°)` };
       confidence = primaryHue >= 180 && primaryHue <= 300 ? "high" : "medium";
     } else {
-      reason = `Palette neutra con ${uniqueHues} hue distinti`;
+      reason = { key: "moodReasonQ3Neutral", detail: `(${uniqueHues})` };
       confidence = uniqueHues <= 2 ? "high" : "medium";
     }
 
@@ -468,27 +492,27 @@ export function autoDetectMood(
     });
   }
 
-  // ── Q4: Forme e profondità (shape + depth) ──
+  // ── Q4: Shapes and depth (shape + depth) ──
   {
     const q = MOOD_QUESTIONS[3];
     const avgRadius = parseFloat(resolved.radiusMd) || 8;
     const hasShadows = resolved.shadowMd !== "none" && resolved.shadowMd !== "";
     const shadowCount = tokens.shadows.length;
 
-    let pick = 1; // default: Bilanciate
+    let pick = 1; // default: Balanced
     let confidence: "high" | "medium" | "low" = "medium";
-    let reason = "";
+    let reason: AutoDetectedReason;
 
     if (avgRadius >= 14 && (!hasShadows || shadowCount <= 1)) {
-      pick = 0; // Morbide e piatte
-      reason = `Bordi morbidi (${avgRadius}px) e poche ombre (${shadowCount})`;
+      pick = 0; // Soft and flat
+      reason = { key: "moodReasonQ4Soft", detail: `(${avgRadius}px, ${shadowCount})` };
       confidence = "high";
     } else if (avgRadius <= 6 && hasShadows && shadowCount >= 3) {
-      pick = 2; // Nette e profonde
-      reason = `Bordi netti (${avgRadius}px) con ${shadowCount} livelli di ombra`;
+      pick = 2; // Sharp and deep
+      reason = { key: "moodReasonQ4Sharp", detail: `(${avgRadius}px, ${shadowCount})` };
       confidence = "high";
     } else {
-      reason = `Radius ${avgRadius}px, ${shadowCount} ombre — valori bilanciati`;
+      reason = { key: "moodReasonQ4Balanced", detail: `(${avgRadius}px, ${shadowCount})` };
     }
 
     const opt = q.options[pick];
@@ -504,27 +528,27 @@ export function autoDetectMood(
     });
   }
 
-  // ── Q5: Testo e spazio (density + typography) ──
+  // ── Q5: Text and space (density + typography) ──
   {
     const q = MOOD_QUESTIONS[4];
     const spacingMd = parseFloat(resolved.spacingMd) || 16;
     const headingWeight = resolved.fontWeightHeading;
     const hasDisplay = tokens.typography.some((t) => t.role === "display");
 
-    let pick = 1; // default: Bilanciato
+    let pick = 1; // default: Balanced
     let confidence: "high" | "medium" | "low" = "medium";
-    let reason = "";
+    let reason: AutoDetectedReason;
 
     if (spacingMd >= 20 && (headingWeight >= 700 || hasDisplay)) {
-      pick = 0; // Arioso e espressivo
-      reason = `Spacing ampio (${spacingMd}px), heading bold (${headingWeight})${hasDisplay ? ", font display presente" : ""}`;
+      pick = 0; // Airy and expressive
+      reason = { key: "moodReasonQ5Airy", detail: `(${spacingMd}px, ${headingWeight}${hasDisplay ? ", display" : ""})` };
       confidence = "high";
     } else if (spacingMd <= 12 && headingWeight <= 500) {
-      pick = 2; // Compatto e minimale
-      reason = `Spacing compatto (${spacingMd}px), heading leggero (${headingWeight})`;
+      pick = 2; // Compact and minimal
+      reason = { key: "moodReasonQ5Compact", detail: `(${spacingMd}px, ${headingWeight})` };
       confidence = "high";
     } else {
-      reason = `Spacing ${spacingMd}px, peso ${headingWeight} — bilanciato`;
+      reason = { key: "moodReasonQ5Balanced", detail: `(${spacingMd}px, ${headingWeight})` };
     }
 
     const opt = q.options[pick];

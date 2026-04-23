@@ -871,7 +871,8 @@ function InspireContent() {
                                     }`}
                                   />
                                   <span className="text-[9px] text-(--ditto-text-muted)">
-                                    {answer.reason}
+                                    {t(answer.reason.key)}
+                                    {answer.reason.detail ? ` ${answer.reason.detail}` : ""}
                                   </span>
                                 </div>
                               </div>

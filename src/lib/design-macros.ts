@@ -1,4 +1,5 @@
 import type { DesignTokens, ResolvedDesign, ColorToken } from "@/lib/types";
+import type { TranslationKey } from "@/lib/i18n";
 
 /**
  * Design Macros — preset transformations the user can apply after extraction
@@ -15,8 +16,10 @@ import type { DesignTokens, ResolvedDesign, ColorToken } from "@/lib/types";
 
 export interface DesignMacro {
   id: string;
-  label: string;
-  description: string;
+  /** i18n key for the short label shown on the chip. */
+  labelKey: TranslationKey;
+  /** i18n key for the tooltip description. */
+  descriptionKey: TranslationKey;
   /** Icon hint (Lucide icon name) for UI. */
   icon: string;
   apply(input: { tokens: DesignTokens; resolved: ResolvedDesign }): {
@@ -28,8 +31,8 @@ export interface DesignMacro {
 export const DESIGN_MACROS: DesignMacro[] = [
   {
     id: "softer",
-    label: "Più morbido",
-    description: "Border-radius più ampi, ombre più morbide, niente spigoli duri",
+    labelKey: "macroSofterLabel",
+    descriptionKey: "macroSofterDesc",
     icon: "circle",
     apply: ({ tokens, resolved }) => {
       const r = { ...resolved };
@@ -44,8 +47,8 @@ export const DESIGN_MACROS: DesignMacro[] = [
   },
   {
     id: "sharper",
-    label: "Più netto",
-    description: "Bordi più squadrati, meno ombre, geometria più incisiva",
+    labelKey: "macroSharperLabel",
+    descriptionKey: "macroSharperDesc",
     icon: "square",
     apply: ({ tokens, resolved }) => {
       const r = { ...resolved };
@@ -57,8 +60,8 @@ export const DESIGN_MACROS: DesignMacro[] = [
   },
   {
     id: "airy",
-    label: "Più arioso",
-    description: "Più respiro: spacing ×1.3, line-height più generoso",
+    labelKey: "macroAiryLabel",
+    descriptionKey: "macroAiryDesc",
     icon: "wind",
     apply: ({ tokens, resolved }) => {
       const r = { ...resolved };
@@ -75,8 +78,8 @@ export const DESIGN_MACROS: DesignMacro[] = [
   },
   {
     id: "dense",
-    label: "Più compatto",
-    description: "Spacing ×0.75, info-dense, da dashboard",
+    labelKey: "macroDenseLabel",
+    descriptionKey: "macroDenseDesc",
     icon: "layout-grid",
     apply: ({ tokens, resolved }) => {
       const r = { ...resolved };
@@ -93,8 +96,8 @@ export const DESIGN_MACROS: DesignMacro[] = [
   },
   {
     id: "punchier",
-    label: "Più incisivo",
-    description: "Saturazione +25%, heading weight 800, contrasto alto",
+    labelKey: "macroPunchierLabel",
+    descriptionKey: "macroPunchierDesc",
     icon: "zap",
     apply: ({ tokens, resolved }) => {
       const r = { ...resolved };
@@ -108,8 +111,8 @@ export const DESIGN_MACROS: DesignMacro[] = [
   },
   {
     id: "calmer",
-    label: "Più calmo",
-    description: "Saturazione −20%, heading weight più leggero, toni più sobri",
+    labelKey: "macroCalmerLabel",
+    descriptionKey: "macroCalmerDesc",
     icon: "moon",
     apply: ({ tokens, resolved }) => {
       const r = { ...resolved };
@@ -123,8 +126,8 @@ export const DESIGN_MACROS: DesignMacro[] = [
   },
   {
     id: "warmer",
-    label: "Più caldo",
-    description: "Hue shift verso arancio/rosso, +saturazione calda",
+    labelKey: "macroWarmerLabel",
+    descriptionKey: "macroWarmerDesc",
     icon: "sun",
     apply: ({ tokens, resolved }) => {
       const r = { ...resolved };
@@ -138,8 +141,8 @@ export const DESIGN_MACROS: DesignMacro[] = [
   },
   {
     id: "cooler",
-    label: "Più freddo",
-    description: "Hue shift verso blu/viola, più sofisticato",
+    labelKey: "macroCoolerLabel",
+    descriptionKey: "macroCoolerDesc",
     icon: "snowflake",
     apply: ({ tokens, resolved }) => {
       const r = { ...resolved };
@@ -153,8 +156,8 @@ export const DESIGN_MACROS: DesignMacro[] = [
   },
   {
     id: "mono",
-    label: "Monocromo",
-    description: "Desatura tutto tranne primary — focus sul brand color",
+    labelKey: "macroMonoLabel",
+    descriptionKey: "macroMonoDesc",
     icon: "contrast",
     apply: ({ tokens, resolved }) => {
       const r = { ...resolved };
@@ -171,8 +174,8 @@ export const DESIGN_MACROS: DesignMacro[] = [
   },
   {
     id: "inverted",
-    label: "Inverti dark/light",
-    description: "Scambia background e text — da light a dark theme o viceversa",
+    labelKey: "macroInvertedLabel",
+    descriptionKey: "macroInvertedDesc",
     icon: "repeat",
     apply: ({ tokens, resolved }) => {
       const r = { ...resolved };
