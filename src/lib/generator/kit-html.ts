@@ -26,12 +26,42 @@ function escapeHtml(s: string): string {
     .replace(/'/g, "&#39;");
 }
 
+/**
+ * Map a nav/footer link label to the matching generated page (if any), so the
+ * static kit's pages are all navigable. Unknown labels fall back to `#` so the
+ * link is inert but stays clickable visually.
+ */
+function pageLink(label: string): string {
+  const key = label.trim().toLowerCase();
+  const map: Record<string, string> = {
+    home: "landing.html",
+    landing: "landing.html",
+    features: "landing.html",
+    product: "landing.html",
+    pricing: "pricing.html",
+    plans: "pricing.html",
+    blog: "blog.html",
+    journal: "blog.html",
+    news: "blog.html",
+    dashboard: "dashboard.html",
+    app: "dashboard.html",
+    "sign in": "auth.html",
+    "log in": "auth.html",
+    login: "auth.html",
+    "sign up": "auth.html",
+    "get started": "auth.html",
+    register: "auth.html",
+    contact: "landing.html",
+  };
+  return map[key] ?? "#";
+}
+
 function buildBrandMarkHtml(
   r: ResolvedDesign,
   brandName: string,
-  opts: { size?: number; nameSize?: string; nameWeight?: number; showName?: boolean } = {},
+  opts: { size?: number; nameSize?: string; nameWeight?: number; showName?: boolean; linkToHome?: boolean } = {},
 ): string {
-  const { size = 28, nameSize = "1rem", nameWeight = 700, showName = true } = opts;
+  const { size = 28, nameSize = "1rem", nameWeight = 700, showName = true, linkToHome = true } = opts;
   const name = escapeHtml(brandName);
   const logoImg = r.logoUrl
     ? `<img src="${escapeHtml(r.logoUrl)}" alt="${name}" style="height:${size}px;width:auto;max-width:${size * 3}px;object-fit:contain;display:block" />`
@@ -39,7 +69,11 @@ function buildBrandMarkHtml(
   const nameSpan = showName
     ? `<span style="color:var(--d-text-primary);font-family:var(--d-font-heading);font-weight:${nameWeight};font-size:${nameSize};letter-spacing:-0.01em">${name}</span>`
     : "";
-  return `<span style="display:inline-flex;align-items:center;gap:8px">${logoImg}${nameSpan}</span>`;
+  const inner = `${logoImg}${nameSpan}`;
+  if (linkToHome) {
+    return `<a href="landing.html" style="display:inline-flex;align-items:center;gap:8px;text-decoration:none">${inner}</a>`;
+  }
+  return `<span style="display:inline-flex;align-items:center;gap:8px">${inner}</span>`;
 }
 
 function buildNavHtml(r: ResolvedDesign, brandName: string, variant: HeaderVariant): string {
@@ -53,12 +87,12 @@ function buildNavHtml(r: ResolvedDesign, brandName: string, variant: HeaderVaria
     <span style="width:96px"></span>
     ${brandLg}
     <div style="width:96px;display:flex;justify-content:flex-end">
-      <button style="font-size:0.75rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--d-text-secondary);background:none;border:none;cursor:pointer">Get Started</button>
+      <a href="${pageLink("Get Started")}" style="font-size:0.75rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--d-text-secondary);text-decoration:none">Get Started</a>
     </div>
   </div>
   <div style="width:100%;height:1px;background:var(--d-border)"></div>
   <div style="display:flex;justify-content:center;gap:40px;padding:12px 0">
-    ${links.map((l) => `<span style="font-size:0.75rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--d-text-secondary);cursor:pointer">${l}</span>`).join("")}
+    ${links.map((l) => `<a href="${pageLink(l)}" style="font-size:0.75rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--d-text-secondary);text-decoration:none">${l}</a>`).join("")}
   </div>
   <div style="width:100%;height:1px;background:var(--d-border)"></div>
 </nav>`;
@@ -75,13 +109,13 @@ function buildNavHtml(r: ResolvedDesign, brandName: string, variant: HeaderVaria
     ${links
       .map(
         (l, i) =>
-          `<span style="padding:4px 12px;font-size:0.8125rem;cursor:pointer;color:${i === 0 ? "var(--d-text-primary)" : "var(--d-text-secondary)"};background:${i === 0 ? "color-mix(in srgb, var(--d-primary) 12%, transparent)" : "transparent"};border-radius:var(--d-radius-full);font-weight:${i === 0 ? 600 : 400}">${l}</span>`,
+          `<a href="${pageLink(l)}" style="padding:4px 12px;font-size:0.8125rem;text-decoration:none;color:${i === 0 ? "var(--d-text-primary)" : "var(--d-text-secondary)"};background:${i === 0 ? "color-mix(in srgb, var(--d-primary) 12%, transparent)" : "transparent"};border-radius:var(--d-radius-full);font-weight:${i === 0 ? 600 : 400}">${l}</a>`,
       )
       .join("")}
   </div>
-  <button style="display:inline-flex;align-items:center;gap:8px;padding:8px 20px;font-size:0.875rem;font-weight:600;cursor:pointer;color:var(--d-text-primary);background:transparent;border:2px solid var(--d-text-primary);border-radius:var(--d-radius-full)">
+  <a href="${pageLink("Get Started")}" style="display:inline-flex;align-items:center;gap:8px;padding:8px 20px;font-size:0.875rem;font-weight:600;text-decoration:none;color:var(--d-text-primary);background:transparent;border:2px solid var(--d-text-primary);border-radius:var(--d-radius-full)">
     Get Started <span aria-hidden style="color:var(--d-accent)">✦</span>
-  </button>
+  </a>
 </nav>`;
   }
 
@@ -95,11 +129,11 @@ function buildNavHtml(r: ResolvedDesign, brandName: string, variant: HeaderVaria
       ${links
         .map(
           (l, i) =>
-            `<span style="display:inline-flex;align-items:center;gap:6px;padding:6px 12px;font-size:0.8125rem;cursor:pointer;color:var(--d-text-secondary);border-radius:var(--d-radius-full)"><span aria-hidden style="font-size:0.625rem;color:var(--d-primary)">${dots[i % dots.length]}</span>${l}</span>`,
+            `<a href="${pageLink(l)}" style="display:inline-flex;align-items:center;gap:6px;padding:6px 12px;font-size:0.8125rem;text-decoration:none;color:var(--d-text-secondary);border-radius:var(--d-radius-full)"><span aria-hidden style="font-size:0.625rem;color:var(--d-primary)">${dots[i % dots.length]}</span>${l}</a>`,
         )
         .join("")}
     </div>
-    <button style="display:inline-flex;align-items:center;padding:6px 16px;font-size:0.8125rem;font-weight:600;cursor:pointer;color:var(--d-on-primary);background:linear-gradient(135deg,var(--d-primary) 0%,var(--d-secondary) 100%);border-radius:var(--d-radius-full);box-shadow:var(--d-shadow-sm);border:none">Start free</button>
+    <a href="${pageLink("Start free")}" style="display:inline-flex;align-items:center;padding:6px 16px;font-size:0.8125rem;font-weight:600;text-decoration:none;color:var(--d-on-primary);background:linear-gradient(135deg,var(--d-primary) 0%,var(--d-secondary) 100%);border-radius:var(--d-radius-full);box-shadow:var(--d-shadow-sm)">Start free</a>
   </div>
 </nav>`;
   }
@@ -108,39 +142,38 @@ function buildNavHtml(r: ResolvedDesign, brandName: string, variant: HeaderVaria
   return `<nav class="nav-bar">
   ${brand}
   <div class="flex items-center gap-6">
-    ${links.map((l) => `<span class="text-sm" style="color: var(--d-text-secondary)">${l}</span>`).join("")}
-    <button class="btn-primary btn-sm">Get Started</button>
+    ${links.map((l) => `<a class="text-sm" style="color: var(--d-text-secondary);text-decoration:none" href="${pageLink(l)}">${l}</a>`).join("")}
+    <a class="btn-primary btn-sm" href="${pageLink("Get Started")}" style="text-decoration:none">Get Started</a>
   </div>
 </nav>`;
 }
 
 function buildFooterHtml(r: ResolvedDesign, brandName: string): string {
   const brand = buildBrandMarkHtml(r, brandName, { size: 20, nameSize: "0.9375rem" });
+  const columns = [
+    { title: "Product", links: ["Features", "Pricing", "Dashboard"] },
+    { title: "Company", links: ["Home", "Blog", "Contact"] },
+    { title: "Account", links: ["Sign in", "Get Started"] },
+  ];
+  const year = new Date().getUTCFullYear();
+  const columnsHtml = columns
+    .map(
+      (c) => `      <div>
+        <div class="text-sm font-semibold mb-3" style="color: var(--d-text-primary)">${c.title}</div>
+        <div class="flex flex-col gap-2 text-sm" style="color: var(--d-text-muted)">
+          ${c.links.map((l) => `<a href="${pageLink(l)}" style="color:var(--d-text-muted);text-decoration:none">${l}</a>`).join("")}
+        </div>
+      </div>`,
+    )
+    .join("\n");
   return `<footer class="footer-bar">
   <div class="flex justify-between">
     <div>
       <div style="margin-bottom: 8px">${brand}</div>
-      <div class="text-sm" style="color: var(--d-text-muted)">Building the future, one pixel at a time.</div>
+      <div class="text-sm" style="color: var(--d-text-muted)">Built with ${escapeHtml(brandName)} — © ${year}.</div>
     </div>
     <div class="flex gap-12">
-      <div>
-        <div class="text-sm font-semibold mb-3" style="color: var(--d-text-primary)">Product</div>
-        <div class="flex flex-col gap-2 text-sm" style="color: var(--d-text-muted)">
-          <span>Link One</span><span>Link Two</span><span>Link Three</span>
-        </div>
-      </div>
-      <div>
-        <div class="text-sm font-semibold mb-3" style="color: var(--d-text-primary)">Company</div>
-        <div class="flex flex-col gap-2 text-sm" style="color: var(--d-text-muted)">
-          <span>Link One</span><span>Link Two</span><span>Link Three</span>
-        </div>
-      </div>
-      <div>
-        <div class="text-sm font-semibold mb-3" style="color: var(--d-text-primary)">Legal</div>
-        <div class="flex flex-col gap-2 text-sm" style="color: var(--d-text-muted)">
-          <span>Link One</span><span>Link Two</span><span>Link Three</span>
-        </div>
-      </div>
+${columnsHtml}
     </div>
   </div>
 </footer>`;
