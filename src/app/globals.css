@@ -303,6 +303,10 @@ html.light .ditto-glow:hover {
   border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%;
   border-color: var(--ditto-primary);
 }
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--ditto-primary);
+  outline-offset: 2px;
+}
 
 /* Scrollbar */
 ::-webkit-scrollbar {
@@ -324,4 +328,36 @@ html.light ::-webkit-scrollbar-thumb {
 }
 html.light ::-webkit-scrollbar-track {
   background: var(--ditto-bg);
+}
+
+/* ── Reduced-motion accommodations ──
+ * The brand has a lot of ambient motion (blob morph, gradient shift, pulse,
+ * badge spin, button breathe, cursor wiggle, surface wobble, pixel twinkle).
+ * For visitors who prefer reduced motion we kill looping ambient animation
+ * but keep essential state-change transitions (hover/focus) intact. */
+@media (prefers-reduced-motion: reduce) {
+  .ditto-gradient-text,
+  .ditto-blob,
+  .ditto-blob-loading,
+  .new-badge-glow::before,
+  .btn-blob:hover,
+  .btn-blob-outline:hover,
+  .cursor-follower.wiggle,
+  .blob-row-top,
+  .pixel-star {
+    animation: none !important;
+  }
+  /* Stop the morphing radii from looking mid-animation when we kill them. */
+  .ditto-blob,
+  .ditto-blob-loading {
+    border-radius: 50%;
+  }
+  /* Solid fill for the gradient text instead of the animated gradient. */
+  .ditto-gradient-text {
+    background: none;
+    -webkit-text-fill-color: var(--ditto-primary);
+    color: var(--ditto-primary);
+  }
+  /* Keep the rising-blob surface but quiet its wobble. */
+  @keyframes blob-surface { from, to { border-radius: 55% 45% 0 0 / 18% 18% 0 0; } }
 }

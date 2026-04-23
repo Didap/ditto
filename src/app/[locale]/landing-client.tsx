@@ -308,8 +308,16 @@ export function LandingClient({ locale, isAuthenticated }: LandingProps) {
       />
       {/* Hero */}
       <section className="pt-28 pb-24 px-6 relative overflow-hidden">
-        {/* Background glow */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full opacity-[0.08]" style={{ background: "radial-gradient(circle, #03e65b 0%, transparent 70%)" }} />
+        {/* Background glow — fluid size so it doesn't spill past small viewports;
+            driven by the theme's primary token so it tracks light/dark. */}
+        <div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full opacity-[0.08] pointer-events-none"
+          style={{
+            width: "clamp(320px, 60vw, 720px)",
+            height: "clamp(320px, 60vw, 720px)",
+            background: "radial-gradient(circle, var(--ditto-primary) 0%, transparent 70%)",
+          }}
+        />
 
         {/* Pixel stars scattered */}
         {[
@@ -493,7 +501,7 @@ export function LandingClient({ locale, isAuthenticated }: LandingProps) {
           />
           <Link
             href={isAuthenticated ? lp("/add") : lp("/register")}
-            className="fixed z-50 flex items-center justify-center text-[#0a0a0a] font-bold"
+            className="fixed z-50 flex items-center justify-center text-(--ditto-bg) font-bold"
             style={{
               fontFamily: "'leoSans', 'canvaSans', system-ui, sans-serif",
               bottom: `${3 + Math.pow(blobProgress, 2.5) * 6}vh`,

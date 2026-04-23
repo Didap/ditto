@@ -27,12 +27,20 @@ export function ThemeToggle() {
     window.dispatchEvent(new StorageEvent("storage", { key: "ditto-theme" }));
   };
 
+  const next = dark ? "Light mode" : "Dark mode";
   return (
-    <button onClick={toggle} className="theme-toggle" title={dark ? "Light mode" : "Dark mode"}>
+    <button
+      type="button"
+      onClick={toggle}
+      className="theme-toggle"
+      title={next}
+      aria-label={`Switch to ${next}`}
+      aria-pressed={!dark}
+    >
       {dark ? (
-        <Sun className="w-4 h-4 text-(--ditto-text-muted)" strokeWidth={1.5} />
+        <Sun className="w-4 h-4 text-(--ditto-text-muted)" strokeWidth={1.5} aria-hidden="true" />
       ) : (
-        <Moon className="w-4 h-4 text-(--ditto-text-muted)" strokeWidth={1.5} />
+        <Moon className="w-4 h-4 text-(--ditto-text-muted)" strokeWidth={1.5} aria-hidden="true" />
       )}
     </button>
   );
