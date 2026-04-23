@@ -486,6 +486,19 @@ function ${fnPrefix}_register_pattern_category() {
     }
 }
 add_action( 'init', '${fnPrefix}_register_pattern_category' );
+
+if ( ! function_exists( '${fnPrefix}_register_nav_menus' ) ) :
+    function ${fnPrefix}_register_nav_menus() {
+        register_nav_menus( array(
+            'primary' => __( 'Primary', '${textDomain}' ),
+            'footer'  => __( 'Footer', '${textDomain}' ),
+        ) );
+    }
+endif;
+add_action( 'after_setup_theme', '${fnPrefix}_register_nav_menus' );
+
+// Demo Importer — admin notice + one-click setup of the 5 starter pages.
+require get_template_directory() . '/includes/class-ditto-wp-demo-importer.php';
 `;
 }
 
@@ -1360,24 +1373,50 @@ export async function generateWordPressTheme(
   files.push({ path: "functions.php", content: buildFunctionsPhp(opts) });
   files.push({ path: "readme.txt", content: buildReadmeTxt(opts, fontFaceMap.size > 0, hasLogo) });
 
-  // 5. Templates
+  // 5. Templates — FSE block templates
   files.push({ path: "templates/index.html", content: tplIndex });
   files.push({ path: "templates/home.html", content: tplIndex });
-  files.push({ path: "templates/front-page.html", content: tplFrontPage(opts.designSlug) });
+  files.push({ path: "templates/front-page.html", content: tplFrontPage(opts) });
   files.push({ path: "templates/single.html", content: tplSingle });
   files.push({ path: "templates/page.html", content: tplPage });
   files.push({ path: "templates/archive.html", content: tplArchive });
   files.push({ path: "templates/search.html", content: tplSearch });
   files.push({ path: "templates/404.html", content: tpl404(opts.designName) });
 
+  // 5b. Custom page templates — one per starter page
+  // (WP lists these in Page Attributes → Template and the Demo Importer
+  // assigns them to the matching post.)
+  files.push({ path: "templates/page-about.html", content: tplPageAbout(opts) });
+  files.push({ path: "templates/page-services.html", content: tplPageServices(opts) });
+  files.push({ path: "templates/page-contact.html", content: tplPageContact(opts) });
+  files.push({ path: "templates/page-blog.html", content: tplPageBlog(opts) });
+
   // 6. Parts
   files.push({ path: "parts/header.html", content: partHeader(opts) });
   files.push({ path: "parts/footer.html", content: partFooter(opts) });
 
-  // 7. Patterns
+  // 7. All 24 section patterns (6 sections × 4 variants)
+  const ctx = {
+    designName: opts.designName,
+    designSlug: opts.designSlug,
+    resolved: opts.resolved,
+    tokens: opts.tokens,
+  };
+  for (const p of buildAllPatternFiles(ctx)) {
+    files.push(p);
+  }
+
+  // 7b. Legacy patterns kept so existing template parts keep rendering if the
+  // user had manually referenced them. Low cost (3 files) and safe.
   files.push({ path: "patterns/hero-default.php", content: patternHero(opts) });
   files.push({ path: "patterns/feature-grid.php", content: patternFeatureGrid(opts) });
   files.push({ path: "patterns/cta.php", content: patternCta(opts) });
+
+  // 8. Demo Importer — creates 5 pages + menu + front-page on first activation
+  files.push({
+    path: "includes/class-ditto-wp-demo-importer.php",
+    content: buildDemoImporterPhp(opts),
+  });
 
   return files;
 }
