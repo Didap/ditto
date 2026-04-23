@@ -487,15 +487,35 @@ export function DesignDetailClient({ initialDesign, slug }: DesignDetailProps) {
   };
 
   // ─── Download handlers ────────────────────────────────────────────
-  const downloadDesignMd = useCallback(() => {
-    const blob = new Blob([design.designMd], { type: "text/markdown" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `${design.slug}-DESIGN.md`;
-    a.click();
-    URL.revokeObjectURL(url);
-  }, [design]);
+  const downloadDesignMd = useCallback(
+    async (variant: "llm" | "stitch") => {
+      const res = await fetch(`/api/designs/${design.slug}/design-md?variant=${variant}`);
+      if (!res.ok) {
+        // Fallback to the pre-generated stored version if the endpoint fails
+        // (preserves UX when server-side generator hits an edge case).
+        const blob = new Blob([design.designMd], { type: "text/markdown" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `${design.slug}-DESIGN.md`;
+        a.click();
+        URL.revokeObjectURL(url);
+        return;
+      }
+      const text = await res.text();
+      const blob = new Blob([text], { type: "text/markdown" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download =
+        variant === "stitch"
+          ? `${design.slug}-design.stitch.md`
+          : `${design.slug}-DESIGN.md`;
+      a.click();
+      URL.revokeObjectURL(url);
+    },
+    [design],
+  );
 
   const downloadDevKit = useCallback(async () => {
     const [
@@ -696,16 +716,9 @@ export function DesignDetailClient({ initialDesign, slug }: DesignDetailProps) {
           </div>
         </div>
         <div id="tour-kits" className="flex gap-2 items-center shrink-0">
-          {/* ─── [1] Integra con l'AI — always free, downloads DESIGN.md ─── */}
+          {/* ─── [1] Integra con l'AI — picks LLM coding or Stitch variant ─── */}
           <div className="flex items-center gap-1.5">
-            <button
-              id="tour-designmd-btn"
-              onClick={downloadDesignMd}
-              className="rounded-lg border border-(--ditto-border) px-4 py-2 text-sm font-medium text-(--ditto-text-secondary) hover:text-(--ditto-text) hover:border-(--ditto-text-muted) transition-colors flex items-center gap-1.5"
-            >
-              <Sparkles className="w-3.5 h-3.5" strokeWidth={1.5} />
-              Integra con l&apos;AI
-            </button>
+            <DesignMdDropdown onDownload={downloadDesignMd} />
             <DesignMdInfo />
           </div>
 
@@ -1409,6 +1422,82 @@ function TokensView({ design, onBoost }: { design: StoredDesign; onBoost: () => 
             </pre>
           </div>
         </section>
+      )}
+    </div>
+  );
+}
+
+// Dropdown with the two DESIGN.md variants — LLM coding rich + Stitch strict.
+function DesignMdDropdown({
+  onDownload,
+}: {
+  onDownload: (variant: "llm" | "stitch") => void | Promise<void>;
+}) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="relative">
+      <button
+        id="tour-designmd-btn"
+        onClick={() => setOpen((v) => !v)}
+        className="rounded-lg border border-(--ditto-border) px-4 py-2 text-sm font-medium text-(--ditto-text-secondary) hover:text-(--ditto-text) hover:border-(--ditto-text-muted) transition-colors flex items-center gap-1.5"
+      >
+        <Sparkles className="w-3.5 h-3.5" strokeWidth={1.5} />
+        Integra con l&apos;AI
+        <ChevronDown
+          className={`w-3.5 h-3.5 transition-transform ${open ? "rotate-180" : ""}`}
+          strokeWidth={1.5}
+        />
+      </button>
+      {open && (
+        <>
+          <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} aria-hidden />
+          <div className="absolute right-0 top-full mt-2 z-50 w-[340px] rounded-lg border border-(--ditto-border) bg-(--ditto-surface) shadow-xl p-4">
+            <p className="text-xs text-(--ditto-text-muted) mb-3">
+              Scegli per quale strumento stai preparando il file.
+            </p>
+            <button
+              onClick={() => {
+                onDownload("llm");
+                setOpen(false);
+              }}
+              className="w-full text-left rounded-md border border-(--ditto-border) bg-(--ditto-bg) hover:border-(--ditto-primary) transition-colors p-3 mb-2"
+            >
+              <div className="flex items-center gap-2 mb-1">
+                <span className="text-xs font-bold text-(--ditto-text)">
+                  🤖 AI coding
+                </span>
+                <span className="text-[10px] text-(--ditto-text-muted)">
+                  Claude · Cursor · ChatGPT · Lovable
+                </span>
+              </div>
+              <p className="text-[11px] text-(--ditto-text-muted) leading-snug">
+                DESIGN.md completo: YAML frontmatter + prose dettagliata + esempi di prompt.
+              </p>
+            </button>
+            <button
+              onClick={() => {
+                onDownload("stitch");
+                setOpen(false);
+              }}
+              className="w-full text-left rounded-md border border-(--ditto-border) bg-(--ditto-bg) hover:border-(--ditto-primary) transition-colors p-3"
+            >
+              <div className="flex items-center gap-2 mb-1">
+                <span className="text-xs font-bold text-(--ditto-text)">
+                  ✨ Stitch
+                </span>
+                <span className="text-[10px] text-(--ditto-text-muted)">
+                  Google Labs
+                </span>
+              </div>
+              <p className="text-[11px] text-(--ditto-text-muted) leading-snug">
+                Strict Google DESIGN.md spec: frontmatter + 8 sezioni canoniche. Import-ready.
+              </p>
+            </button>
+            <p className="text-[10px] text-(--ditto-text-muted) text-center mt-3">
+              Entrambi gratis.
+            </p>
+          </div>
+        </>
       )}
     </div>
   );

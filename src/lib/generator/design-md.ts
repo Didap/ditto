@@ -1,11 +1,25 @@
 import type { DesignTokens, ResolvedDesign, HeaderVariant, SectionVariant, SectionKey } from "../types";
 import { SECTION_KEYS } from "../types";
+import { buildStitchFrontmatter } from "./design-md-stitch";
+import { stringifyFrontmatter, type YamlObject } from "./yaml";
 
+/**
+ * Rich DESIGN.md variant — optimized for AI coding assistants (Claude,
+ * Cursor, ChatGPT, Lovable). Includes:
+ *   1. YAML frontmatter (Google spec tokens + `_ditto.*` extensions)
+ *   2. All the rich prose sections (look & feel, voice, motion, gradients)
+ *   3. Agent prompt guide with ready-to-paste examples
+ *
+ * Use `generateDesignMdForStitch` (in design-md-stitch.ts) for the strict
+ * Google-spec variant without extensions.
+ */
 export function generateDesignMd(
   name: string,
   tokens: DesignTokens,
   resolved: ResolvedDesign
 ): string {
+  const frontmatter = buildLlmFrontmatter(name, tokens, resolved);
+
   const sections = [
     generateHeader(name, tokens),
     generateVisualTheme(name, tokens, resolved),
@@ -27,7 +41,72 @@ export function generateDesignMd(
     generateKitFooter(resolved),
   ].filter(Boolean);
 
-  return sections.join("\n\n");
+  return `${frontmatter}\n${sections.join("\n\n")}`;
+}
+
+/**
+ * LLM variant frontmatter — Google spec tokens (same as Stitch) PLUS a
+ * `_ditto` block with Ditto-only extensions (gradients, motion, voice,
+ * section variants, quality score). Tools that follow the Google spec
+ * ignore `_`-prefixed keys, so this is forward-compatible.
+ */
+function buildLlmFrontmatter(
+  name: string,
+  tokens: DesignTokens,
+  resolved: ResolvedDesign,
+): string {
+  // Re-use Stitch's strict builder to get Google-spec tokens, then append
+  // our extension block. Cheapest way: build Stitch frontmatter then splice
+  // an extra YAML doc in — but simpler is to compose one object ourselves.
+  const strict = buildStitchFrontmatter(name, tokens, resolved);
+  // Pop the closing `---` off, append extensions, re-close.
+  const lines = strict.trim().split("\n");
+  if (lines[lines.length - 1] !== "---") return strict;
+  lines.pop(); // remove closing ---
+
+  const extensions: YamlObject = {
+    _ditto: {
+      generatorVersion: "1.0",
+      sourceUrl: tokens.meta?.url,
+      extractedAt: tokens.meta?.extractedAt,
+      brand: {
+        name: resolved.brandName || name,
+        logoUrl: resolved.logoUrl,
+        headerVariant: resolved.headerVariant || "classic",
+        heroVariant: resolved.heroVariant || "classic",
+        featuresVariant: resolved.featuresVariant || "classic",
+        statsVariant: resolved.statsVariant || "classic",
+        reviewsVariant: resolved.reviewsVariant || "classic",
+        ctaVariant: resolved.ctaVariant || "classic",
+        footerVariant: resolved.footerVariant || "classic",
+      },
+      gradients: (tokens.gradients || []).slice(0, 4).reduce((acc, g, i) => {
+        acc[`g${i + 1}`] = g.value;
+        return acc;
+      }, {} as Record<string, string>),
+      motion: tokens.transitions && tokens.transitions[0]
+        ? {
+            durationMs: tokens.transitions[0].durationMs,
+            easing: tokens.transitions[0].easing,
+          }
+        : undefined,
+      voice: tokens.microcopy
+        ? {
+            headline: tokens.microcopy.heroHeadline,
+            subheadline: tokens.microcopy.heroSubheadline,
+            ctaLabels: (tokens.microcopy.ctaLabels || []).slice(0, 4).join(" · "),
+            tags: (tokens.microcopy.voiceTags || []).join(" · "),
+          }
+        : undefined,
+    },
+  };
+
+  // Reuse stringifyFrontmatter just for the nested extension YAML
+  const extYaml = stringifyFrontmatter(extensions)
+    .replace(/^---\n/, "")
+    .replace(/\n---\n$/, "");
+
+  return `${lines.join("\n")}\n${extYaml}\n---\n`;
 }
 
 // ── New sections (extended signals) ─────────────────────────────────────────

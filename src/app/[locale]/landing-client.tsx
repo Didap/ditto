@@ -6,6 +6,7 @@ import { t, LOCALES } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n";
 import { useLocalePath } from "@/lib/locale-context";
 import { ScrambleText } from "@/components/ScrambleText";
+import { CompatibilityCarousel } from "@/components/CompatibilityCarousel";
 import { Search, Blend, Zap, Eye, Package, Target } from "lucide-react";
 import dynamic from "next/dynamic";
 
@@ -352,6 +353,9 @@ export function LandingClient({ locale, isAuthenticated }: LandingProps) {
           </div>
         </div>
       </section>
+
+      {/* Compatibility — "Funziona con" marquee of all tools Ditto ships for */}
+      <CompatibilityCarousel />
 
       {/* Features */}
       <section className="py-20 px-6 border-t border-(--ditto-border)">

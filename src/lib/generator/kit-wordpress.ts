@@ -1154,23 +1154,22 @@ class Ditto_Wp_Demo_Importer {
 \t\t?>
 \t\t<div class="wrap">
 \t\t\t<h1><?php echo esc_html( '${designNameEsc} — Demo Importer' ); ?></h1>
-\t\t\t<?php if ( $just_imported && ! $partial ) : ?>
-\t\t\t\t<div class="notice notice-success"><p><?php esc_html_e( 'Demo imported successfully! Visit your site to see the homepage.', '${textDomain}' ); ?></p></div>
-\t\t\t<?php elseif ( $just_imported && $partial ) : ?>
-\t\t\t\t<div class="notice notice-warning"><p><strong><?php esc_html_e( 'Demo imported with warnings:', '${textDomain}' ); ?></strong></p>
-\t\t\t\t<?php if ( is_array( $warnings ) ) : ?>
-\t\t\t\t\t<ul style="list-style:disc;padding-left:20px">
-\t\t\t\t\t<?php foreach ( $warnings as $w ) : ?>
-\t\t\t\t\t\t<li><?php echo esc_html( $w ); ?></li>
-\t\t\t\t\t<?php endforeach; ?>
-\t\t\t\t\t</ul>
+\t\t\t<?php if ( $just_imported ) : ?>
+\t\t\t\t<div class="notice notice-success"><p><strong><?php esc_html_e( 'Demo imported successfully!', '${textDomain}' ); ?></strong> <?php esc_html_e( 'Visit your site to see the homepage.', '${textDomain}' ); ?></p></div>
+\t\t\t\t<?php if ( $partial && is_array( $warnings ) ) : ?>
+\t\t\t\t\t<div class="notice notice-info"><p><strong><?php esc_html_e( 'Manual steps to finish:', '${textDomain}' ); ?></strong></p>
+\t\t\t\t\t\t<ul style="list-style:disc;padding-left:20px">
+\t\t\t\t\t\t<?php foreach ( $warnings as $w ) : ?>
+\t\t\t\t\t\t\t<li><?php echo esc_html( $w ); ?></li>
+\t\t\t\t\t\t<?php endforeach; ?>
+\t\t\t\t\t\t</ul>
+\t\t\t\t\t</div>
 \t\t\t\t<?php endif; ?>
-\t\t\t\t<p><?php esc_html_e( 'Pages and menu were created — only the steps above failed. You can complete them manually (e.g. Site Identity → upload assets/logo.png as Site Logo).', '${textDomain}' ); ?></p></div>
 \t\t\t<?php elseif ( $done ) : ?>
 \t\t\t\t<div class="notice notice-info"><p><?php esc_html_e( 'Demo already imported. Re-running will update existing pages with matching slugs.', '${textDomain}' ); ?></p></div>
 \t\t\t<?php endif; ?>
-\t\t\t<p><?php esc_html_e( 'This creates 5 pages (Home / About / Services / Blog / Contact), assigns each to the matching Ditto page template, sets Home as the static front page, builds a Primary menu, and sets the bundled logo (PNG) as Site Logo.', '${textDomain}' ); ?></p>
-\t\t\t<p style="color:#646970"><?php esc_html_e( 'The importer never uploads SVG files — it uses the PNG placeholder (assets/logo.png) for the Site Logo so it works with Wordfence, iThemes, Sucuri and ModSecurity. Upload assets/logo.svg manually from Site Identity if you prefer vector.', '${textDomain}' ); ?></p>
+\t\t\t<p><?php esc_html_e( 'This creates 5 pages (Home / About / Services / Blog / Contact), assigns each to the matching Ditto page template, sets Home as the static front page, and builds a Primary menu.', '${textDomain}' ); ?></p>
+\t\t\t<p style="color:#646970"><strong><?php esc_html_e( 'WAF-safe:', '${textDomain}' ); ?></strong> <?php esc_html_e( 'The importer makes only database changes — no file uploads, no filesystem writes, no PHP in /wp-content/uploads/. Compatible with Wordfence, iThemes, Sucuri, ModSecurity and Malware.Expert. You set the Site Logo manually from Site Identity once the import finishes (the bundled logo.png is in your theme folder).', '${textDomain}' ); ?></p>
 \t\t\t<form method="post" action="<?php echo esc_url( $action ); ?>">
 \t\t\t\t<input type="hidden" name="action" value="ditto_wp_import_demo" />
 \t\t\t\t<?php wp_nonce_field( self::NONCE ); ?>
@@ -1267,56 +1266,24 @@ class Ditto_Wp_Demo_Importer {
 
 \t/**
 \t * Import the bundled logo (assets/logo.svg) into the media library and
-\t * set it as the Site Logo. Uses the PNG version (safe, universally
-\t * accepted by WP + security plugins) instead of the SVG — the SVG is
-\t * shipped but only for manual upload via Site Identity when the user
-\t * has an SVG-Support plugin enabled.
+\t * Option B (WAF-safe): **never** touches the filesystem or uploads dir.
+\t * The importer just tells the user where to find the bundled logo so they
+\t * can upload it manually via Site Identity. Compatible with any WAF,
+\t * ModSecurity ruleset, managed-hosting hardening, and Malware.Expert
+\t * rules that block writes/reads to /wp-content/uploads/.
 \t *
-\t * Returns WP_Error on failure so the caller can surface it; never
-\t * throws or escapes.
+\t * Returns a WP_Error-like notice so the caller can surface it in the
+\t * "imported with warnings" UI — the error is informational, not fatal.
 \t */
 \tprivate static function set_site_logo() {
-\t\tif ( get_theme_mod( 'custom_logo' ) ) return true; // user already chose one
+\t\tif ( get_theme_mod( 'custom_logo' ) ) return true;
 
-\t\t$logo_path = get_template_directory() . '/assets/logo.png';
-\t\tif ( ! file_exists( $logo_path ) ) {
-\t\t\treturn new WP_Error( 'ditto_logo_missing', 'Bundled logo.png not found in theme.' );
-\t\t}
-
-\t\t$uploads = wp_upload_dir();
-\t\tif ( ! empty( $uploads['error'] ) ) {
-\t\t\treturn new WP_Error( 'ditto_uploads_unavailable', 'WordPress uploads directory is not writable.' );
-\t\t}
-
-\t\t$target_dir = trailingslashit( $uploads['path'] );
-\t\tif ( ! wp_is_writable( $target_dir ) ) {
-\t\t\treturn new WP_Error( 'ditto_uploads_readonly', 'Uploads directory is read-only — likely a security hardening setting.' );
-\t\t}
-
-\t\t$target = $target_dir . 'ditto-site-logo.png';
-\t\tif ( ! @copy( $logo_path, $target ) ) {
-\t\t\treturn new WP_Error( 'ditto_logo_copy_failed', 'Could not copy logo into uploads — the hosting may restrict copy() from theme contexts. Upload assets/logo.png manually from Site Identity.' );
-\t\t}
-
-\t\t$attachment = [
-\t\t\t'post_mime_type' => 'image/png',
-\t\t\t'post_title'     => 'Site Logo',
-\t\t\t'post_content'   => '',
-\t\t\t'post_status'    => 'inherit',
-\t\t];
-\t\t$attach_id = wp_insert_attachment( $attachment, $target );
-\t\tif ( is_wp_error( $attach_id ) ) {
-\t\t\treturn $attach_id;
-\t\t}
-\t\tif ( ! $attach_id ) {
-\t\t\treturn new WP_Error( 'ditto_attach_failed', 'Could not register logo as a media library attachment.' );
-\t\t}
-
-\t\trequire_once ABSPATH . 'wp-admin/includes/image.php';
-\t\t$attach_data = wp_generate_attachment_metadata( $attach_id, $target );
-\t\twp_update_attachment_metadata( $attach_id, $attach_data );
-\t\tset_theme_mod( 'custom_logo', $attach_id );
-\t\treturn true;
+\t\t// Informational notice — not a real failure. We intentionally skip
+\t\t// the auto-upload step to stay compatible with strict WAFs.
+\t\treturn new WP_Error(
+\t\t\t'ditto_logo_manual',
+\t\t\t'Site Logo not set automatically (skipped for WAF compatibility). Upload assets/logo.png manually: Appearance → Customize → Site Identity → Logo → Select Image → pick the bundled logo.png from your theme folder.'
+\t\t);
 \t}
 }
 
