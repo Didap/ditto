@@ -5,6 +5,7 @@ import type { ResolvedDesign, HeaderVariant, SectionVariant, SectionKey } from "
 import { HEADER_VARIANTS, SECTION_KEYS, SECTION_LABELS } from "@/lib/types";
 import { HEADER_VARIANT_DESCRIPTIONS } from "@/components/preview/primitives/brand";
 import { Paintbrush, X as XIcon, Sparkles, Upload, Trash2, Dices, RotateCcw, ChevronDown } from "lucide-react";
+import { useT } from "@/lib/locale-context";
 
 /** Each section's variant lives in a different field on resolved. */
 const SECTION_VARIANT_FIELD: Record<SectionKey, keyof ResolvedDesign> = {
@@ -59,6 +60,7 @@ export function FloatingEditor({
   slug,
   defaultBrandName,
 }: FloatingEditorProps) {
+  const t = useT();
   const [open, setOpen] = useState(false);
   const [tab, setTab] = useState<"colors" | "fonts" | "shape" | "brand" | "figma">("colors");
   const [brandBusy, setBrandBusy] = useState<"upload" | "remove" | null>(null);
@@ -260,10 +262,10 @@ export function FloatingEditor({
             }}
           >
             <p className="text-sm font-medium" style={{ color: "var(--ditto-text)" }}>
-              Psst! Premi qui per personalizzare colori, font e forme
+              {t("feGuideTitle")}
             </p>
             <p className="text-xs mt-1" style={{ color: "var(--ditto-text-muted)" }}>
-              Il design è tuo, rendilo perfetto <Sparkles className="w-3 h-3 inline" />
+              {t("feGuideSubtitle")} <Sparkles className="w-3 h-3 inline" />
             </p>
             {/* Arrow pointing right */}
             <div
@@ -287,7 +289,7 @@ export function FloatingEditor({
           color: "var(--ditto-bg)",
           animation: guideVisible && !open ? "pulse-ring 2s ease-in-out infinite" : undefined,
         }}
-        title="Design Editor"
+        title={t("feEditorAria")}
       >
         {open ? <XIcon className="w-5 h-5" /> : <Paintbrush className="w-5 h-5" />}
       </button>
@@ -322,7 +324,7 @@ export function FloatingEditor({
             style={{ borderBottom: "1px solid var(--ditto-border)" }}
           >
             <span className="text-sm font-semibold" style={{ color: "var(--ditto-text)" }}>
-              Design Editor
+              {t("feEditorTitle")}
             </span>
             <div className="flex gap-1.5">
               {onDownloadKit && (
@@ -331,7 +333,7 @@ export function FloatingEditor({
                   className="text-xs px-2 py-1 rounded"
                   style={{ backgroundColor: "var(--ditto-primary)", color: "var(--ditto-bg)" }}
                 >
-                  Kit
+                  {t("feBtnKit")}
                 </button>
               )}
             </div>
@@ -346,7 +348,7 @@ export function FloatingEditor({
                 onClick={(e) => e.stopPropagation()}
               >
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-lg font-bold" style={{ color: "var(--ditto-text)" }}>Come importare in Figma</h3>
+                  <h3 className="text-lg font-bold" style={{ color: "var(--ditto-text)" }}>{t("feFigmaGuideTitle")}</h3>
                   <button onClick={() => setFigmaGuide(false)} className="text-lg" style={{ color: "var(--ditto-text-muted)" }}>✕</button>
                 </div>
 
@@ -355,16 +357,16 @@ export function FloatingEditor({
                   <div>
                     <div className="flex items-center gap-2 mb-2">
                       <span className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold" style={{ backgroundColor: "var(--ditto-primary)", color: "var(--ditto-bg)" }}>1</span>
-                      <span className="font-semibold" style={{ color: "var(--ditto-text)" }}>Tokens Studio (consigliato)</span>
+                      <span className="font-semibold" style={{ color: "var(--ditto-text)" }}>{t("feFigmaMethod1Title")}</span>
                     </div>
                     <div className="pl-8 space-y-1.5">
-                      <p>Usa il file <code className="px-1 py-0.5 rounded text-xs" style={{ backgroundColor: "var(--ditto-bg)" }}>figma-tokens.json</code></p>
+                      <p>{t("feFigmaMethod1Intro")} <code className="px-1 py-0.5 rounded text-xs" style={{ backgroundColor: "var(--ditto-bg)" }}>figma-tokens.json</code></p>
                       <ol className="list-decimal list-inside space-y-1" style={{ color: "var(--ditto-text-muted)" }}>
-                        <li>Apri Figma e installa <strong style={{ color: "var(--ditto-text)" }}>Tokens Studio for Figma</strong> (gratuito)</li>
-                        <li>Apri il plugin → clicca <strong style={{ color: "var(--ditto-text)" }}>Tools → Load from file</strong></li>
-                        <li>Seleziona <code className="px-1 py-0.5 rounded text-xs" style={{ backgroundColor: "var(--ditto-bg)" }}>figma-tokens.json</code></li>
-                        <li>Tutti i token (colori, font, spacing, radius, ombre) appaiono nel pannello</li>
-                        <li>Seleziona un elemento → applica i token con un click</li>
+                        <li>{t("feFigmaStep1Pre")} <strong style={{ color: "var(--ditto-text)" }}>Tokens Studio for Figma</strong> {t("feFigmaStep1Free")}</li>
+                        <li>{t("feFigmaStep2Pre")} <strong style={{ color: "var(--ditto-text)" }}>Tools → Load from file</strong></li>
+                        <li>{t("feFigmaStep3")} <code className="px-1 py-0.5 rounded text-xs" style={{ backgroundColor: "var(--ditto-bg)" }}>figma-tokens.json</code></li>
+                        <li>{t("feFigmaStep4")}</li>
+                        <li>{t("feFigmaStep5")}</li>
                       </ol>
                     </div>
                   </div>
@@ -373,25 +375,25 @@ export function FloatingEditor({
                   <div>
                     <div className="flex items-center gap-2 mb-2">
                       <span className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold" style={{ backgroundColor: "var(--ditto-border)", color: "var(--ditto-text-muted)" }}>2</span>
-                      <span className="font-semibold" style={{ color: "var(--ditto-text)" }}>Figma REST API (per developer)</span>
+                      <span className="font-semibold" style={{ color: "var(--ditto-text)" }}>{t("feFigmaMethod2Title")}</span>
                     </div>
                     <div className="pl-8 space-y-1.5">
                       <p style={{ color: "var(--ditto-text-muted)" }}>
-                        Il file <code className="px-1 py-0.5 rounded text-xs" style={{ backgroundColor: "var(--ditto-bg)" }}>figma-variables.json</code> contiene i token nel formato dell&apos;API Figma.
-                        Puoi usarlo con la <strong style={{ color: "var(--ditto-text)" }}>Figma REST API</strong> o con plugin come <strong style={{ color: "var(--ditto-text)" }}>Batch Styler</strong> per creare Variables programmaticamente.
+                        {t("feFigmaMethod2Pre")} <code className="px-1 py-0.5 rounded text-xs" style={{ backgroundColor: "var(--ditto-bg)" }}>figma-variables.json</code> {t("feFigmaMethod2Mid")}{" "}
+                        <strong style={{ color: "var(--ditto-text)" }}>{t("feFigmaMethod2RestApi")}</strong> {t("feFigmaMethod2Or")} <strong style={{ color: "var(--ditto-text)" }}>Batch Styler</strong> {t("feFigmaMethod2Post")}
                       </p>
                     </div>
                   </div>
 
                   {/* What's included */}
                   <div className="rounded-lg p-4" style={{ backgroundColor: "var(--ditto-bg)", border: "1px solid var(--ditto-border)" }}>
-                    <p className="font-semibold mb-2" style={{ color: "var(--ditto-text)" }}>Cosa contengono i file:</p>
+                    <p className="font-semibold mb-2" style={{ color: "var(--ditto-text)" }}>{t("feFigmaIncludedTitle")}</p>
                     <ul className="space-y-1" style={{ color: "var(--ditto-text-muted)" }}>
-                      <li>12 colori con ruoli (primary, background, text, ecc.)</li>
-                      <li>8 stili tipografici completi (display, h1-h3, body, small, caption, code)</li>
-                      <li>6 valori di spacing + 4 border radius</li>
-                      <li>3 livelli di shadow</li>
-                      <li>Token compositi per Button, Card, Input, Badge</li>
+                      <li>{t("feFigmaInclude1")}</li>
+                      <li>{t("feFigmaInclude2")}</li>
+                      <li>{t("feFigmaInclude3")}</li>
+                      <li>{t("feFigmaInclude4")}</li>
+                      <li>{t("feFigmaInclude5")}</li>
                     </ul>
                   </div>
                 </div>
@@ -401,7 +403,7 @@ export function FloatingEditor({
                   className="mt-5 w-full py-2.5 rounded-lg text-sm font-medium"
                   style={{ backgroundColor: "var(--ditto-primary)", color: "var(--ditto-bg)" }}
                 >
-                  Ho capito!
+                  {t("feGotIt")}
                 </button>
               </div>
             </div>
@@ -409,25 +411,25 @@ export function FloatingEditor({
 
           {/* Tabs */}
           <div className="flex shrink-0" style={{ borderBottom: "1px solid var(--ditto-border)" }}>
-            {(["brand", "colors", "fonts", "shape", "figma"] as const).map((t) => (
+            {(["brand", "colors", "fonts", "shape", "figma"] as const).map((tabKey) => (
               <button
-                key={t}
-                onClick={() => setTab(t)}
+                key={tabKey}
+                onClick={() => setTab(tabKey)}
                 className="flex-1 py-2 text-xs font-medium transition-colors"
                 style={{
-                  color: tab === t ? "var(--ditto-primary)" : "var(--ditto-text-muted)",
-                  borderBottom: tab === t ? "2px solid var(--ditto-primary)" : "2px solid transparent",
+                  color: tab === tabKey ? "var(--ditto-primary)" : "var(--ditto-text-muted)",
+                  borderBottom: tab === tabKey ? "2px solid var(--ditto-primary)" : "2px solid transparent",
                 }}
               >
-                {t === "brand"
-                  ? "Brand"
-                  : t === "colors"
-                    ? "Colori"
-                    : t === "fonts"
-                      ? "Font"
-                      : t === "shape"
-                        ? "Forma"
-                        : "Figma"}
+                {tabKey === "brand"
+                  ? t("feTabBrand")
+                  : tabKey === "colors"
+                    ? t("feTabColors")
+                    : tabKey === "fonts"
+                      ? t("feTabFonts")
+                      : tabKey === "shape"
+                        ? t("feTabShape")
+                        : t("feTabFigma")}
               </button>
             ))}
           </div>
@@ -440,14 +442,14 @@ export function FloatingEditor({
                 {/* Brand name */}
                 <div>
                   <span className="text-[11px] mb-1.5 block" style={{ color: "var(--ditto-text-muted)" }}>
-                    Nome brand
+                    {t("feBrandName")}
                   </span>
                   <input
                     type="text"
                     value={resolved.brandName ?? defaultBrandName ?? ""}
                     onChange={(e) => setBrandName(e.target.value)}
                     onBlur={(e) => persistBrandName(e.target.value)}
-                    placeholder={defaultBrandName || "Brand"}
+                    placeholder={defaultBrandName || t("feBrandNamePlaceholder")}
                     className="w-full rounded-md border px-2 py-1.5 text-xs outline-none"
                     style={{
                       borderColor: "var(--ditto-border)",
@@ -461,10 +463,10 @@ export function FloatingEditor({
                 <div>
                   <div className="flex items-center justify-between mb-1.5">
                     <span className="text-[11px]" style={{ color: "var(--ditto-text-muted)" }}>
-                      Logo
+                      {t("feBrandLogoLabel")}
                     </span>
                     <span className="text-[10px]" style={{ color: "var(--ditto-text-muted)" }}>
-                      SVG, PNG, JPG, WebP · max 3MB
+                      {t("feBrandLogoTypes")}
                     </span>
                   </div>
                   <div
@@ -480,7 +482,7 @@ export function FloatingEditor({
                         // eslint-disable-next-line @next/next/no-img-element
                         <img
                           src={resolved.logoUrl}
-                          alt="logo"
+                          alt={t("feBrandLogoAlt")}
                           style={{ maxWidth: "100%", maxHeight: "100%", objectFit: "contain" }}
                         />
                       ) : (
@@ -503,10 +505,10 @@ export function FloatingEditor({
                       >
                         <Upload className="w-3 h-3" strokeWidth={2} />
                         {brandBusy === "upload"
-                          ? "Caricamento..."
+                          ? t("feBrandLogoLoading")
                           : resolved.logoUrl
-                            ? "Sostituisci"
-                            : "Carica logo"}
+                            ? t("feBrandLogoReplace")
+                            : t("feBrandLogoUpload")}
                       </button>
                       {resolved.logoUrl && (
                         <button
@@ -519,7 +521,7 @@ export function FloatingEditor({
                           }}
                         >
                           <Trash2 className="w-3 h-3" strokeWidth={1.5} />
-                          Rimuovi
+                          {t("feBrandLogoRemove")}
                         </button>
                       )}
                     </div>
@@ -538,7 +540,7 @@ export function FloatingEditor({
                   </div>
                   {!slug && (
                     <p className="text-[10px] mt-1.5" style={{ color: "var(--ditto-text-muted)" }}>
-                      Salva il design per poter caricare un logo.
+                      {t("feBrandLogoSaveFirst")}
                     </p>
                   )}
                   {brandError && (
@@ -552,32 +554,32 @@ export function FloatingEditor({
                 <div>
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-[11px]" style={{ color: "var(--ditto-text-muted)" }}>
-                      Stile landing
+                      {t("feStyleSection")}
                     </span>
                     <div className="flex items-center gap-2">
                       <button
                         onClick={shuffleAll}
-                        title="Sorprendimi — randomizza ogni sezione"
+                        title={t("feStyleSurpriseTitle")}
                         className="text-[10px] inline-flex items-center gap-1 transition-colors"
                         style={{ color: "var(--ditto-text-muted)" }}
                       >
                         <Dices className="w-3 h-3" strokeWidth={1.5} />
-                        Sorprendimi
+                        {t("feStyleSurprise")}
                       </button>
                       <span className="text-[10px]" style={{ color: "var(--ditto-border)" }}>·</span>
                       <button
                         onClick={resetAll}
-                        title="Ripristina stile originale"
+                        title={t("feStyleResetTitle")}
                         className="text-[10px] inline-flex items-center gap-1 transition-colors"
                         style={{ color: "var(--ditto-text-muted)" }}
                       >
                         <RotateCcw className="w-3 h-3" strokeWidth={1.5} />
-                        Reset
+                        {t("feStyleReset")}
                       </button>
                     </div>
                   </div>
                   <p className="text-[10px] leading-relaxed mb-2" style={{ color: "var(--ditto-text-muted)" }}>
-                    Un click applica lo stile all&apos;header, all&apos;hero e a tutte le sezioni della landing.
+                    {t("feStyleHint")}
                   </p>
 
                   <div className="grid grid-cols-2 gap-2">
@@ -610,7 +612,7 @@ export function FloatingEditor({
 
                   {!currentPreset && (
                     <p className="text-[10px] mt-2" style={{ color: "var(--ditto-text-muted)" }}>
-                      Stile misto — ogni sezione ha una variante diversa.
+                      {t("feStyleMixed")}
                     </p>
                   )}
                 </div>
@@ -622,7 +624,7 @@ export function FloatingEditor({
                     className="w-full flex items-center justify-between py-1.5 text-[11px] font-medium transition-colors"
                     style={{ color: "var(--ditto-text-secondary)" }}
                   >
-                    <span>Personalizza per sezione</span>
+                    <span>{t("feCustomizeSection")}</span>
                     <ChevronDown
                       className="w-3 h-3 transition-transform"
                       strokeWidth={1.5}
@@ -634,7 +636,7 @@ export function FloatingEditor({
                     <div className="space-y-3 mt-2">
                       {/* Header */}
                       <SectionVariantRow
-                        label="Header"
+                        label={t("feHeaderLabel")}
                         value={resolved.headerVariant ?? "classic"}
                         onChange={pickHeaderVariant}
                       />
@@ -687,7 +689,7 @@ export function FloatingEditor({
                           color: "var(--ditto-text)",
                         }}
                       >
-                        <option value={resolved[fontKey]}>{resolved[fontKey]} (attuale)</option>
+                        <option value={resolved[fontKey]}>{resolved[fontKey]} {t("feFontCurrent")}</option>
                         {allFonts
                           .filter((f) => f !== resolved[fontKey])
                           .map((f) => <option key={f} value={f}>{f}</option>)}
@@ -705,7 +707,7 @@ export function FloatingEditor({
                           fontWeight: fontKey === "fontHeading" ? resolved.fontWeightHeading : 400,
                         }}
                       >
-                        The quick brown fox jumps
+                        {t("feFontPreview")}
                       </div>
                     </div>
                   );
@@ -714,7 +716,7 @@ export function FloatingEditor({
                 {/* Weight controls */}
                 <div>
                   <span className="text-[11px] mb-1.5 block" style={{ color: "var(--ditto-text-muted)" }}>
-                    Heading Weight: {resolved.fontWeightHeading}
+                    {t("feFontHeadingWeight")}: {resolved.fontWeightHeading}
                   </span>
                   <input
                     type="range" min={100} max={900} step={100}
@@ -731,7 +733,7 @@ export function FloatingEditor({
               <div className="space-y-5">
                 <div>
                   <span className="text-[11px] mb-1.5 block" style={{ color: "var(--ditto-text-muted)" }}>
-                    Border Radius: {resolved.radiusMd}
+                    {t("feShapeBorderRadius")}: {resolved.radiusMd}
                   </span>
                   <input
                     type="range" min={0} max={24}
@@ -764,7 +766,7 @@ export function FloatingEditor({
                 {/* Shadow preview */}
                 <div>
                   <span className="text-[11px] mb-2 block" style={{ color: "var(--ditto-text-muted)" }}>
-                    Shadows
+                    {t("feShapeShadows")}
                   </span>
                   <div className="flex gap-3">
                     {[
@@ -795,10 +797,10 @@ export function FloatingEditor({
                 <div>
                   <div className="flex items-center gap-2 mb-2">
                     <span className="w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold" style={{ backgroundColor: "var(--ditto-primary)", color: "var(--ditto-bg)" }}>1</span>
-                    <span className="text-[11px] font-semibold" style={{ color: "var(--ditto-text)" }}>Tokens Studio (tutti i piani)</span>
+                    <span className="text-[11px] font-semibold" style={{ color: "var(--ditto-text)" }}>{t("feFigmaAllPlansTitle")}</span>
                   </div>
                   <p className="text-[10px] mb-3" style={{ color: "var(--ditto-text-muted)" }}>
-                    Scarica il file JSON e importalo nel plugin gratuito Tokens Studio for Figma.
+                    {t("feFigmaDownloadDesc")}
                   </p>
                   <button
                     onClick={async () => {
@@ -813,14 +815,14 @@ export function FloatingEditor({
                     className="w-full py-2 rounded-md text-xs font-medium"
                     style={{ backgroundColor: "var(--ditto-primary)", color: "var(--ditto-bg)" }}
                   >
-                    Scarica figma-tokens.json
+                    {t("feFigmaDownloadBtn")}
                   </button>
                   <div className="text-[10px] mt-2 leading-relaxed rounded-md p-2" style={{ color: "var(--ditto-text-muted)", backgroundColor: "var(--ditto-bg)" }}>
-                    <strong style={{ color: "var(--ditto-text-secondary)" }}>Come importare:</strong><br/>
-                    1. Installa <strong style={{ color: "var(--ditto-text)" }}>Tokens Studio for Figma</strong> (gratuito)<br/>
-                    2. Apri il plugin → <strong style={{ color: "var(--ditto-text)" }}>Tools → Load from file</strong><br/>
-                    3. Seleziona il file scaricato<br/>
-                    4. 12 colori + 8 stili tipografici + spacing + radius + shadow pronti
+                    <strong style={{ color: "var(--ditto-text-secondary)" }}>{t("feFigmaHowImport")}</strong><br/>
+                    1. {t("feFigmaImport1Pre")} <strong style={{ color: "var(--ditto-text)" }}>Tokens Studio for Figma</strong> {t("feFigmaImport1Free")}<br/>
+                    2. {t("feFigmaImport2Pre")} <strong style={{ color: "var(--ditto-text)" }}>Tools → Load from file</strong><br/>
+                    3. {t("feFigmaImport3")}<br/>
+                    4. {t("feFigmaImport4")}
                   </div>
                 </div>
 
@@ -830,11 +832,11 @@ export function FloatingEditor({
                 <div>
                   <div className="flex items-center gap-2 mb-2">
                     <span className="w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold" style={{ backgroundColor: "var(--ditto-border)", color: "var(--ditto-text-muted)" }}>2</span>
-                    <span className="text-[11px] font-semibold" style={{ color: "var(--ditto-text)" }}>Push diretto via API</span>
-                    <span className="text-[9px] px-1.5 py-0.5 rounded" style={{ backgroundColor: "var(--ditto-bg)", color: "var(--ditto-text-muted)" }}>Enterprise</span>
+                    <span className="text-[11px] font-semibold" style={{ color: "var(--ditto-text)" }}>{t("feFigmaApiTitle")}</span>
+                    <span className="text-[9px] px-1.5 py-0.5 rounded" style={{ backgroundColor: "var(--ditto-bg)", color: "var(--ditto-text-muted)" }}>{t("feFigmaApiBadge")}</span>
                   </div>
                   <p className="text-[10px] mb-2" style={{ color: "var(--ditto-text-muted)" }}>
-                    Crea le variabili direttamente nel file Figma. Richiede piano Enterprise con scope <code style={{ fontSize: "9px" }}>file_variables:write</code>.
+                    {t("feFigmaApiDescPre")} <code style={{ fontSize: "9px" }}>file_variables:write</code>.
                   </p>
 
                   <div className="space-y-2">
@@ -842,7 +844,7 @@ export function FloatingEditor({
                       type="password"
                       value={figmaToken}
                       onChange={(e) => { setFigmaToken(e.target.value); localStorage.setItem("ditto_figma_token", e.target.value); }}
-                      placeholder="Personal Access Token (figd_...)"
+                      placeholder={t("feFigmaTokenPlaceholder")}
                       className="w-full rounded-md border px-2 py-1.5 text-xs outline-none"
                       style={{ borderColor: "var(--ditto-border)", backgroundColor: "var(--ditto-bg)", color: "var(--ditto-text)" }}
                     />
@@ -850,7 +852,7 @@ export function FloatingEditor({
                       type="text"
                       value={figmaFileUrl}
                       onChange={(e) => setFigmaFileUrl(e.target.value)}
-                      placeholder="URL del file Figma"
+                      placeholder={t("feFigmaUrlPlaceholder")}
                       className="w-full rounded-md border px-2 py-1.5 text-xs outline-none"
                       style={{ borderColor: "var(--ditto-border)", backgroundColor: "var(--ditto-bg)", color: "var(--ditto-text)" }}
                     />
@@ -860,21 +862,21 @@ export function FloatingEditor({
                         setFigmaPushing(true); setFigmaPushResult("");
                         try {
                           const match = figmaFileUrl.match(/figma\.com\/(?:design|file)\/([a-zA-Z0-9]+)/);
-                          if (!match) { setFigmaPushResult("URL non valido"); setFigmaPushing(false); return; }
+                          if (!match) { setFigmaPushResult(t("feFigmaInvalidUrl")); setFigmaPushing(false); return; }
                           const res = await fetch("/api/figma-push", {
                             method: "POST",
                             headers: { "Content-Type": "application/json" },
                             body: JSON.stringify({ token: figmaToken, fileKey: match[1], resolved }),
                           });
                           const data = await res.json();
-                          setFigmaPushResult(data.success ? `${data.totalVars} variabili pushate!` : (data.error || "Errore"));
-                        } catch { setFigmaPushResult("Errore di connessione"); }
+                          setFigmaPushResult(data.success ? `${data.totalVars} ${t("feFigmaVarsPushedSuffix")}` : (data.error || t("feFigmaError")));
+                        } catch { setFigmaPushResult(t("feFigmaConnErr")); }
                         setFigmaPushing(false);
                       }}
                       className="w-full py-1.5 rounded-md text-xs font-medium disabled:opacity-40 border"
                       style={{ borderColor: "var(--ditto-border)", color: "var(--ditto-text-secondary)" }}
                     >
-                      {figmaPushing ? "Pushing..." : "Push Variables"}
+                      {figmaPushing ? t("feFigmaPushing") : t("feFigmaPushBtn")}
                     </button>
                     {figmaPushResult && (
                       <p className="text-[11px] text-center" style={{ color: figmaPushResult.includes("!") ? "var(--ditto-success)" : "var(--ditto-error)" }}>

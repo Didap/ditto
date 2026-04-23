@@ -73,6 +73,16 @@ Ditto is a multi-user design system tool that extracts design systems from websi
 - For insufficient credits errors, use `insufficientCredits(required, available)` from the same module
 - When adding new error cases, add them to the `ApiError` enum first
 
+### Localization (always)
+- **Every user-facing string must be localized** — never hardcode text in any language in a component's JSX, `title`, `aria-label`, `placeholder`, or alt attributes. The app ships in English, Italian, French and Spanish.
+- Translation keys live in `src/lib/i18n.ts` as one flat object per locale (`en`, `it`, `fr`, `es`). When adding a key, add it to **all four** locales — key parity is enforced by the fact that `TranslationKey = keyof typeof translations.en`.
+- Access translations in client components via the `useT()` hook from `src/lib/locale-context.tsx`: `const t = useT(); return <h1>{t("myKey")}</h1>`. In server components or non-React code, import `t` directly from `@/lib/i18n` and pass the current locale.
+- **No default string fallbacks in JSX or props** — e.g. `function Foo({ label = "Funziona con" })` is wrong. Either accept only the prop (caller passes a translated value) or call `useT()` inside the component.
+- Placeholders inside copyable shell commands / code examples are an exception: use a language-neutral literal (e.g. `YOUR_KEY_HERE`) rather than a translation key, and reference the same literal in surrounding explanatory text.
+- Email templates (`src/emails/*`) carry their own per-locale `Record<Locale, Copy>` dictionary keyed off `locale?: Locale` props — follow that existing pattern; don't add email strings to `i18n.ts`.
+- When refactoring or adding UI, run a quick scan for hardcoded text before committing:
+  `python3 -c "import re,pathlib; [print(f'{p}:{i}: {l.strip()[:120]}') for p in pathlib.Path('src').rglob('*.tsx') for i,l in enumerate(p.read_text().splitlines(),1) if re.search(r'\b(della|delle|questo|questa|caricamento|salva|rimuovi|aggiungi|elimina|accedi|scarica|apri|seleziona|clicca|premi|grazie|benvenut|funziona)\b', l, re.I) and not (l.strip().startswith(('//','*','/*','import ','from ')) or 'src/lib/i18n.ts' in str(p) or 'src/emails' in str(p))]"`
+
 ### Next.js 16 patterns
 - Proxy: `src/proxy.ts` (not `middleware.ts`) — Next.js 16 renamed middleware to proxy
 - Async APIs: `params`, `searchParams`, `cookies()`, `headers()` must always be `await`ed

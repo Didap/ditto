@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { useCredits } from "@/lib/credits-context";
-import { useLocalePath, usePathnameLocale } from "@/lib/locale-context";
+import { useLocalePath, usePathnameLocale, useT } from "@/lib/locale-context";
 import { useOnborda } from "onborda";
 import { hasSeenTour } from "@/lib/onboarding";
 
@@ -23,6 +23,7 @@ interface SpecialQuota {
 }
 
 export default function AddDesignPage() {
+  const t = useT();
   const lp = useLocalePath();
   const locale = usePathnameLocale();
   const [url, setUrl] = useState("");
@@ -94,13 +95,13 @@ export default function AddDesignPage() {
 
     // Simulate progress steps
     const steps = [
-      "Launching browser...",
-      "Loading page...",
-      "Extracting colors...",
-      "Analyzing typography...",
-      "Detecting components...",
-      "Generating DESIGN.md...",
-      "Saving...",
+      t("addStepLaunchBrowser"),
+      t("addStepLoadingPage"),
+      t("addStepExtractingColors"),
+      t("addStepAnalyzingTypography"),
+      t("addStepDetectingComponents"),
+      t("addStepGeneratingMd"),
+      t("addStepSaving"),
     ];
 
     let stepIndex = 0;
@@ -135,21 +136,21 @@ export default function AddDesignPage() {
       if (!res.ok) {
         const data = await res.json();
         if (data.waf) setWafBlocked(true);
-        throw new Error(data.error || "Extraction failed");
+        throw new Error(data.error || t("addErrorExtractionFailed"));
       }
 
       const data = await res.json();
       setResultSlug(data.slug);
       setSpecialCharged(data.specialExtractionCharged || 0);
       setState("done");
-      setProgress({ step: "Complete!", progress: 100 });
+      setProgress({ step: t("addStepComplete"), progress: 100 });
       deduct(100 + (data.specialExtractionCharged || 0));
       refresh();
       refreshQuota();
     } catch (err) {
       clearInterval(progressInterval);
       setState("error");
-      setError(err instanceof Error ? err.message : "Unknown error");
+      setError(err instanceof Error ? err.message : t("addErrorUnknown"));
       // Refresh credits — the server refunds on extraction failure (WAF, errors)
       refresh();
     }
@@ -179,10 +180,10 @@ export default function AddDesignPage() {
   return (
     <div className="max-w-2xl mx-auto">
       <h1 className="text-2xl font-bold tracking-tight text-(--ditto-text) mb-2">
-        Add Design
+        {t("addTitle")}
       </h1>
       <p className="text-sm text-(--ditto-text-secondary) mb-8">
-        Enter a website URL and Ditto will reverse-engineer its design system.
+        {t("addSubtitle")}
       </p>
 
       <div className="rounded-xl border border-(--ditto-border) bg-(--ditto-surface) p-6">
@@ -190,13 +191,13 @@ export default function AddDesignPage() {
           {/* URL Input */}
           <div id="tour-url-input">
             <label className="block text-sm font-medium text-(--ditto-text) mb-1.5">
-              Website URL
+              {t("addUrlLabel")}
             </label>
             <input
               type="url"
               value={url}
               onChange={(e) => setUrl(e.target.value)}
-              placeholder="https://stripe.com"
+              placeholder={t("addUrlPlaceholder")}
               className="w-full rounded-lg border border-(--ditto-border) bg-(--ditto-bg) px-4 py-2.5 text-sm text-(--ditto-text) placeholder-(--ditto-text-muted) outline-none focus:border-(--ditto-primary) transition-colors"
               disabled={state === "extracting"}
             />
@@ -205,16 +206,16 @@ export default function AddDesignPage() {
           {/* Name Input */}
           <div id="tour-name-input">
             <label className="block text-sm font-medium text-(--ditto-text) mb-1.5">
-              Design Name{" "}
+              {t("addNameLabel")}{" "}
               <span className="font-normal text-(--ditto-text-muted)">
-                (optional, auto-derived from URL)
+                {t("addNameOptional")}
               </span>
             </label>
             <input
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder="Stripe"
+              placeholder={t("addNamePlaceholder")}
               className="w-full rounded-lg border border-(--ditto-border) bg-(--ditto-bg) px-4 py-2.5 text-sm text-(--ditto-text) placeholder-(--ditto-text-muted) outline-none focus:border-(--ditto-primary) transition-colors"
               disabled={state === "extracting"}
             />
@@ -223,7 +224,7 @@ export default function AddDesignPage() {
           {/* Extract Button */}
           {!canAdd && credits !== null && (
             <div className="rounded-lg border border-(--ditto-warning)/30 bg-(--ditto-warning)/10 px-4 py-2.5">
-              <p className="text-sm text-(--ditto-warning)">Crediti insufficienti. Servono 100 crediti, ne hai {credits}.</p>
+              <p className="text-sm text-(--ditto-warning)">{t("addCreditsWarning").replace("{credits}", String(credits))}</p>
             </div>
           )}
           <button
@@ -232,17 +233,17 @@ export default function AddDesignPage() {
             disabled={!url || state === "extracting" || !canAdd}
             className="w-full rounded-lg bg-(--ditto-primary) px-4 py-2.5 text-sm font-medium text-(--ditto-bg) hover:bg-(--ditto-primary-hover) transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {state === "extracting" ? "Extracting..." : `Extract Design System (100 crediti)`}
+            {state === "extracting" ? t("addExtractingBtn") : t("addExtractBtn")}
           </button>
 
           {/* Special-extraction quota hint */}
           {specialQuota && (
             <p className="text-[11px] text-(--ditto-text-muted) leading-relaxed">
-              Siti con protezioni avanzate (AWS WAF, Cloudflare, etc.) richiedono un&apos;estrazione &quot;speciale&quot; via proxy.
+              {t("addSpecialIntro")}
               {specialQuota.isFree ? (
-                <> Ne hai <strong className="text-(--ditto-text-secondary)">{specialQuota.freeRemaining}</strong> gratis questo mese incluse nei 100 crediti base.</>
+                <> {t("addSpecialFreePart1")} <strong className="text-(--ditto-text-secondary)">{specialQuota.freeRemaining}</strong> {t("addSpecialFreePart2")}</>
               ) : (
-                <> Hai già usato la tua estrazione speciale gratis del mese: le prossime costano <strong className="text-(--ditto-text-secondary)">+{specialQuota.extraCost}</strong> crediti ciascuna (oltre ai 100 base).</>
+                <> {t("addSpecialPaidPart1")} <strong className="text-(--ditto-text-secondary)">+{specialQuota.extraCost}</strong> {t("addSpecialPaidPart2")}</>
               )}
             </p>
           )}
@@ -276,7 +277,7 @@ export default function AddDesignPage() {
               onClick={() => setState("idle")}
               className="mt-2 text-xs text-red-300 underline"
             >
-              Try again
+              {t("addTryAgain")}
             </button>
           </div>
         )}
@@ -291,12 +292,10 @@ export default function AddDesignPage() {
               </div>
               <div>
                 <h3 className="text-sm font-semibold text-(--ditto-text) mb-1">
-                  Questo sito ci respinge anche via proxy
+                  {t("addWafTitle")}
                 </h3>
                 <p className="text-xs text-(--ditto-text-secondary) leading-relaxed">
-                  Abbiamo già provato due strade automatiche (il nostro server + un proxy residenziale) ma il sito
-                  ha protezioni più strette del solito. L&apos;alternativa è estrarre dal <strong>tuo</strong> browser,
-                  che ha già superato la verifica umana.
+                  {t("addWafDesc")}
                 </p>
               </div>
             </div>
@@ -306,25 +305,24 @@ export default function AddDesignPage() {
                 onClick={generateBookmarklet}
                 className="rounded-lg bg-(--ditto-primary) px-4 py-2 text-sm font-medium text-(--ditto-bg) hover:bg-(--ditto-primary-hover) transition-colors"
               >
-                Procedi con estrazione manuale
+                {t("addWafProceedBtn")}
               </button>
             )}
 
             {bookmarkletState === "loading" && (
-              <p className="text-xs text-(--ditto-text-muted)">Preparazione del link…</p>
+              <p className="text-xs text-(--ditto-text-muted)">{t("addWafPreparingLink")}</p>
             )}
 
             {bookmarkletState === "error" && (
               <p className="text-xs text-red-400">
-                Non sono riuscito a generare il link. Riprova tra un momento.
+                {t("addWafLinkError")}
               </p>
             )}
 
             {bookmarkletState === "ready" && bookmarkletHref && (
               <div className="flex flex-col gap-4">
                 <p className="text-xs text-(--ditto-text-secondary)">
-                  Segui i 4 passaggi qui sotto. Lo fai una volta sola — poi il segnalibro resta sul tuo browser
-                  e puoi riusarlo su qualsiasi sito &quot;ostico&quot;.
+                  {t("addWafStepsIntro")}
                 </p>
 
                 {/* Step 1 */}
@@ -334,11 +332,10 @@ export default function AddDesignPage() {
                   </div>
                   <div className="flex-1">
                     <p className="text-sm font-medium text-(--ditto-text) mb-1">
-                      Mostra la barra dei segnalibri
+                      {t("addWafStep1Title")}
                     </p>
                     <p className="text-xs text-(--ditto-text-secondary) leading-relaxed">
-                      Serve visibile per poterci trascinare sopra il link.
-                      Premi{" "}
+                      {t("addWafStep1DescPart1")}{" "}
                       <kbd className="px-1.5 py-0.5 rounded border border-(--ditto-border) bg-(--ditto-surface) text-[11px] font-mono">
                         ⌘ Cmd
                       </kbd>{" "}
@@ -350,7 +347,7 @@ export default function AddDesignPage() {
                       <kbd className="px-1.5 py-0.5 rounded border border-(--ditto-border) bg-(--ditto-surface) text-[11px] font-mono">
                         B
                       </kbd>{" "}
-                      su Mac, o{" "}
+                      {t("addWafStep1DescOn")}{" "}
                       <kbd className="px-1.5 py-0.5 rounded border border-(--ditto-border) bg-(--ditto-surface) text-[11px] font-mono">
                         Ctrl
                       </kbd>{" "}
@@ -362,7 +359,7 @@ export default function AddDesignPage() {
                       <kbd className="px-1.5 py-0.5 rounded border border-(--ditto-border) bg-(--ditto-surface) text-[11px] font-mono">
                         B
                       </kbd>{" "}
-                      su Windows/Linux.
+                      {t("addWafStep1DescSuffix")}
                     </p>
                   </div>
                 </div>
@@ -374,27 +371,24 @@ export default function AddDesignPage() {
                   </div>
                   <div className="flex-1">
                     <p className="text-sm font-medium text-(--ditto-text) mb-1">
-                      Trascina questo bottone sulla barra segnalibri
+                      {t("addWafStep2Title")}
                     </p>
                     <p className="text-xs text-(--ditto-text-secondary) leading-relaxed mb-2">
-                      Tieni premuto il tasto sinistro del mouse sul bottone qui sotto, portalo in alto sulla barra
-                      segnalibri, rilascia. Non cliccarlo: trascinalo.
+                      {t("addWafStep2Desc")}
                     </p>
                     <a
                       ref={bookmarkletAnchorRef}
                       href="#"
                       onClick={(e) => {
                         e.preventDefault();
-                        alert(
-                          "Non cliccare: trascinalo sulla barra dei segnalibri in alto."
-                        );
+                        alert(t("addWafDragAlert"));
                       }}
                       draggable
-                      title="Trascinami sulla barra dei segnalibri"
+                      title={t("addWafDragTitle")}
                       className="inline-flex items-center gap-2 rounded-lg border-2 border-dashed border-(--ditto-primary) bg-(--ditto-primary)/10 hover:bg-(--ditto-primary)/15 px-4 py-2.5 text-sm font-semibold text-(--ditto-primary) cursor-grab active:cursor-grabbing select-none transition-colors"
                     >
                       <span className="text-base leading-none">↥</span>
-                      Estrai con Ditto
+                      {t("addWafDragLabel")}
                     </a>
                   </div>
                 </div>
@@ -406,14 +400,14 @@ export default function AddDesignPage() {
                   </div>
                   <div className="flex-1">
                     <p className="text-sm font-medium text-(--ditto-text) mb-1">
-                      Apri il sito da estrarre in una nuova tab
+                      {t("addWafStep3Title")}
                     </p>
                     <p className="text-xs text-(--ditto-text-secondary) leading-relaxed">
-                      Vai su{" "}
+                      {t("addWafStep3DescPart1")}{" "}
                       <code className="px-1.5 py-0.5 rounded bg-(--ditto-surface) text-(--ditto-text) text-[11px] font-mono break-all">
-                        {url || "il sito che volevi estrarre"}
+                        {url || t("addWafStep3Fallback")}
                       </code>{" "}
-                      in una nuova scheda del browser.
+                      {t("addWafStep3DescPart2")}
                     </p>
                   </div>
                 </div>
@@ -425,11 +419,10 @@ export default function AddDesignPage() {
                   </div>
                   <div className="flex-1">
                     <p className="text-sm font-medium text-(--ditto-text) mb-1">
-                      Una volta sul sito, clicca il segnalibro &quot;Estrai con Ditto&quot;
+                      {t("addWafStep4Title")}
                     </p>
                     <p className="text-xs text-(--ditto-text-secondary) leading-relaxed">
-                      Si aprirà una nuova scheda su Ditto con il messaggio &quot;Design saved&quot;. 100 crediti
-                      vengono scalati solo allora. Il link è valido 10 minuti — dopo, rigeneralo.
+                      {t("addWafStep4Desc")}
                     </p>
                   </div>
                 </div>
@@ -442,12 +435,11 @@ export default function AddDesignPage() {
         {state === "done" && (
           <div className="mt-6 rounded-lg border border-green-500/30 bg-green-500/10 px-4 py-3">
             <p className="text-sm text-green-400 mb-2">
-              Design system extracted successfully!
+              {t("addSuccessMsg")}
             </p>
             {specialCharged > 0 && (
               <p className="text-xs text-(--ditto-text-secondary) mb-3">
-                Estrazione &quot;speciale&quot; via proxy: addebitati <strong>+{specialCharged}</strong> crediti oltre ai 100 base
-                (la tua estrazione gratuita del mese era già stata usata).
+                {t("addSuccessSpecialPart1")} <strong>+{specialCharged}</strong> {t("addSuccessSpecialPart2")}
               </p>
             )}
             {specialCharged === 0 && state === "done" && (
@@ -460,7 +452,7 @@ export default function AddDesignPage() {
                 href={`/design/${resultSlug}`}
                 className="rounded-lg bg-(--ditto-primary) px-4 py-2 text-sm font-medium text-(--ditto-bg)"
               >
-                View Design
+                {t("addViewDesign")}
               </a>
               <button
                 onClick={() => {
@@ -470,7 +462,7 @@ export default function AddDesignPage() {
                 }}
                 className="rounded-lg border border-(--ditto-border) px-4 py-2 text-sm text-(--ditto-text-secondary)"
               >
-                Add Another
+                {t("addAnother")}
               </button>
             </div>
           </div>
@@ -480,17 +472,17 @@ export default function AddDesignPage() {
       {/* Catalog Section */}
       <div className="mt-8">
         <h2 className="text-lg font-semibold text-(--ditto-text) mb-4">
-          Or browse the catalog
+          {t("addCatalogTitle")}
         </h2>
         <p className="text-sm text-(--ditto-text-muted) mb-4">
-          Unlock curated design systems from our collection of 70+ styles for 50 credits each.
+          {t("addCatalogSubtitle")}
         </p>
         <a
           id="tour-catalog-link"
           href={lp("/catalog")}
           className="inline-flex items-center gap-2 rounded-lg border border-(--ditto-border) px-4 py-2 text-sm font-medium text-(--ditto-text-secondary) hover:text-(--ditto-text) hover:border-(--ditto-text-muted) transition-colors"
         >
-          Browse Catalog
+          {t("addCatalogBtn")}
         </a>
       </div>
     </div>

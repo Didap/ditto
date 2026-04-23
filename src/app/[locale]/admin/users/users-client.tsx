@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useCallback } from "react";
 import { Coins, Pencil, Trash2, Check, X, Search, RefreshCw, Gift } from "lucide-react";
+import { useT } from "@/lib/locale-context";
 
 interface AdminUserRow {
   id: string;
@@ -24,12 +25,13 @@ interface EditState {
 }
 
 function formatDate(iso: string | null): string {
-  if (!iso) return "—";
+  if (!iso) return "-";
   const d = new Date(iso);
   return d.toISOString().slice(0, 10);
 }
 
 export function AdminUsersClient({ currentAdminId }: { currentAdminId: string }) {
+  const t = useT();
   const [rows, setRows] = useState<AdminUserRow[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -73,7 +75,7 @@ export function AdminUsersClient({ currentAdminId }: { currentAdminId: string })
   const saveCreditsInline = async (id: string, value: string) => {
     const n = Number(value);
     if (!Number.isInteger(n) || n < 0) {
-      setError("Credits must be a non-negative integer");
+      setError(t("adminCreditsMustBeNonNegative"));
       return;
     }
     setSavingCredits(id);
@@ -181,9 +183,9 @@ export function AdminUsersClient({ currentAdminId }: { currentAdminId: string })
     <div>
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-(--ditto-text)">Manage Users</h1>
+          <h1 className="text-2xl font-bold tracking-tight text-(--ditto-text)">{t("adminTitle")}</h1>
           <p className="text-sm text-(--ditto-text-muted) mt-1">
-            {loading ? "Loading…" : `${rows.length} total · ${filtered.length} shown`}
+            {loading ? t("adminLoading") : `${rows.length} ${t("adminTotal")} · ${filtered.length} ${t("adminShown")}`}
           </p>
         </div>
         <div className="flex items-center gap-2">
@@ -192,7 +194,7 @@ export function AdminUsersClient({ currentAdminId }: { currentAdminId: string })
             <input
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search email or name…"
+              placeholder={t("adminSearchPlaceholder")}
               className="w-64 pl-8 pr-3 py-2 rounded-lg bg-(--ditto-surface) border border-(--ditto-border) text-sm text-(--ditto-text) placeholder:text-(--ditto-text-muted) focus:outline-none focus:border-(--ditto-primary)"
             />
           </div>
@@ -200,10 +202,10 @@ export function AdminUsersClient({ currentAdminId }: { currentAdminId: string })
             onClick={load}
             disabled={loading}
             className="flex items-center gap-1.5 rounded-lg border border-(--ditto-border) px-3 py-2 text-sm text-(--ditto-text-secondary) hover:text-(--ditto-text) hover:border-(--ditto-text-muted) transition-colors disabled:opacity-50"
-            title="Refresh"
+            title={t("adminRefresh")}
           >
             <RefreshCw className={`w-3.5 h-3.5 ${loading ? "animate-spin" : ""}`} strokeWidth={1.5} />
-            Refresh
+            {t("adminRefresh")}
           </button>
         </div>
       </div>
@@ -218,16 +220,16 @@ export function AdminUsersClient({ currentAdminId }: { currentAdminId: string })
         <table className="w-full text-sm">
           <thead>
             <tr className="bg-(--ditto-surface) text-left text-xs uppercase tracking-wide text-(--ditto-text-muted)">
-              <th className="px-4 py-3 font-medium">Email</th>
-              <th className="px-4 py-3 font-medium">Name</th>
-              <th className="px-4 py-3 font-medium">Plan</th>
-              <th className="px-4 py-3 font-medium text-right">Credits</th>
-              <th className="px-4 py-3 font-medium text-right">Spent</th>
-              <th className="px-4 py-3 font-medium text-right">Designs</th>
-              <th className="px-4 py-3 font-medium">Verified</th>
-              <th className="px-4 py-3 font-medium">Last login</th>
-              <th className="px-4 py-3 font-medium">Joined</th>
-              <th className="px-4 py-3 font-medium text-right">Actions</th>
+              <th className="px-4 py-3 font-medium">{t("adminColEmail")}</th>
+              <th className="px-4 py-3 font-medium">{t("adminColName")}</th>
+              <th className="px-4 py-3 font-medium">{t("adminColPlan")}</th>
+              <th className="px-4 py-3 font-medium text-right">{t("adminColCredits")}</th>
+              <th className="px-4 py-3 font-medium text-right">{t("adminColSpent")}</th>
+              <th className="px-4 py-3 font-medium text-right">{t("adminColDesigns")}</th>
+              <th className="px-4 py-3 font-medium">{t("adminColVerified")}</th>
+              <th className="px-4 py-3 font-medium">{t("adminColLastLogin")}</th>
+              <th className="px-4 py-3 font-medium">{t("adminColJoined")}</th>
+              <th className="px-4 py-3 font-medium text-right">{t("adminColActions")}</th>
             </tr>
           </thead>
           <tbody>
@@ -244,11 +246,11 @@ export function AdminUsersClient({ currentAdminId }: { currentAdminId: string })
                     <span className="font-medium">{u.email}</span>
                     {isSelf && (
                       <span className="ml-2 text-[10px] uppercase tracking-wide text-(--ditto-primary)">
-                        you
+                        {t("adminYouBadge")}
                       </span>
                     )}
                   </td>
-                  <td className="px-4 py-3 text-(--ditto-text-secondary)">{u.name || "—"}</td>
+                  <td className="px-4 py-3 text-(--ditto-text-secondary)">{u.name || "-"}</td>
                   <td className="px-4 py-3 text-(--ditto-text-secondary)">{u.plan}</td>
                   <td className="px-4 py-3 text-right">
                     {draft !== null ? (
@@ -269,7 +271,7 @@ export function AdminUsersClient({ currentAdminId }: { currentAdminId: string })
                           onClick={() => saveCreditsInline(u.id, draft)}
                           disabled={isSaving}
                           className="p-1 rounded text-(--ditto-success) hover:bg-(--ditto-success)/10 disabled:opacity-50"
-                          title="Save"
+                          title={t("adminSave")}
                         >
                           <Check className="w-3.5 h-3.5" strokeWidth={2} />
                         </button>
@@ -277,7 +279,7 @@ export function AdminUsersClient({ currentAdminId }: { currentAdminId: string })
                           onClick={() => setCreditsDraft(null)}
                           disabled={isSaving}
                           className="p-1 rounded text-(--ditto-text-muted) hover:bg-(--ditto-bg)"
-                          title="Cancel"
+                          title={t("adminCancel")}
                         >
                           <X className="w-3.5 h-3.5" strokeWidth={2} />
                         </button>
@@ -288,7 +290,7 @@ export function AdminUsersClient({ currentAdminId }: { currentAdminId: string })
                           setCreditsDraft({ id: u.id, value: String(u.credits) })
                         }
                         className="inline-flex items-center gap-1 px-2 py-1 rounded text-(--ditto-primary) hover:bg-(--ditto-primary)/10 font-semibold"
-                        title="Edit credits"
+                        title={t("adminEditCredits")}
                       >
                         <Coins className="w-3.5 h-3.5" strokeWidth={1.5} />
                         {u.credits}
@@ -300,7 +302,7 @@ export function AdminUsersClient({ currentAdminId }: { currentAdminId: string })
                   </td>
                   <td className="px-4 py-3 text-right">{u.designsCount}</td>
                   <td className="px-4 py-3 text-(--ditto-text-muted)">
-                    {u.emailVerified ? "✓" : "—"}
+                    {u.emailVerified ? "✓" : "-"}
                   </td>
                   <td className="px-4 py-3 text-(--ditto-text-muted)">
                     {formatDate(u.lastLoginAt)}
@@ -313,10 +315,10 @@ export function AdminUsersClient({ currentAdminId }: { currentAdminId: string })
                       <button
                         onClick={() => setGifting(u)}
                         className="inline-flex items-center gap-1 px-2 py-1.5 rounded text-xs font-medium text-(--ditto-primary) border border-(--ditto-primary)/30 hover:bg-(--ditto-primary)/10"
-                        title="Gift 1,000 welcome credits"
+                        title={t("adminGift1000Tooltip")}
                       >
                         <Gift className="w-3.5 h-3.5" strokeWidth={1.5} />
-                        Regala 1000
+                        {t("adminGift1000")}
                       </button>
                       <button
                         onClick={() =>
@@ -328,7 +330,7 @@ export function AdminUsersClient({ currentAdminId }: { currentAdminId: string })
                           })
                         }
                         className="p-1.5 rounded text-(--ditto-text-secondary) hover:text-(--ditto-text) hover:bg-(--ditto-bg)"
-                        title="Edit user"
+                        title={t("adminEditUser")}
                       >
                         <Pencil className="w-3.5 h-3.5" strokeWidth={1.5} />
                       </button>
@@ -336,7 +338,7 @@ export function AdminUsersClient({ currentAdminId }: { currentAdminId: string })
                         onClick={() => setDeleting(u)}
                         disabled={isSelf}
                         className="p-1.5 rounded text-(--ditto-text-secondary) hover:text-(--ditto-error) hover:bg-(--ditto-error)/10 disabled:opacity-30 disabled:cursor-not-allowed"
-                        title={isSelf ? "Cannot delete yourself" : "Delete user"}
+                        title={isSelf ? t("adminCannotDeleteYourself") : t("adminDeleteUser")}
                       >
                         <Trash2 className="w-3.5 h-3.5" strokeWidth={1.5} />
                       </button>
@@ -348,7 +350,7 @@ export function AdminUsersClient({ currentAdminId }: { currentAdminId: string })
             {!loading && filtered.length === 0 && (
               <tr>
                 <td colSpan={10} className="px-4 py-12 text-center text-(--ditto-text-muted)">
-                  No users match.
+                  {t("adminNoUsersMatch")}
                 </td>
               </tr>
             )}
@@ -361,61 +363,48 @@ export function AdminUsersClient({ currentAdminId }: { currentAdminId: string })
         <Modal onClose={() => setGifting(null)}>
           <h2 className="flex items-center gap-2 text-lg font-semibold text-(--ditto-text) mb-1">
             <Gift className="w-5 h-5 text-(--ditto-primary)" strokeWidth={2} />
-            Regala 1000 crediti di benvenuto
+            {t("adminWelcomeGiftTitle")}
           </h2>
           <p className="text-xs text-(--ditto-text-muted) mb-4">
-            <strong className="text-(--ditto-text)">{gifting.email}</strong> riceverà{" "}
-            <strong className="text-(--ditto-primary)">+1000 crediti</strong> (saldo:{" "}
-            {gifting.credits} → {gifting.credits + 1000}) e una email di ringraziamento
-            bilingue (EN + IT).
+            <strong className="text-(--ditto-text)">{gifting.email}</strong> {t("adminWillReceive")}{" "}
+            <strong className="text-(--ditto-primary)">{t("adminPlus1000Credits")}</strong> ({t("adminBalanceLabel")}:{" "}
+            {gifting.credits} {"->"} {gifting.credits + 1000}) {t("adminAndBilingualEmail")}
           </p>
 
           <div className="rounded-lg border border-(--ditto-border) bg-(--ditto-bg) overflow-hidden">
             <div className="flex items-center justify-between px-3 py-2 border-b border-(--ditto-border) text-[10px] uppercase tracking-wider text-(--ditto-text-muted)">
-              <span>Anteprima email</span>
-              <span>Da: William &lt;noreply@dittodesign.dev&gt;</span>
+              <span>{t("adminEmailPreview")}</span>
+              <span>{t("adminEmailFrom")}</span>
             </div>
             <div className="px-4 py-3 max-h-[260px] overflow-y-auto text-xs text-(--ditto-text-secondary) leading-relaxed space-y-2">
               <p className="text-(--ditto-text)">
-                <strong>Oggetto:</strong> A little thank-you from Ditto — 1,000 credits for you
+                <strong>{t("adminEmailSubjectLabel")}:</strong> {t("adminWelcomeGiftSubjectEn")}
               </p>
               <hr className="border-(--ditto-border)" />
-              <p>Hi {gifting.name || "there"},</p>
+              <p>{t("adminWelcomeGiftEnGreeting").replace("{name}", gifting.name || t("adminThereFallback"))},</p>
+              <p>{t("adminWelcomeGiftEnP1")}</p>
               <p>
-                Thank you for using Ditto — it genuinely means a lot to us that you&apos;ve
-                chosen our platform as part of your workflow.
+                {t("adminWelcomeGiftEnP2Before")}{" "}
+                <strong className="text-(--ditto-primary)">{t("adminWelcomeGiftEnP2Credits")}</strong>{" "}
+                {t("adminWelcomeGiftEnP2After")}
               </p>
-              <p>
-                As a small token of our appreciation, we&apos;ve added{" "}
-                <strong className="text-(--ditto-primary)">1,000 credits</strong> to your
-                account.
-              </p>
-              <p>
-                If you have any feedback, ideas, or run into anything we can help with, just
-                reply to this email — we&apos;d love to hear from you.
-              </p>
-              <p>Thanks again for being part of Ditto.</p>
-              <p className="text-(--ditto-text-muted)">Best,<br />William<br />The Ditto Team</p>
+              <p>{t("adminWelcomeGiftEnP3")}</p>
+              <p>{t("adminWelcomeGiftEnP4")}</p>
+              <p className="text-(--ditto-text-muted)">{t("adminWelcomeGiftEnSignOff")}<br />William<br />{t("adminWelcomeGiftEnTeam")}</p>
               <hr className="border-(--ditto-border) my-3" />
               <p className="text-[10px] uppercase tracking-wider text-(--ditto-text-muted)">
-                🇮🇹 Versione italiana
+                {t("adminItalianVersion")}
               </p>
-              <p>Ciao {gifting.name || "ciao"},</p>
+              <p>{t("adminWelcomeGiftItGreeting").replace("{name}", gifting.name || t("adminCiaoFallback"))},</p>
+              <p>{t("adminWelcomeGiftItP1")}</p>
               <p>
-                Grazie per aver scelto Ditto — significa davvero molto per noi che tu abbia
-                deciso di includere la nostra piattaforma nel tuo flusso di lavoro.
+                {t("adminWelcomeGiftItP2Before")}{" "}
+                <strong className="text-(--ditto-primary)">{t("adminWelcomeGiftItP2Credits")}</strong>{" "}
+                {t("adminWelcomeGiftItP2After")}
               </p>
-              <p>
-                Come piccolo segno di apprezzamento, abbiamo aggiunto{" "}
-                <strong className="text-(--ditto-primary)">1.000 crediti</strong> al tuo
-                account.
-              </p>
-              <p>
-                Se hai qualche feedback, idee o qualcosa in cui possiamo aiutarti, rispondi
-                pure a questa email — ci fa piacere sentirti.
-              </p>
-              <p>Grazie ancora per far parte di Ditto.</p>
-              <p className="text-(--ditto-text-muted)">Un saluto,<br />William<br />Il team di Ditto</p>
+              <p>{t("adminWelcomeGiftItP3")}</p>
+              <p>{t("adminWelcomeGiftItP4")}</p>
+              <p className="text-(--ditto-text-muted)">{t("adminWelcomeGiftItSignOff")}<br />William<br />{t("adminWelcomeGiftItTeam")}</p>
             </div>
           </div>
 
@@ -425,7 +414,7 @@ export function AdminUsersClient({ currentAdminId }: { currentAdminId: string })
               disabled={busy}
               className="rounded-lg border border-(--ditto-border) px-4 py-2 text-sm text-(--ditto-text-secondary) hover:text-(--ditto-text) hover:border-(--ditto-text-muted)"
             >
-              Annulla
+              {t("adminCancel")}
             </button>
             <button
               onClick={confirmGift}
@@ -433,7 +422,7 @@ export function AdminUsersClient({ currentAdminId }: { currentAdminId: string })
               className="inline-flex items-center gap-2 rounded-lg bg-(--ditto-primary) px-4 py-2 text-sm font-semibold text-(--ditto-bg) hover:bg-(--ditto-primary-hover) disabled:opacity-50"
             >
               <Gift className="w-4 h-4" strokeWidth={2} />
-              {busy ? "Invio in corso…" : "Conferma e invia email"}
+              {busy ? t("adminSending") : t("adminConfirmAndSend")}
             </button>
           </div>
         </Modal>
@@ -445,20 +434,20 @@ export function AdminUsersClient({ currentAdminId }: { currentAdminId: string })
           <Gift className="w-5 h-5 text-(--ditto-primary) mt-0.5 shrink-0" strokeWidth={2} />
           <div className="flex-1 min-w-0">
             <p className="text-sm font-semibold text-(--ditto-text)">
-              +1000 crediti consegnati
+              {t("adminGiftDelivered")}
             </p>
             <p className="text-xs text-(--ditto-text-muted) mt-0.5">
-              Saldo ora:{" "}
+              {t("adminBalanceNow")}:{" "}
               <strong className="text-(--ditto-primary)">{giftResult.newBalance}</strong>.{" "}
               {giftResult.emailSent
-                ? "Email inviata."
-                : "⚠️ Crediti aggiunti ma l'email non è partita — controlla i log Resend."}
+                ? t("adminEmailSent")
+                : t("adminEmailNotSent")}
             </p>
           </div>
           <button
             onClick={() => setGiftResult(null)}
             className="p-1 rounded text-(--ditto-text-muted) hover:text-(--ditto-text) hover:bg-(--ditto-bg)"
-            aria-label="Close"
+            aria-label={t("adminClose")}
           >
             <X className="w-4 h-4" strokeWidth={1.5} />
           </button>
@@ -468,13 +457,13 @@ export function AdminUsersClient({ currentAdminId }: { currentAdminId: string })
       {/* Edit modal */}
       {editing && (
         <Modal onClose={() => setEditing(null)}>
-          <h2 className="text-lg font-semibold text-(--ditto-text) mb-1">Edit user</h2>
+          <h2 className="text-lg font-semibold text-(--ditto-text) mb-1">{t("adminEditUser")}</h2>
           <p className="text-xs text-(--ditto-text-muted) mb-4">
-            ID: <code className="font-mono">{editing.user.id}</code>
+            {t("adminIdLabel")}: <code className="font-mono">{editing.user.id}</code>
           </p>
           <div className="flex flex-col gap-3">
             <label className="flex flex-col gap-1">
-              <span className="text-xs text-(--ditto-text-muted)">Name</span>
+              <span className="text-xs text-(--ditto-text-muted)">{t("adminColName")}</span>
               <input
                 value={editing.name}
                 onChange={(e) => setEditing({ ...editing, name: e.target.value })}
@@ -482,7 +471,7 @@ export function AdminUsersClient({ currentAdminId }: { currentAdminId: string })
               />
             </label>
             <label className="flex flex-col gap-1">
-              <span className="text-xs text-(--ditto-text-muted)">Email</span>
+              <span className="text-xs text-(--ditto-text-muted)">{t("adminColEmail")}</span>
               <input
                 type="email"
                 value={editing.email}
@@ -491,7 +480,7 @@ export function AdminUsersClient({ currentAdminId }: { currentAdminId: string })
               />
             </label>
             <label className="flex flex-col gap-1">
-              <span className="text-xs text-(--ditto-text-muted)">Credits</span>
+              <span className="text-xs text-(--ditto-text-muted)">{t("adminColCredits")}</span>
               <input
                 type="number"
                 min={0}
@@ -508,14 +497,14 @@ export function AdminUsersClient({ currentAdminId }: { currentAdminId: string })
               disabled={busy}
               className="rounded-lg border border-(--ditto-border) px-4 py-2 text-sm text-(--ditto-text-secondary) hover:text-(--ditto-text) hover:border-(--ditto-text-muted)"
             >
-              Cancel
+              {t("adminCancel")}
             </button>
             <button
               onClick={saveEdit}
               disabled={busy}
               className="rounded-lg bg-(--ditto-primary) px-4 py-2 text-sm font-medium text-(--ditto-bg) hover:bg-(--ditto-primary-hover) disabled:opacity-50"
             >
-              {busy ? "Saving…" : "Save changes"}
+              {busy ? t("adminSaving") : t("adminSaveChanges")}
             </button>
           </div>
         </Modal>
@@ -524,12 +513,12 @@ export function AdminUsersClient({ currentAdminId }: { currentAdminId: string })
       {/* Delete confirm */}
       {deleting && (
         <Modal onClose={() => setDeleting(null)}>
-          <h2 className="text-lg font-semibold text-(--ditto-text) mb-2">Delete user</h2>
+          <h2 className="text-lg font-semibold text-(--ditto-text) mb-2">{t("adminDeleteUser")}</h2>
           <p className="text-sm text-(--ditto-text-secondary) mb-2">
-            Permanently delete <span className="font-semibold text-(--ditto-text)">{deleting.email}</span>?
+            {t("adminDeletePromptBefore")} <span className="font-semibold text-(--ditto-text)">{deleting.email}</span>{t("adminDeletePromptAfter")}
           </p>
           <p className="text-xs text-(--ditto-text-muted) mb-4">
-            This cascades to <strong>{deleting.designsCount}</strong> designs, all unlocks, quest completions and API keys. Cannot be undone.
+            {t("adminDeleteCascadeBefore")} <strong>{deleting.designsCount}</strong> {t("adminDeleteCascadeAfter")}
           </p>
           <div className="flex items-center justify-end gap-2">
             <button
@@ -537,14 +526,14 @@ export function AdminUsersClient({ currentAdminId }: { currentAdminId: string })
               disabled={busy}
               className="rounded-lg border border-(--ditto-border) px-4 py-2 text-sm text-(--ditto-text-secondary) hover:text-(--ditto-text) hover:border-(--ditto-text-muted)"
             >
-              Cancel
+              {t("adminCancel")}
             </button>
             <button
               onClick={confirmDelete}
               disabled={busy}
               className="rounded-lg bg-(--ditto-error) px-4 py-2 text-sm font-medium text-white hover:opacity-90 disabled:opacity-50"
             >
-              {busy ? "Deleting…" : "Delete permanently"}
+              {busy ? t("adminDeleting") : t("adminDeletePermanently")}
             </button>
           </div>
         </Modal>

@@ -23,6 +23,7 @@ interface ProfileData {
 type AvatarMode = "uploaded" | "dittato";
 
 export default function ProfilePage() {
+  const t = useT();
   const [loading, setLoading] = useState(true);
   const [profile, setProfile] = useState<ProfileData | null>(null);
 
@@ -57,9 +58,9 @@ export default function ProfilePage() {
           setSeed(extractDittatoSeed(data.avatarUrl) ?? normalizeSeed(data.email));
         }
       })
-      .catch(() => setError("Impossibile caricare il profilo"))
+      .catch(() => setError(t("profileLoadFailed")))
       .finally(() => setLoading(false));
-  }, []);
+  }, [t]);
 
   // Derived: the src currently shown in the big preview
   const previewSrc = useMemo(() => {
@@ -87,7 +88,7 @@ export default function ProfilePage() {
       const res = await fetch("/api/profile/avatar", { method: "POST", body: fd });
       const data = await res.json();
       if (!res.ok) {
-        setError(data.error || "Upload fallito");
+        setError(data.error || t("profileUploadFailed"));
         return;
       }
       setUploadedUrl(data.avatarUrl);
@@ -95,7 +96,7 @@ export default function ProfilePage() {
       // The avatar route also persists avatarUrl — refresh local profile mirror.
       setProfile((p) => (p ? { ...p, avatarUrl: data.avatarUrl } : p));
     } catch {
-      setError("Upload fallito");
+      setError(t("profileUploadFailed"));
     } finally {
       setUploading(false);
     }
@@ -135,7 +136,7 @@ export default function ProfilePage() {
       });
       const data = await res.json();
       if (!res.ok) {
-        setError(data.error || "Salvataggio fallito");
+        setError(data.error || t("profileSaveFailed"));
         return;
       }
       setProfile((p) =>
@@ -150,7 +151,7 @@ export default function ProfilePage() {
       setSavedFlash(true);
       setTimeout(() => setSavedFlash(false), 2000);
     } catch {
-      setError("Salvataggio fallito");
+      setError(t("profileSaveFailed"));
     } finally {
       setSaving(false);
     }
@@ -159,7 +160,7 @@ export default function ProfilePage() {
   if (loading) {
     return (
       <div className="max-w-2xl mx-auto py-8">
-        <div className="text-sm text-(--ditto-text-muted)">Caricamento…</div>
+        <div className="text-sm text-(--ditto-text-muted)">{t("profileLoading")}</div>
       </div>
     );
   }
@@ -167,7 +168,7 @@ export default function ProfilePage() {
   if (!profile) {
     return (
       <div className="max-w-2xl mx-auto py-8">
-        <div className="text-sm text-(--ditto-error)">Profilo non disponibile.</div>
+        <div className="text-sm text-(--ditto-error)">{t("profileUnavailable")}</div>
       </div>
     );
   }
@@ -177,17 +178,16 @@ export default function ProfilePage() {
       <header className="mb-8">
         <h1 className="flex items-center gap-2 text-2xl font-bold text-(--ditto-text) tracking-tight">
           <UserIcon className="w-6 h-6 text-(--ditto-primary)" strokeWidth={2} />
-          Profilo
+          {t("profileTitle")}
         </h1>
         <p className="text-sm text-(--ditto-text-muted) mt-1">
-          Scegli il tuo nome e avatar. L&apos;avatar può essere una tua foto caricata oppure un
-          avatar generato da Ditto.
+          {t("profileSubtitle")}
         </p>
       </header>
 
       {/* Avatar section */}
       <section className="mb-8 rounded-xl border border-(--ditto-border) bg-(--ditto-surface) p-6">
-        <h2 className="text-sm font-semibold text-(--ditto-text) mb-4">Avatar</h2>
+        <h2 className="text-sm font-semibold text-(--ditto-text) mb-4">{t("profileAvatarHeading")}</h2>
 
         <div className="flex gap-6 items-start flex-wrap">
           {/* Preview */}
@@ -196,12 +196,12 @@ export default function ProfilePage() {
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={previewSrc}
-                alt="Anteprima avatar"
+                alt={t("profileAvatarPreviewAlt")}
                 className="w-full h-full object-cover"
               />
             </div>
             <div className="mt-2 text-[11px] text-center text-(--ditto-text-muted) uppercase tracking-wider">
-              {avatarMode === "uploaded" ? "Foto caricata" : "Generato"}
+              {avatarMode === "uploaded" ? t("profileAvatarModeUploaded") : t("profileAvatarModeGenerated")}
             </div>
           </div>
 
@@ -215,7 +215,7 @@ export default function ProfilePage() {
                 className="inline-flex items-center gap-2 rounded-lg border border-(--ditto-border) px-3 py-2 text-sm text-(--ditto-text-secondary) hover:text-(--ditto-text) hover:border-(--ditto-text-muted) transition-colors disabled:opacity-60"
               >
                 <Upload className="w-3.5 h-3.5" strokeWidth={1.5} />
-                {uploading ? "Caricamento…" : "Carica foto"}
+                {uploading ? t("profileUploading") : t("profileUploadPhoto")}
               </button>
               <input
                 ref={fileInputRef}
@@ -235,7 +235,7 @@ export default function ProfilePage() {
                 className="inline-flex items-center gap-2 rounded-lg border border-(--ditto-border) px-3 py-2 text-sm text-(--ditto-text-secondary) hover:text-(--ditto-text) hover:border-(--ditto-text-muted) transition-colors"
               >
                 <Shuffle className="w-3.5 h-3.5" strokeWidth={1.5} />
-                Genera nuovo
+                {t("profileGenerateNew")}
               </button>
 
               {avatarMode === "dittato" && (
@@ -243,9 +243,9 @@ export default function ProfilePage() {
                   type="button"
                   onClick={useEmailSeed}
                   className="inline-flex items-center gap-2 rounded-lg border border-(--ditto-border) px-3 py-2 text-xs text-(--ditto-text-muted) hover:text-(--ditto-text) hover:border-(--ditto-text-muted) transition-colors"
-                  title="Usa l'email come seme (torna al default)"
+                  title={t("profileUseDefaultTitle")}
                 >
-                  Usa default
+                  {t("profileUseDefault")}
                 </button>
               )}
 
@@ -256,15 +256,13 @@ export default function ProfilePage() {
                   className="inline-flex items-center gap-2 rounded-lg border border-(--ditto-border) px-3 py-2 text-xs text-(--ditto-text-muted) hover:text-(--ditto-error) hover:border-(--ditto-error) transition-colors"
                 >
                   <Trash2 className="w-3.5 h-3.5" strokeWidth={1.5} />
-                  Rimuovi foto
+                  {t("profileRemovePhoto")}
                 </button>
               )}
             </div>
 
             <p className="text-xs text-(--ditto-text-muted) leading-relaxed">
-              Gli avatar generati sono <strong className="text-(--ditto-text)">unici</strong> per
-              ogni seed e usano la palette Ditto. Ricorda: l&apos;avatar non si salva finché non
-              premi &quot;Salva&quot; qui sotto.
+              {t("profileAvatarHint")}
             </p>
           </div>
         </div>
@@ -272,7 +270,7 @@ export default function ProfilePage() {
 
       {/* Name section */}
       <section className="mb-8 rounded-xl border border-(--ditto-border) bg-(--ditto-surface) p-6">
-        <h2 className="text-sm font-semibold text-(--ditto-text) mb-4">Informazioni</h2>
+        <h2 className="text-sm font-semibold text-(--ditto-text) mb-4">{t("profileInfoHeading")}</h2>
 
         <div className="space-y-3">
           <div>
@@ -280,7 +278,7 @@ export default function ProfilePage() {
               htmlFor="name"
               className="block text-xs font-medium text-(--ditto-text-muted) mb-1"
             >
-              Nome pubblico
+              {t("profilePublicName")}
             </label>
             <input
               id="name"
@@ -289,18 +287,18 @@ export default function ProfilePage() {
               onChange={(e) => setName(e.target.value)}
               maxLength={60}
               className="w-full px-3 py-2 rounded-lg bg-(--ditto-bg) border border-(--ditto-border) text-sm text-(--ditto-text) outline-none focus:border-(--ditto-primary) transition-colors"
-              placeholder="Come vuoi essere chiamato"
+              placeholder={t("profileNamePlaceholder")}
             />
             {!nameValid && name.length > 0 && (
               <div className="text-xs text-(--ditto-error) mt-1">
-                Il nome deve avere tra 2 e 60 caratteri.
+                {t("profileNameInvalid")}
               </div>
             )}
           </div>
 
           <div>
             <label className="block text-xs font-medium text-(--ditto-text-muted) mb-1">
-              Email
+              {t("profileEmailLabel")}
             </label>
             <div className="px-3 py-2 rounded-lg bg-(--ditto-bg) border border-(--ditto-border) text-sm text-(--ditto-text-muted)">
               {profile.email}
@@ -319,11 +317,11 @@ export default function ProfilePage() {
           {!error && savedFlash && (
             <span className="inline-flex items-center gap-1 text-(--ditto-primary) font-medium">
               <Check className="w-3.5 h-3.5" strokeWidth={2.5} />
-              Profilo salvato
+              {t("profileSaved")}
             </span>
           )}
           {!error && !savedFlash && dirty && (
-            <span className="text-(--ditto-text-muted)">Modifiche non salvate</span>
+            <span className="text-(--ditto-text-muted)">{t("profileUnsaved")}</span>
           )}
         </div>
         <button
@@ -333,7 +331,7 @@ export default function ProfilePage() {
           className="inline-flex items-center gap-2 rounded-lg bg-(--ditto-primary) text-(--ditto-bg) px-4 py-2 text-sm font-semibold hover:bg-(--ditto-primary-hover) transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
         >
           <Save className="w-4 h-4" strokeWidth={2} />
-          {saving ? "Salvataggio…" : "Salva"}
+          {saving ? t("profileSaving") : t("profileSave")}
         </button>
       </div>
     </div>

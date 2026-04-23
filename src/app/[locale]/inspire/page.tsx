@@ -3,7 +3,8 @@
 import { useState, useRef, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { useCredits } from "@/lib/credits-context";
-import { useLocalePath } from "@/lib/locale-context";
+import { useLocalePath, useT } from "@/lib/locale-context";
+import type { TranslationKey } from "@/lib/i18n";
 import { useOnborda } from "onborda";
 import { hasSeenTour } from "@/lib/onboarding";
 import {
@@ -105,6 +106,7 @@ export default function InspirePage() {
 
 function InspireContent() {
   const lp = useLocalePath();
+  const t = useT();
   // State
   const [urls, setUrls] = useState<string[]>(["", "", ""]);
   const [inspirations, setInspirations] = useState<Inspiration[]>([]);
@@ -508,16 +510,15 @@ function InspireContent() {
         <a
           href={lp("/dashboard")}
           className="text-sm text-(--ditto-text-muted) hover:text-(--ditto-text)">
-          ← Library
+          {t("inspireBackToLibrary")}
         </a>
       </div>
       <div className="mb-6">
         <h1 className="text-2xl font-bold tracking-tight text-(--ditto-text)">
-          Genera un Design Ispirato
+          {t("inspireTitle")}
         </h1>
         <p className="text-sm text-(--ditto-text-muted) mt-1">
-          Passa le tue ispirazioni, rispondi a qualche domanda, Ditto le fonde
-          nel tuo stile
+          {t("inspireSubtitle")}
         </p>
       </div>
 
@@ -525,11 +526,10 @@ function InspireContent() {
       {phase === "urls" && (
         <div className="max-w-2xl">
           <h2 className="text-lg font-semibold text-(--ditto-text) mb-4">
-            Scegli le tue ispirazioni
+            {t("inspireChooseInspirations")}
           </h2>
           <p className="text-sm text-(--ditto-text-muted) mb-6">
-            Inserisci 2-10 URL di siti che ti piacciono. Ditto assorbirà il
-            design di ognuno.
+            {t("inspireChooseHint")}
           </p>
           <div id="tour-inspire-urls" className="flex flex-col gap-3">
             {urls.map((url, i) => (
@@ -562,7 +562,7 @@ function InspireContent() {
             <button
               onClick={() => setUrls([...urls, ""])}
               className="mt-3 text-sm text-(--ditto-primary) hover:text-(--ditto-primary-hover)">
-              + Aggiungi ispirazione
+              {t("inspireAddInspiration")}
             </button>
           )}
 
@@ -576,14 +576,16 @@ function InspireContent() {
               className="flex items-center justify-between w-full text-left">
               <div>
                 <h3 className="text-sm font-semibold text-(--ditto-text)">
-                  Oppure scegli dalla tua libreria
+                  {t("inspireOrPickFromLibrary")}
                 </h3>
                 <p className="text-xs text-(--ditto-text-muted) mt-0.5">
                   {selectedCatalog.length > 0
-                    ? `${selectedCatalog.length} design selezionat${
-                        selectedCatalog.length === 1 ? "o" : "i"
-                      }`
-                    : "Usa design che hai gia salvato come ispirazioni"}
+                    ? `${selectedCatalog.length} ${t(
+                        selectedCatalog.length === 1
+                          ? "inspireDesignSelectedSingular"
+                          : "inspireDesignSelectedPlural"
+                      )}`
+                    : t("inspireUseSavedDesigns")}
                 </p>
               </div>
               <span className="text-(--ditto-text-muted) text-sm">
@@ -599,8 +601,7 @@ function InspireContent() {
                   </div>
                 ) : catalogDesigns.length === 0 ? (
                   <p className="text-sm text-(--ditto-text-muted) py-4 text-center">
-                    Nessun design nella tua libreria. Aggiungine uno dalla
-                    pagina Add Design.
+                    {t("inspireEmptyLibrary")}
                   </p>
                 ) : (
                   <div className="grid grid-cols-2 gap-2 max-h-64 overflow-y-auto">
@@ -666,14 +667,14 @@ function InspireContent() {
           {(urls.filter((u) => u.trim()).length > 0 ||
             selectedCatalog.length > 0) && (
             <div className="mt-4 text-xs text-(--ditto-text-muted)">
-              Totale ispirazioni: {totalSelected} (minimo 2)
+              {t("inspireTotalInspirations")}: {totalSelected} {t("inspireMinimumTwo")}
             </div>
           )}
 
           {/* Mode selection */}
           <div id="tour-inspire-mode" className="mt-6 mb-2">
             <h3 className="text-sm font-semibold text-(--ditto-text) mb-3">
-              Scegli la modalità
+              {t("inspireChooseMode")}
             </h3>
             <div className="grid grid-cols-2 gap-3">
               <button
@@ -686,13 +687,11 @@ function InspireContent() {
                     strokeWidth={1.5}
                   />
                   <span className="text-base font-semibold text-(--ditto-text) group-hover:text-(--ditto-primary)">
-                    Auto
+                    {t("inspireModeAuto")}
                   </span>
                 </div>
                 <p className="text-xs text-(--ditto-text-muted) leading-relaxed">
-                  Ditto analizza i siti e rileva automaticamente tono, energia,
-                  colori, forme e densità. Vedrai un riepilogo per verificare
-                  prima di generare.
+                  {t("inspireModeAutoDesc")}
                 </p>
               </button>
               <button
@@ -705,13 +704,11 @@ function InspireContent() {
                     strokeWidth={1.5}
                   />
                   <span className="text-base font-semibold text-(--ditto-text) group-hover:text-(--ditto-primary)">
-                    Precisa
+                    {t("inspireModePrecise")}
                   </span>
                 </div>
                 <p className="text-xs text-(--ditto-text-muted) leading-relaxed">
-                  Rispondi a 5 domande per ogni ispirazione per guidare la
-                  fusione con precisione. Più controllo, risultato più
-                  personalizzato.
+                  {t("inspireModePreciseDesc")}
                 </p>
               </button>
             </div>
@@ -729,7 +726,7 @@ function InspireContent() {
                 <div
                   key={i}
                   className="w-3 h-3 rounded-full transition-colors"
-                  title={`${insp.url} — ${insp.status}`}
+                  title={`${insp.url}. ${t(`inspireStatus${insp.status.charAt(0).toUpperCase()}${insp.status.slice(1)}` as TranslationKey)}`}
                   style={{
                     backgroundColor:
                       insp.status === "ready"
@@ -745,8 +742,8 @@ function InspireContent() {
             </div>
             <span className="text-xs text-(--ditto-text-muted)">
               {extractingCount > 0
-                ? `Ditto sta assorbendo... (${readyCount}/${inspirations.length} pronte)`
-                : `Tutte le ${readyCount} ispirazioni pronte`}
+                ? `${t("inspireAbsorbing")} (${readyCount}/${inspirations.length} ${t("inspireReady")})`
+                : `${t("inspireAllReadyPrefix")} ${readyCount} ${t("inspireAllReadySuffix")}`}
             </span>
             {extractingCount > 0 && (
               <div className="ml-auto w-4 h-4 border-2 border-(--ditto-primary) border-t-transparent rounded-full animate-spin" />
@@ -760,10 +757,10 @@ function InspireContent() {
                 <LottieLoader size={200} />
               </span>
               <p className="text-lg font-semibold text-(--ditto-text)">
-                Ditto sta assorbendo il primo design...
+                {t("inspireAbsorbingFirst")}
               </p>
               <p className="text-sm text-(--ditto-text-muted) mt-1">
-                Appena pronto, iniziamo con le domande
+                {t("inspireStartQuestionsWhenReady")}
               </p>
             </div>
           )}
@@ -775,10 +772,10 @@ function InspireContent() {
                 <LottieLoader size={200} />
               </span>
               <p className="text-lg font-semibold text-(--ditto-text)">
-                Ditto sta analizzando automaticamente...
+                {t("inspireAutoAnalyzing")}
               </p>
               <p className="text-sm text-(--ditto-text-muted) mt-1">
-                {readyCount}/{inspirations.length} ispirazioni analizzate
+                {readyCount}/{inspirations.length} {t("inspireAnalyzed")}
               </p>
             </div>
           )}
@@ -792,11 +789,10 @@ function InspireContent() {
               <div>
                 <div className="mb-6">
                   <h2 className="text-lg font-semibold text-(--ditto-text) mb-1">
-                    Analisi Automatica Completata
+                    {t("inspireAutoComplete")}
                   </h2>
                   <p className="text-sm text-(--ditto-text-muted)">
-                    Ecco cosa Ditto ha rilevato da ogni ispirazione. Verifica le
-                    risposte prima di generare.
+                    {t("inspireAutoCompleteDesc")}
                   </p>
                 </div>
 
@@ -858,11 +854,11 @@ function InspireContent() {
                                     className="w-4 h-4 text-(--ditto-primary)"
                                   />
                                   <span className="text-xs font-semibold text-(--ditto-text)">
-                                    {answer.chosenOption}
+                                    {t(`inspireMoodOptionLabel_${answer.chosenIcon}` as TranslationKey)}
                                   </span>
                                 </div>
                                 <p className="text-[10px] text-(--ditto-text-muted) leading-snug mb-1.5">
-                                  {answer.chosenDescription}
+                                  {t(`inspireMoodOptionDesc_${answer.chosenIcon}` as TranslationKey)}
                                 </p>
                                 <div className="flex items-center gap-1">
                                   <span
@@ -909,7 +905,7 @@ function InspireContent() {
                   {/* Info */}
                   <div className="rounded-lg border border-(--ditto-border) bg-(--ditto-surface) p-4">
                     <span className="text-[10px] uppercase tracking-wider text-(--ditto-text-muted)">
-                      Ispirazione {qInspIdx + 1} di {inspirations.length}
+                      {t("inspireInspirationLabel")} {qInspIdx + 1} {t("inspireOf")} {inspirations.length}
                     </span>
                     <h3 className="text-base font-semibold text-(--ditto-text) mt-1">
                       {currentInsp.name || currentInsp.url}
@@ -939,7 +935,7 @@ function InspireContent() {
                     {currentInsp.resolved && (
                       <div className="mt-3 text-xs text-(--ditto-text-muted)">
                         <span className="font-medium text-(--ditto-text-secondary)">
-                          Font:
+                          {t("inspireFontLabel")}
                         </span>{" "}
                         {currentInsp.resolved.fontHeading}
                         {currentInsp.resolved.fontHeading !==
@@ -955,13 +951,13 @@ function InspireContent() {
               <div className="col-span-3">
                 <div className="mb-4">
                   <span className="text-xs text-(--ditto-text-muted)">
-                    Domanda {qIdx + 1} di {MOOD_QUESTIONS.length}
+                    {t("inspireQuestionLabel")} {qIdx + 1} {t("inspireOf")} {MOOD_QUESTIONS.length}
                   </span>
                   <h2 className="text-xl font-bold text-(--ditto-text) mt-1">
-                    {MOOD_QUESTIONS[qIdx].question}
+                    {t(`inspireMoodQuestion_${MOOD_QUESTIONS[qIdx].id}` as TranslationKey)}
                   </h2>
                   <p className="text-sm text-(--ditto-text-muted) mt-1">
-                    {MOOD_QUESTIONS[qIdx].subtitle}
+                    {t(`inspireMoodSubtitle_${MOOD_QUESTIONS[qIdx].id}` as TranslationKey)}
                   </p>
                 </div>
 
@@ -977,10 +973,10 @@ function InspireContent() {
                       />
                       <div>
                         <span className="text-base font-semibold text-(--ditto-text) group-hover:text-(--ditto-primary)">
-                          {option.label}
+                          {t(`inspireMoodOptionLabel_${option.icon}` as TranslationKey)}
                         </span>
                         <span className="block text-xs text-(--ditto-text-muted) mt-0.5">
-                          {option.description}
+                          {t(`inspireMoodOptionDesc_${option.icon}` as TranslationKey)}
                         </span>
                       </div>
                     </button>
@@ -994,12 +990,12 @@ function InspireContent() {
           {questionnaireDone && extractingCount === 0 && readyCount > 0 && (
             <div>
               <h2 className="text-lg font-semibold text-(--ditto-text) mb-2">
-                Mappa delle Ispirazioni
+                {t("inspireMapTitle")}
               </h2>
               <p className="text-sm text-(--ditto-text-muted) mb-6">
                 {mode === "auto"
-                  ? "Regola i pesi se vuoi, poi genera il design ibrido."
-                  : "Regola il peso di ogni ispirazione, poi genera il design ibrido."}
+                  ? t("inspireMapHintAuto")
+                  : t("inspireMapHintPrecise")}
               </p>
 
               {/* 2D Map */}
@@ -1011,16 +1007,16 @@ function InspireContent() {
                   <div className="h-px w-full bg-(--ditto-border) opacity-50" />
                 </div>
                 <span className="absolute top-2 left-1/2 -translate-x-1/2 text-[10px] text-(--ditto-text-muted)">
-                  Serio
+                  {t("inspireAxisSerious")}
                 </span>
                 <span className="absolute bottom-2 left-1/2 -translate-x-1/2 text-[10px] text-(--ditto-text-muted)">
-                  Giocoso
+                  {t("inspireAxisPlayful")}
                 </span>
                 <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[10px] text-(--ditto-text-muted)">
-                  Calmo
+                  {t("inspireAxisCalm")}
                 </span>
                 <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] text-(--ditto-text-muted)">
-                  Audace
+                  {t("inspireAxisBold")}
                 </span>
 
                 {inspirations
@@ -1095,7 +1091,7 @@ function InspireContent() {
               {/* Mood summary */}
               <div className="rounded-lg border border-(--ditto-border) bg-(--ditto-surface) p-4 mb-6">
                 <h3 className="text-sm font-semibold text-(--ditto-text) mb-3">
-                  Profilo
+                  {t("inspireProfile")}
                 </h3>
                 <div className="grid grid-cols-2 gap-x-6 gap-y-2">
                   {MOOD_DIMENSIONS.map((dim) => {
@@ -1115,7 +1111,7 @@ function InspireContent() {
                     return (
                       <div key={dim.id} className="flex items-center gap-2">
                         <span className="text-[11px] text-(--ditto-text-muted) w-20 shrink-0">
-                          {dim.label}
+                          {t(`inspireMoodDim_${dim.id}` as TranslationKey)}
                         </span>
                         <div className="flex-1 h-1.5 bg-(--ditto-bg) rounded-full overflow-hidden">
                           <div
@@ -1125,10 +1121,10 @@ function InspireContent() {
                         </div>
                         <span className="text-[10px] text-(--ditto-text-muted) w-20 text-right">
                           {avg < -0.3
-                            ? dim.poles[0]
+                            ? t(`inspireMoodPole_${dim.id}_neg` as TranslationKey)
                             : avg > 0.3
-                            ? dim.poles[1]
-                            : "Bilanciato"}
+                            ? t(`inspireMoodPole_${dim.id}_pos` as TranslationKey)
+                            : t("inspireMoodBalanced")}
                         </span>
                       </div>
                     );
@@ -1139,8 +1135,8 @@ function InspireContent() {
               {!canGenerate && credits !== null && (
                 <div className="rounded-lg border border-(--ditto-warning)/30 bg-(--ditto-warning)/10 px-4 py-2.5 mb-3">
                   <p className="text-sm text-(--ditto-warning)">
-                    Crediti insufficienti. Servono 300 crediti, ne hai {credits}
-                    .
+                    {t("inspireInsufficientCreditsPrefix")} {credits}
+                    {t("inspireInsufficientCreditsSuffix")}
                   </p>
                 </div>
               )}
@@ -1152,10 +1148,10 @@ function InspireContent() {
                 {generating ? (
                   <span className="flex items-center justify-center gap-2">
                     <span className="w-4 h-4 border-2 border-(--ditto-bg) border-t-transparent rounded-full animate-spin" />
-                    Ditto si sta trasformando...
+                    {t("inspireGenerating")}
                   </span>
                 ) : (
-                  "Genera il Design Ibrido (300 crediti)"
+                  t("inspireGenerateButton")
                 )}
               </button>
             </div>
@@ -1168,10 +1164,10 @@ function InspireContent() {
                 <LottieLoader size={180} />
               </span>
               <p className="text-base font-semibold text-(--ditto-text)">
-                Aspettando le altre ispirazioni...
+                {t("inspireWaitingOthers")}
               </p>
               <p className="text-sm text-(--ditto-text-muted) mt-1">
-                {readyCount} pronte, {extractingCount} in arrivo
+                {readyCount} {t("inspireReadyLower")}, {extractingCount} {t("inspireIncoming")}
               </p>
             </div>
           )}
@@ -1186,16 +1182,16 @@ function InspireContent() {
             <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
               <div className="w-full max-w-md rounded-xl border border-(--ditto-border) bg-(--ditto-surface) p-6 shadow-2xl">
                 <h3 className="text-lg font-semibold text-(--ditto-text) mb-1">
-                  Salvare questo design?
+                  {t("inspireSaveModalTitle")}
                 </h3>
                 <p className="text-sm text-(--ditto-text-muted) mb-5">
-                  Il design sara aggiunto alla tua libreria personale.
+                  {t("inspireSaveModalDesc")}
                 </p>
 
                 <div className="space-y-3 mb-6">
                   <div>
                     <label className="block text-sm font-medium text-(--ditto-text) mb-1">
-                      Nome
+                      {t("inspireSaveNameLabel")}
                     </label>
                     <input
                       type="text"
@@ -1206,16 +1202,16 @@ function InspireContent() {
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-(--ditto-text) mb-1">
-                      Descrizione{" "}
+                      {t("inspireSaveDescriptionLabel")}{" "}
                       <span className="font-normal text-(--ditto-text-muted)">
-                        (opzionale)
+                        {t("inspireOptional")}
                       </span>
                     </label>
                     <input
                       type="text"
                       value={saveDescription}
                       onChange={(e) => setSaveDescription(e.target.value)}
-                      placeholder="Es. Design per il progetto X"
+                      placeholder={t("inspireSaveDescriptionPlaceholder")}
                       className="w-full rounded-lg border border-(--ditto-border) bg-(--ditto-bg) px-4 py-2.5 text-sm text-(--ditto-text) placeholder-(--ditto-text-muted) outline-none focus:border-(--ditto-primary)"
                     />
                   </div>
@@ -1225,7 +1221,7 @@ function InspireContent() {
                   <button
                     onClick={() => setShowSaveModal(false)}
                     className="flex-1 rounded-lg border border-(--ditto-border) px-4 py-2.5 text-sm text-(--ditto-text-secondary) hover:text-(--ditto-text) transition-colors">
-                    Non salvare
+                    {t("inspireDontSave")}
                   </button>
                   <button
                     onClick={async () => {
@@ -1260,8 +1256,8 @@ function InspireContent() {
                     disabled={saveState === "saving" || !saveName.trim()}
                     className="flex-1 rounded-lg bg-(--ditto-primary) px-4 py-2.5 text-sm font-medium text-(--ditto-bg) hover:bg-(--ditto-primary-hover) disabled:opacity-50 transition-colors">
                     {saveState === "saving"
-                      ? "Salvataggio..."
-                      : "Salva nella libreria"}
+                      ? t("inspireSaving")
+                      : t("inspireSaveToLibrary")}
                   </button>
                 </div>
               </div>
@@ -1270,26 +1266,26 @@ function InspireContent() {
 
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-lg font-semibold text-(--ditto-text)">
-              Il tuo Design Ibrido
+              {t("inspireYourHybridDesign")}
             </h2>
             <div className="flex items-center gap-3">
               {saveState === "saved" && savedSlug ? (
                 <a
                   href={`/design/${savedSlug}`}
                   className="text-sm text-(--ditto-primary) hover:text-(--ditto-primary-hover)">
-                  Apri nel dettaglio →
+                  {t("inspireOpenDetail")}
                 </a>
               ) : (
                 saveState !== "saving" && (
                   <button
                     onClick={() => setShowSaveModal(true)}
                     className="text-sm text-(--ditto-primary) hover:text-(--ditto-primary-hover)">
-                    Salva nella libreria
+                    {t("inspireSaveToLibrary")}
                   </button>
                 )
               )}
               {saveState === "saved" && (
-                <span className="text-xs text-green-500">Salvato</span>
+                <span className="text-xs text-green-500">{t("inspireSaved")}</span>
               )}
             </div>
           </div>
@@ -1315,7 +1311,7 @@ function InspireContent() {
                       ? "none"
                       : "1px solid var(--ditto-border)",
                 }}>
-                {page.label}
+                {t(`inspirePreviewPage_${page.id}` as TranslationKey)}
               </button>
             ))}
           </div>

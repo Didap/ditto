@@ -3,7 +3,7 @@
 import { useState, Suspense } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useLocalePath } from "@/lib/locale-context";
+import { useLocalePath, useT } from "@/lib/locale-context";
 
 export default function LoginPage() {
   return (
@@ -17,6 +17,7 @@ function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const lp = useLocalePath();
+  const t = useT();
   const verified = searchParams.get("verified") === "true";
   const tokenError = searchParams.get("error");
 
@@ -39,7 +40,7 @@ function LoginForm() {
     setLoading(false);
 
     if (result?.error) {
-      setError("Invalid email or password. Make sure your email is verified.");
+      setError(t("authLoginInvalidCredentials"));
     } else {
       router.push("/dashboard");
       router.refresh();
@@ -52,10 +53,10 @@ function LoginForm() {
         <div className="flex flex-col items-center mb-8">
           <span className="w-12 h-12 ditto-blob inline-block mb-3" />
           <h1 className="text-2xl font-bold tracking-tight text-(--ditto-text)">
-            Sign in to Ditto
+            {t("authLoginTitle")}
           </h1>
           <p className="text-sm text-(--ditto-text-muted) mt-1">
-            Manage your design systems
+            {t("authLoginSubtitle")}
           </p>
         </div>
 
@@ -63,7 +64,7 @@ function LoginForm() {
         {verified && (
           <div className="rounded-lg border border-(--ditto-primary)/30 bg-(--ditto-primary)/10 px-4 py-3 mb-4">
             <p className="text-sm text-(--ditto-primary) font-medium">
-              Email verified! You can now sign in.
+              {t("authLoginVerifiedSuccess")}
             </p>
           </div>
         )}
@@ -71,19 +72,19 @@ function LoginForm() {
         {/* Token errors */}
         {tokenError === "invalid-token" && (
           <div className="rounded-lg border border-red-500/30 bg-red-500/10 px-4 py-3 mb-4">
-            <p className="text-sm text-red-400">Invalid verification link.</p>
+            <p className="text-sm text-red-400">{t("authLoginInvalidToken")}</p>
           </div>
         )}
         {tokenError === "expired-token" && (
           <div className="rounded-lg border border-red-500/30 bg-red-500/10 px-4 py-3 mb-4">
-            <p className="text-sm text-red-400">Verification link expired. Please register again.</p>
+            <p className="text-sm text-red-400">{t("authLoginExpiredToken")}</p>
           </div>
         )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-(--ditto-text) mb-1.5">
-              Email
+              {t("authLoginEmailLabel")}
             </label>
             <input
               type="email"
@@ -91,13 +92,13 @@ function LoginForm() {
               onChange={(e) => setEmail(e.target.value)}
               required
               className="w-full rounded-lg border border-(--ditto-border) bg-(--ditto-bg) px-4 py-2.5 text-sm text-(--ditto-text) placeholder-(--ditto-text-muted) outline-none focus:border-(--ditto-primary)"
-              placeholder="you@email.com"
+              placeholder={t("authLoginEmailPlaceholder")}
             />
           </div>
 
           <div>
             <label className="block text-sm font-medium text-(--ditto-text) mb-1.5">
-              Password
+              {t("authLoginPasswordLabel")}
             </label>
             <input
               type="password"
@@ -105,7 +106,7 @@ function LoginForm() {
               onChange={(e) => setPassword(e.target.value)}
               required
               className="w-full rounded-lg border border-(--ditto-border) bg-(--ditto-bg) px-4 py-2.5 text-sm text-(--ditto-text) placeholder-(--ditto-text-muted) outline-none focus:border-(--ditto-primary)"
-              placeholder="Your password"
+              placeholder={t("authLoginPasswordPlaceholder")}
             />
           </div>
 
@@ -120,17 +121,17 @@ function LoginForm() {
             disabled={loading}
             className="w-full rounded-lg bg-(--ditto-primary) px-4 py-2.5 text-sm font-medium text-(--ditto-bg) hover:bg-(--ditto-primary-hover) transition-colors disabled:opacity-50"
           >
-            {loading ? "Signing in..." : "Sign in"}
+            {loading ? t("authLoginSubmitting") : t("authLoginSubmit")}
           </button>
         </form>
 
         <p className="mt-6 text-center text-sm text-(--ditto-text-muted)">
-          Don&apos;t have an account?{" "}
+          {t("authNoAccount")}{" "}
           <a
             href={lp("/register")}
             className="text-(--ditto-primary) hover:text-(--ditto-primary-hover)"
           >
-            Register
+            {t("authRegisterLink")}
           </a>
         </p>
       </div>

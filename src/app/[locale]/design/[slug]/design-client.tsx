@@ -7,6 +7,7 @@ import type { StoredDesign } from "@/lib/types";
 import { qualityLabel, qualityColor, friendlyIssueMessage } from "@/lib/quality-scorer";
 import { useCredits } from "@/lib/credits-context";
 import { useLocalePath, useT } from "@/lib/locale-context";
+import type { TranslationKey } from "@/lib/i18n";
 import { PreviewShell } from "@/components/preview/PreviewShell";
 import { LandingPreview } from "@/components/preview/pages/LandingPreview";
 import { DashboardPreview } from "@/components/preview/pages/DashboardPreview";
@@ -37,12 +38,13 @@ type UnlockableFeature =
 
 function QualityInfoPopover() {
   const [open, setOpen] = useState(false);
+  const t = useT();
   return (
     <div className="relative">
       <button
         onClick={() => setOpen(!open)}
         className="w-5 h-5 rounded-full border border-(--ditto-border) bg-(--ditto-surface) text-(--ditto-text-muted) hover:text-(--ditto-text) hover:border-(--ditto-text-muted) transition-colors flex items-center justify-center text-[10px] font-semibold"
-        aria-label="Quality score info"
+        aria-label={t("designQualityInfoAria")}
       >
         i
       </button>
@@ -50,19 +52,19 @@ function QualityInfoPopover() {
         <>
           <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} />
           <div className="absolute left-1/2 -translate-x-1/2 top-8 z-50 w-72 rounded-lg border border-(--ditto-border) bg-(--ditto-surface) shadow-xl p-4 text-xs text-(--ditto-text)">
-            <p className="font-semibold text-sm mb-2">Design Quality Score</p>
+            <p className="font-semibold text-sm mb-2">{t("designQualityScoreTitle")}</p>
             <p className="text-(--ditto-text-muted) mb-3">
-              Measures how complete and well-structured the extracted design system is across 5 dimensions, each scored 0–100:
+              {t("designQualityScoreIntro")}
             </p>
             <ul className="space-y-1.5 text-(--ditto-text-muted) mb-3">
-              <li><span className="font-medium text-(--ditto-text)">Color</span>: palette variety, semantic roles, saturation</li>
-              <li><span className="font-medium text-(--ditto-text)">Typography</span>: font distinctiveness, scale ratio, hierarchy</li>
-              <li><span className="font-medium text-(--ditto-text)">Spacing</span>: scale consistency, shadows, border radii</li>
-              <li><span className="font-medium text-(--ditto-text)">Contrast</span>: WCAG text/background accessibility</li>
-              <li><span className="font-medium text-(--ditto-text)">Completeness</span>: token coverage across all categories</li>
+              <li><span className="font-medium text-(--ditto-text)">{t("designQualityDimColor")}</span>{t("designQualityDimColorDesc")}</li>
+              <li><span className="font-medium text-(--ditto-text)">{t("designQualityDimTypography")}</span>{t("designQualityDimTypographyDesc")}</li>
+              <li><span className="font-medium text-(--ditto-text)">{t("designQualityDimSpacing")}</span>{t("designQualityDimSpacingDesc")}</li>
+              <li><span className="font-medium text-(--ditto-text)">{t("designQualityDimContrast")}</span>{t("designQualityDimContrastDesc")}</li>
+              <li><span className="font-medium text-(--ditto-text)">{t("designQualityDimCompleteness")}</span>{t("designQualityDimCompletenessDesc")}</li>
             </ul>
             <p className="text-(--ditto-text-muted)">
-              The overall score is the average of all 5. Pure CSS analysis, no AI involved.
+              {t("designQualityScoreOutro")}
             </p>
           </div>
         </>
@@ -115,6 +117,7 @@ function DevRow({
   onDownload,
   onBuy,
 }: DevRowProps) {
+  const t = useT();
   return (
     <div className="flex items-center justify-between gap-3 py-2">
       <div className="text-sm text-(--ditto-text)">{label}</div>
@@ -127,7 +130,7 @@ function DevRow({
           {busy ? (
             <>
               <span className="w-2.5 h-2.5 border-2 border-(--ditto-bg) border-t-transparent rounded-full animate-spin" />
-              Building…
+              {t("designBuilding")}
             </>
           ) : (
             <>
@@ -144,7 +147,7 @@ function DevRow({
           {purchasing === purchaseKey ? (
             <>
               <span className="w-2.5 h-2.5 border-2 border-(--ditto-primary) border-t-transparent rounded-full animate-spin" />
-              Unlocking…
+              {t("designUnlocking")}
             </>
           ) : (
             <>
@@ -171,6 +174,7 @@ function DeveloperDropdown({
   onDownloadWpTheme,
   onDownloadElementor,
 }: DevDropdownProps) {
+  const t = useT();
   const canAfford = (cost: number | undefined) =>
     credits === null || credits >= (cost ?? 0);
 
@@ -181,7 +185,7 @@ function DeveloperDropdown({
         className="rounded-lg border border-(--ditto-border) px-4 py-2 text-sm font-medium text-(--ditto-text-secondary) hover:text-(--ditto-text) hover:border-(--ditto-text-muted) transition-colors flex items-center gap-1.5"
       >
         <Code2 className="w-3.5 h-3.5" strokeWidth={1.5} />
-        Sono uno sviluppatore
+        {t("designDeveloperButton")}
         <ChevronDown
           className={`w-3.5 h-3.5 transition-transform ${open ? "rotate-180" : ""}`}
           strokeWidth={1.5}
@@ -199,17 +203,17 @@ function DeveloperDropdown({
             {/* Section: React + Tailwind */}
             <div className="mb-5">
               <h4 className="text-[10px] font-semibold uppercase tracking-wider text-(--ditto-text-muted) mb-1">
-                React &amp; TypeScript
+                {t("designReactTypescript")}
               </h4>
               <p className="text-xs text-(--ditto-text-muted) mb-2">
-                Storybook · Tailwind config · TypeScript types · Figma tokens
+                {t("designReactTypescriptSub")}
               </p>
               <DevRow
-                label="Dev Kit"
+                label={t("designDevKitLabel")}
                 status={unlocks.devkit}
                 cost={unlocks.devkit.cost ?? 50}
                 busy={false}
-                downloadLabel="Scarica .zip"
+                downloadLabel={t("designDownloadZip")}
                 purchaseKey="devkit"
                 feature="devkit"
                 purchasing={purchasing}
@@ -225,17 +229,17 @@ function DeveloperDropdown({
             {/* Section: WordPress */}
             <div>
               <h4 className="text-[10px] font-semibold uppercase tracking-wider text-(--ditto-text-muted) mb-1">
-                WordPress
+                {t("designWordpressTitle")}
               </h4>
               <p className="text-xs text-(--ditto-text-muted) mb-2">
-                Due formati: FSE nativo o classico con Elementor.
+                {t("designWordpressSub")}
               </p>
               <DevRow
-                label="Tema WordPress (FSE)"
+                label={t("designWpThemeLabel")}
                 status={unlocks.wordpress}
                 cost={unlocks.wordpress.cost ?? 50}
                 busy={downloadingWp}
-                downloadLabel="Scarica .zip"
+                downloadLabel={t("designDownloadZip")}
                 purchaseKey="wordpress"
                 feature="wordpress"
                 purchasing={purchasing}
@@ -247,11 +251,11 @@ function DeveloperDropdown({
                 onBuy={() => onBuy("wordpress", unlocks.wordpress.cost ?? 50)}
               />
               <DevRow
-                label="Tema Elementor"
+                label={t("designElementorLabel")}
                 status={unlocks.elementor}
                 cost={unlocks.elementor.cost ?? 50}
                 busy={downloadingElementor}
-                downloadLabel="Scarica .zip"
+                downloadLabel={t("designDownloadZip")}
                 purchaseKey="elementor"
                 feature="elementor"
                 purchasing={purchasing}
@@ -293,6 +297,7 @@ function RitocchiDropdown({
   onReset,
   onSave,
 }: RitocchiDropdownProps) {
+  const t = useT();
   const count = activeMacros.length;
   return (
     <div className="relative shrink-0">
@@ -306,7 +311,7 @@ function RitocchiDropdown({
         }
       >
         <Sparkles className="w-3.5 h-3.5" strokeWidth={1.5} />
-        Ritocchi
+        {t("designTouchUps")}
         {count > 0 && (
           <span className="inline-flex items-center justify-center min-w-[18px] h-[18px] rounded-full bg-(--ditto-primary) text-(--ditto-bg) text-[10px] font-semibold px-1">
             {count}
@@ -328,9 +333,9 @@ function RitocchiDropdown({
           <div className="absolute right-0 top-full mt-2 z-50 w-[420px] rounded-lg border border-(--ditto-border) bg-(--ditto-surface) shadow-xl p-4 text-(--ditto-text)">
             <div className="flex items-start justify-between gap-3 mb-3">
               <div>
-                <h3 className="text-sm font-semibold">Ritocchi di sentiment</h3>
+                <h3 className="text-sm font-semibold">{t("designSentimentTouchUps")}</h3>
                 <p className="text-xs text-(--ditto-text-muted) mt-0.5 leading-snug">
-                  Clicca per provare. Non salva finché non premi &quot;Salva&quot;.
+                  {t("designTouchUpsHelp")}
                 </p>
               </div>
               {count > 0 && (
@@ -339,14 +344,14 @@ function RitocchiDropdown({
                     onClick={onReset}
                     className="text-xs text-(--ditto-text-secondary) hover:text-(--ditto-text) underline"
                   >
-                    Reset
+                    {t("designReset")}
                   </button>
                   <button
                     onClick={onSave}
                     disabled={saving}
                     className="rounded-md bg-(--ditto-primary) text-(--ditto-bg) text-xs font-medium px-3 py-1.5 hover:bg-(--ditto-primary-hover) disabled:opacity-50"
                   >
-                    {saving ? "Salvataggio…" : `Salva ${count}`}
+                    {saving ? t("designSaving") : `${t("designSave")} ${count}`}
                   </button>
                 </div>
               )}
@@ -379,12 +384,12 @@ function RitocchiDropdown({
 }
 
 const PREVIEW_PAGES = [
-  { id: "landing", label: "Landing", Component: LandingPreview },
-  { id: "dashboard", label: "Dashboard", Component: DashboardPreview },
-  { id: "auth", label: "Auth / Login", Component: AuthPreview },
-  { id: "pricing", label: "Pricing", Component: PricingPreview },
-  { id: "blog", label: "Blog", Component: BlogPreview },
-  { id: "components", label: "Components", Component: ComponentsPreview },
+  { id: "landing", labelKey: "designPreviewLanding" as TranslationKey, Component: LandingPreview },
+  { id: "dashboard", labelKey: "designPreviewDashboard" as TranslationKey, Component: DashboardPreview },
+  { id: "auth", labelKey: "designPreviewAuth" as TranslationKey, Component: AuthPreview },
+  { id: "pricing", labelKey: "designPreviewPricing" as TranslationKey, Component: PricingPreview },
+  { id: "blog", labelKey: "designPreviewBlog" as TranslationKey, Component: BlogPreview },
+  { id: "components", labelKey: "designPreviewComponents" as TranslationKey, Component: ComponentsPreview },
 ];
 
 interface DesignDetailProps {
@@ -710,7 +715,7 @@ export function DesignDetailClient({ initialDesign, slug }: DesignDetailProps) {
             {(design.creditsSpent ?? 0) > 0 && (
               <span className="flex items-center gap-1 text-xs text-(--ditto-text-muted) ml-1">
                 <Coins className="w-3 h-3 text-(--ditto-primary)" strokeWidth={1.5} />
-                {design.creditsSpent} credits spent
+                {design.creditsSpent} {t("designCreditsSpent")}
               </span>
             )}
           </div>
@@ -745,9 +750,9 @@ export function DesignDetailClient({ initialDesign, slug }: DesignDetailProps) {
                 className="rounded-lg border border-(--ditto-border) px-4 py-2 text-sm font-medium text-(--ditto-text-secondary) hover:text-(--ditto-text) hover:border-(--ditto-text-muted) transition-colors flex items-center gap-1.5"
               >
                 <Globe className="w-3.5 h-3.5" strokeWidth={1.5} />
-                Scarica Sito Statico
+                {t("designDownloadStaticSite")}
               </button>
-              <FeatureInfo align="right" items={["5 ready-to-use HTML pages", "React components (14) with inline styles", "Beginner-friendly README", "Open pages in any browser, no setup needed"]} />
+              <FeatureInfo align="right" items={[t("designStaticSiteItem1"), t("designStaticSiteItem2"), t("designStaticSiteItem3"), t("designStaticSiteItem4")]} />
             </div>
           ) : (
             <div className="flex items-center gap-1">
@@ -759,17 +764,17 @@ export function DesignDetailClient({ initialDesign, slug }: DesignDetailProps) {
                 {purchasing === "complete" ? (
                   <>
                     <span className="w-3 h-3 border-2 border-(--ditto-primary) border-t-transparent rounded-full animate-spin" />
-                    Unlocking...
+                    {t("designUnlockingEllipsis")}
                   </>
                 ) : (
                   <>
                     <Globe className="w-3.5 h-3.5" strokeWidth={1.5} />
-                    Sito Statico &middot; {unlocks.complete.cost ?? 100}
+                    {t("designStaticSite")} &middot; {unlocks.complete.cost ?? 100}
                     <Coins className="w-3 h-3" strokeWidth={1.5} />
                   </>
                 )}
               </button>
-              <FeatureInfo align="right" items={["5 ready-to-use HTML pages", "React components (14) with inline styles", "Beginner-friendly README", "Open pages in any browser, no setup needed"]} />
+              <FeatureInfo align="right" items={[t("designStaticSiteItem1"), t("designStaticSiteItem2"), t("designStaticSiteItem3"), t("designStaticSiteItem4")]} />
             </div>
           )}
         </div>
@@ -795,10 +800,10 @@ export function DesignDetailClient({ initialDesign, slug }: DesignDetailProps) {
             }}
           >
             {tab === "preview"
-              ? "Preview"
+              ? t("designTabPreview")
               : tab === "tokens"
-                ? "Analysis"
-                : "DESIGN.md"}
+                ? t("designTabAnalysis")
+                : t("designTabDesignMd")}
           </button>
         ))}
       </div>
@@ -850,7 +855,7 @@ export function DesignDetailClient({ initialDesign, slug }: DesignDetailProps) {
                         : "1px solid var(--ditto-border)",
                   }}
                 >
-                  {page.label}
+                  {t(page.labelKey)}
                 </button>
               ))}
             </div>
@@ -951,13 +956,13 @@ export function DesignDetailClient({ initialDesign, slug }: DesignDetailProps) {
         <PurchaseConfirmModal
           label={
             {
-              devkit: "Unlock Dev Kit",
-              wordpress: "Unlock WordPress Theme",
-              elementor: "Unlock Elementor Theme",
-              complete: "Unlock Complete Kit",
+              devkit: t("designUnlockDevKit"),
+              wordpress: t("designUnlockWordpress"),
+              elementor: t("designUnlockElementor"),
+              complete: t("designUnlockCompleteKit"),
             }[confirmModal.feature]
           }
-          description="Once unlocked, the download stays available forever."
+          description={t("designUnlockForever")}
           cost={confirmModal.cost}
           currentCredits={credits ?? 0}
           processing={purchasing === confirmModal.feature}
@@ -986,6 +991,7 @@ function PurchaseConfirmModal({
   onConfirm: () => void;
   onCancel: () => void;
 }) {
+  const t = useT();
   const [accepted, setAccepted] = useState(false);
   const after = currentCredits - cost;
 
@@ -1012,19 +1018,19 @@ function PurchaseConfirmModal({
           style={{ backgroundColor: "var(--ditto-bg)", border: "1px solid var(--ditto-border)" }}
         >
           <div className="flex justify-between text-sm">
-            <span className="text-(--ditto-text-muted)">Current balance</span>
+            <span className="text-(--ditto-text-muted)">{t("designCurrentBalance")}</span>
             <span className="font-semibold text-(--ditto-text) flex items-center gap-1">
               <Coins className="w-3.5 h-3.5 text-(--ditto-primary)" strokeWidth={1.5} />
               {currentCredits}
             </span>
           </div>
           <div className="flex justify-between text-sm">
-            <span className="text-(--ditto-text-muted)">{label} cost</span>
+            <span className="text-(--ditto-text-muted)">{label} {t("designCostLabel")}</span>
             <span className="font-semibold text-(--ditto-error)">-{cost}</span>
           </div>
           <div className="h-px" style={{ backgroundColor: "var(--ditto-border)" }} />
           <div className="flex justify-between text-sm">
-            <span className="text-(--ditto-text-muted)">Balance after</span>
+            <span className="text-(--ditto-text-muted)">{t("designBalanceAfter")}</span>
             <span className="font-semibold text-(--ditto-text) flex items-center gap-1">
               <Coins className="w-3.5 h-3.5 text-(--ditto-primary)" strokeWidth={1.5} />
               {after}
@@ -1035,7 +1041,7 @@ function PurchaseConfirmModal({
         {/* Warning */}
         <div className="rounded-lg border border-(--ditto-warning)/25 bg-(--ditto-warning)/10 px-4 py-3 mb-5">
           <p className="text-xs text-(--ditto-warning)">
-            Credits spent on downloads are non-refundable. Make sure this is the design you want.
+            {t("designPurchaseWarning")}
           </p>
         </div>
 
@@ -1048,15 +1054,15 @@ function PurchaseConfirmModal({
             className="mt-0.5 w-4 h-4 rounded border border-(--ditto-border) accent-(--ditto-primary)"
           />
           <span className="text-xs text-(--ditto-text-muted) leading-relaxed">
-            I accept the{" "}
+            {t("designTermsPrefix")}{" "}
             <a
               href="/terms"
               target="_blank"
               className="text-(--ditto-primary) underline underline-offset-2 hover:text-(--ditto-primary-hover)"
             >
-              Terms and Conditions
+              {t("designTermsLink")}
             </a>{" "}
-            and understand this purchase is final.
+            {t("designTermsSuffix")}
           </span>
         </label>
 
@@ -1066,7 +1072,7 @@ function PurchaseConfirmModal({
             onClick={onCancel}
             className="flex-1 rounded-lg border border-(--ditto-border) px-4 py-2.5 text-sm font-medium text-(--ditto-text-secondary) hover:text-(--ditto-text) hover:border-(--ditto-text-muted) transition-colors"
           >
-            Cancel
+            {t("designCancel")}
           </button>
           <button
             onClick={onConfirm}
@@ -1076,11 +1082,11 @@ function PurchaseConfirmModal({
             {processing ? (
               <>
                 <span className="w-3 h-3 border-2 border-(--ditto-bg) border-t-transparent rounded-full animate-spin" />
-                Processing...
+                {t("designProcessing")}
               </>
             ) : (
               <>
-                Confirm &middot; {cost}
+                {t("designConfirm")} &middot; {cost}
                 <Coins className="w-3 h-3" strokeWidth={1.5} />
               </>
             )}
@@ -1092,6 +1098,7 @@ function PurchaseConfirmModal({
 }
 
 function BoostButton({ slug, onBoost }: { slug: string; onBoost: () => void }) {
+  const t = useT();
   const [estimate, setEstimate] = useState<{ currentScore: number; estimatedScore: number; estimatedCost: number } | null>(null);
   const [boosting, setBoosting] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
@@ -1112,7 +1119,7 @@ function BoostButton({ slug, onBoost }: { slug: string; onBoost: () => void }) {
       const res = await fetch(`/api/designs/${slug}/boost`, { method: "POST" });
       if (!res.ok) {
         const err = await res.json();
-        alert(err.error || "Errore durante il boost");
+        alert(err.error || t("designBoostError"));
         return;
       }
       const data = await res.json();
@@ -1121,7 +1128,7 @@ function BoostButton({ slug, onBoost }: { slug: string; onBoost: () => void }) {
       refresh();
       onBoost();
     } catch {
-      alert("Errore di rete");
+      alert(t("designNetworkError"));
     } finally {
       setBoosting(false);
     }
@@ -1133,10 +1140,10 @@ function BoostButton({ slug, onBoost }: { slug: string; onBoost: () => void }) {
         <div className="flex items-center gap-3 mb-2">
           <span className="text-lg">&#10024;</span>
           <span className="font-semibold text-(--ditto-text)">
-            Boost applicato! {result.before} → {result.after}/100
+            {t("designBoostApplied")} {result.before} → {result.after}/100
           </span>
           <span className="text-xs text-(--ditto-text-muted)">
-            ({result.creditsCharged} crediti usati)
+            ({result.creditsCharged} {t("designCreditsUsed")})
           </span>
         </div>
         <div className="text-xs text-(--ditto-text-muted) space-y-0.5">
@@ -1156,11 +1163,11 @@ function BoostButton({ slug, onBoost }: { slug: string; onBoost: () => void }) {
     <div className="mt-4 flex items-center gap-4 rounded-lg border border-(--ditto-border) bg-(--ditto-surface) p-4">
       <div className="flex-1">
         <p className="text-sm font-medium text-(--ditto-text)">
-          Boost disponibile: <span className="font-bold">{estimate.currentScore} → {estimate.estimatedScore}/100</span>
-          <span className="text-(--ditto-text-muted)"> (+{gain} punti)</span>
+          {t("designBoostAvailable")} <span className="font-bold">{estimate.currentScore} → {estimate.estimatedScore}/100</span>
+          <span className="text-(--ditto-text-muted)"> (+{gain} {t("designPoints")})</span>
         </p>
         <p className="text-xs text-(--ditto-text-muted) mt-0.5">
-          Costo: {estimate.estimatedCost} crediti. Corregge automaticamente i problemi rilevati
+          {t("designCostLabel")}: {estimate.estimatedCost} {t("designCreditsLower")}. {t("designBoostAutoFix")}
         </p>
       </div>
       <button
@@ -1172,13 +1179,16 @@ function BoostButton({ slug, onBoost }: { slug: string; onBoost: () => void }) {
           color: "var(--ditto-bg)",
         }}
       >
-        {boosting ? "Boosting..." : `Boost ⚡ ${estimate.estimatedCost} cr`}
+        {boosting ? t("designBoosting") : `${t("designBoost")} ⚡ ${estimate.estimatedCost} ${t("designCreditsAbbrev")}`}
       </button>
 
       {showConfirm && (
         <PurchaseConfirmModal
-          label="Quality Boost"
-          description={`Boost quality from ${estimate.currentScore} to ${estimate.estimatedScore}/100 (+${gain} points). Automatically fixes detected issues.`}
+          label={t("designQualityBoost")}
+          description={t("designQualityBoostDesc")
+            .replace("{from}", String(estimate.currentScore))
+            .replace("{to}", String(estimate.estimatedScore))
+            .replace("{gain}", String(gain))}
           cost={estimate.estimatedCost}
           currentCredits={credits ?? 0}
           processing={boosting}
@@ -1191,15 +1201,16 @@ function BoostButton({ slug, onBoost }: { slug: string; onBoost: () => void }) {
 }
 
 function TokensView({ design, onBoost }: { design: StoredDesign; onBoost: () => void }) {
+  const t = useT();
   const { tokens } = design;
 
   const dims = design.quality
     ? [
-        { label: "Color", value: design.quality.color },
-        { label: "Typography", value: design.quality.typography },
-        { label: "Spacing", value: design.quality.spacing },
-        { label: "Contrast", value: design.quality.contrast },
-        { label: "Completeness", value: design.quality.completeness },
+        { label: t("designQualityDimColor"), value: design.quality.color },
+        { label: t("designQualityDimTypography"), value: design.quality.typography },
+        { label: t("designQualityDimSpacing"), value: design.quality.spacing },
+        { label: t("designQualityDimContrast"), value: design.quality.contrast },
+        { label: t("designQualityDimCompleteness"), value: design.quality.completeness },
       ]
     : [];
 
@@ -1209,7 +1220,7 @@ function TokensView({ design, onBoost }: { design: StoredDesign; onBoost: () => 
       {design.quality && (
         <section className="rounded-xl border border-(--ditto-border) bg-(--ditto-surface) p-6">
           <div className="flex items-center gap-4 mb-4">
-            <h2 className="text-lg font-semibold text-(--ditto-text)">Design Quality</h2>
+            <h2 className="text-lg font-semibold text-(--ditto-text)">{t("designQualityTitle")}</h2>
             <span
               className="text-2xl font-extrabold"
               style={{ color: qualityColor(design.quality.overall) }}
@@ -1278,7 +1289,7 @@ function TokensView({ design, onBoost }: { design: StoredDesign; onBoost: () => 
       {/* Colors */}
       <section>
         <h2 className="text-lg font-semibold text-(--ditto-text) mb-4">
-          Colors ({tokens.colors.length})
+          {t("designSectionColors")} ({tokens.colors.length})
         </h2>
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">
           {tokens.colors.map((color, i) => (
@@ -1306,23 +1317,23 @@ function TokensView({ design, onBoost }: { design: StoredDesign; onBoost: () => 
       {/* Typography */}
       <section>
         <h2 className="text-lg font-semibold text-(--ditto-text) mb-4">
-          Typography
+          {t("designSectionTypography")}
         </h2>
         <div className="rounded-xl border border-(--ditto-border) bg-(--ditto-surface) overflow-hidden">
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b border-(--ditto-border)">
                 <th className="text-left px-4 py-2 text-(--ditto-text-muted) font-medium">
-                  Role
+                  {t("designColRole")}
                 </th>
                 <th className="text-left px-4 py-2 text-(--ditto-text-muted) font-medium">
-                  Font
+                  {t("designColFont")}
                 </th>
                 <th className="text-left px-4 py-2 text-(--ditto-text-muted) font-medium">
-                  Size
+                  {t("designColSize")}
                 </th>
                 <th className="text-left px-4 py-2 text-(--ditto-text-muted) font-medium">
-                  Weight
+                  {t("designColWeight")}
                 </th>
               </tr>
             </thead>
@@ -1345,7 +1356,7 @@ function TokensView({ design, onBoost }: { design: StoredDesign; onBoost: () => 
       {/* Spacing */}
       <section>
         <h2 className="text-lg font-semibold text-(--ditto-text) mb-4">
-          Spacing
+          {t("designSectionSpacing")}
         </h2>
         <div className="flex flex-wrap gap-3">
           {tokens.spacing.map((s, i) => (
@@ -1374,7 +1385,7 @@ function TokensView({ design, onBoost }: { design: StoredDesign; onBoost: () => 
       {/* Shadows */}
       <section>
         <h2 className="text-lg font-semibold text-(--ditto-text) mb-4">
-          Shadows
+          {t("designSectionShadows")}
         </h2>
         <div className="flex flex-wrap gap-4">
           {tokens.shadows.map((s, i) => (
@@ -1390,7 +1401,7 @@ function TokensView({ design, onBoost }: { design: StoredDesign; onBoost: () => 
       {/* Radii */}
       <section>
         <h2 className="text-lg font-semibold text-(--ditto-text) mb-4">
-          Border Radius
+          {t("designSectionBorderRadius")}
         </h2>
         <div className="flex flex-wrap gap-4">
           {tokens.radii.map((r, i) => (
@@ -1411,7 +1422,7 @@ function TokensView({ design, onBoost }: { design: StoredDesign; onBoost: () => 
       {Object.keys(tokens.cssVariables).length > 0 && (
         <section>
           <h2 className="text-lg font-semibold text-(--ditto-text) mb-4">
-            CSS Variables ({Object.keys(tokens.cssVariables).length})
+            {t("designSectionCssVariables")} ({Object.keys(tokens.cssVariables).length})
           </h2>
           <div className="rounded-xl border border-(--ditto-border) bg-(--ditto-surface) p-4 max-h-96 overflow-auto">
             <pre className="text-xs font-mono text-(--ditto-text-secondary) leading-relaxed">
@@ -1433,6 +1444,7 @@ function DesignMdDropdown({
 }: {
   onDownload: (variant: "llm" | "stitch") => void | Promise<void>;
 }) {
+  const t = useT();
   const [open, setOpen] = useState(false);
   return (
     <div className="relative">
@@ -1442,7 +1454,7 @@ function DesignMdDropdown({
         className="rounded-lg border border-(--ditto-border) px-4 py-2 text-sm font-medium text-(--ditto-text-secondary) hover:text-(--ditto-text) hover:border-(--ditto-text-muted) transition-colors flex items-center gap-1.5"
       >
         <Sparkles className="w-3.5 h-3.5" strokeWidth={1.5} />
-        Integra con l&apos;AI
+        {t("designIntegrateWithAI")}
         <ChevronDown
           className={`w-3.5 h-3.5 transition-transform ${open ? "rotate-180" : ""}`}
           strokeWidth={1.5}
@@ -1453,7 +1465,7 @@ function DesignMdDropdown({
           <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} aria-hidden />
           <div className="absolute right-0 top-full mt-2 z-50 w-[340px] rounded-lg border border-(--ditto-border) bg-(--ditto-surface) shadow-xl p-4">
             <p className="text-xs text-(--ditto-text-muted) mb-3">
-              Scegli per quale strumento stai preparando il file.
+              {t("designChooseTool")}
             </p>
             <button
               onClick={() => {
@@ -1464,14 +1476,14 @@ function DesignMdDropdown({
             >
               <div className="flex items-center gap-2 mb-1">
                 <span className="text-xs font-bold text-(--ditto-text)">
-                  🤖 AI coding
+                  {t("designAiCodingTitle")}
                 </span>
                 <span className="text-[10px] text-(--ditto-text-muted)">
                   Claude · Cursor · ChatGPT · Lovable
                 </span>
               </div>
               <p className="text-[11px] text-(--ditto-text-muted) leading-snug">
-                DESIGN.md completo: YAML frontmatter + prose dettagliata + esempi di prompt.
+                {t("designAiCodingDesc")}
               </p>
             </button>
             <button
@@ -1483,18 +1495,18 @@ function DesignMdDropdown({
             >
               <div className="flex items-center gap-2 mb-1">
                 <span className="text-xs font-bold text-(--ditto-text)">
-                  ✨ Stitch
+                  {t("designStitchTitle")}
                 </span>
                 <span className="text-[10px] text-(--ditto-text-muted)">
                   Google Labs
                 </span>
               </div>
               <p className="text-[11px] text-(--ditto-text-muted) leading-snug">
-                Strict Google DESIGN.md spec: frontmatter + 8 sezioni canoniche. Import-ready.
+                {t("designStitchDesc")}
               </p>
             </button>
             <p className="text-[10px] text-(--ditto-text-muted) text-center mt-3">
-              Entrambi gratis.
+              {t("designBothFree")}
             </p>
           </div>
         </>
@@ -1504,13 +1516,14 @@ function DesignMdDropdown({
 }
 
 function DesignMdInfo() {
+  const t = useT();
   const [open, setOpen] = useState(false);
   return (
     <div className="relative">
       <button
         onClick={() => setOpen(!open)}
         className="w-5 h-5 rounded-full border border-(--ditto-border) bg-(--ditto-surface) text-(--ditto-text-muted) hover:text-(--ditto-text) hover:border-(--ditto-text-muted) transition-colors flex items-center justify-center"
-        aria-label="Cos'è DESIGN.md"
+        aria-label={t("designWhatIsDesignMd")}
       >
         <Info className="w-3 h-3" strokeWidth={1.5} />
       </button>
@@ -1518,29 +1531,28 @@ function DesignMdInfo() {
         <>
           <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} />
           <div className="absolute left-0 top-7 z-50 w-80 rounded-lg border border-(--ditto-border) bg-(--ditto-surface) shadow-xl p-4 text-xs text-(--ditto-text)">
-            <p className="font-semibold text-sm mb-2">Cos&apos;è DESIGN.md</p>
+            <p className="font-semibold text-sm mb-2">{t("designWhatIsDesignMd")}</p>
             <p className="text-(--ditto-text-muted) mb-3 leading-relaxed">
-              Un file Markdown che descrive l&apos;intero design system estratto: palette, tipografia, spaziature, ombre, radii, componenti e linee guida d&apos;uso — pronto come contesto per modelli AI.
+              {t("designMdIntro")}
             </p>
-            <p className="font-semibold text-[11px] uppercase tracking-wide text-(--ditto-text-muted) mb-1.5">Come usarlo</p>
+            <p className="font-semibold text-[11px] uppercase tracking-wide text-(--ditto-text-muted) mb-1.5">{t("designHowToUse")}</p>
             <ul className="space-y-1.5 text-(--ditto-text-muted) mb-3 leading-relaxed">
               <li className="flex items-start gap-1.5">
                 <span className="text-(--ditto-primary) mt-0.5 shrink-0">1.</span>
-                Scarica il file, aprilo o copiane il contenuto.
+                {t("designHowStep1")}
               </li>
               <li className="flex items-start gap-1.5">
                 <span className="text-(--ditto-primary) mt-0.5 shrink-0">2.</span>
-                Incollalo in Claude, ChatGPT, Cursor o qualsiasi agente AI come system prompt o allegato.
+                {t("designHowStep2")}
               </li>
               <li className="flex items-start gap-1.5">
                 <span className="text-(--ditto-primary) mt-0.5 shrink-0">3.</span>
-                Chiedi all&apos;AI di generare componenti, pagine o contenuti — li produrrà rispettando i token del design.
+                {t("designHowStep3")}
               </li>
             </ul>
-            <p className="font-semibold text-[11px] uppercase tracking-wide text-(--ditto-text-muted) mb-1.5">Esempio di prompt</p>
+            <p className="font-semibold text-[11px] uppercase tracking-wide text-(--ditto-text-muted) mb-1.5">{t("designExamplePrompt")}</p>
             <pre className="bg-(--ditto-bg) border border-(--ditto-border) rounded-md p-2 text-[10.5px] text-(--ditto-text-secondary) whitespace-pre-wrap leading-snug">
-{`Usa questo design system come riferimento
-e crea un componente Pricing con 3 piani.`}
+{t("designExamplePromptText")}
             </pre>
           </div>
         </>
@@ -1550,6 +1562,7 @@ e crea un componente Pricing con 3 piani.`}
 }
 
 function FeatureInfo({ items, align = "center" }: { items: string[]; align?: "left" | "center" | "right" }) {
+  const t = useT();
   const [open, setOpen] = useState(false);
   const positionClass =
     align === "right"
@@ -1562,7 +1575,7 @@ function FeatureInfo({ items, align = "center" }: { items: string[]; align?: "le
       <button
         onClick={() => setOpen(!open)}
         className="w-5 h-5 rounded-full border border-(--ditto-border) bg-(--ditto-surface) text-(--ditto-text-muted) hover:text-(--ditto-text) hover:border-(--ditto-text-muted) transition-colors flex items-center justify-center"
-        aria-label="What's included"
+        aria-label={t("designWhatsIncluded")}
       >
         <Info className="w-3 h-3" strokeWidth={1.5} />
       </button>
@@ -1570,7 +1583,7 @@ function FeatureInfo({ items, align = "center" }: { items: string[]; align?: "le
         <>
           <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} />
           <div className={`absolute ${positionClass} top-7 z-50 w-64 rounded-lg border border-(--ditto-border) bg-(--ditto-surface) shadow-xl p-3`}>
-            <p className="text-xs font-semibold text-(--ditto-text) mb-2">Includes:</p>
+            <p className="text-xs font-semibold text-(--ditto-text) mb-2">{t("designIncludes")}</p>
             <ul className="space-y-1">
               {items.map((item) => (
                 <li key={item} className="flex items-start gap-1.5 text-[11px] text-(--ditto-text-muted)">

@@ -12,6 +12,7 @@
 
 import Script from "next/script";
 import * as simpleIcons from "simple-icons";
+import { useT } from "@/lib/locale-context";
 
 // Each brand: what Ditto actually ships for them + optional simple-icons slug.
 // If a brand is missing from simple-icons (Stitch is too new, Lovable small),
@@ -51,16 +52,17 @@ function getIcon(key: string | undefined): { path: string; title: string } | nul
 }
 
 interface Props {
-  /** Heading text. */
+  /** Heading text override. Defaults to localized "Works with". */
   heading?: string;
-  /** Small copy below the marquee. */
+  /** Small copy below the marquee. Defaults to localized trademark notice. */
   footnote?: string;
 }
 
-export function CompatibilityCarousel({
-  heading = "Funziona con",
-  footnote = "Marchi © dei rispettivi proprietari. Ditto non è partner o affiliato.",
-}: Props) {
+export function CompatibilityCarousel({ heading, footnote }: Props) {
+  const t = useT();
+  const headingText = heading ?? t("compatHeading");
+  const footnoteText = footnote ?? t("compatFootnote");
+
   // Duplicate the list so the marquee can loop seamlessly.
   const loop = [...BRANDS, ...BRANDS];
 
@@ -97,7 +99,7 @@ export function CompatibilityCarousel({
           id="compat-heading"
           className="text-[11px] tracking-[0.3em] uppercase text-(--ditto-text-muted) font-semibold"
         >
-          {heading}
+          {headingText}
         </p>
       </div>
 
@@ -131,7 +133,7 @@ export function CompatibilityCarousel({
       </div>
 
       <p className="text-[10px] text-(--ditto-text-muted) text-center mt-8 max-w-xl mx-auto opacity-80">
-        {footnote}
+        {footnoteText}
       </p>
 
       <style jsx>{`

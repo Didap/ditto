@@ -5,6 +5,7 @@ import { Drawer } from "vaul";
 import confetti from "canvas-confetti";
 import { Target, Coins, X, Sparkles, Check, Copy, Gift } from "lucide-react";
 import { useCredits } from "@/lib/credits-context";
+import { useT } from "@/lib/locale-context";
 import type { QuestStatus } from "@/lib/quests";
 
 interface QuestsWidgetProps {
@@ -13,6 +14,7 @@ interface QuestsWidgetProps {
 }
 
 export function QuestsWidget({ authed }: QuestsWidgetProps) {
+  const t = useT();
   const [open, setOpen] = useState(false);
   const [quests, setQuests] = useState<QuestStatus[] | null>(null);
   const [referralCode, setReferralCode] = useState<string | null>(null);
@@ -112,7 +114,7 @@ export function QuestsWidget({ authed }: QuestsWidgetProps) {
       {/* Floating trigger — bottom-left corner */}
       <Drawer.Trigger asChild>
         <button
-          aria-label="Open quests"
+          aria-label={t("questsOpenAria")}
           className="fixed bottom-6 left-6 z-40 group"
         >
           <span className="relative flex items-center justify-center w-14 h-14 rounded-full bg-(--ditto-primary) text-(--ditto-bg) shadow-lg shadow-(--ditto-primary)/30 hover:shadow-xl hover:shadow-(--ditto-primary)/40 hover:scale-105 transition-all duration-200">
@@ -146,19 +148,19 @@ export function QuestsWidget({ authed }: QuestsWidgetProps) {
               <div className="min-w-0">
                 <Drawer.Title className="flex items-center gap-2 text-lg font-bold text-(--ditto-text)">
                   <Target className="w-5 h-5 text-(--ditto-primary)" strokeWidth={2} />
-                  Quests
+                  {t("questsTitle")}
                 </Drawer.Title>
                 <Drawer.Description className="text-xs text-(--ditto-text-muted) mt-0.5">
                   {claimableCount > 0
-                    ? `${claimableCount} da riscuotere · +${totalEarnable} crediti disponibili`
+                    ? `${claimableCount} ${t("questsDescToClaim")} · +${totalEarnable} ${t("questsDescCreditsAvailable")}`
                     : quests === null
-                      ? "Caricamento…"
-                      : "Nessuna quest disponibile ora — torna domani!"}
+                      ? t("questsLoading")
+                      : t("questsEmpty")}
                 </Drawer.Description>
               </div>
               <button
                 onClick={() => setOpen(false)}
-                aria-label="Close"
+                aria-label={t("questsCloseAria")}
                 className="shrink-0 w-8 h-8 rounded-lg border border-(--ditto-border) text-(--ditto-text-secondary) hover:text-(--ditto-text) hover:border-(--ditto-text-muted) transition-colors flex items-center justify-center"
               >
                 <X className="w-4 h-4" strokeWidth={1.5} />
@@ -170,7 +172,7 @@ export function QuestsWidget({ authed }: QuestsWidgetProps) {
               {/* Claimable */}
               {claimable.length > 0 && (
                 <QuestSection
-                  title="Da riscuotere"
+                  title={t("questsSectionClaimable")}
                   accent="primary"
                   countLabel={`${claimable.length}`}
                 >
@@ -188,7 +190,7 @@ export function QuestsWidget({ authed }: QuestsWidgetProps) {
 
               {/* Locked / in-progress */}
               {locked.length > 0 && (
-                <QuestSection title="Ancora da fare" accent="muted">
+                <QuestSection title={t("questsSectionLocked")} accent="muted">
                   {locked.map((q) => (
                     <QuestCard key={q.quest.id} quest={q} state="locked" />
                   ))}
@@ -197,7 +199,7 @@ export function QuestsWidget({ authed }: QuestsWidgetProps) {
 
               {/* Completed */}
               {done.length > 0 && (
-                <QuestSection title="Completate" accent="muted">
+                <QuestSection title={t("questsSectionDone")} accent="muted">
                   {done.map((q) => (
                     <QuestCard key={q.quest.id} quest={q} state="done" />
                   ))}
@@ -210,13 +212,11 @@ export function QuestsWidget({ authed }: QuestsWidgetProps) {
                   <div className="flex items-center gap-2 mb-2">
                     <Gift className="w-4 h-4 text-(--ditto-primary)" strokeWidth={2} />
                     <span className="text-sm font-semibold text-(--ditto-text)">
-                      Invita un amico
+                      {t("questsInviteTitle")}
                     </span>
                   </div>
                   <p className="text-xs text-(--ditto-text-muted) mb-3 leading-relaxed">
-                    Guadagni <strong className="text-(--ditto-text)">200 crediti</strong> per ogni
-                    amico che si registra con il tuo link. Loro ne ricevono 100 come
-                    benvenuto.
+                    {t("questsInvitePre")} <strong className="text-(--ditto-text)">{t("questsInviteCreditsBold")}</strong> {t("questsInviteMid")}
                   </p>
                   <div className="flex gap-2">
                     <input
@@ -234,11 +234,11 @@ export function QuestsWidget({ authed }: QuestsWidgetProps) {
                     >
                       {copied ? (
                         <>
-                          <Check className="w-3 h-3" strokeWidth={2} /> Copiato
+                          <Check className="w-3 h-3" strokeWidth={2} /> {t("questsCopied")}
                         </>
                       ) : (
                         <>
-                          <Copy className="w-3 h-3" strokeWidth={1.5} /> Copia
+                          <Copy className="w-3 h-3" strokeWidth={1.5} /> {t("questsCopy")}
                         </>
                       )}
                     </button>
@@ -301,6 +301,7 @@ function QuestCard({
   claiming?: boolean;
   onClaim?: () => void;
 }) {
+  const t = useT();
   const isClaimable = state === "claimable" || state === "just-claimed";
   const isJustClaimed = state === "just-claimed";
   const isDone = state === "done";
@@ -333,8 +334,8 @@ function QuestCard({
           <div className="text-xs text-(--ditto-text-muted) mt-0.5 leading-snug">
             {isDone
               ? q.quest.repeatable === "daily"
-                ? "Fatto oggi"
-                : "Completata"
+                ? t("questsDoneToday")
+                : t("questsCompleted")
               : q.quest.description}
             {isDone && q.totalCompletions > 1 && ` · ${q.totalCompletions}×`}
           </div>
@@ -349,7 +350,7 @@ function QuestCard({
           {isJustClaimed ? (
             <>
               <Check className="w-3.5 h-3.5" strokeWidth={2.5} />
-              Fatto!
+              {t("questsClaimedBadge")}
             </>
           ) : claiming ? (
             <span className="w-3 h-3 border-2 border-(--ditto-bg) border-t-transparent rounded-full animate-spin" />

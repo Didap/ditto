@@ -6,7 +6,7 @@ import type { StoredDesign, DashboardDesignCard } from "@/lib/types";
 import { qualityColor } from "@/lib/quality-scorer";
 import { LottieLoader } from "@/components/LottieLoader";
 import { useCredits } from "@/lib/credits-context";
-import { useLocalePath } from "@/lib/locale-context";
+import { useLocalePath, useT } from "@/lib/locale-context";
 import { useOnborda } from "onborda";
 import { hasSeenTour } from "@/lib/onboarding";
 import {
@@ -41,6 +41,7 @@ export function DashboardClient({
   perPage,
 }: DashboardProps) {
   const lp = useLocalePath();
+  const t = useT();
   const { credits, refresh: refreshCredits } = useCredits();
   const [designs, setDesigns] = useState<DashboardDesignCard[]>(initialDesigns);
   const [page, setPage] = useState(initialPage);
@@ -187,10 +188,10 @@ export function DashboardClient({
       <div id="tour-dashboard-header" className="flex items-center justify-between mb-8">
         <div>
           <h1 className="text-2xl font-bold tracking-tight text-(--ditto-text)">
-            Design Library
+            {t("dashboardTitle")}
           </h1>
           <p className="text-sm text-(--ditto-text-secondary) mt-1">
-            {designs.length} design system{designs.length !== 1 ? "s" : ""} collected
+            {designs.length} {designs.length === 1 ? t("dashboardCollectedSingular") : t("dashboardCollectedPlural")}
           </p>
         </div>
         <Link
@@ -198,7 +199,7 @@ export function DashboardClient({
           href={lp("/add")}
           className="rounded-lg bg-(--ditto-primary) px-4 py-2 text-sm font-medium text-(--ditto-bg) hover:bg-(--ditto-primary-hover) transition-colors"
         >
-          + Add Design
+          {t("dashboardAddDesign")}
         </Link>
       </div>
 
@@ -206,7 +207,7 @@ export function DashboardClient({
       {selected.size > 0 && (
         <div className="mb-4 flex items-center gap-3 rounded-xl border border-(--ditto-primary)/30 bg-(--ditto-primary)/5 px-5 py-3">
           <span className="text-sm font-semibold text-(--ditto-text)">
-            {selected.size} selected
+            {selected.size} {t("dashboardSelected")}
           </span>
           <div className="h-4 w-px bg-(--ditto-border)" />
           {selected.size >= 2 && (
@@ -215,7 +216,7 @@ export function DashboardClient({
               className="flex items-center gap-1.5 rounded-lg bg-(--ditto-primary) px-3 py-1.5 text-xs font-semibold text-(--ditto-bg) hover:bg-(--ditto-primary-hover) transition-colors"
             >
               <Sparkles className="w-3.5 h-3.5" strokeWidth={1.5} />
-              Generate hybrid from selected
+              {t("dashboardGenerateHybrid")}
             </button>
           )}
           <button
@@ -224,14 +225,14 @@ export function DashboardClient({
             className="flex items-center gap-1.5 rounded-lg border border-(--ditto-error)/40 px-3 py-1.5 text-xs font-semibold text-(--ditto-error) hover:bg-(--ditto-error)/10 transition-colors disabled:opacity-50"
           >
             <Trash2 className="w-3.5 h-3.5" strokeWidth={1.5} />
-            Delete
+            {t("dashboardDelete")}
           </button>
           <button
             onClick={clearSelection}
             className="ml-auto flex items-center gap-1 text-xs text-(--ditto-text-muted) hover:text-(--ditto-text) transition-colors"
           >
             <X className="w-3.5 h-3.5" strokeWidth={1.5} />
-            Clear
+            {t("dashboardClear")}
           </button>
         </div>
       )}
@@ -240,30 +241,30 @@ export function DashboardClient({
         <div className="flex items-center justify-center py-32">
           <div className="flex flex-col items-center gap-3">
             <LottieLoader size={200} />
-            <span className="text-sm text-(--ditto-text-muted)">Loading designs...</span>
+            <span className="text-sm text-(--ditto-text-muted)">{t("dashboardLoading")}</span>
           </div>
         </div>
       ) : designs.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-32 text-center">
           <span className="w-16 h-16 ditto-blob opacity-40 inline-block mb-4" />
           <h2 className="text-lg font-semibold text-(--ditto-text) mb-2">
-            No designs yet
+            {t("dashboardEmptyTitle")}
           </h2>
           <p className="text-sm text-(--ditto-text-muted) max-w-md mb-6">
-            Start by adding a design from a URL or browse the curated catalog.
+            {t("dashboardEmptyBody")}
           </p>
           <div className="flex gap-3">
             <Link
               href={lp("/add")}
               className="rounded-lg bg-(--ditto-primary) px-4 py-2 text-sm font-medium text-(--ditto-bg) hover:bg-(--ditto-primary-hover) transition-colors"
             >
-              + Add from URL
+              {t("dashboardAddFromUrl")}
             </Link>
             <Link
               href={lp("/catalog")}
               className="rounded-lg border border-(--ditto-border) px-4 py-2 text-sm font-medium text-(--ditto-text-secondary) hover:text-(--ditto-text) hover:border-(--ditto-text-muted) transition-colors"
             >
-              Browse Catalog
+              {t("dashboardBrowseCatalog")}
             </Link>
           </div>
         </div>
@@ -288,23 +289,23 @@ export function DashboardClient({
                 onClick={() => goToPage(page - 1)}
                 disabled={page <= 1 || loading}
                 className="inline-flex items-center gap-1 rounded-lg border border-(--ditto-border) px-3 py-1.5 text-sm text-(--ditto-text-secondary) hover:text-(--ditto-text) hover:border-(--ditto-text-muted) transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
-                aria-label="Previous page"
+                aria-label={t("dashboardPrevPage")}
               >
                 <ChevronLeft className="w-4 h-4" strokeWidth={1.5} />
-                Prev
+                {t("dashboardPrev")}
               </button>
               <span className="text-xs text-(--ditto-text-muted) tabular-nums">
-                Page <span className="text-(--ditto-text) font-semibold">{page}</span> of {totalPages}
+                {t("dashboardPage")} <span className="text-(--ditto-text) font-semibold">{page}</span> {t("dashboardOf")} {totalPages}
                 <span className="mx-2 opacity-40">·</span>
-                {total} design{total === 1 ? "" : "s"}
+                {total} {total === 1 ? t("dashboardDesignSingular") : t("dashboardDesignPlural")}
               </span>
               <button
                 onClick={() => goToPage(page + 1)}
                 disabled={page >= totalPages || loading}
                 className="inline-flex items-center gap-1 rounded-lg border border-(--ditto-border) px-3 py-1.5 text-sm text-(--ditto-text-secondary) hover:text-(--ditto-text) hover:border-(--ditto-text-muted) transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
-                aria-label="Next page"
+                aria-label={t("dashboardNextPage")}
               >
-                Next
+                {t("dashboardNext")}
                 <ChevronRight className="w-4 h-4" strokeWidth={1.5} />
               </button>
             </div>
@@ -320,7 +321,7 @@ export function DashboardClient({
             className="flex items-center gap-2 text-sm text-(--ditto-text-muted) hover:text-(--ditto-text) transition-colors mb-4"
           >
             <Recycle className="w-4 h-4" strokeWidth={1.5} />
-            Recycle bin ({trash.length})
+            {t("dashboardRecycleBin")} ({trash.length})
             <span
               className="text-xs transition-transform"
               style={{ transform: showTrash ? "rotate(180deg)" : "none" }}
@@ -353,10 +354,12 @@ export function DashboardClient({
             onClick={(e) => e.stopPropagation()}
           >
             <h3 className="text-lg font-bold text-(--ditto-text) mb-1">
-              Delete {selected.size} design{selected.size > 1 ? "s" : ""}?
+              {selected.size === 1
+                ? t("dashboardDeleteTitleSingular")
+                : t("dashboardDeleteTitlePluralPrefix") + " " + selected.size + " " + t("dashboardDeleteTitlePluralSuffix")}
             </h3>
             <p className="text-sm text-(--ditto-text-muted) mb-5">
-              Designs will be moved to the trash and permanently deleted after 7 days.
+              {t("dashboardDeleteBody")}
             </p>
 
             {/* Credits at risk */}
@@ -376,7 +379,7 @@ export function DashboardClient({
                 <>
                   <div className="h-px bg-(--ditto-border) my-3" />
                   <div className="flex items-center justify-between text-sm font-semibold">
-                    <span className="text-(--ditto-text)">Total credits at risk</span>
+                    <span className="text-(--ditto-text)">{t("dashboardTotalCreditsAtRisk")}</span>
                     <span className="flex items-center gap-1 text-(--ditto-error)">
                       <Coins className="w-3.5 h-3.5" strokeWidth={1.5} />
                       {totalCreditsAtRisk}
@@ -389,7 +392,7 @@ export function DashboardClient({
             {/* Warning */}
             <div className="rounded-lg border border-(--ditto-error)/25 bg-(--ditto-error)/10 px-4 py-3 mb-5">
               <p className="text-xs text-(--ditto-error)">
-                Designs will be moved to the recycle bin. You can restore them, recycle for a random catalog design, or convert to 40 credits.
+                {t("dashboardDeleteWarning")}
               </p>
             </div>
 
@@ -399,14 +402,14 @@ export function DashboardClient({
                 onClick={() => setDeleteModal(false)}
                 className="flex-1 rounded-lg border border-(--ditto-border) px-4 py-2.5 text-sm font-medium text-(--ditto-text-secondary) hover:text-(--ditto-text) hover:border-(--ditto-text-muted) transition-colors"
               >
-                Cancel
+                {t("dashboardCancel")}
               </button>
               <button
                 onClick={confirmDelete}
                 className="flex-1 rounded-lg bg-(--ditto-error) px-4 py-2.5 text-sm font-medium text-white hover:opacity-90 transition-colors flex items-center justify-center gap-1.5"
               >
                 <Trash2 className="w-3.5 h-3.5" strokeWidth={1.5} />
-                Move to trash
+                {t("dashboardMoveToTrash")}
               </button>
             </div>
           </div>
@@ -422,12 +425,12 @@ export function DashboardClient({
             onClick={(e) => e.stopPropagation()}
           >
             <h3 className="text-lg font-bold text-(--ditto-text) mb-1">
-              {recycleModal.action === "credits" ? "Recycle for credits" : "Recycle for a random design"}
+              {recycleModal.action === "credits" ? t("dashboardRecycleCreditsTitle") : t("dashboardRecycleRandomTitle")}
             </h3>
             <p className="text-sm text-(--ditto-text-muted) mb-5">
               {recycleModal.action === "credits"
-                ? "This design will be permanently deleted and converted to 40 credits."
-                : "This design will be permanently deleted and replaced with a random design from the catalog. The new design cannot be recycled."}
+                ? t("dashboardRecycleCreditsBody")
+                : t("dashboardRecycleRandomBody")}
             </p>
 
             {recycleModal.action === "credits" && credits !== null && (
@@ -436,19 +439,19 @@ export function DashboardClient({
                 style={{ backgroundColor: "var(--ditto-bg)", border: "1px solid var(--ditto-border)" }}
               >
                 <div className="flex justify-between text-sm">
-                  <span className="text-(--ditto-text-muted)">Current balance</span>
+                  <span className="text-(--ditto-text-muted)">{t("dashboardCurrentBalance")}</span>
                   <span className="font-semibold text-(--ditto-text) flex items-center gap-1">
                     <Coins className="w-3.5 h-3.5 text-(--ditto-primary)" strokeWidth={1.5} />
                     {credits}
                   </span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-(--ditto-text-muted)">Recycle bonus</span>
+                  <span className="text-(--ditto-text-muted)">{t("dashboardRecycleBonus")}</span>
                   <span className="font-semibold text-(--ditto-primary)">+40</span>
                 </div>
                 <div className="h-px" style={{ backgroundColor: "var(--ditto-border)" }} />
                 <div className="flex justify-between text-sm">
-                  <span className="text-(--ditto-text-muted)">Balance after</span>
+                  <span className="text-(--ditto-text-muted)">{t("dashboardBalanceAfter")}</span>
                   <span className="font-semibold text-(--ditto-text) flex items-center gap-1">
                     <Coins className="w-3.5 h-3.5 text-(--ditto-primary)" strokeWidth={1.5} />
                     {credits + 40}
@@ -459,7 +462,7 @@ export function DashboardClient({
 
             <div className="rounded-lg border border-(--ditto-error)/25 bg-(--ditto-error)/10 px-4 py-3 mb-5">
               <p className="text-xs text-(--ditto-error)">
-                This action is irreversible. The design will be permanently deleted.
+                {t("dashboardRecycleIrreversible")}
               </p>
             </div>
 
@@ -468,7 +471,7 @@ export function DashboardClient({
                 onClick={() => setRecycleModal(null)}
                 className="flex-1 rounded-lg border border-(--ditto-border) px-4 py-2.5 text-sm font-medium text-(--ditto-text-secondary) hover:text-(--ditto-text) hover:border-(--ditto-text-muted) transition-colors"
               >
-                Cancel
+                {t("dashboardCancel")}
               </button>
               <button
                 onClick={confirmRecycle}
@@ -480,7 +483,7 @@ export function DashboardClient({
                 ) : (
                   <>
                     <Recycle className="w-3.5 h-3.5" strokeWidth={1.5} />
-                    {recycleModal.action === "credits" ? "Recycle for +40 credits" : "Recycle for random design"}
+                    {recycleModal.action === "credits" ? t("dashboardRecycleForCredits") : t("dashboardRecycleForRandom")}
                   </>
                 )}
               </button>
@@ -503,6 +506,7 @@ function TrashRow({
   onRestore: () => void;
   onRecycle: (action: "catalog" | "credits") => void;
 }) {
+  const t = useT();
   const isRecyclable = d.source === "extracted"; // only extracted designs can be recycled
 
   return (
@@ -521,14 +525,14 @@ function TrashRow({
             {(d.creditsSpent ?? 0) > 0 && (
               <span className="flex items-center gap-0.5">
                 <Coins className="w-3 h-3 text-(--ditto-primary)" strokeWidth={1.5} />
-                {d.creditsSpent} spent
+                {d.creditsSpent} {t("dashboardSpent")}
               </span>
             )}
             {d.source === "recycled" && (
-              <span className="text-[10px] text-(--ditto-text-muted) italic">from recycling</span>
+              <span className="text-[10px] text-(--ditto-text-muted) italic">{t("dashboardFromRecycling")}</span>
             )}
             {d.source === "imported" && (
-              <span className="text-[10px] text-(--ditto-text-muted) italic">from catalog</span>
+              <span className="text-[10px] text-(--ditto-text-muted) italic">{t("dashboardFromCatalog")}</span>
             )}
           </div>
         </div>
@@ -539,25 +543,25 @@ function TrashRow({
           className="flex items-center gap-1 rounded-lg border border-(--ditto-border) px-2.5 py-1.5 text-xs font-medium text-(--ditto-text-secondary) hover:text-(--ditto-primary) hover:border-(--ditto-primary)/40 transition-colors"
         >
           <RotateCcw className="w-3 h-3" strokeWidth={1.5} />
-          Restore
+          {t("dashboardRestore")}
         </button>
         {isRecyclable && (
           <>
             <button
               onClick={() => onRecycle("catalog")}
               className="flex items-center gap-1 rounded-lg border border-(--ditto-primary)/30 px-2.5 py-1.5 text-xs font-medium text-(--ditto-primary) hover:bg-(--ditto-primary)/10 transition-colors"
-              title="Swap for a random catalog design"
+              title={t("dashboardSwapTitle")}
             >
               <Recycle className="w-3 h-3" strokeWidth={1.5} />
-              Random design
+              {t("dashboardRandomDesign")}
             </button>
             <button
               onClick={() => onRecycle("credits")}
               className="flex items-center gap-1 rounded-lg border border-(--ditto-primary)/30 px-2.5 py-1.5 text-xs font-medium text-(--ditto-primary) hover:bg-(--ditto-primary)/10 transition-colors"
-              title="Convert to 40 credits"
+              title={t("dashboardConvertTitle")}
             >
               <Coins className="w-3 h-3" strokeWidth={1.5} />
-              +40 credits
+              {t("dashboardPlus40Credits")}
             </button>
           </>
         )}
@@ -581,6 +585,7 @@ function DesignCard({
   onToggleSelect: () => void;
   onSeen: () => void;
 }) {
+  const t = useT();
   const { resolved } = design;
   const devkit = design.unlockedFeatures?.devkit ?? false;
   const complete = design.unlockedFeatures?.complete ?? false;
@@ -618,7 +623,7 @@ function DesignCard({
       {isNew && (
         <div className="absolute top-3 left-1/2 -translate-x-1/2 z-10 pointer-events-none">
           <span className="new-badge-glow text-[10px] font-extrabold tracking-widest px-3 py-1 rounded-full text-white uppercase">
-            NEW
+            {t("dashboardNewBadge")}
           </span>
         </div>
       )}
@@ -669,7 +674,7 @@ function DesignCard({
                 }}
               >
                 <span className="text-[7px] font-semibold" style={{ color: isDarkColor(resolved.colorPrimary) ? "#fff" : "#000" }}>
-                  Button
+                  {t("dashboardMockupButton")}
                 </span>
               </div>
               <div
@@ -680,7 +685,7 @@ function DesignCard({
                 }}
               >
                 <span className="text-[7px]" style={{ color: colorWithAlpha(resolved.colorTextPrimary, 0.5) }}>
-                  Secondary
+                  {t("dashboardMockupSecondary")}
                 </span>
               </div>
             </div>
@@ -710,7 +715,7 @@ function DesignCard({
                 backgroundColor: qualityColor(design.quality.overall) + "18",
                 color: qualityColor(design.quality.overall),
               }}
-              title={`Quality: ${design.quality.overall}/100`}
+              title={`${t("dashboardQualityLabel")}: ${design.quality.overall}/100`}
             >
               {design.quality.overall}
             </span>
@@ -742,7 +747,7 @@ function DesignCard({
               {resolved.fontHeading}
             </span>
             <span>·</span>
-            <span>{resolved.radiusMd} radius</span>
+            <span>{resolved.radiusMd} {t("dashboardRadius")}</span>
           </div>
 
           {/* Credits spent + feature status */}
@@ -750,17 +755,17 @@ function DesignCard({
             {spent > 0 && (
               <span className="flex items-center gap-1 text-[11px] text-(--ditto-text-muted)">
                 <Coins className="w-3 h-3 text-(--ditto-primary)" strokeWidth={1.5} />
-                {spent} spent
+                {spent} {t("dashboardSpent")}
               </span>
             )}
             <div className="flex items-center gap-1.5 ml-auto">
-              <span title="Dev Kit">
+              <span title={t("dashboardDevKitTitle")}>
                 <Package className="w-3.5 h-3.5" strokeWidth={1.5} style={{ color: devkit ? "var(--ditto-success)" : "var(--ditto-error)" }} />
               </span>
-              <span title="Complete Kit">
+              <span title={t("dashboardCompleteKitTitle")}>
                 <BookOpen className="w-3.5 h-3.5" strokeWidth={1.5} style={{ color: complete ? "var(--ditto-success)" : "var(--ditto-error)" }} />
               </span>
-              <span title="DESIGN.md (always included)">
+              <span title={t("dashboardDesignMdTitle")}>
                 <FileText className="w-3.5 h-3.5" strokeWidth={1.5} style={{ color: "var(--ditto-success)" }} />
               </span>
             </div>

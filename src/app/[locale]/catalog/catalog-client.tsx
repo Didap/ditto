@@ -4,6 +4,8 @@ import { useState } from "react";
 import { useCredits } from "@/lib/credits-context";
 import { Lock, Unlock, Coins, ExternalLink, Package, BookOpen, FileText } from "lucide-react";
 import type { CatalogCategory, CatalogPreview } from "@/lib/catalog";
+import { useT } from "@/lib/locale-context";
+import type { TranslationKey } from "@/lib/i18n";
 
 interface CatalogItem {
   id: string;
@@ -15,16 +17,16 @@ interface CatalogItem {
   slug: string | null;
 }
 
-const CATEGORY_LABELS: Record<CatalogCategory, string> = {
-  saas: "SaaS",
-  fintech: "Fintech",
-  editorial: "Editorial",
-  developer: "Developer",
-  luxury: "Luxury",
-  creative: "Creative",
-  commerce: "Commerce",
-  ai: "AI",
-  enterprise: "Enterprise",
+const CATEGORY_KEYS: Record<CatalogCategory, TranslationKey> = {
+  saas: "catalogCategorySaas",
+  fintech: "catalogCategoryFintech",
+  editorial: "catalogCategoryEditorial",
+  developer: "catalogCategoryDeveloper",
+  luxury: "catalogCategoryLuxury",
+  creative: "catalogCategoryCreative",
+  commerce: "catalogCategoryCommerce",
+  ai: "catalogCategoryAi",
+  enterprise: "catalogCategoryEnterprise",
 };
 
 interface CatalogProps {
@@ -33,6 +35,7 @@ interface CatalogProps {
 }
 
 export function CatalogClient({ initialItems, initialUnlockCost }: CatalogProps) {
+  const t = useT();
   const [items, setItems] = useState<CatalogItem[]>(initialItems);
   const [unlockCost] = useState(initialUnlockCost);
   const [loading] = useState(false);
@@ -65,7 +68,7 @@ export function CatalogClient({ initialItems, initialUnlockCost }: CatalogProps)
     setUnlocking(null);
   };
 
-  const categories = ["all", ...Object.keys(CATEGORY_LABELS)] as const;
+  const categories = ["all", ...Object.keys(CATEGORY_KEYS)] as const;
   const filtered =
     filter === "all" ? items : items.filter((i) => i.category === filter);
   const unlockedCount = items.filter((i) => i.unlocked).length;
@@ -84,16 +87,16 @@ export function CatalogClient({ initialItems, initialUnlockCost }: CatalogProps)
       <div className="flex items-start justify-between mb-6">
         <div>
           <h1 className="text-2xl font-bold tracking-tight text-(--ditto-text)">
-            Design Catalog
+            {t("catalogTitle")}
           </h1>
           <p className="text-sm text-(--ditto-text-secondary) mt-1">
-            {items.length} curated design systems &middot; {unlockedCount} unlocked
+            {items.length} {t("catalogCuratedLabel")} &middot; {unlockedCount} {t("catalogUnlockedLabel")}
           </p>
         </div>
         <div className="flex items-center gap-1.5 text-sm text-(--ditto-primary)">
           <Coins className="w-4 h-4" strokeWidth={1.5} />
           <span className="font-semibold">{unlockCost}</span>
-          <span className="text-(--ditto-text-muted)">per design</span>
+          <span className="text-(--ditto-text-muted)">{t("catalogPerDesign")}</span>
         </div>
       </div>
 
@@ -110,8 +113,8 @@ export function CatalogClient({ initialItems, initialUnlockCost }: CatalogProps)
             }`}
           >
             {cat === "all"
-              ? `All (${items.length})`
-              : `${CATEGORY_LABELS[cat as CatalogCategory]} (${items.filter((i) => i.category === cat).length})`}
+              ? `${t("catalogFilterAll")} (${items.length})`
+              : `${t(CATEGORY_KEYS[cat as CatalogCategory])} (${items.filter((i) => i.category === cat).length})`}
           </button>
         ))}
       </div>
@@ -126,13 +129,14 @@ export function CatalogClient({ initialItems, initialUnlockCost }: CatalogProps)
             unlocking={unlocking === item.id}
             canAfford={credits !== null && credits >= unlockCost}
             onUnlock={() => handleUnlock(item.id)}
+            t={t}
           />
         ))}
       </div>
 
       {filtered.length === 0 && (
         <div className="text-center py-20 text-(--ditto-text-muted) text-sm">
-          No designs in this category.
+          {t("catalogEmptyCategory")}
         </div>
       )}
     </div>
@@ -145,12 +149,14 @@ function CatalogCard({
   unlocking,
   canAfford,
   onUnlock,
+  t,
 }: {
   item: CatalogItem;
   unlockCost: number;
   unlocking: boolean;
   canAfford: boolean;
   onUnlock: () => void;
+  t: (key: TranslationKey) => string;
 }) {
   const p = item.preview;
   const isDark = isColorDark(p.bg);
@@ -202,7 +208,7 @@ function CatalogCard({
               style={{ backgroundColor: p.primary }}
             >
               <span className="text-[8px] font-semibold" style={{ color: isColorDark(p.primary) ? "#fff" : "#000" }}>
-                Get started
+                {t("catalogPreviewGetStarted")}
               </span>
             </div>
             <div
@@ -210,7 +216,7 @@ function CatalogCard({
               style={{ borderColor: mixAlpha(p.text, 0.2) }}
             >
               <span className="text-[8px]" style={{ color: isDark ? "rgba(255,255,255,0.6)" : "rgba(0,0,0,0.5)" }}>
-                Learn more
+                {t("catalogPreviewLearnMore")}
               </span>
             </div>
           </div>
@@ -218,9 +224,9 @@ function CatalogCard({
 
         {/* Feature status icons */}
         <div className="absolute bottom-2 right-3 flex items-center gap-1">
-          <span title="Kit"><Package className="w-3 h-3" strokeWidth={1.5} style={{ color: isDark ? "rgba(255,255,255,0.3)" : "rgba(0,0,0,0.2)" }} /></span>
-          <span title="Dev Kit"><BookOpen className="w-3 h-3" strokeWidth={1.5} style={{ color: isDark ? "rgba(255,255,255,0.3)" : "rgba(0,0,0,0.2)" }} /></span>
-          <span title="DESIGN.md"><FileText className="w-3 h-3" strokeWidth={1.5} style={{ color: isDark ? "rgba(255,255,255,0.3)" : "rgba(0,0,0,0.2)" }} /></span>
+          <span title={t("catalogIconKit")}><Package className="w-3 h-3" strokeWidth={1.5} style={{ color: isDark ? "rgba(255,255,255,0.3)" : "rgba(0,0,0,0.2)" }} /></span>
+          <span title={t("catalogIconDevKit")}><BookOpen className="w-3 h-3" strokeWidth={1.5} style={{ color: isDark ? "rgba(255,255,255,0.3)" : "rgba(0,0,0,0.2)" }} /></span>
+          <span title={t("catalogIconDesignMd")}><FileText className="w-3 h-3" strokeWidth={1.5} style={{ color: isDark ? "rgba(255,255,255,0.3)" : "rgba(0,0,0,0.2)" }} /></span>
         </div>
 
         {/* Color palette strip */}
@@ -238,7 +244,7 @@ function CatalogCard({
         {/* Category badge + title */}
         <div className="flex items-center gap-2 mb-1">
           <span className="inline-block rounded-full bg-(--ditto-bg) border border-(--ditto-border) px-2 py-0.5 text-[9px] font-medium text-(--ditto-text-muted) uppercase tracking-wider">
-            {CATEGORY_LABELS[item.category]}
+            {t(CATEGORY_KEYS[item.category])}
           </span>
         </div>
         <h3 className="text-base font-semibold text-(--ditto-text) mb-1">
@@ -255,7 +261,7 @@ function CatalogCard({
             className="flex items-center gap-1.5 text-sm font-medium text-(--ditto-primary) hover:underline"
           >
             <Unlock className="w-3.5 h-3.5" strokeWidth={1.5} />
-            View Design
+            {t("catalogViewDesign")}
             <ExternalLink className="w-3 h-3 opacity-50" strokeWidth={1.5} />
           </a>
         ) : (
@@ -267,12 +273,12 @@ function CatalogCard({
             {unlocking ? (
               <>
                 <span className="w-3 h-3 border-2 border-(--ditto-bg) border-t-transparent rounded-full animate-spin" />
-                Unlocking...
+                {t("catalogUnlocking")}
               </>
             ) : (
               <>
                 <Lock className="w-3.5 h-3.5" strokeWidth={1.5} />
-                Unlock everything &middot; {unlockCost}
+                {t("catalogUnlockEverything")} &middot; {unlockCost}
                 <Coins className="w-3 h-3" strokeWidth={1.5} />
               </>
             )}
