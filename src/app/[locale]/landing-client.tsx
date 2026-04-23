@@ -270,7 +270,7 @@ export function LandingClient({ locale, isAuthenticated }: LandingProps) {
         name: "How does Ditto extract design systems?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Ditto launches a headless browser, loads the target website, and analyzes every CSS rule to extract a complete set of 100+ design tokens in under 30 seconds. No AI is used — it's pure CSS reverse-engineering for precise, production-ready results.",
+          text: "Ditto launches a headless browser, loads the target website, and analyzes every CSS rule to extract a complete set of 100+ design tokens in under 30 seconds. No AI is used: it's pure CSS reverse-engineering for precise, production-ready results.",
         },
       },
       {

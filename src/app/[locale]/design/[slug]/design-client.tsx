@@ -55,14 +55,14 @@ function QualityInfoPopover() {
               Measures how complete and well-structured the extracted design system is across 5 dimensions, each scored 0–100:
             </p>
             <ul className="space-y-1.5 text-(--ditto-text-muted) mb-3">
-              <li><span className="font-medium text-(--ditto-text)">Color</span> — palette variety, semantic roles, saturation</li>
-              <li><span className="font-medium text-(--ditto-text)">Typography</span> — font distinctiveness, scale ratio, hierarchy</li>
-              <li><span className="font-medium text-(--ditto-text)">Spacing</span> — scale consistency, shadows, border radii</li>
-              <li><span className="font-medium text-(--ditto-text)">Contrast</span> — WCAG text/background accessibility</li>
-              <li><span className="font-medium text-(--ditto-text)">Completeness</span> — token coverage across all categories</li>
+              <li><span className="font-medium text-(--ditto-text)">Color</span>: palette variety, semantic roles, saturation</li>
+              <li><span className="font-medium text-(--ditto-text)">Typography</span>: font distinctiveness, scale ratio, hierarchy</li>
+              <li><span className="font-medium text-(--ditto-text)">Spacing</span>: scale consistency, shadows, border radii</li>
+              <li><span className="font-medium text-(--ditto-text)">Contrast</span>: WCAG text/background accessibility</li>
+              <li><span className="font-medium text-(--ditto-text)">Completeness</span>: token coverage across all categories</li>
             </ul>
             <p className="text-(--ditto-text-muted)">
-              The overall score is the average of all 5. Pure CSS analysis — no AI involved.
+              The overall score is the average of all 5. Pure CSS analysis, no AI involved.
             </p>
           </div>
         </>
@@ -747,7 +747,7 @@ export function DesignDetailClient({ initialDesign, slug }: DesignDetailProps) {
                 <Globe className="w-3.5 h-3.5" strokeWidth={1.5} />
                 Scarica Sito Statico
               </button>
-              <FeatureInfo align="right" items={["5 ready-to-use HTML pages", "React components (14) with inline styles", "Beginner-friendly README", "Open pages in any browser — no setup needed"]} />
+              <FeatureInfo align="right" items={["5 ready-to-use HTML pages", "React components (14) with inline styles", "Beginner-friendly README", "Open pages in any browser, no setup needed"]} />
             </div>
           ) : (
             <div className="flex items-center gap-1">
@@ -769,7 +769,7 @@ export function DesignDetailClient({ initialDesign, slug }: DesignDetailProps) {
                   </>
                 )}
               </button>
-              <FeatureInfo align="right" items={["5 ready-to-use HTML pages", "React components (14) with inline styles", "Beginner-friendly README", "Open pages in any browser — no setup needed"]} />
+              <FeatureInfo align="right" items={["5 ready-to-use HTML pages", "React components (14) with inline styles", "Beginner-friendly README", "Open pages in any browser, no setup needed"]} />
             </div>
           )}
         </div>
@@ -1160,7 +1160,7 @@ function BoostButton({ slug, onBoost }: { slug: string; onBoost: () => void }) {
           <span className="text-(--ditto-text-muted)"> (+{gain} punti)</span>
         </p>
         <p className="text-xs text-(--ditto-text-muted) mt-0.5">
-          Costo: {estimate.estimatedCost} crediti — corregge automaticamente i problemi rilevati
+          Costo: {estimate.estimatedCost} crediti. Corregge automaticamente i problemi rilevati
         </p>
       </div>
       <button

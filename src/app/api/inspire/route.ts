@@ -75,7 +75,7 @@ export async function POST(req: NextRequest) {
     const { resolved, designMd } = generateHybridDesign(inspirations, targetProfile);
 
     const names = inspirations.map((i: { name: string }) => i.name);
-    const hybridName = `Hybrid — ${names.join(" + ")}`;
+    const hybridName = `Hybrid · ${names.join(" + ")}`;
     const slug = generateSlug(hybridName);
 
     const primaryInspiration = inspirations.reduce(

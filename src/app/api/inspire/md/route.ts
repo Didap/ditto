@@ -97,7 +97,7 @@ export async function POST(req: NextRequest) {
     const primary = inspirations.reduce((a, b) => (a.weight > b.weight ? a : b));
     const names = inspirations.map((i) => i.name);
     const hybridName =
-      customName || `Hybrid — ${names.join(" + ")}`;
+      customName || `Hybrid · ${names.join(" + ")}`;
     const slug = generateSlug(hybridName);
 
     const allFontSources = dedupeBy(

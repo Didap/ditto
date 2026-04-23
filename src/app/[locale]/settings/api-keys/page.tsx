@@ -190,7 +190,7 @@ export default function ApiKeysPage() {
               <div>
                 <p className="text-sm font-semibold text-(--ditto-text)">Chiave creata!</p>
                 <p className="text-xs text-(--ditto-text-secondary)">
-                  Copiala ora — per sicurezza non verrà più mostrata.
+                  Copiala ora: per sicurezza non verrà più mostrata.
                 </p>
               </div>
             </div>
@@ -216,18 +216,18 @@ export default function ApiKeysPage() {
               </button>
             </div>
             <p className="text-xs text-(--ditto-text-secondary) mb-2">
-              Incolla uno di questi nel terminale — la chiave è già sostituita:
+              Incolla uno di questi nel terminale (la chiave è già sostituita):
             </p>
             <div className="space-y-2">
               <div>
                 <p className="text-[11px] text-(--ditto-text-muted) mb-1 pl-1">
-                  CLI — login globale
+                  CLI · login globale
                 </p>
                 <Cmd>{`ditto login --key ${justCreated.key}`}</Cmd>
               </div>
               <div>
                 <p className="text-[11px] text-(--ditto-text-muted) mb-1 pl-1">
-                  MCP hosted — Claude Code / Cursor / Zed
+                  MCP hosted · Claude Code / Cursor / Zed
                 </p>
                 <Cmd>{`claude mcp add --transport http ditto https://dittodesign.dev/mcp --header "Authorization: Bearer ${justCreated.key}"`}</Cmd>
               </div>
@@ -329,7 +329,7 @@ export default function ApiKeysPage() {
           <FAQ q="Ho perso una chiave, che faccio?">
             Revocala dalla lista qui sopra e creane una nuova. Le chiavi non sono
             mai salvate in chiaro sui nostri server, per cui non possiamo
-            recuperartela — solo sostituirla.
+            recuperartela: possiamo solo sostituirla.
           </FAQ>
         </dl>
       </section>
@@ -376,7 +376,7 @@ export default function ApiKeysPage() {
       {/* ─── MCP — per sviluppatori AI ─────────────────────────────────── */}
       <section>
         <h2 className="text-sm font-semibold text-(--ditto-text) uppercase tracking-wider mb-4">
-          Per sviluppatori AI &mdash; Claude Code, Cursor, Zed
+          Per sviluppatori AI · Claude Code, Cursor, Zed
         </h2>
         <div className="space-y-4">
             <p className="text-sm text-(--ditto-text-secondary) leading-relaxed">
@@ -392,7 +392,7 @@ export default function ApiKeysPage() {
                   Consigliato
                 </span>
                 <h3 className="text-sm font-semibold text-(--ditto-text)">
-                  A — Server hosted (zero install)
+                  A. Server hosted (zero install)
                 </h3>
               </div>
               <p className="text-xs text-(--ditto-text-secondary) leading-relaxed mb-3">
@@ -416,7 +416,7 @@ export default function ApiKeysPage() {
                 </p>
               </div>
               <p className="text-[11px] text-(--ditto-text-muted) mt-2">
-                Funziona allo stesso modo per Cursor, Zed e altri client MCP — cambia solo
+                Funziona allo stesso modo per Cursor, Zed e altri client MCP. Cambia solo
                 il binario CLI del client al posto di <code className="font-mono">claude</code>.
               </p>
             </div>
@@ -424,7 +424,7 @@ export default function ApiKeysPage() {
             {/* Option B — local npm package */}
             <div className="rounded-xl border border-(--ditto-border) bg-(--ditto-surface) p-5">
               <h3 className="text-sm font-semibold text-(--ditto-text) mb-2">
-                B — Pacchetto npm (stdio locale)
+                B. Pacchetto npm (stdio locale)
               </h3>
               <p className="text-xs text-(--ditto-text-secondary) leading-relaxed mb-3">
                 Per chi vuole tenersi il binario in locale e non dipendere dal nostro server.

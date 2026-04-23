@@ -18,11 +18,11 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: {
     default:
-      "Ditto — Design Systems for Claude, ChatGPT, Cursor, Stitch, Figma, WordPress, Elementor",
+      "Ditto: Design Systems for Claude, ChatGPT, Cursor, Stitch, Figma, WordPress, Elementor",
     template: "%s | Ditto",
   },
   description:
-    "Extract a design system from any URL in 30 seconds. Export DESIGN.md for Claude, Cursor, ChatGPT, Lovable, v0 — or strict Google DESIGN.md spec for Stitch. Generate full WordPress FSE themes, Elementor themes, Figma tokens, Tailwind config, Storybook, React components.",
+    "Extract a design system from any URL in 30 seconds. Export DESIGN.md for Claude, Cursor, ChatGPT, Lovable, v0, or the strict Google DESIGN.md spec for Stitch. Generate full WordPress FSE themes, Elementor themes, Figma tokens, Tailwind config, Storybook, React components.",
   keywords: [
     // Core category
     "design system",
@@ -67,7 +67,7 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title:
-      "Ditto — Design System Exporter for Claude, Stitch, Figma, WordPress & more",
+      "Ditto: Design System Exporter for Claude, Stitch, Figma, WordPress & more",
     description:
       "Extract a design system from any URL. Export to Claude, Cursor, ChatGPT, Stitch (Google), Lovable, v0, Figma, WordPress, Elementor, Tailwind, Storybook, React. One click, in 30 seconds.",
     url: "https://ditto.design",
@@ -78,14 +78,14 @@ export const metadata: Metadata = {
         url: "https://ditto.design/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Ditto — Extract design systems for Claude, Stitch, Figma, WordPress",
+        alt: "Ditto: Extract design systems for Claude, Stitch, Figma, WordPress",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
     title:
-      "Ditto — Design Systems for Claude, Cursor, Stitch, Figma, WordPress",
+      "Ditto: Design Systems for Claude, Cursor, Stitch, Figma, WordPress",
     description:
       "Paste any URL → 100+ tokens in 30 seconds → export to Claude, Stitch, Figma, WordPress. Free DESIGN.md generator.",
     images: ["https://ditto.design/og-image.png"],
