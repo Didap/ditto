@@ -9,7 +9,7 @@
  * fonts from /public/fonts/) — its API is async.
  */
 
-import type { ResolvedDesign, DesignTokens } from "../types";
+import type { ResolvedDesign, DesignTokens, SectionVariant } from "../types";
 import {
   slugDashed,
   slugUnderscore,
@@ -22,6 +22,7 @@ import {
   fetchFontBytes,
   type SharedFontFaceEntry,
 } from "./wp-shared";
+import { buildAllPatternFiles } from "./kit-wordpress-patterns";
 
 export interface WPThemeFile {
   path: string;
@@ -710,20 +711,123 @@ function tpl404(designName: string): string {
 `;
 }
 
-function tplFrontPage(designSlug: string): string {
-  const cat = slugDashed(designSlug);
+/**
+ * Compose the homepage from the 5 chosen section variants (header comes from
+ * the `header` template-part; the footer pattern is referenced at the bottom
+ * so the whole landing matches exactly what the user sees in the preview).
+ */
+function tplFrontPage(opts: GenerateWordPressThemeOptions): string {
+  const cat = slugDashed(opts.designSlug);
+  const r = opts.resolved;
+  const hero: SectionVariant = r.heroVariant || "classic";
+  const stats: SectionVariant = r.statsVariant || "classic";
+  const features: SectionVariant = r.featuresVariant || "classic";
+  const reviews: SectionVariant = r.reviewsVariant || "classic";
+  const cta: SectionVariant = r.ctaVariant || "classic";
   return `<!-- wp:template-part {"slug":"header","tagName":"header"} /-->
 
-<!-- wp:pattern {"slug":"${cat}/hero-default"} /-->
+<!-- wp:pattern {"slug":"${cat}/hero-${hero}"} /-->
 
-<!-- wp:pattern {"slug":"${cat}/feature-grid"} /-->
+<!-- wp:pattern {"slug":"${cat}/stats-${stats}"} /-->
 
-<!-- wp:group {"tagName":"section","layout":{"type":"constrained"},"style":{"spacing":{"padding":{"top":"var:preset|spacing|60","bottom":"var:preset|spacing|60"}}}} -->
-<section class="wp-block-group">
-  <!-- wp:heading {"level":2,"fontSize":"2xl"} -->
-  <h2 class="wp-block-heading has-2-xl-font-size">Latest posts</h2>
+<!-- wp:pattern {"slug":"${cat}/features-${features}"} /-->
+
+<!-- wp:pattern {"slug":"${cat}/reviews-${reviews}"} /-->
+
+<!-- wp:pattern {"slug":"${cat}/cta-${cta}"} /-->
+
+<!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->
+`;
+}
+
+/** About page — reuses hero + features + cta variants. */
+function tplPageAbout(opts: GenerateWordPressThemeOptions): string {
+  const cat = slugDashed(opts.designSlug);
+  const r = opts.resolved;
+  const hero: SectionVariant = r.heroVariant || "classic";
+  const features: SectionVariant = r.featuresVariant || "classic";
+  const cta: SectionVariant = r.ctaVariant || "classic";
+  return `<!-- wp:template-part {"slug":"header","tagName":"header"} /-->
+
+<!-- wp:pattern {"slug":"${cat}/hero-${hero}"} /-->
+
+<!-- wp:pattern {"slug":"${cat}/features-${features}"} /-->
+
+<!-- wp:pattern {"slug":"${cat}/cta-${cta}"} /-->
+
+<!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->
+`;
+}
+
+/** Services page — features + reviews + cta. */
+function tplPageServices(opts: GenerateWordPressThemeOptions): string {
+  const cat = slugDashed(opts.designSlug);
+  const r = opts.resolved;
+  const features: SectionVariant = r.featuresVariant || "classic";
+  const reviews: SectionVariant = r.reviewsVariant || "classic";
+  const cta: SectionVariant = r.ctaVariant || "classic";
+  return `<!-- wp:template-part {"slug":"header","tagName":"header"} /-->
+
+<!-- wp:group {"tagName":"section","align":"full","layout":{"type":"constrained"},"style":{"spacing":{"padding":{"top":"var:preset|spacing|70","bottom":"var:preset|spacing|40","left":"var:preset|spacing|40","right":"var:preset|spacing|40"}}}} -->
+<section class="wp-block-group alignfull">
+  <!-- wp:heading {"level":1,"textAlign":"center","fontSize":"4xl"} -->
+  <h1 class="wp-block-heading has-text-align-center has-4-xl-font-size">What we do</h1>
   <!-- /wp:heading -->
-  <!-- wp:query {"queryId":4,"query":{"perPage":3,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","inherit":false}} -->
+</section>
+<!-- /wp:group -->
+
+<!-- wp:pattern {"slug":"${cat}/features-${features}"} /-->
+
+<!-- wp:pattern {"slug":"${cat}/reviews-${reviews}"} /-->
+
+<!-- wp:pattern {"slug":"${cat}/cta-${cta}"} /-->
+
+<!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->
+`;
+}
+
+/** Contact page — simple centered block with email + form placeholder. */
+function tplPageContact(_opts: GenerateWordPressThemeOptions): string {
+  void _opts;
+  return `<!-- wp:template-part {"slug":"header","tagName":"header"} /-->
+
+<!-- wp:group {"tagName":"section","align":"full","layout":{"type":"constrained","contentSize":"640px"},"style":{"spacing":{"padding":{"top":"var:preset|spacing|80","bottom":"var:preset|spacing|80","left":"var:preset|spacing|40","right":"var:preset|spacing|40"}}}} -->
+<section class="wp-block-group alignfull">
+  <!-- wp:heading {"level":1,"textAlign":"center","fontSize":"4xl"} -->
+  <h1 class="wp-block-heading has-text-align-center has-4-xl-font-size">Get in touch</h1>
+  <!-- /wp:heading -->
+  <!-- wp:paragraph {"align":"center","fontSize":"lg","textColor":"text-secondary","style":{"spacing":{"margin":{"top":"var:preset|spacing|30","bottom":"var:preset|spacing|50"}}}} -->
+  <p class="has-text-align-center has-text-secondary-color has-text-color has-lg-font-size" style="margin-top:var(--wp--preset--spacing--30);margin-bottom:var(--wp--preset--spacing--50)">Questions, feedback, partnerships — we'd love to hear from you.</p>
+  <!-- /wp:paragraph -->
+  <!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"}} -->
+  <div class="wp-block-buttons">
+    <!-- wp:button {"backgroundColor":"primary","textColor":"background","style":{"border":{"radius":"var:custom|radius|md"}}} -->
+    <div class="wp-block-button"><a class="wp-block-button__link has-background-color has-primary-background-color has-text-color has-background wp-element-button" href="mailto:hello@example.com" style="border-radius:var(--wp--custom--radius--md)">Email us</a></div>
+    <!-- /wp:button -->
+  </div>
+  <!-- /wp:buttons -->
+</section>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->
+`;
+}
+
+/** Blog page — query loop with posts + cta. */
+function tplPageBlog(opts: GenerateWordPressThemeOptions): string {
+  const cat = slugDashed(opts.designSlug);
+  const cta: SectionVariant = opts.resolved.ctaVariant || "classic";
+  return `<!-- wp:template-part {"slug":"header","tagName":"header"} /-->
+
+<!-- wp:group {"tagName":"section","align":"full","layout":{"type":"constrained"},"style":{"spacing":{"padding":{"top":"var:preset|spacing|70","bottom":"var:preset|spacing|60","left":"var:preset|spacing|40","right":"var:preset|spacing|40"}}}} -->
+<section class="wp-block-group alignfull">
+  <!-- wp:heading {"level":1,"textAlign":"center","fontSize":"4xl"} -->
+  <h1 class="wp-block-heading has-text-align-center has-4-xl-font-size">Journal</h1>
+  <!-- /wp:heading -->
+  <!-- wp:paragraph {"align":"center","fontSize":"lg","textColor":"text-secondary","style":{"spacing":{"margin":{"top":"var:preset|spacing|20","bottom":"var:preset|spacing|50"}}}} -->
+  <p class="has-text-align-center has-text-secondary-color has-text-color has-lg-font-size" style="margin-top:var(--wp--preset--spacing--20);margin-bottom:var(--wp--preset--spacing--50)">Thoughts, notes, updates.</p>
+  <!-- /wp:paragraph -->
+  <!-- wp:query {"queryId":5,"query":{"perPage":6,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","inherit":false}} -->
   <div class="wp-block-query">
     <!-- wp:post-template {"layout":{"type":"grid","columnCount":3}} -->
       <!-- wp:post-featured-image {"isLink":true,"style":{"border":{"radius":"var:custom|radius|md"}}} /-->
@@ -732,7 +836,7 @@ function tplFrontPage(designSlug: string): string {
     <!-- /wp:post-template -->
     <!-- wp:query-no-results -->
       <!-- wp:paragraph -->
-      <p>No posts yet — your homepage layout is ready.</p>
+      <p>No posts yet — when you publish articles they'll appear here.</p>
       <!-- /wp:paragraph -->
     <!-- /wp:query-no-results -->
   </div>
@@ -740,7 +844,7 @@ function tplFrontPage(designSlug: string): string {
 </section>
 <!-- /wp:group -->
 
-<!-- wp:pattern {"slug":"${cat}/cta"} /-->
+<!-- wp:pattern {"slug":"${cat}/cta-${cta}"} /-->
 
 <!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->
 `;
@@ -856,72 +960,209 @@ ${navItems}
 `;
 }
 
+/**
+ * Footer template-part — delegates to the chosen footer variant pattern so
+ * every page of the site shares the same footer the user previewed.
+ */
 function partFooter(opts: GenerateWordPressThemeOptions): string {
-  const name = htmlEscape(opts.designName);
-  const year = new Date().getUTCFullYear();
-  return `<!-- wp:group {"tagName":"footer","layout":{"type":"constrained"},"style":{"spacing":{"padding":{"top":"var:preset|spacing|60","bottom":"var:preset|spacing|40"}},"border":{"top":{"color":"var:preset|color|border","width":"1px","style":"solid"}}},"backgroundColor":"surface"} -->
-<footer class="wp-block-group has-surface-background-color has-background">
-  <!-- wp:columns {"style":{"spacing":{"blockGap":{"top":"var:preset|spacing|40","left":"var:preset|spacing|60"}}}} -->
-  <div class="wp-block-columns">
-    <!-- wp:column -->
-    <div class="wp-block-column">
-      <!-- wp:site-title {"level":0,"fontSize":"lg"} /-->
-      <!-- wp:paragraph {"fontSize":"sm","textColor":"text-muted"} -->
-      <p class="has-text-muted-color has-text-color has-sm-font-size">${name} — built with Ditto.</p>
-      <!-- /wp:paragraph -->
-    </div>
-    <!-- /wp:column -->
-    <!-- wp:column -->
-    <div class="wp-block-column">
-      <!-- wp:heading {"level":4,"fontSize":"sm"} -->
-      <h4 class="wp-block-heading has-sm-font-size">Product</h4>
-      <!-- /wp:heading -->
-      <!-- wp:list {"fontSize":"sm","textColor":"text-muted"} -->
-      <ul class="has-text-muted-color has-text-color has-sm-font-size">
-        <li>Features</li><li>Pricing</li><li>Changelog</li>
-      </ul>
-      <!-- /wp:list -->
-    </div>
-    <!-- /wp:column -->
-    <!-- wp:column -->
-    <div class="wp-block-column">
-      <!-- wp:heading {"level":4,"fontSize":"sm"} -->
-      <h4 class="wp-block-heading has-sm-font-size">Company</h4>
-      <!-- /wp:heading -->
-      <!-- wp:list {"fontSize":"sm","textColor":"text-muted"} -->
-      <ul class="has-text-muted-color has-text-color has-sm-font-size">
-        <li>About</li><li>Blog</li><li>Contact</li>
-      </ul>
-      <!-- /wp:list -->
-    </div>
-    <!-- /wp:column -->
-    <!-- wp:column -->
-    <div class="wp-block-column">
-      <!-- wp:heading {"level":4,"fontSize":"sm"} -->
-      <h4 class="wp-block-heading has-sm-font-size">Legal</h4>
-      <!-- /wp:heading -->
-      <!-- wp:list {"fontSize":"sm","textColor":"text-muted"} -->
-      <ul class="has-text-muted-color has-text-color has-sm-font-size">
-        <li>Privacy</li><li>Terms</li><li>Cookies</li>
-      </ul>
-      <!-- /wp:list -->
-    </div>
-    <!-- /wp:column -->
-  </div>
-  <!-- /wp:columns -->
-
-  <!-- wp:separator {"backgroundColor":"border"} -->
-  <hr class="wp-block-separator has-text-color has-border-background-color has-alpha-channel-opacity" />
-  <!-- /wp:separator -->
-
-  <!-- wp:paragraph {"align":"center","fontSize":"xs","textColor":"text-muted"} -->
-  <p class="has-text-align-center has-text-muted-color has-text-color has-xs-font-size">
-    &copy; ${year} ${name}. All rights reserved.
-  </p>
-  <!-- /wp:paragraph -->
-</footer>
-<!-- /wp:group -->
+  const cat = slugDashed(opts.designSlug);
+  const variant: SectionVariant = opts.resolved.footerVariant || "classic";
+  return `<!-- wp:pattern {"slug":"${cat}/footer-${variant}"} /-->
 `;
+}
+
+// ── Demo Importer ─────────────────────────────────────────────────────
+
+/**
+ * Ships a PHP class that, on first activation, shows an admin notice asking
+ * the user if they want to create the 5 starter pages (Home/About/Services/
+ * Contact/Blog), set Home as the static front page, wire a Primary menu and
+ * register the bundled logo as Site Logo.
+ *
+ * Without this, a brand new WP install shows a blank homepage even though
+ * the theme has a rich `front-page.html` — because by default "Your latest
+ * posts" is used until the user creates a Page and sets it as the front.
+ */
+function buildDemoImporterPhp(opts: GenerateWordPressThemeOptions): string {
+  const textDomain = textDomainFor(opts.designSlug);
+  const designNameEsc = phpEscape(opts.designName);
+  return `<?php
+/**
+ * Demo Importer — one-click setup for ${opts.designName}.
+ *
+ * Adds an admin notice on first activation. One click creates the 5 starter
+ * pages, sets Home as front page, wires a Primary menu and attaches the
+ * bundled logo as Site Logo.
+ *
+ * @package ${phpClassName(opts.designSlug)}
+ */
+if ( ! defined( 'ABSPATH' ) ) { exit; }
+
+class Ditto_Wp_Demo_Importer {
+\tconst OPTION_DONE = 'ditto_wp_demo_imported';
+\tconst NONCE = 'ditto_wp_import_demo';
+
+\tprivate static $pages = [
+\t\t[ 'slug' => 'home',     'title' => 'Home' ],
+\t\t[ 'slug' => 'about',    'title' => 'About' ],
+\t\t[ 'slug' => 'services', 'title' => 'Services' ],
+\t\t[ 'slug' => 'blog',     'title' => 'Blog' ],
+\t\t[ 'slug' => 'contact',  'title' => 'Contact' ],
+\t];
+
+\tpublic static function init() {
+\t\tadd_action( 'admin_notices', [ __CLASS__, 'maybe_notice' ] );
+\t\tadd_action( 'admin_menu', [ __CLASS__, 'add_menu' ] );
+\t\tadd_action( 'admin_post_ditto_wp_import_demo', [ __CLASS__, 'handle_import' ] );
+\t}
+
+\tpublic static function maybe_notice() {
+\t\tif ( get_option( self::OPTION_DONE ) ) return;
+\t\tif ( ! current_user_can( 'manage_options' ) ) return;
+\t\t$url = admin_url( 'themes.php?page=ditto-wp-setup' );
+\t\techo '<div class="notice notice-info"><p><strong>${designNameEsc}</strong> — ' . esc_html__( 'Welcome! Click below to import the demo content: 5 pages, a Primary menu and the homepage already wired.', '${textDomain}' ) . ' <a href="' . esc_url( $url ) . '" class="button button-primary" style="margin-left:12px">' . esc_html__( 'Import demo', '${textDomain}' ) . '</a></p></div>';
+\t}
+
+\tpublic static function add_menu() {
+\t\tadd_theme_page(
+\t\t\t'${designNameEsc} Setup',
+\t\t\t'${designNameEsc} Setup',
+\t\t\t'manage_options',
+\t\t\t'ditto-wp-setup',
+\t\t\t[ __CLASS__, 'render_page' ]
+\t\t);
+\t}
+
+\tpublic static function render_page() {
+\t\t$done = (bool) get_option( self::OPTION_DONE );
+\t\t$action = admin_url( 'admin-post.php' );
+\t\t?>
+\t\t<div class="wrap">
+\t\t\t<h1><?php echo esc_html( '${designNameEsc} — Demo Importer' ); ?></h1>
+\t\t\t<?php if ( $done ) : ?>
+\t\t\t\t<div class="notice notice-success"><p><?php esc_html_e( 'Demo already imported. Re-running will update existing pages with matching slugs.', '${textDomain}' ); ?></p></div>
+\t\t\t<?php endif; ?>
+\t\t\t<p><?php esc_html_e( 'This creates 5 pages (Home / About / Services / Blog / Contact), assigns each to the matching Ditto page template, sets Home as the static front page and builds a Primary menu.', '${textDomain}' ); ?></p>
+\t\t\t<form method="post" action="<?php echo esc_url( $action ); ?>">
+\t\t\t\t<input type="hidden" name="action" value="ditto_wp_import_demo" />
+\t\t\t\t<?php wp_nonce_field( self::NONCE ); ?>
+\t\t\t\t<?php submit_button( $done ? __( 'Re-import demo', '${textDomain}' ) : __( 'Import demo', '${textDomain}' ), 'primary large' ); ?>
+\t\t\t</form>
+\t\t</div>
+\t\t<?php
+\t}
+
+\tpublic static function handle_import() {
+\t\tif ( ! current_user_can( 'manage_options' ) ) wp_die( 'no perms' );
+\t\tcheck_admin_referer( self::NONCE );
+
+\t\t$ids = [];
+\t\tforeach ( self::$pages as $p ) {
+\t\t\t$existing = get_page_by_path( $p['slug'] );
+\t\t\tif ( $existing ) {
+\t\t\t\t$id = $existing->ID;
+\t\t\t} else {
+\t\t\t\t$id = wp_insert_post( [
+\t\t\t\t\t'post_title'  => $p['title'],
+\t\t\t\t\t'post_name'   => $p['slug'],
+\t\t\t\t\t'post_status' => 'publish',
+\t\t\t\t\t'post_type'   => 'page',
+\t\t\t\t] );
+\t\t\t}
+\t\t\tif ( ! is_wp_error( $id ) && $id ) {
+\t\t\t\t$ids[ $p['slug'] ] = $id;
+\t\t\t\t// Assign the Ditto page template (file name matches page slug).
+\t\t\t\tif ( $p['slug'] !== 'home' ) {
+\t\t\t\t\tupdate_post_meta( $id, '_wp_page_template', 'page-' . $p['slug'] . '.html' );
+\t\t\t\t}
+\t\t\t}
+\t\t}
+
+\t\tself::build_menu( $ids );
+
+\t\tif ( ! empty( $ids['home'] ) ) {
+\t\t\tupdate_option( 'show_on_front', 'page' );
+\t\t\tupdate_option( 'page_on_front', (int) $ids['home'] );
+\t\t\tif ( ! empty( $ids['blog'] ) ) {
+\t\t\t\tupdate_option( 'page_for_posts', (int) $ids['blog'] );
+\t\t\t}
+\t\t}
+
+\t\tself::set_site_logo();
+
+\t\tupdate_option( self::OPTION_DONE, 1 );
+\t\twp_safe_redirect( admin_url( 'themes.php?page=ditto-wp-setup&imported=1' ) );
+\t\texit;
+\t}
+
+\tprivate static function build_menu( $ids ) {
+\t\t$menu_name = 'Primary';
+\t\t$menu = wp_get_nav_menu_object( $menu_name );
+\t\t$menu_id = $menu ? $menu->term_id : wp_create_nav_menu( $menu_name );
+\t\tif ( is_wp_error( $menu_id ) ) return;
+
+\t\t$items = wp_get_nav_menu_items( $menu_id );
+\t\tif ( is_array( $items ) ) {
+\t\t\tforeach ( $items as $item ) wp_delete_post( $item->ID, true );
+\t\t}
+\t\t$order = [ 'home', 'about', 'services', 'blog', 'contact' ];
+\t\tforeach ( $order as $slug ) {
+\t\t\t$id = isset( $ids[ $slug ] ) ? (int) $ids[ $slug ] : 0;
+\t\t\tif ( ! $id ) continue;
+\t\t\t$page = get_post( $id );
+\t\t\tif ( ! $page ) continue;
+\t\t\twp_update_nav_menu_item( $menu_id, 0, [
+\t\t\t\t'menu-item-title'     => $page->post_title,
+\t\t\t\t'menu-item-object'    => 'page',
+\t\t\t\t'menu-item-object-id' => $id,
+\t\t\t\t'menu-item-type'      => 'post_type',
+\t\t\t\t'menu-item-status'    => 'publish',
+\t\t\t] );
+\t\t}
+\t\t$locations = get_theme_mod( 'nav_menu_locations' );
+\t\tif ( ! is_array( $locations ) ) $locations = [];
+\t\t$locations['primary'] = $menu_id;
+\t\tset_theme_mod( 'nav_menu_locations', $locations );
+\t}
+
+\t/**
+\t * Import the bundled logo (assets/logo.svg) into the media library and
+\t * set it as the Site Logo so every <!-- wp:site-logo /--> block renders
+\t * the brand mark out of the box.
+\t */
+\tprivate static function set_site_logo() {
+\t\t$logo_path = get_template_directory() . '/assets/logo.svg';
+\t\tif ( ! file_exists( $logo_path ) ) return;
+\t\tif ( get_theme_mod( 'custom_logo' ) ) return; // already set
+
+\t\t$uploads = wp_upload_dir();
+\t\tif ( ! empty( $uploads['error'] ) ) return;
+\t\t$target = trailingslashit( $uploads['path'] ) . 'ditto-site-logo.svg';
+\t\tif ( ! copy( $logo_path, $target ) ) return;
+
+\t\t$attachment = [
+\t\t\t'post_mime_type' => 'image/svg+xml',
+\t\t\t'post_title'     => 'Site Logo',
+\t\t\t'post_content'   => '',
+\t\t\t'post_status'    => 'inherit',
+\t\t];
+\t\t$attach_id = wp_insert_attachment( $attachment, $target );
+\t\tif ( ! is_wp_error( $attach_id ) && $attach_id ) {
+\t\t\trequire_once ABSPATH . 'wp-admin/includes/image.php';
+\t\t\t$attach_data = wp_generate_attachment_metadata( $attach_id, $target );
+\t\t\twp_update_attachment_metadata( $attach_id, $attach_data );
+\t\t\tset_theme_mod( 'custom_logo', $attach_id );
+\t\t}
+\t}
+}
+
+add_action( 'admin_init', [ 'Ditto_Wp_Demo_Importer', 'init' ] );
+`;
+}
+
+function phpClassName(slug: string): string {
+  const parts = slug.split(/[-_]/).filter(Boolean).map((p) => p.charAt(0).toUpperCase() + p.slice(1));
+  return `Ditto_${parts.join("_") || "Theme"}`;
 }
 
 // ── Patterns ──────────────────────────────────────────────────────────

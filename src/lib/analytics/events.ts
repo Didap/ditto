@@ -41,9 +41,7 @@ export interface EventPayload {
       | "devkit"
       | "complete"
       | "wordpress"
-      | "plugin"
-      | "elementor"
-      | "wp-bundle";
+      | "elementor";
     cost: number;
   };
   [EVENTS.CATALOG_UNLOCKED]: { slug: string; cost: number };

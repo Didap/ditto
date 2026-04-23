@@ -12,25 +12,19 @@ type Feature =
   | "devkit"
   | "complete"
   | "wordpress"
-  | "plugin"
-  | "elementor"
-  | "wp-bundle";
+  | "elementor";
 const FEATURE_COST: Record<Feature, number> = {
   devkit: 50,
   complete: 100,
   wordpress: 50,
-  plugin: 50,
   elementor: 50,
-  "wp-bundle": 100,
 };
 function isValidFeature(f: string): f is Feature {
   return (
     f === "devkit" ||
     f === "complete" ||
     f === "wordpress" ||
-    f === "plugin" ||
-    f === "elementor" ||
-    f === "wp-bundle"
+    f === "elementor"
   );
 }
 
@@ -60,18 +54,13 @@ export async function GET(
 
   const { slug } = await params;
 
-  const [devkit, complete, wordpress, plugin, elementor, wpBundle] =
+  const [devkit, complete, wordpress, elementor] =
     await Promise.all([
       getUnlock(user.id, slug, "devkit"),
       getUnlock(user.id, slug, "complete"),
       getUnlock(user.id, slug, "wordpress"),
-      getUnlock(user.id, slug, "plugin"),
       getUnlock(user.id, slug, "elementor"),
-      getUnlock(user.id, slug, "wp-bundle"),
     ]);
-
-  // wp-bundle grants access to all three WordPress features.
-  const hasBundle = Boolean(wpBundle);
 
   return NextResponse.json({
     devkit: devkit
@@ -80,18 +69,12 @@ export async function GET(
     complete: complete
       ? { unlocked: true }
       : { unlocked: false, cost: FEATURE_COST.complete },
-    wordpress: wordpress || hasBundle
+    wordpress: wordpress
       ? { unlocked: true }
       : { unlocked: false, cost: FEATURE_COST.wordpress },
-    plugin: plugin || hasBundle
-      ? { unlocked: true }
-      : { unlocked: false, cost: FEATURE_COST.plugin },
-    elementor: elementor || hasBundle
+    elementor: elementor
       ? { unlocked: true }
       : { unlocked: false, cost: FEATURE_COST.elementor },
-    wpBundle: hasBundle
-      ? { unlocked: true }
-      : { unlocked: false, cost: FEATURE_COST["wp-bundle"] },
   });
 }
 

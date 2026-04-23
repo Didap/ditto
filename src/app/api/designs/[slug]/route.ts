@@ -54,7 +54,6 @@ export async function GET(
       devkit: activeSet.has("devkit"),
       complete: activeSet.has("complete"),
       wordpress: activeSet.has("wordpress"),
-      plugin: activeSet.has("plugin"),
       elementor: activeSet.has("elementor"),
     },
   });

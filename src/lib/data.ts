@@ -89,7 +89,6 @@ export async function getDashboardDesigns(
         devkit: active?.has("devkit") ?? false,
         complete: active?.has("complete") ?? false,
         wordpress: active?.has("wordpress") ?? false,
-        plugin: active?.has("plugin") ?? false,
         elementor: active?.has("elementor") ?? false,
       },
     };
@@ -195,7 +194,6 @@ export async function getDesignBySlug(userId: string, slug: string) {
       devkit: features.has("devkit"),
       complete: features.has("complete"),
       wordpress: features.has("wordpress"),
-      plugin: features.has("plugin"),
       elementor: features.has("elementor"),
     },
   } satisfies StoredDesign;

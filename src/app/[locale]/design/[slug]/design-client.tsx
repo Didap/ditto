@@ -15,7 +15,7 @@ import { PricingPreview } from "@/components/preview/pages/PricingPreview";
 import { BlogPreview } from "@/components/preview/pages/BlogPreview";
 import { ComponentsPreview } from "@/components/preview/pages/ComponentsPreview";
 import { FloatingEditor } from "@/components/FloatingEditor";
-import { Lock, Coins, Info, Sparkles, Code2, Globe, ChevronDown, Check, Package } from "lucide-react";
+import { Lock, Coins, Info, Sparkles, Code2, Globe, ChevronDown, Check } from "lucide-react";
 import { DESIGN_MACROS, applyMacros } from "@/lib/design-macros";
 
 interface FeatureStatus {
@@ -26,18 +26,14 @@ interface UnlockStatus {
   devkit: FeatureStatus;
   complete: FeatureStatus;
   wordpress: FeatureStatus;
-  plugin: FeatureStatus;
   elementor: FeatureStatus;
-  wpBundle: FeatureStatus;
 }
 
 type UnlockableFeature =
   | "devkit"
   | "complete"
   | "wordpress"
-  | "plugin"
-  | "elementor"
-  | "wp-bundle";
+  | "elementor";
 
 function QualityInfoPopover() {
   const [open, setOpen] = useState(false);
@@ -86,12 +82,10 @@ interface DevDropdownProps {
   purchasing: string | null;
   credits: number | null;
   downloadingWp: boolean;
-  downloadingPlugin: boolean;
   downloadingElementor: boolean;
   onBuy: (feature: UnlockableFeature, cost: number) => void;
   onDownloadDevKit: () => void;
   onDownloadWpTheme: () => void;
-  onDownloadWpPlugin: () => void;
   onDownloadElementor: () => void;
 }
 
@@ -171,20 +165,12 @@ function DeveloperDropdown({
   purchasing,
   credits,
   downloadingWp,
-  downloadingPlugin,
   downloadingElementor,
   onBuy,
   onDownloadDevKit,
   onDownloadWpTheme,
-  onDownloadWpPlugin,
   onDownloadElementor,
 }: DevDropdownProps) {
-  const noWpUnlocked =
-    !unlocks.wordpress.unlocked &&
-    !unlocks.plugin.unlocked &&
-    !unlocks.elementor.unlocked &&
-    !unlocks.wpBundle.unlocked;
-
   const canAfford = (cost: number | undefined) =>
     credits === null || credits >= (cost ?? 0);
 
@@ -238,29 +224,11 @@ function DeveloperDropdown({
 
             {/* Section: WordPress */}
             <div>
-              <div className="flex items-start justify-between gap-3 mb-1">
-                <h4 className="text-[10px] font-semibold uppercase tracking-wider text-(--ditto-text-muted)">
-                  WordPress
-                </h4>
-                {noWpUnlocked && (
-                  <button
-                    onClick={() => {
-                      onBuy("wp-bundle", unlocks.wpBundle.cost ?? 100);
-                      setOpen(false);
-                    }}
-                    disabled={
-                      purchasing === "wp-bundle" ||
-                      !canAfford(unlocks.wpBundle.cost ?? 100)
-                    }
-                    className="text-[11px] font-medium text-(--ditto-primary) hover:underline flex items-center gap-1 disabled:opacity-60 disabled:no-underline"
-                  >
-                    <Package className="w-3 h-3" strokeWidth={1.5} />
-                    Tutti e 3 a 100 (risparmia 50)
-                  </button>
-                )}
-              </div>
+              <h4 className="text-[10px] font-semibold uppercase tracking-wider text-(--ditto-text-muted) mb-1">
+                WordPress
+              </h4>
               <p className="text-xs text-(--ditto-text-muted) mb-2">
-                Scegli il formato, o prendi il pack completo.
+                Due formati: FSE nativo o classico con Elementor.
               </p>
               <DevRow
                 label="Tema WordPress (FSE)"
@@ -279,23 +247,7 @@ function DeveloperDropdown({
                 onBuy={() => onBuy("wordpress", unlocks.wordpress.cost ?? 50)}
               />
               <DevRow
-                label="Plugin WordPress (blocchi + tokens)"
-                status={unlocks.plugin}
-                cost={unlocks.plugin.cost ?? 50}
-                busy={downloadingPlugin}
-                downloadLabel="Scarica .zip"
-                purchaseKey="plugin"
-                feature="plugin"
-                purchasing={purchasing}
-                canAfford={canAfford(unlocks.plugin.cost)}
-                onDownload={() => {
-                  onDownloadWpPlugin();
-                  setOpen(false);
-                }}
-                onBuy={() => onBuy("plugin", unlocks.plugin.cost ?? 50)}
-              />
-              <DevRow
-                label="Kit Elementor"
+                label="Tema Elementor"
                 status={unlocks.elementor}
                 cost={unlocks.elementor.cost ?? 50}
                 busy={downloadingElementor}
@@ -453,14 +405,11 @@ export function DesignDetailClient({ initialDesign, slug }: DesignDetailProps) {
     devkit: { unlocked: initialDesign.unlockedFeatures?.devkit ?? false, cost: 50 },
     complete: { unlocked: initialDesign.unlockedFeatures?.complete ?? false, cost: 100 },
     wordpress: { unlocked: initialDesign.unlockedFeatures?.wordpress ?? false, cost: 50 },
-    plugin: { unlocked: initialDesign.unlockedFeatures?.plugin ?? false, cost: 50 },
     elementor: { unlocked: initialDesign.unlockedFeatures?.elementor ?? false, cost: 50 },
-    wpBundle: { unlocked: false, cost: 100 },
   });
   const [purchasing, setPurchasing] = useState<string | null>(null);
   const [confirmModal, setConfirmModal] = useState<{ feature: UnlockableFeature; cost: number } | null>(null);
   const [downloadingWp, setDownloadingWp] = useState(false);
-  const [downloadingPlugin, setDownloadingPlugin] = useState(false);
   const [downloadingElementor, setDownloadingElementor] = useState(false);
   const [devOpen, setDevOpen] = useState(false);
   const [ritocchiOpen, setRitocchiOpen] = useState(false);
@@ -531,20 +480,7 @@ export function DesignDetailClient({ initialDesign, slug }: DesignDetailProps) {
         const data = await res.json();
         deduct(data.creditsSpent);
         refreshCredits();
-        setUnlocks((prev) => {
-          if (feature === "wp-bundle") {
-            return {
-              ...prev,
-              wpBundle: { unlocked: true },
-              wordpress: { ...prev.wordpress, unlocked: true },
-              plugin: { ...prev.plugin, unlocked: true },
-              elementor: { ...prev.elementor, unlocked: true },
-            };
-          }
-          // Map "wp-bundle" (not in UnlockStatus keys) away; normal features map 1:1.
-          const key = feature as Exclude<UnlockableFeature, "wp-bundle">;
-          return { ...prev, [key]: { unlocked: true } };
-        });
+        setUnlocks((prev) => ({ ...prev, [feature]: { unlocked: true } }));
       }
     } catch {}
     setPurchasing(null);
@@ -626,35 +562,6 @@ export function DesignDetailClient({ initialDesign, slug }: DesignDetailProps) {
     }
   }, [design]);
 
-  const downloadWpPlugin = useCallback(async () => {
-    setDownloadingPlugin(true);
-    try {
-      const [JSZip, { generateWordPressPlugin }] = await Promise.all([
-        import("jszip").then((m) => m.default),
-        import("@/lib/generator/kit-wordpress-plugin"),
-      ]);
-      const files = await generateWordPressPlugin({
-        designName: design.name,
-        designSlug: design.slug,
-        designUrl: design.url,
-        resolved: design.resolved,
-        tokens: design.tokens,
-      });
-      const zip = new JSZip();
-      const folder = `${design.slug}-ditto-plugin`;
-      for (const f of files) zip.file(`${folder}/${f.path}`, f.content);
-      const blob = await zip.generateAsync({ type: "blob" });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = `${design.slug}-wordpress-plugin.zip`;
-      a.click();
-      URL.revokeObjectURL(url);
-    } finally {
-      setDownloadingPlugin(false);
-    }
-  }, [design]);
-
   const downloadElementor = useCallback(async () => {
     setDownloadingElementor(true);
     try {
@@ -670,12 +577,13 @@ export function DesignDetailClient({ initialDesign, slug }: DesignDetailProps) {
         tokens: design.tokens,
       });
       const zip = new JSZip();
-      for (const f of files) zip.file(f.path, f.content);
+      const themeFolder = `${design.slug}-elementor-theme`;
+      for (const f of files) zip.file(`${themeFolder}/${f.path}`, f.content);
       const blob = await zip.generateAsync({ type: "blob" });
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = `${design.slug}-elementor-kit.zip`;
+      a.download = `${design.slug}-elementor-theme.zip`;
       a.click();
       URL.revokeObjectURL(url);
     } finally {
@@ -809,12 +717,10 @@ export function DesignDetailClient({ initialDesign, slug }: DesignDetailProps) {
             purchasing={purchasing}
             credits={credits}
             downloadingWp={downloadingWp}
-            downloadingPlugin={downloadingPlugin}
             downloadingElementor={downloadingElementor}
             onBuy={(feature, cost) => setConfirmModal({ feature, cost })}
             onDownloadDevKit={downloadDevKit}
             onDownloadWpTheme={downloadWpTheme}
-            onDownloadWpPlugin={downloadWpPlugin}
             onDownloadElementor={downloadElementor}
           />
 
@@ -1034,9 +940,7 @@ export function DesignDetailClient({ initialDesign, slug }: DesignDetailProps) {
             {
               devkit: "Unlock Dev Kit",
               wordpress: "Unlock WordPress Theme",
-              plugin: "Unlock WordPress Plugin",
-              elementor: "Unlock Elementor Kit",
-              "wp-bundle": "Unlock WordPress Pack (Theme + Plugin + Elementor)",
+              elementor: "Unlock Elementor Theme",
               complete: "Unlock Complete Kit",
             }[confirmModal.feature]
           }
