@@ -7,7 +7,7 @@ Ditto is a multi-user design system tool that extracts design systems from websi
 - **Next.js 16** (App Router) + TypeScript
 - **Tailwind CSS v4** for Ditto's own UI
 - **Puppeteer** for headless browser extraction
-- **SQLite** (better-sqlite3) + **Drizzle ORM** for data persistence
+- **PostgreSQL** (via `pg`) + **Drizzle ORM** for data persistence
 - **NextAuth v5** (Auth.js) for authentication (credentials provider, JWT sessions)
 - Preview components use CSS custom variables (`--d-*`) set by `PreviewShell`
 
@@ -15,7 +15,7 @@ Ditto is a multi-user design system tool that extracts design systems from websi
 - `src/lib/extractor/` — Core extraction engine (browser.ts + index.ts)
 - `src/lib/generator/` — DESIGN.md + hybrid design generation
 - `src/lib/db/` — Database schema (schema.ts) and connection (index.ts)
-- `src/lib/store.ts` — SQLite-backed storage (all queries user-scoped)
+- `src/lib/store.ts` — PostgreSQL-backed storage (all queries user-scoped)
 - `src/lib/auth.ts` — NextAuth configuration
 - `src/lib/auth.config.ts` — Auth config (used by proxy)
 - `src/lib/mood.ts` — Mood dimensions, questions, and auto-detection
@@ -24,7 +24,7 @@ Ditto is a multi-user design system tool that extracts design systems from websi
 - `src/lib/credits-context.tsx` — Credits context provider (client)
 - `src/components/preview/primitives/` — Reusable preview components
 - `src/components/preview/pages/` — 6 preview pages
-- `data/` — SQLite database file (gitignored)
+- `data/` — Local data directory (gitignored)
 - `cli/` — CLI entry point
 
 ## Auth & Data Model
@@ -37,7 +37,7 @@ Ditto is a multi-user design system tool that extracts design systems from websi
 ## Commands
 - `npm run dev` — Start dev server
 - `npm run cli -- extract <url>` — CLI extraction
-- `npx drizzle-kit push` — Push schema changes to SQLite
+- `npx drizzle-kit push` — Push schema changes to PostgreSQL
 
 ## API Routes (all require auth)
 - POST `/api/auth/register` — Create new account
@@ -51,7 +51,6 @@ Ditto is a multi-user design system tool that extracts design systems from websi
 - POST `/api/inspire` — Extract single URL (`action: extract-one`) or generate hybrid (`action: generate`, does NOT auto-save)
 - GET `/api/catalog` — List catalog with unlock status per user
 - POST `/api/catalog/unlock` — Unlock a catalog design (50 credits)
-- POST `/api/import` — **Deprecated** (returns 410, replaced by catalog)
 - GET/POST `/api/designs/[slug]/unlock` — Check/purchase devkit (50cr) or complete (100cr) unlock (permanent)
 - POST `/api/figma-push` — Push tokens to Figma
 - GET/POST `/api/credits` — Get/manage user credits
@@ -90,4 +89,4 @@ Ditto is a multi-user design system tool that extracts design systems from websi
 - Preview components are design-agnostic, themed via CSS variables
 - Per-user data isolation — each user sees only their designs
 - Explicit save after generation (predisposed for future payment/token system)
-- Local-first with SQLite, no external database services
+- PostgreSQL via `DATABASE_URL` (Neon / local Postgres)
